@@ -33,7 +33,7 @@ Our app is a personal travel planner. It will have 3 main functions: planning fo
 
 ## Minimum Requirement Breakdown: 
 Implement a comprehensive list of countries/cities where users can checkbox places they have visited, and a list of user’s intended traveling places:
-1. Find a CSV list of countries/cities to be uploaded to the database <currently: https://simplemaps.com/data/world-cities >.
+1. Find a CSV list of countries/cities to be uploaded to the database - currently: https://simplemaps.com/data/world-cities 
 2. Analyze CSV file to organize cities into associated countries.
 3. Implement scrollable checklist with country field expandable
 4. Implement update function for the user’s individual visited list field
