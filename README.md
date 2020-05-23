@@ -23,6 +23,13 @@ Set up social media sharing functionality for past/future itinerary
 6. End of trip: checkbox function for places you'd want to return to or haven’t been to. Next time you plan a trip in the same city, the checkboxed location should show up as recommendations.
 7. Allow for user account sign up (ideally allow third-party account authentication eg. Gmail, Facebook)
 
+### Stretch requirements: 
+1. Given a starting point and list of places to visit in a day, find the most efficient path of visit time-wise (taking in directions/traffic as provided by Google Maps)
+2. Automatically detect GPS signal and update visited list with user permission
+3. Generate directions between adjacent location entries
+4. Add location tagging that allows the user to find a place to visit in a given location from a selected tag. Users can select and add a place to their itinerary. Using Google Map Places API, use the place type as the tag to find places with the matching tag from a given location. 
+
+
 ## Draft Mockup UI
 Adding locations to a trip itinerary
 
