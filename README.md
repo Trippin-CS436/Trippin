@@ -22,3 +22,13 @@ Our app is a personal travel planner. It will have 3 main functions: planning fo
 Set up social media sharing functionality for past/future itinerary
 6. End of trip: checkbox function for places you'd want to return to or haven’t been to. Next time you plan a trip in the same city, the checkboxed location should show up as recommendations.
 7. Allow for user account sign up (ideally allow third-party account authentication eg. Gmail, Facebook)
+
+## Draft Mockup UI
+Adding locations to a trip itinerary
+
+<img src="https://github.com/jrayo00/Trippin/blob/master/Screen%20Shot%202020-05-23%20at%201.55.27%20AM.png" alt="alt text" width="600" height="400">
+
+Expanded content of each location entry
+
+<img src="https://github.com/jrayo00/Trippin/blob/master/Screen%20Shot%202020-05-23%20at%201.52.09%20AM.png" alt="alt text" width="600" height="400">
+
