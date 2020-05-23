@@ -20,7 +20,7 @@ Our app is a personal travel planner. It will have 3 main functions: planning fo
 3. On each location entry, have a note section and/or photo attachment functionality - this note/photo section can be edited at any time before, during, and after your trip.
 4. Have a Google Map interface to search up locations. Once search is successful, add location to itinerary list. Automatically add available information - address, rating, opening hours, website
 5. Also allows for manual entry of location and edit Google-automated entries as information could be incorrect/unavailable
-6.Set up social media sharing functionality for past/future itinerary
+6. Set up social media sharing functionality for past/future itinerary
 7. End of trip: checkbox function for places you'd want to return to or haven’t been to. Next time you plan a trip in the same city, the checkboxed location should show up as recommendations.
 8. Allow for user account sign up (ideally allow third-party account authentication eg. Gmail, Facebook)
 
