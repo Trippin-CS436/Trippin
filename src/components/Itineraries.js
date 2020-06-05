@@ -1,11 +1,20 @@
 import React from "react";
 import { withStyles } from "@material-ui/core";
+import City from "./City";
 
 class Itineraries extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+
+        };
+    }
     render() {
         const { classes } = this.props;
         return(
-            <div className={classes.bg}> Itineraries </div>
+            <div className={classes.bg}>
+                <City cityName={"Vancouver"}/>
+            </div>
         );
     }
 }
