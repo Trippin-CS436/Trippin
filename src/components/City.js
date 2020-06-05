@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core";
 import Location from "./Location";
+import './Iteneraries.css';
 
 export default class City extends React.Component {
     constructor(props){
@@ -17,17 +18,17 @@ export default class City extends React.Component {
     }
     render() {
         return(
-            <div>
-                <h3>{this.props.cityName}</h3>
+            <div className={"cityDiv"}>
+                <h2>{this.props.cityName}</h2>
                 <div className={"datesDiv"}>
-                    <ul>
+                    <ul className={"zeroPad zeroMarg"}>
                         {this.state.dateRanges.map((date,index) => (
                             <li key={index}>{date}</li>
                         ))}
                     </ul>
                 </div>
                 <div className={"locationsDiv"}>
-                    <ul>
+                    <ul className={"zeroPad zeroMarg"}>
                         {this.state.locations.map((loc,index) => (
                             <li key={index}> <Location name={loc.location} address={loc.address}/></li>
                         ))}

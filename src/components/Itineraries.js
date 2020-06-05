@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core";
 import City from "./City";
+import './Iteneraries.css';
 
 class Itineraries extends React.Component {
     constructor(props){
