@@ -32,7 +32,7 @@ class Home extends React.Component {
                         </Button>
                     </Grid>
                     <Grid className={classes.item} item xs={4}>
-                        <Button href="/withdraw" className={classes.button}>
+                        <Button href="/lists" className={classes.button}>
                             <div>
                                 <GiChecklist className={classes.icon} />
                                 <div className={classes.buttonText}>Your lists</div>

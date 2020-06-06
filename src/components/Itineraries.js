@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core";
 import City from "./City";
 import './Iteneraries.css';
 import Map from "./Map";
+import Navbar from "./Navbar";
 
 class Itineraries extends React.Component {
     constructor(props){
@@ -20,7 +21,9 @@ class Itineraries extends React.Component {
                     <City cityName={"Vancouver"}/>
                 </div>
             </div>
+                <div><Navbar/></div>
             </React.Fragment>
+
         );
     }
 }
@@ -45,11 +48,12 @@ const muiStyles = {
     },
     leftPanel: {
         position: "absolute",
-        height: "100vh",
-        width: "50vw"
+        //height: "100vh",
+        width: "50vw",
+        top: "6vh"
     },
     table: {
-        top: "10vh"
+        top: "14vh"
     }
 };
 
