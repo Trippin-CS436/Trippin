@@ -1,3 +1,4 @@
+
 import React from 'react';
 import './App.css';
 import {
@@ -11,7 +12,9 @@ import Geocode from "react-geocode";
 import {Descriptions} from 'antd';
 import Autocomplete from 'react-google-autocomplete';
 
-Geocode.setApiKey("AIzaSyCsxusP70JLDi6V1JK6IkrMoFZD8rfKPAg");
+
+Geocode.setApiKey(process.env.REACT_APP_API_KEY);
+
 
 class Map extends React.Component {
 
@@ -33,6 +36,7 @@ class Map extends React.Component {
     };
 
     componentDidMount() {
+        console.log(process.env.REACT_APP_API_KEY);
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
                 this.setState({
@@ -200,7 +204,7 @@ class Map extends React.Component {
                 </Descriptions>
 
                 <MapWithAMarker
-                    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsxusP70JLDi6V1JK6IkrMoFZD8rfKPAg&v=3.exp&libraries=geometry,drawing,places"
+                    googleMapURL= {process.env.REACT_APP_GOOGLE_API_KEY}
                     loadingElement={<div style={{ height: `100%` }} />}
                     containerElement={<div style={{ height: `400px` }} />}
                     mapElement={<div style={{ height: `100%` }} />}
