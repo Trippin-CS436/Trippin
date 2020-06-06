@@ -9,7 +9,7 @@ function App() {
     return (
         <Router>
             <div>
-                <Route exact path="./itineraries">
+                <Route exact path="/itineraries">
                     <Itineraries />
                 </Route>
                 <Route exact path="/">

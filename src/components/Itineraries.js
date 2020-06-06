@@ -2,20 +2,25 @@ import React from "react";
 import { withStyles } from "@material-ui/core";
 import City from "./City";
 import './Iteneraries.css';
+import Map from "./Map";
 
 class Itineraries extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
-
-        };
     }
     render() {
         const { classes } = this.props;
         return(
+            <React.Fragment>
             <div className={classes.bg}>
-                <City cityName={"Vancouver"}/>
+                <div className={classes.leftPanel}>
+                    <Map />
+                </div>
+                <div className={`${classes.rightPanel} ${classes.table}`}>
+                    <City cityName={"Vancouver"}/>
+                </div>
             </div>
+            </React.Fragment>
         );
     }
 }
@@ -31,6 +36,20 @@ const muiStyles = {
         left: "0",
         color: "#000000",
         fontSize: "30px"
+    },
+    rightPanel: {
+        position: "absolute",
+        // height: "100vh",
+        left: "50vw",
+        width: "50vw"
+    },
+    leftPanel: {
+        position: "absolute",
+        height: "100vh",
+        width: "50vw"
+    },
+    table: {
+        top: "10vh"
     }
 };
 

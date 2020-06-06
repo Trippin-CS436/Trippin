@@ -1,5 +1,5 @@
 h2{
-    margin: 10px 10px 0px 10px;
+    margin: 10px 10px 0 10px;
 }
 .zeroPad{
     padding: 0;
@@ -13,7 +13,8 @@ h2{
     margin: 25px 25px;
     border-radius: 25px;
     padding: 5px 20px;
-    min-width: 600px;
+    min-width: 500px;
+    min-height: 500px;
 }
 .datesDiv{
     margin-left: 15px;
@@ -41,7 +42,7 @@ h2{
     position: relative;
 }
 .locationsDiv ul li:last-child{
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 .location{
     display: block;

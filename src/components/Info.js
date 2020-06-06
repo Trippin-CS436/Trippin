@@ -1,6 +1,4 @@
-
 import React from "react";
-import { withStyles } from "@material-ui/core";
 
 export default class Info extends React.Component {
 
@@ -56,4 +54,3 @@ export default class Info extends React.Component {
     }
 }
 
-export default Info;

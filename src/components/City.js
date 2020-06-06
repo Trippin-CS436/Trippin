@@ -1,12 +1,13 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
 import Location from "./Location";
 import './Iteneraries.css';
+import Notes from "./Notes";
 
 export default class City extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            city: "Vancouver",
             dateRanges : ["2020/08/20 - 2020/08/22"],
             locations : [{location: "Roger's Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1"},
                 {location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1"},
@@ -14,6 +15,7 @@ export default class City extends React.Component {
                 {location: "Stanley Park", address: " Vancouver, BC V6G 1Z4"},
                 {location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1"},
                 ],
+            notes: new Notes()
         };
     }
     render() {

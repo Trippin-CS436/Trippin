@@ -1,12 +1,12 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
 import './Iteneraries.css';
+import Notes from "./Notes";
 
 export default class Location extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-
+            note: new Notes()
         };
     }
     render() {
