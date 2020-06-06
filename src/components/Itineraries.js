@@ -32,6 +32,6 @@ const muiStyles = {
         color: "#000000",
         fontSize: "30px"
     }
-}
+};
 
 export default withStyles(muiStyles)(Itineraries);
