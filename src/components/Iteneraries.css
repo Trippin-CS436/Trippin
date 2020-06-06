@@ -1,0 +1,77 @@
+h2{
+    margin: 10px 10px 0px 10px;
+}
+.zeroPad{
+    padding: 0;
+}
+.zeroMarg{
+    margin: 0;
+}
+.cityDiv{
+    background-color: lightgrey;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 25px 25px;
+    border-radius: 25px;
+    padding: 5px 20px;
+    min-width: 600px;
+}
+.datesDiv{
+    margin-left: 15px;
+}
+.datesDiv ul{
+    list-style-type: none;
+    overflow: hidden;
+}
+.datesDiv ul li{
+    float: left;
+    font-size: 18px;
+}
+.locationsDiv{
+    margin: 30px 10px 15px 15px;
+    position: relative;
+}
+.locationsDiv ul{
+    list-style-type: none;
+    overflow: hidden;
+}
+.locationsDiv ul li{
+    display: block;
+    font-size: 24px;
+    margin-bottom: 20px;
+    position: relative;
+}
+.locationsDiv ul li:last-child{
+    margin-bottom: 0px;
+}
+.location{
+    display: block;
+    font-weight: 600;
+    line-height: 70%;
+}
+.address{
+    display: inline-block;
+    font-size: 16px;
+}
+.buttonDiv{
+    display: inline-block;
+    position: absolute;
+    bottom: 5px;
+    right: 15px;
+}
+.buttonDiv button{
+    background-color: #f4511e;
+    border: none;
+    color: white;
+    padding: 6px 11px;
+    text-align: center;
+    font-size: 14px;
+    margin: 4px 4px;
+    opacity: 0.75;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+}
+.buttonDiv button:hover{
+    opacity: 1
+}
