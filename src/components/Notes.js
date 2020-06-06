@@ -42,7 +42,7 @@ export default class Notes extends React.Component {
                         {this.userImages.map(image =>
                             <div className="single-image-display">
                                 <h4>{image.fileName}</h4>
-                                <img src={image.fileLoc} alt={}/>
+                                <img src={image.fileLoc} alt=""/>
                             </div>
                         )}
                     </div>
