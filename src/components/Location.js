@@ -1,19 +1,23 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
+import './Iteneraries.css';
+import Notes from "./Notes";
 
 export default class Location extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-
+            note: new Notes()
         };
     }
     render() {
         return(
             <div>
-                {this.props.name} {this.props.address}
-                <button>Edit</button>
-                <button>Delete</button>
+                <label className={"location"}>{this.props.name} </label>
+                <label className={"address"}> {this.props.address}</label>
+                <div className={"buttonDiv"}>
+                    <button className={"btn"}>Edit</button>
+                    <button className={"btn"}>Delete</button>
+                </div>
             </div>
         );
     }
