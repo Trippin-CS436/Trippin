@@ -1,8 +1,10 @@
 import React from "react";
 import './Iteneraries.css';
 import Notes from "./Notes";
+import {connect} from "react-redux";
+import {deleteLocation} from "../actions";
 
-export default class Location extends React.Component {
+class Location extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -16,12 +18,19 @@ export default class Location extends React.Component {
                 <label className={"address"}> {this.props.address}</label>
                 <div className={"buttonDiv"}>
                     <button className={"btn"}>Edit</button>
-                    <button className={"btn"}>Delete</button>
+                    <button className={"btn"} onClick={() => this.props.deleteLocation(this.props.idx)}>Delete</button>
                 </div>
             </div>
         );
     }
 }
+const mapStateToProps = (state) =>{
+    return {
+        locations: state.locations,
+    };
+};
+
+export default connect(mapStateToProps, {deleteLocation})(Location);
 
 // const muiStyles = {
 //     bg: {

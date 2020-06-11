@@ -2,19 +2,16 @@ import React from "react";
 import Location from "./Location";
 import './Iteneraries.css';
 import Notes from "./Notes";
+import {deleteLocation} from "../actions";
+import {connect} from 'react-redux';
 
-export default class City extends React.Component {
+
+class City extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             city: "Vancouver",
             dateRanges : ["2020/08/20 - 2020/08/22"],
-            locations : [{location: "Roger's Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1"},
-                {location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1"},
-                {location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7"},
-                {location: "Stanley Park", address: " Vancouver, BC V6G 1Z4"},
-                {location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1"},
-                ],
             notes: new Notes()
         };
     }
@@ -31,8 +28,8 @@ export default class City extends React.Component {
                 </div>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
-                        {this.state.locations.map((loc,index) => (
-                            <li key={index}> <Location name={loc.location} address={loc.address}/></li>
+                        {this.props.locations.map((loc,index) => (
+                            <li key={index}> <Location idx={index} name={loc.location} address={loc.address}/></li>
                         ))}
                     </ul>
                 </div>
@@ -40,6 +37,13 @@ export default class City extends React.Component {
         );
     }
 }
+const mapStateToProps = (state) =>{
+    return {
+        locations: state.locations,
+    };
+};
+
+export default connect(mapStateToProps)(City);
 //
 // const muiStyles = {
 //     bg: {
