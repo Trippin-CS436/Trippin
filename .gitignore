@@ -18,10 +18,7 @@
 .env.test.local
 .env.production.local
 
-<<<<<<< HEAD
-=======
 # API keys
->>>>>>> 282de88408deba02c03c163545e9b16fb47d12ba
 .env
 
 npm-debug.log*
