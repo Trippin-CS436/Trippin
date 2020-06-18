@@ -1,27 +1,55 @@
 import React from "react";
 import './Iteneraries.css';
 import Notes from "./Notes";
+import './Location.css';
 
 export default class Location extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            note: new Notes()
+            currentLocation: this.props.currentLocation,
+            showNotes: false
         };
+        this.handleEditBtnClick = this.handleEditBtnClick.bind(this);
+
+
     }
+
+    handleEditBtnClick() {
+        this.setState({
+            currentLocation: this.state.currentLocation,
+            showNote: !this.state.showNotes
+        })
+    }
+
+    renderSubComp(){
+       if (this.state.showNote) {
+         return <Notes/>
+        }
+    }
+
     render() {
+
         return(
             <div>
+            <div className="location-bar">
                 <label className={"location"}>{this.props.name} </label>
                 <label className={"address"}> {this.props.address}</label>
                 <div className={"buttonDiv"}>
-                    <button className={"btn"}>Edit</button>
+                    <button className={"btn"} name="Edit" onClick={this.handleEditBtnClick}>Edit</button>
                     <button className={"btn"}>Delete</button>
                 </div>
+            </div>
+            <div className="display-notes">
+            {this.renderSubComp()}
+            </div>
             </div>
         );
     }
 }
+
+//  {this.state.showNotes ? <Notes /> : null } 
+
 
 // const muiStyles = {
 //     bg: {
