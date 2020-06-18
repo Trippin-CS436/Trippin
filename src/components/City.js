@@ -9,13 +9,12 @@ export default class City extends React.Component {
         this.state = {
             city: "Vancouver",
             dateRanges : ["2020/08/20 - 2020/08/22"],
-            locations : [{location: "Roger's Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1"},
-                {location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1"},
-                {location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7"},
-                {location: "Stanley Park", address: " Vancouver, BC V6G 1Z4"},
-                {location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1"},
-                ],
-            notes: new Notes()
+            locations : [{location: "Roger's Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1", info: {}, notes: ""},
+                {location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1", info: {}, notes: ""},
+                {location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", info: {}, notes: ""},
+                {location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", info: {}, notes: ""},
+                {location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", info: {}, notes: ""},
+                ]
         };
     }
     render() {
