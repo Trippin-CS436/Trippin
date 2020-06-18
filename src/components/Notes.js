@@ -1,6 +1,61 @@
-
 import React from "react";
+import  {connect}  from 'react-redux';
+import  {addNotes} from './../actions/addNotes'
 import Info from "./Info";
+import "./Notes.css"
+
+class Notes extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+           notesText: this.props.currentLocation.notes,
+           // userImages image object will change when database added: {fileName:"name", fileLoc:"../imgs/name.jpg"}
+        };
+        this.handleNotesInput = this.handleNotesInput.bind(this);
+        this.handleSaveNotes = this.handleSaveNotes.bind(this);
+    }
+
+    handleNotesInput(event) {
+        this.setState({
+            notesText: event.target.value,
+        });
+      }
+
+    handleSaveNotes = () => {
+        this.props.addNotes(this.state.notesText);
+    }
+
+
+
+    render() {
+        return(
+            <div className="notes">
+            <div className="notes-outer">
+                <div className="notes-inner">
+                    <textarea id="notes-text" value={this.state.notesText} onChange={this.handleNotesInput}>
+                        Notes Here 
+                    </textarea>
+                </div>
+                <div id="notes-inner-button">
+                    <button id="notes-button" value="notes-button"  type="button" onClick={this.handleSaveNotes}>
+                        Save
+                    </button>
+                </div>
+            </div>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = (state) => {
+    return { 
+        currentLocation: state.currentLocation
+    }
+}
+
+export default connect(mapStateToProps, {addNotes})(Notes); 
+
+/*
 
 export default class Notes extends React.Component {
     constructor(props){
@@ -51,3 +106,4 @@ export default class Notes extends React.Component {
         );
     }
 }
+*/
