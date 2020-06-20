@@ -153,13 +153,12 @@ class Map extends React.Component {
     onLoad = (autocomplete) => {
         console.log('autocomplete: ', autocomplete);
         this.autocomplete = autocomplete;
-        this.autocomplete.addListener('place_changed', this.onPlaceChanged);
-
-      }
+        // this.autocomplete.addListener('place_changed', this.onPlaceChanged);
+    };
 
     onPlaceChanged = () => {
-        if (this.autocomplete !== null) {
-            console.log(this.autocomplete.getPlace())
+        // if (this.autocomplete !== null) {
+            // console.log(this.autocomplete.getPlace())
          
         const place = this.autocomplete.getPlace();
         console.log(place);
@@ -191,9 +190,9 @@ class Map extends React.Component {
             }
         })
 
-    } else {
-        console.log('Autocomplete is not loaded yet!')
-      }
+    // } else {
+    //     console.log('Autocomplete is not loaded yet!')
+    //   }
 
         // create mapLocation object
         const mapLocation = {

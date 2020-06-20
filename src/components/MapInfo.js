@@ -29,7 +29,7 @@ class MapInfo extends React.Component {
         }
       }
 
-    getInfo = () => {
+     getInfo = () =>{
         console.log(this.props.mapLocation.PlacesId);
         var request = new Request(proxyUrl+'https://maps.googleapis.com/maps/api/place/details/json?place_id='+ this.props.mapLocation.PlacesId + '&fields=name,rating,website,review,formatted_phone_number&key=AIzaSyAKMiqXKjeoQxSx5OZfz6fti7YXlHUag1Y');
         fetch(request).then(function(response){
@@ -48,13 +48,19 @@ class MapInfo extends React.Component {
 
     render() {
        let data = this.getInfo();
-      // let result = data.result;
-       //console.log(result);
-        return(
+       let result;
+       if (data === undefined){
+           result = [];
+       }else {
+           result = data.result;
+       }
+       return(
             <div className={"mainInfo"}>
                 <h4>Location Information</h4>
                 <ul>
-                    
+                    {result.map((field) => (
+                        <li> result.field </li>
+                    ))}
                 </ul>
             </div>
         )

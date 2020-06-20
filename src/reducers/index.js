@@ -5,7 +5,7 @@ import '../index.css';
 const currentLocation = {
     Name: "",
     Address: "",
-    PlacesId: "ChIJK7VbnXxxhlQRCbKQyeRwBJ4"
+    PlacesId: ""
 }
 
 
