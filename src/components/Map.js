@@ -1,6 +1,5 @@
 
 import React from 'react';
-import './App.css';
 import {
     InfoWindow,
     withScriptjs,
@@ -11,6 +10,8 @@ import {
 import Geocode from "react-geocode";
 import {Descriptions} from 'antd';
 import Autocomplete from 'react-google-autocomplete';
+import  {connect}  from 'react-redux';
+import  {addMapLocation} from './../actions/addNotes'
 
 
 Geocode.setApiKey(process.env.REACT_APP_API_KEY);
@@ -32,7 +33,8 @@ class Map extends React.Component {
         markerPosition: {
             lat: 0,
             lng: 0,
-        }
+        },
+        mapLocation:  {location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1", info: {}, notes: ""}
     };
 
     componentDidMount() {
