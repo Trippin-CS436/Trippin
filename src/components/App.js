@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./Home";
 import Map from "./Map";
 import Itineraries from "./Itineraries";
+import Lists from "./Lists";
 
 function App() {
     return (
@@ -17,6 +18,9 @@ function App() {
                 </Route>
                 <Route exact path="/map">
                     <Map />
+                </Route>
+                <Route exact path="/lists">
+                    <Lists />
                 </Route>
             </div>
         </Router>

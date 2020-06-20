@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-    CollapsibleComponent,
-    CollapsibleHead,
-    CollapsibleContent
-} from "react-collapsible-component";
+import Collapsible from "react-collapsible";
+import "./Expandable.css"
 
 class Expandable extends React.Component {
     constructor(props) {
@@ -29,21 +26,21 @@ class Expandable extends React.Component {
                 });
             }
     }
-    render() {
+    push() {
         let list = [];
         for (const parent of this.state.parentList) {
             list.push(
-                <CollapsibleComponent>
-                    <CollapsibleHead>
-                        {parent}
-                    </CollapsibleHead>
-                    <CollapsibleContent>
-                        {this.state.childrenList[this.state.parentList.indexOf(parent)]}
-                    </CollapsibleContent>
-                </CollapsibleComponent>
-            );
+                <Collapsible trigger={parent}>
+                    {this.state.childrenList[this.state.parentList.indexOf(parent)]}
+                </Collapsible>
+            )
         }
         return list;
+    }
+    render() {
+        return (
+            <div> {this.push()}</div>
+        )
     }
 
 }

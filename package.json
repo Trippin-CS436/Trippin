@@ -16,7 +16,8 @@
     "react-google-autocomplete": "^1.2.6",
     "react-google-maps": "^9.4.5",
     "react-icons": "^3.10.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "redux": "^4.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,6 +42,9 @@
   },
   "devDependencies": {
     "@material-ui/core": "^4.10.1",
-    "react-router-dom": "^5.2.0"
+    "react-redux": "^7.2.0",
+    "react-responsive": "^8.1.0",
+    "react-router-dom": "^5.2.0",
+    "reactjs-popup": "^1.5.0"
   }
 }

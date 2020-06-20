@@ -1,0 +1,64 @@
+.bg{
+    position: absolute;
+    background-image: url("../assets/vancouver.jpg");
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0
+}
+.text {
+    color: #000000;
+    font-size: 30px
+}
+.container {
+    justify-content: center;
+}
+.item {
+    text-align: center
+}
+.button_home {
+    top: 20vh;
+    height: 50vh;
+    width: 80%;
+    background-color: #FFFFFF !important;
+    border-top: 5px solid #2E3B52;
+    transition: background 0.5s, transform 1.5s, color 0.5s;
+    transition-timing-function: cubic-bezier(0.42,0,0.58,1);
+    box-shadow: 0 6px 4px rgba(0, 0, 0, 0.2);
+    min-width: 300px;
+
+}
+.button_home:hover {
+     background: rgba(0, 0, 0, 0.7) !important;
+     transform: translateY(-3vh);
+     -ms-transform: none;
+     color: white
+}
+.icon {
+    font-size: 6em
+}
+.buttonText {
+    font-size: 1.45em
+}
+
+@media (max-width: 660px) {
+
+    .button_home {
+        top: 2vh;
+        height: 30vh;
+        bottom: 2vh;
+        width: 60vw;
+        min-width: 300px;
+    }
+    .icon {
+        font-size: 3em
+    }
+    .buttonText {
+    font-size: 1.25em
+    }
+    .bg {
+        background: lightsteelblue;
+    }
+
+}
