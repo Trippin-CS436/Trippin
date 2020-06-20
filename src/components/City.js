@@ -23,9 +23,15 @@ class City extends React.Component {
             return city.id == cityToRenderID;
         });
         cityToRender = cityToRender[0];
+
+        let countryToRenderID = this.props.currentView.byID.country;
+        let countryToRender = this.props.countries.filter(function(country){
+            return country.id == countryToRenderID;
+        });
+        countryToRender = countryToRender[0];
         return(
             <div className={"cityDiv"}>
-                <h2>{cityToRender.name}</h2>
+                <h2>{cityToRender.name}, {countryToRender.name}</h2>
                 <div className={"datesDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {cityToRender.dateRanges.map((date,index) => (
@@ -48,7 +54,8 @@ const mapStateToProps = (state) =>{
     return {
         locations: state.locations,
         currentView: state.currentView,
-        cities: state.cities
+        cities: state.cities,
+        countries: state.countries
     };
 };
 

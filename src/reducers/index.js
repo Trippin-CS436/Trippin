@@ -17,7 +17,7 @@ const locationsReducer = (locations = defaultLocations, action) => {
 };
 
 const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : ["2020/08/20 - 2020/08/22"]},
-    {name: "San Francisco", id: 1, countryID: 1, dateRanges : ["2020/08/20 - 2020/08/22"]}];
+    {name: "San Francisco", id: 1, countryID: 1, dateRanges : ["2021/11/11 - 2021/12/12"]}];
 const cityReducer = (cities = defaultCities, action) =>{
 
     return cities;
