@@ -10,7 +10,6 @@ class City extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            notes: new Notes()
         };
     }
     render() {
