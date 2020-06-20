@@ -59,7 +59,7 @@ class MapInfo extends React.Component {
                 <h4>Location Information</h4>
                 <ul>
                     {result.map((field) => (
-                        <li> result.field </li>
+                        <li> {result.field}</li>
                     ))}
                 </ul>
             </div>
