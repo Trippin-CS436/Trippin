@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core";
 import City from "./City";
 import './Iteneraries.css';
 import Map from "./Map";
+import MapInfo from "./MapInfo";
 import Navbar from "./Navbar";
 
 class Itineraries extends React.Component {
@@ -15,7 +16,12 @@ class Itineraries extends React.Component {
             <React.Fragment>
             <div className={classes.bg}>
                 <div className={classes.leftPanel}>
+                    <div className= "top-panel">
                     <Map />
+                    </div>
+                    <div className="bottom-panel">
+                    <MapInfo />
+                    </div>
                 </div>
                 <div className={`${classes.rightPanel} ${classes.table}`}>
                     <City cityName={"Vancouver"}/>

@@ -10,7 +10,8 @@ import {
 import Geocode from "react-geocode";
 import { Descriptions } from 'antd';
 import { connect } from 'react-redux';
-import { getLocation } from '../actions';
+import { getLocation } from '../actions/getLocation';
+
 
 
 Geocode.setApiKey(process.env.REACT_APP_API_KEY);
@@ -21,6 +22,8 @@ const containerStyle = {
 };
 
 
+
+
 class Map extends React.Component {
     constructor(props) {
     super(props);
@@ -28,6 +31,7 @@ class Map extends React.Component {
     this.autocomplete = null;
 
     this.state = {
+        placeId: '',
         placeName: '',
         address: '',
         city: '',
@@ -127,6 +131,7 @@ class Map extends React.Component {
                     city = this.getCity(addressArray),
                     area = this.getArea(addressArray),
                     state = this.getState(addressArray);
+                    console.log(address);
 
                 this.setState({
                     address: (address) ? address : "",
@@ -146,16 +151,21 @@ class Map extends React.Component {
     };
 
     onLoad = (autocomplete) => {
-        console.log('autocomplete: ', autocomplete)
-        this.autocomplete = autocomplete
+        console.log('autocomplete: ', autocomplete);
+        this.autocomplete = autocomplete;
+        this.autocomplete.addListener('place_changed', this.onPlaceChanged);
+
       }
 
     onPlaceChanged = () => {
-        
+        if (this.autocomplete !== null) {
+            console.log(this.autocomplete.getPlace())
+         
         const place = this.autocomplete.getPlace();
         console.log(place);
         const address = place.formatted_address,
-        addressArray = place.address_components;
+            placeId = place.place_id,
+            addressArray = place.address_components;
         const city = this.getCity(addressArray),
               area = this.getArea(addressArray),
               state = this.getState(addressArray),
@@ -165,6 +175,7 @@ class Map extends React.Component {
 
 
         this.setState({
+            placeId: (placeId) ? placeId: "",
             placeName: (placeName) ? placeName : "",
             address: (address) ? address : "",
             area: (area) ? area : "",
@@ -180,14 +191,19 @@ class Map extends React.Component {
             }
         })
 
-        // create location object
-        const location = {
+    } else {
+        console.log('Autocomplete is not loaded yet!')
+      }
+
+        // create mapLocation object
+        const mapLocation = {
+            placeId: this.state.placeId,
             placeName: this.state.placeName,
             fulladdress: this.state.address,
         }
         // Reducer call to update the name of the facility and address
-        console.log(location);
-        this.props.getLocation(location);
+        console.log(mapLocation);
+        this.props.getLocation(mapLocation);
     };
 
 

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-google-maps/api": "^1.9.7",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -16,13 +17,9 @@
     "react-google-autocomplete": "^1.2.6",
     "react-google-maps": "^9.4.5",
     "react-icons": "^3.10.0",
-<<<<<<< HEAD
     "react-redux": "^7.2.0",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5"
-=======
-    "react-scripts": "3.4.1"
->>>>>>> updated_map_copy
   },
   "scripts": {
     "start": "react-scripts start",

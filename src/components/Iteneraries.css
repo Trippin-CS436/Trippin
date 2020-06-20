@@ -76,3 +76,18 @@ h2{
 .buttonDiv button:hover{
     opacity: 1
 }
+
+.top-panel {
+    box-sizing: border-box;
+    padding: 2rem 2rem;
+    margin: 0.5rem 1rem;
+}
+
+.bottom-panel {
+    background-color: rgb(167, 173, 141);
+    box-sizing: border-box;
+    margin-top: 6rem;
+    margin-left: 3rem;
+    padding: 2rem 2rem;
+    opacity: 95%;
+}
