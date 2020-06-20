@@ -1,6 +1,13 @@
 export const deleteLocation = (idx) => {
     return {
         type: 'DEL_LOCATION',
-        index: idx,
+        location_index: idx,
+    };
+};
+
+export const itineraryNameChange = (name) => {
+    return {
+        type: 'NAME_CHANGE',
+        name: name,
     };
 };
