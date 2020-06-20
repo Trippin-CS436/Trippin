@@ -9,7 +9,8 @@ import {
 } from "@react-google-maps/api";
 import Geocode from "react-geocode";
 import { Descriptions } from 'antd';
-
+import { connect } from 'react-redux';
+import { getLocation } from '../actions';
 
 
 Geocode.setApiKey(process.env.REACT_APP_API_KEY);
@@ -27,6 +28,7 @@ class Map extends React.Component {
     this.autocomplete = null;
 
     this.state = {
+        placeName: '',
         address: '',
         city: '',
         area: '',
@@ -151,16 +153,19 @@ class Map extends React.Component {
     onPlaceChanged = () => {
         
         const place = this.autocomplete.getPlace();
+        console.log(place);
         const address = place.formatted_address,
         addressArray = place.address_components;
         const city = this.getCity(addressArray),
               area = this.getArea(addressArray),
-            state = this.getState(addressArray),
-            newLat = place.geometry.location.lat(),
-            newLng = place.geometry.location.lng();
+              state = this.getState(addressArray),
+              newLat = place.geometry.location.lat(),
+              newLng = place.geometry.location.lng();
+        const placeName = place.name;
 
 
         this.setState({
+            placeName: (placeName) ? placeName : "",
             address: (address) ? address : "",
             area: (area) ? area : "",
             city: (city) ? city : "",
@@ -174,6 +179,15 @@ class Map extends React.Component {
                 lng: newLng,
             }
         })
+
+        // create location object
+        const location = {
+            placeName: this.state.placeName,
+            fulladdress: this.state.address,
+        }
+        // Reducer call to update the name of the facility and address
+        console.log(location);
+        this.props.getLocation(location);
     };
 
 
@@ -246,4 +260,4 @@ class Map extends React.Component {
     }
 }
 
-export default React.memo(Map);
+export default connect(null, {getLocation})(React.memo(Map));
