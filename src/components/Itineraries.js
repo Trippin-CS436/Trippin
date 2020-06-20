@@ -18,7 +18,7 @@ class Itineraries extends React.Component {
                     <Map />
                 </div>
                 <div className={`${classes.rightPanel} ${classes.table}`}>
-                    <City cityName={"Vancouver"}/>
+                    <City/>
                 </div>
             </div>
                 <div><Navbar/></div>

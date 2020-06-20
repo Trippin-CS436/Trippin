@@ -10,25 +10,32 @@ class City extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            city: "Vancouver",
-            dateRanges : ["2020/08/20 - 2020/08/22"],
             notes: new Notes()
         };
     }
     render() {
+        let locationsToRenderID = this.props.currentView.byID.locations;
+        let locationsToRender = this.props.locations.filter(function(loc){
+            return locationsToRenderID.includes(loc.id);
+        });
+        let cityToRenderID = this.props.currentView.byID.city;
+        let cityToRender = this.props.cities.filter(function(city){
+            return city.id == cityToRenderID;
+        });
+        cityToRender = cityToRender[0];
         return(
             <div className={"cityDiv"}>
-                <h2>{this.props.cityName}</h2>
+                <h2>{cityToRender.name}</h2>
                 <div className={"datesDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
-                        {this.state.dateRanges.map((date,index) => (
+                        {cityToRender.dateRanges.map((date,index) => (
                             <li key={index}>{date}</li>
                         ))}
                     </ul>
                 </div>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
-                        {this.props.locations.map((loc,index) => (
+                        {locationsToRender.map((loc,index) => (
                             <li key={index}> <Location idx={index} name={loc.location} address={loc.address}/></li>
                         ))}
                     </ul>
@@ -40,6 +47,8 @@ class City extends React.Component {
 const mapStateToProps = (state) =>{
     return {
         locations: state.locations,
+        currentView: state.currentView,
+        cities: state.cities
     };
 };
 

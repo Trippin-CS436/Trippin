@@ -1,10 +1,11 @@
 import {combineReducers} from 'redux';
 
-const defaultLocations = [{location: "Rogers Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1", cityID: 0},
-    {location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1", cityID: 0},
-    {location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0},
-    {location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0},
-    {location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0}];
+const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1", cityID: 0},
+    {id:1, location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1", cityID: 0},
+    {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0},
+    {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0},
+    {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0},
+    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0}];
 
 const locationsReducer = (locations = defaultLocations, action) => {
     if (action.type === "DEL_LOCATION"){
@@ -65,4 +66,6 @@ export default combineReducers({
     locations: locationsReducer,
     itinerary: itineraryReducer,
     currentView: currentViewReducer,
+    cities: cityReducer,
+    countries: countryReducer,
 });
