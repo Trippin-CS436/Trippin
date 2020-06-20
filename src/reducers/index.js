@@ -881,19 +881,6 @@ const selector = (msgId = 0, action) => {
     return msgId;
 };
 
-export default combineReducers({
-    lists: listReducer,
-    msgId: selector
-});
-
-
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-
-import {combineReducers} from 'redux';
-
 const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1", cityID: 0},
     {id:1, location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1", cityID: 0},
     {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0},
@@ -957,6 +944,8 @@ const itineraryReducer = (itinerary = {name: "Test itinerary", dateRanges : ["20
     return itinerary;
 };
 export default combineReducers({
+    lists: listReducer,
+    msgId: selector,
     locations: locationsReducer,
     itinerary: itineraryReducer,
     currentView: currentViewReducer,
