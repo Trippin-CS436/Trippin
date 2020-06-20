@@ -6,36 +6,79 @@ import "./Lists.css";
 import Collapsible from "react-collapsible";
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-
+import {Checkbox} from "@material-ui/core";
+import "./Expandable.css"
 class Lists extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
+            currentTargetId: "none",
             currentListId: -1,
+            addedCountry: [],
             country: require("../assets/country_state_city"),
-            checked: []
+            countryList: []
         };
+        this.handleChange = this.handleChange.bind(this);
+        this.addList = this.addList.bind(this);
+        this.renderCountry = this.renderCountry.bind(this);
+    }
+
+    handleChange(event) {
+        let targetId = event.target.id;
+        this.setState(prevState => ({
+            [targetId]: !prevState[targetId]
+        }));
+        this.setState({currentTargetId: targetId});
+        if (this.state.targetId === false) {
+            // let countryName = event.target.parentNode.trigger;
+            let countryName = "Albania";
+            let index = null;
+
+            if (!this.state.addedCountry.includes(countryName)) {
+                this.setState({countryList: [{"name": [countryName],
+                    "states": {"name": "Berat District"}}]});
+                this.setState({addedCountry: [countryName]});
+
+
+            } else {
+                index = this.state.addedCountry.indexOf(countryName);
+                this.state.countryList[index].states.push({"name": [[event.target.name]]});
+            }
+        }
+    };
+
+    addList() {
+        let newList = {
+            "listId": null,
+            "listName": "New List",
+            "countryList": this.state.countryList
+        };
+        this.props.addMsg(newList);
+        this.setState({
+                countryList: []
+            });
     }
 
     renderCountry() {
         const list = [];
-        let checkboxID = -1;
+        let checkedName = null;
         for (const item of this.state.country) {
             list.push(
                 <React.Fragment>
                 <Collapsible trigger={item.name} id={item.id}>
-                    {item.states.map(function(state) {
+                    {item.states.map((state, index) => {
+                        checkedName = "checkbox" + index.toString();
                         return (
                             <div className="stripe">
-                                <Checkbox checked={false} id={checkboxID++} />
+                                <Checkbox checked={this.state.checkedName} onClick={this.handleChange} id={checkedName} name={state.name} />
                                 {state.name}
                             </div>
                         )})}
                 </Collapsible>
                 </React.Fragment>);
         }
+
         return list;
     }
 
@@ -76,15 +119,18 @@ class Lists extends React.Component {
                                 <button
                                     className="button"
                                     onClick={() => {
+                                        this.addList();
                                         close();
                                     }}
                                 >
-                                    close modal
+                                    Add List
                                 </button>
                             </div>
                         </div>
                     )}
                 </Popup>
+                <div> {JSON.stringify(this.props.lists[this.props.lists.length-1])} </div>
+                <div> {this.state.addedCountry.toString()} </div>
             </React.Fragment>
         )
     }
