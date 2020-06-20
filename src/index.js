@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
+<<<<<<< HEAD
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers/reducers';
@@ -11,6 +12,15 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={createStore(reducers)}>
       <App />
+=======
+import{ Provider } from 'react-redux';
+import store from './reducers/store';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store = {store}>
+    <App />
+>>>>>>> updated_map_copy
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
