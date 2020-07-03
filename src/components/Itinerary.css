@@ -1,0 +1,22 @@
+h1{
+    margin: 0px 10px 0 10px;
+}
+.zeroPad{
+    padding: 0;
+}
+.zeroMarg{
+    margin: 0;
+}
+
+.dates ul{
+    list-style-type: none;
+    overflow: hidden;
+}
+.dates ul li{
+    float: left;
+    font-size: 1em;
+}
+.dates{
+    margin-left: 15px;
+    margin-bottom: 3px;
+}

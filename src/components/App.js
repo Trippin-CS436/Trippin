@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./Home";
 import Map from "./Map";
 import Itineraries from "./Itineraries";
+import Itinerary from "./Itinerary";
 import Lists from "./Lists";
 
 function App() {
@@ -21,6 +22,9 @@ function App() {
                 </Route>
                 <Route exact path="/lists">
                     <Lists />
+                </Route>
+                <Route exact path="/test">
+                    <Itinerary />
                 </Route>
             </div>
         </Router>

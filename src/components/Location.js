@@ -13,8 +13,6 @@ class Location extends React.Component {
             showNotes: false
         };
         this.handleEditBtnClick = this.handleEditBtnClick.bind(this);
-
-
     }
 
     handleEditBtnClick() {
