@@ -936,7 +936,11 @@ const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffit
 const locationsReducer = (locations = defaultLocations, action) => {
     if (action.type === "DEL_LOCATION"){
         let newArray = locations.slice();
-        newArray.splice(action.location_index, 1);
+        let indexToRemove = newArray.findIndex((item) => {
+           return action.location_id == item.id;
+        });
+        console.log("inside locations:" + indexToRemove)
+        newArray.splice(indexToRemove, 1);
         return newArray;
     }
     return locations;
@@ -968,7 +972,11 @@ const defaultView = {
 const currentViewReducer = (currentView = defaultView, action) => {
     if (action.type === "DEL_LOCATION"){
         let newArray = currentView.byID.locations.slice();
-        newArray.splice(action.location_index, 1);
+        let indexToRemove = newArray.findIndex((id) => {
+            return action.location_id == id;
+        });
+        newArray.splice(indexToRemove, 1);
+        console.log("inside currentView: " + indexToRemove)
         return {
             ...currentView,
             byID: {
@@ -978,7 +986,6 @@ const currentViewReducer = (currentView = defaultView, action) => {
         };
     }
     else if(action.type === "CHANGE_VIEW"){
-        console.log(action.newView);
         return action.newView;
     }
     return currentView;

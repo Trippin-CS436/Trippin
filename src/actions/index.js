@@ -27,10 +27,10 @@ export const chooseUser = userName => {
     }
 };
 
-export const deleteLocation = (idx) => {
+export const deleteLocation = (id) => {
     return {
         type: 'DEL_LOCATION',
-        location_index: idx,
+        location_id: id,
     };
 };
 

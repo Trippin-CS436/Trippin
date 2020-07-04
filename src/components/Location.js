@@ -40,7 +40,7 @@ class Location extends React.Component {
                 <label className={"address"}> {this.props.address}</label>
                 <div className={"buttonDiv"}>
                     <button className={"btn"} name="Edit" onClick={this.handleEditBtnClick}>Edit</button>
-                    <button className={"btn"} onClick={() => this.props.deleteLocation(this.props.idx)}>Delete</button>
+                    <button className={"btn"} onClick={() => this.props.deleteLocation(this.props.id)}>Delete</button>
                 </div>
             </div>
             <div className="display-notes">
