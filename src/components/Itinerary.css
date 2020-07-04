@@ -16,6 +16,9 @@ h1{
     float: left;
     font-size: 1em;
 }
+.item-font{
+    font-size: 1.25em;
+}
 .dates{
     margin-left: 15px;
     margin-bottom: 3px;

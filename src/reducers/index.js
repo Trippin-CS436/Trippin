@@ -929,7 +929,9 @@ const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffit
     {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0},
     {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0},
     {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0},
-    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0}];
+    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 100},
+    {id:6, location: "Craigdarroch Castle", address: "1050 Joan Crescent, Victoria, BC V8S 3L5", cityID: 2},
+    {id:7, location: "Alcatraz Island", address: "San Francisco, CA 94133, United States", cityID: 1},];
 
 const locationsReducer = (locations = defaultLocations, action) => {
     if (action.type === "DEL_LOCATION"){
@@ -974,6 +976,10 @@ const currentViewReducer = (currentView = defaultView, action) => {
                 locations: newArray,
             }
         };
+    }
+    else if(action.type === "CHANGE_VIEW"){
+        console.log(action.newView);
+        return action.newView;
     }
     return currentView;
 };
