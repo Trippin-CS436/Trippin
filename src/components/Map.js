@@ -33,6 +33,7 @@ class Map extends React.Component {
         city: '',
         area: '',
         state: '',
+        country: '',
         zoom: 10,
         height: 400,
         mapPosition: {
@@ -114,6 +115,16 @@ class Map extends React.Component {
         }
     };
 
+    getCountry = (addressArray) => {
+        let country = '';
+        for (let i = 0; i < addressArray.length; i++) {
+            if (addressArray[i].types[0] && 'country' === addressArray[i].types[0]) {
+                country = addressArray[i].long_name;
+                return country;
+            }
+        }
+    };
+
     onMarkerDragEnd = (event) => {
         let newLat = event.latLng.lat();
         let newLng = event.latLng.lng();
@@ -159,6 +170,7 @@ class Map extends React.Component {
         const city = this.getCity(addressArray),
               area = this.getArea(addressArray),
               state = this.getState(addressArray),
+              country = this.getCountry(addressArray),
               newLat = place.geometry.location.lat(),
               newLng = place.geometry.location.lng();
         const placeName = place.name;
@@ -170,6 +182,7 @@ class Map extends React.Component {
             area: (area) ? area : "",
             city: (city) ? city : "",
             state: (state) ? state : "",
+            country: (country)? country: "",
             markerPosition: {
                 lat: newLat,
                 lng: newLng,
@@ -184,6 +197,8 @@ class Map extends React.Component {
         const location = {
             placeName: this.state.placeName,
             fulladdress: this.state.address,
+            placeArea: this.state.area,
+            placeCountry: this.state.country
         }
         // Reducer call to update the name of the facility and address
         console.log(location);
