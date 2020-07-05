@@ -5,8 +5,13 @@ import '../index.css';
 const currentLocation = {
     Name: "",
     Address: "",
-    PlacesId: "ChIJK7VbnXxxhlQRCbKQyeRwBJ4"
+    PlacesId: "ChIJK7VbnXxxhlQRCbKQyeRwBJ4",
+    Area: "",
+    Country: "",
 }
+
+
+
 
 
 /*** Handles all changes to current location
@@ -33,7 +38,9 @@ const mapLocationReducer = (state = currentLocation, action) => {
                 ...state,
                 Name: action.payload.placeName,
                 Address: action.payload.fulladdress,
-                PlacesId: action.payload.placeId
+                PlacesId: action.payload.placeId,
+                Area: action.payload.placeArea,
+                Country: action.payload.placeCountry
             }
 
         default:

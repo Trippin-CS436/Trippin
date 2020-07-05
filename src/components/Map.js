@@ -10,7 +10,7 @@ import {
 import Geocode from "react-geocode";
 import { Descriptions } from 'antd';
 import { connect } from 'react-redux';
-import { getLocation } from '../actions/getLocation';
+import { getLocation} from '../actions/getLocation';
 
 
 
@@ -37,6 +37,7 @@ class Map extends React.Component {
         city: '',
         area: '',
         state: '',
+        country: '',
         zoom: 10,
         height: 400,
         mapPosition: {
@@ -69,13 +70,15 @@ class Map extends React.Component {
                                 addressArray = response.results[0].address_components,
                                 city = this.getCity(addressArray),
                                 area = this.getArea(addressArray),
-                                state = this.getState(addressArray);
+                                state = this.getState(addressArray),
+                                country = this.getCountry(addressArray);
 
                             this.setState({
                                 address: (address) ? address : "",
                                 area: (area) ? area : "",
                                 city: (city) ? city : "",
                                 state: (state) ? state : "",
+                                country: (country)? state : "",
                             })
                         })
                 })
@@ -118,20 +121,35 @@ class Map extends React.Component {
         }
     };
 
+    getCountry = (addressArray) => {
+        let country = '';
+        for (let i = 0; i < addressArray.length; i++) {
+            if (addressArray[i].types[0] && 'country' === addressArray[i].types[0]) {
+                country = addressArray[i].long_name;
+                console.log(country);
+                return country;
+            }
+        }
+    };
+
     onMarkerDragEnd = (event) => {
         let newLat = event.latLng.lat();
         let newLng = event.latLng.lng();
-        console.log(newLng, newLat);
+        //console.log(newLng, newLat);
 
         Geocode.fromLatLng(newLat, newLng)
             .then(response => {
+                console.log("This is the response from GeoCode ");
                 console.log(response);
                 const address = response.results[0].formatted_address,
                     addressArray = response.results[0].address_components,
                     city = this.getCity(addressArray),
                     area = this.getArea(addressArray),
                     state = this.getState(addressArray);
+                    //this.getCountry(addressArray);
+                    console.log("This is the address " + address);
                     console.log(address);
+                    console.log(addressArray);
 
                 this.setState({
                     address: (address) ? address : "",
@@ -162,13 +180,15 @@ class Map extends React.Component {
             console.log(this.autocomplete.getPlace())
          
         const place = this.autocomplete.getPlace();
+        console.log("this is Place");
         console.log(place);
         const address = place.formatted_address,
-            placeId = place.place_id,
-            addressArray = place.address_components;
+              placeId = place.place_id,
+              addressArray = place.address_components;
         const city = this.getCity(addressArray),
               area = this.getArea(addressArray),
               state = this.getState(addressArray),
+              country = this.getCountry(addressArray),
               newLat = place.geometry.location.lat(),
               newLng = place.geometry.location.lng();
         const placeName = place.name;
@@ -181,6 +201,7 @@ class Map extends React.Component {
             area: (area) ? area : "",
             city: (city) ? city : "",
             state: (state) ? state : "",
+            country: (country)? country: "",
             markerPosition: {
                 lat: newLat,
                 lng: newLng,
@@ -200,8 +221,11 @@ class Map extends React.Component {
             placeId: this.state.placeId,
             placeName: this.state.placeName,
             fulladdress: this.state.address,
+            placeArea: this.state.area,
+            placeCountry: this.state.country,
         }
         // Reducer call to update the name of the facility and address
+        console.log("This is Map Location");
         console.log(mapLocation);
         this.props.getLocation(mapLocation);
     };
