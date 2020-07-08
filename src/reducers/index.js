@@ -939,7 +939,6 @@ const locationsReducer = (locations = defaultLocations, action) => {
         let indexToRemove = newArray.findIndex((item) => {
            return action.location_id == item.id;
         });
-        console.log("inside locations:" + indexToRemove)
         newArray.splice(indexToRemove, 1);
         return newArray;
     }
@@ -976,7 +975,6 @@ const currentViewReducer = (currentView = defaultView, action) => {
             return action.location_id == id;
         });
         newArray.splice(indexToRemove, 1);
-        console.log("inside currentView: " + indexToRemove)
         return {
             ...currentView,
             byID: {
