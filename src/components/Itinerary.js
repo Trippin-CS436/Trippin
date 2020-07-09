@@ -6,6 +6,8 @@ import './Itinerary.css';
 import Collapsible from "react-collapsible";
 import "./Expandable.css"
 import City from "./City";
+import Map from "./Map";
+import LocationButton from "./LocationButton";
 
 
 class Itinerary extends React.Component {
@@ -53,6 +55,8 @@ class Itinerary extends React.Component {
                 <h1>{this.props.itinerary.name}</h1>
                 {this.renderItinerary()}
                 <City/>
+                <LocationButton/>
+                <Map className={"map"}/>
             </React.Fragment>
         )
     }

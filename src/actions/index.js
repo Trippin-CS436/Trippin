@@ -34,6 +34,16 @@ export const deleteLocation = (id) => {
     };
 };
 
+export const addLocation = (id,name,address,cityID) => {
+    return {
+        type: 'NEW_LOCATION',
+        location_id: id,
+        location_name: name,
+        location_address: address,
+        cityID: cityID,
+    };
+};
+
 export const changeView = (country,city,locations) => {
     let cityLocationsID = locations.filter((location)=>{
         return location.cityID == city.id;

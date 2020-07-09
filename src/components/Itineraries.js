@@ -5,7 +5,7 @@ import './Itinerary.css';
 import Map from "./Map";
 import MapInfo from "./MapInfo";
 import Navbar from "./Navbar";
-
+import LocationButton from "./LocationButton";
 class Itineraries extends React.Component {
     constructor(props){
         super(props);
@@ -22,6 +22,7 @@ class Itineraries extends React.Component {
                     <div className="bottom-panel">
                     <MapInfo />
                     </div>
+                    <LocationButton/>
                 </div>
                 <div className={`${classes.rightPanel} ${classes.table}`}>
                     <City/>

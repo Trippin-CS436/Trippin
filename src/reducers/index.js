@@ -23,8 +23,9 @@ const currentLocationReducer = (currentLocation = {name: "", address: "", info: 
         currentLocation.notes = action.text;
         console.log(JSON.stringify(currentLocation));
         return currentLocation;
-    } return currentLocation;
-}
+    }
+    return currentLocation;
+};
 
 
 
@@ -946,6 +947,17 @@ const locationsReducer = (locations = defaultLocations, action) => {
         newArray.splice(indexToRemove, 1);
         return newArray;
     }
+    else if (action.type === "NEW_LOCATION"){
+        let newLocation = {
+            id: action.location_id,
+            location: action.location_name,
+            address: action.location_address,
+            cityID: action.cityID,
+        };
+        console.log("Adding new location: ")
+        console.log(newLocation)
+        return locations.concat(newLocation);
+    }
     return locations;
 };
 
@@ -989,6 +1001,16 @@ const currentViewReducer = (currentView = defaultView, action) => {
     }
     else if(action.type === "CHANGE_VIEW"){
         return action.newView;
+    }
+    else if(action.type === "NEW_LOCATION"){
+        let newLocations = currentView.byID.locations.concat(action.location_id);
+        return{
+            ...currentView,
+            byID: {
+                ...currentView.byID,
+                locations: newLocations,
+            }
+        }
     }
     return currentView;
 };
