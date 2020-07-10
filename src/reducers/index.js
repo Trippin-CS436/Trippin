@@ -954,10 +954,9 @@ const locationsReducer = (locations = defaultLocations, action) => {
             address: action.location_address,
             cityID: action.cityID,
         };
-        console.log("Adding new location: ")
-        console.log(newLocation)
         return locations.concat(newLocation);
-    } else if (action.type === "RENDER_LOCATION"){
+    }
+    else if (action.type === "RENDER_LOCATION"){
         return action.payload;
     }
     return locations;
@@ -983,36 +982,11 @@ const defaultView = {
     byID:{
         country: 0,
         city: 0,
-        locations: [0,1,2,3,4],
     }
 };
 const currentViewReducer = (currentView = defaultView, action) => {
-    if (action.type === "DEL_LOCATION"){
-        let newArray = currentView.byID.locations.slice();
-        let indexToRemove = newArray.findIndex((id) => {
-            return action.location_id == id;
-        });
-        newArray.splice(indexToRemove, 1);
-        return {
-            ...currentView,
-            byID: {
-                ...currentView.byID,
-                locations: newArray,
-            }
-        };
-    }
-    else if(action.type === "CHANGE_VIEW"){
+   if(action.type === "CHANGE_VIEW"){
         return action.newView;
-    }
-    else if(action.type === "NEW_LOCATION"){
-        let newLocations = currentView.byID.locations.concat(action.location_id);
-        return{
-            ...currentView,
-            byID: {
-                ...currentView.byID,
-                locations: newLocations,
-            }
-        }
     }
     return currentView;
 };

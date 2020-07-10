@@ -47,7 +47,7 @@ class Itinerary extends React.Component {
                 {this.props.cities.filter(function(city){
                     return city.countryID == country.id;
                 }).map(function(city,index){
-                    return (<div key={index} className="stripe item-font" onClick={() => this.props.changeView(country,city,locations)}>{city.name}</div>)
+                    return (<div key={index} className="stripe item-font" onClick={() => this.props.changeView(country,city)}>{city.name}</div>)
                 },this)
                 }
             </Collapsible>

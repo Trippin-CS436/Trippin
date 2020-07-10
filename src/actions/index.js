@@ -52,17 +52,10 @@ export const renderLocation = (locations) => {
 }
 
 export const changeView = (country,city,locations) => {
-    let cityLocationsID = locations.filter((location)=>{
-        return location.cityID == city.id;
-    }).map((location) => {
-        return location.id;
-    });
-
     let view = {
         byID: {
             country: country.id,
             city: city.id,
-            locations: cityLocationsID,
         }
     };
     return {

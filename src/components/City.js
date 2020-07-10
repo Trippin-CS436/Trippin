@@ -14,10 +14,6 @@ class City extends React.Component {
         };
     }
     render() {
-        let locationsToRenderID = this.props.currentView.byID.locations;
-        let locationsToRender = this.props.locations.filter(function(loc){
-            return locationsToRenderID.includes(loc.id);
-        });
         let cityToRenderID = this.props.currentView.byID.city;
         let cityToRender = this.props.cities.filter(function(city){
             return city.id == cityToRenderID;
@@ -29,6 +25,10 @@ class City extends React.Component {
             return country.id == countryToRenderID;
         });
         countryToRender = countryToRender[0];
+
+        let locationsToRender = this.props.locations.filter(function(loc){
+            return loc.cityID == cityToRenderID;
+        });
         return(
             <div className={"cityDiv"}>
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
