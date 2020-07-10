@@ -961,17 +961,17 @@ const locationsReducer = (locations = defaultLocations, action) => {
     return locations;
 };
 
-const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : ["2020/08/20 - 2020/08/22"]},
-    {name: "San Francisco", id: 1, countryID: 1, dateRanges : ["2021/11/11 - 2021/12/12"]},
-    {name: "Victoria", id: 2, countryID: 0, dateRanges : ["2020/08/23 - 2020/08/25"]}];
+const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/21"}]},
+    {name: "San Francisco", id: 1, countryID: 1, dateRanges : [{start: "2020/08/21", end: "2020/08/22"}]},
+    {name: "Victoria", id: 2, countryID: 0, dateRanges : [{start: "2020/08/22", end: "2020/08/23"}]}];
 const cityReducer = (cities = defaultCities, action) =>{
 
     return cities;
 };
 
 
-const defaultCountries = [{name: "Canada", id: 0, dateRanges : ["2020/08/20 - 2020/08/25"]},
-    {name: "United States", id: 1, dateRanges : ["2020/08/20 - 2020/08/22"]}];
+const defaultCountries = [{name: "Canada", id: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/25"}]},
+    {name: "United States", id: 1, dateRanges : [{start: "2020/08/25", end: "2020/08/28"}]}];
 const countryReducer = (countries = defaultCountries, action) =>{
 
     return countries;

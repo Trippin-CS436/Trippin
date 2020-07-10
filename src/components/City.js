@@ -4,6 +4,7 @@ import './Iteneraries.css';
 import Notes from "./Notes";
 import {deleteLocation} from "../actions";
 import {connect} from 'react-redux';
+import Dates from "./Dates";
 
 
 class City extends React.Component {
@@ -31,13 +32,7 @@ class City extends React.Component {
         return(
             <div className={"cityDiv"}>
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
-                <div className={"datesDiv"}>
-                    <ul className={"zeroPad zeroMarg"}>
-                        {cityToRender.dateRanges.map((date,index) => (
-                            <li key={index}>{date}</li>
-                        ))}
-                    </ul>
-                </div>
+                <Dates place={cityToRender} class={"datesDiv"}/>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (
