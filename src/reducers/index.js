@@ -11,9 +11,6 @@ const currentLocation = {
 }
 
 
-
-
-
 /*** Handles all changes to current location
  * params =
  *      currentLocation - currentLocation selected in the itinerary list for editting
@@ -26,8 +23,9 @@ const currentLocationReducer = (currentLocation = {name: "", address: "", info: 
         currentLocation.notes = action.text;
         console.log(JSON.stringify(currentLocation));
         return currentLocation;
-    } return currentLocation;
-}
+    }
+    return currentLocation;
+};
 
 
 
@@ -936,27 +934,44 @@ const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffit
     {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0},
     {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0},
     {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0},
-    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0}];
+    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 100},
+    {id:6, location: "Craigdarroch Castle", address: "1050 Joan Crescent, Victoria, BC V8S 3L5", cityID: 2},
+    {id:7, location: "Alcatraz Island", address: "San Francisco, CA 94133, United States", cityID: 1},];
 
 const locationsReducer = (locations = defaultLocations, action) => {
     if (action.type === "DEL_LOCATION"){
         let newArray = locations.slice();
-        newArray.splice(action.location_index, 1);
+        let indexToRemove = newArray.findIndex((item) => {
+           return action.location_id == item.id;
+        });
+        newArray.splice(indexToRemove, 1);
         return newArray;
+    }
+    else if (action.type === "NEW_LOCATION"){
+        let newLocation = {
+            id: action.location_id,
+            location: action.location_name,
+            address: action.location_address,
+            cityID: action.cityID,
+        };
+        console.log("Adding new location: ")
+        console.log(newLocation)
+        return locations.concat(newLocation);
     }
     return locations;
 };
 
-const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : ["2020/08/20 - 2020/08/22"]},
-    {name: "San Francisco", id: 1, countryID: 1, dateRanges : ["2021/11/11 - 2021/12/12"]}];
+const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/21"}]},
+    {name: "San Francisco", id: 1, countryID: 1, dateRanges : [{start: "2020/08/21", end: "2020/08/22"}]},
+    {name: "Victoria", id: 2, countryID: 0, dateRanges : [{start: "2020/08/22", end: "2020/08/23"}]}];
 const cityReducer = (cities = defaultCities, action) =>{
 
     return cities;
 };
 
 
-const defaultCountries = [{name: "Canada", id: 0, dateRanges : ["2020/08/20 - 2020/08/22"]},
-    {name: "United States", id: 1, dateRanges : ["2020/08/20 - 2020/08/22"]}];
+const defaultCountries = [{name: "Canada", id: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/25"}]},
+    {name: "United States", id: 1, dateRanges : [{start: "2020/08/25", end: "2020/08/28"}]}];
 const countryReducer = (countries = defaultCountries, action) =>{
 
     return countries;
@@ -972,7 +987,10 @@ const defaultView = {
 const currentViewReducer = (currentView = defaultView, action) => {
     if (action.type === "DEL_LOCATION"){
         let newArray = currentView.byID.locations.slice();
-        newArray.splice(action.location_index, 1);
+        let indexToRemove = newArray.findIndex((id) => {
+            return action.location_id == id;
+        });
+        newArray.splice(indexToRemove, 1);
         return {
             ...currentView,
             byID: {
@@ -980,6 +998,19 @@ const currentViewReducer = (currentView = defaultView, action) => {
                 locations: newArray,
             }
         };
+    }
+    else if(action.type === "CHANGE_VIEW"){
+        return action.newView;
+    }
+    else if(action.type === "NEW_LOCATION"){
+        let newLocations = currentView.byID.locations.concat(action.location_id);
+        return{
+            ...currentView,
+            byID: {
+                ...currentView.byID,
+                locations: newLocations,
+            }
+        }
     }
     return currentView;
 };
