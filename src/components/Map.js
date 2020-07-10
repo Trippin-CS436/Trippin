@@ -126,7 +126,6 @@ class Map extends React.Component {
         for (let i = 0; i < addressArray.length; i++) {
             if (addressArray[i].types[0] && 'country' === addressArray[i].types[0]) {
                 country = addressArray[i].long_name;
-                console.log(country);
                 return country;
             }
         }
@@ -169,17 +168,13 @@ class Map extends React.Component {
     };
 
     onLoad = (autocomplete) => {
-        console.log('autocomplete: ', autocomplete);
-        this.autocomplete = autocomplete;
-        // this.autocomplete.addListener('place_changed', this.onPlaceChanged);
-    };
+        console.log('autocomplete: ', autocomplete)
+        this.autocomplete = autocomplete
+      }
 
     onPlaceChanged = () => {
-        // if (this.autocomplete !== null) {
-            // console.log(this.autocomplete.getPlace())
-         
+        
         const place = this.autocomplete.getPlace();
-        console.log("this is Place");
         console.log(place);
         const address = place.formatted_address,
               placeId = place.place_id,
