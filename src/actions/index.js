@@ -44,6 +44,13 @@ export const addLocation = (id,name,address,cityID) => {
     };
 };
 
+export const renderLocation = (locations) => {
+    return{
+        type: "RENDER_LOCATION",
+        payload: locations
+    }
+}
+
 export const changeView = (country,city,locations) => {
     let cityLocationsID = locations.filter((location)=>{
         return location.cityID == city.id;

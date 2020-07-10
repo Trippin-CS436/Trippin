@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { changeView } from '../actions';
+import { changeView, renderLocation } from '../actions';
 import './Itinerary.css';
 import './Iteneraries.css';
 import Collapsible from "react-collapsible";
@@ -8,6 +8,7 @@ import City from "./City";
 import Map from "./Map";
 import LocationButton from "./LocationButton";
 import Dates from "./Dates";
+import axios from "axios";
 
 
 class Itinerary extends React.Component {
@@ -18,6 +19,18 @@ class Itinerary extends React.Component {
 
         };
     }
+
+    componentDidMount(){
+        axios.get("http://localhost:9000/itinerary/").
+        then(response => {
+            console.log(response.data);
+            //console.log(response.data.locations);
+            this.props.renderLocation(response.data[0].locations);
+            console.log("API get is called" + this.props.locations)})
+        .catch(err => console.log("Err" + err));
+        console.log("GOT HERE!!!!");
+    }
+
 
     renderItinerary() {
         const content = [];
@@ -70,4 +83,4 @@ const mapStateToProps = (state) => { //name is by convention
 };
 
 
-export default connect(mapStateToProps, {changeView})(Itinerary);
+export default connect(mapStateToProps, {changeView, renderLocation})(Itinerary);

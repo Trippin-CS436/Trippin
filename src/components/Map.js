@@ -17,7 +17,7 @@ import { getLocation} from '../actions/getLocation';
 Geocode.setApiKey(process.env.REACT_APP_API_KEY);
 
 const containerStyle = {
-    width: '100%',
+    width: '45vw',
     height: '100%'
 };
 
@@ -234,10 +234,10 @@ class Map extends React.Component {
 
             <div style={{ width: '500px', height: '500px'}}>
                 <Descriptions bordered>
-                    <Descriptions.Item label="City">{this.state.city}</Descriptions.Item>
-                    <Descriptions.Item label="Area">{this.state.area}</Descriptions.Item>
-                    <Descriptions.Item label="State">{this.state.state}</Descriptions.Item>
-                    <Descriptions.Item label="Address">{this.state.address}</Descriptions.Item>
+                    <Descriptions.Item label="City ">{this.state.city + " "}</Descriptions.Item>
+                    <Descriptions.Item label="Area ">{this.state.area + " "}</Descriptions.Item>
+                    <Descriptions.Item label="State ">{this.state.state+ " "}</Descriptions.Item>
+                    <Descriptions.Item label="Address ">{this.state.address+ " "}</Descriptions.Item>
                 </Descriptions>
 
                 <LoadScript
