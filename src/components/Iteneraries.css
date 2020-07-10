@@ -25,13 +25,14 @@ h1{
 .datesDiv ul{
     list-style-type: none;
     overflow: hidden;
+    display: inline-block;
 }
 .datesDiv ul li{
     float: left;
     font-size: 18px;
 }
 .locationsDiv{
-    margin: 30px 10px 15px 15px;
+    margin: 20px 10px 15px 15px;
     position: relative;
 }
 .locationsDiv ul{

@@ -6,11 +6,12 @@ import Popup from "reactjs-popup";
 class Dates extends React.Component{
 
     render() {
-        let datesComponent = <ul className={"zeroPad zeroMarg"}>
-            {this.props.place.dateRanges.map((date,index) => (
-                <li key={index}>{date.start + " - " + date.end}</li>
-            ))}
-        </ul>
+        let datesComponent =
+            <ul className={"zeroPad zeroMarg"}>
+                {this.props.place.dateRanges.map((date,index) => (
+                    <li key={index}>{date.start + " - " + date.end}</li>
+                ))}
+            </ul>;
         return(
             <div className={this.props.class}>
 
