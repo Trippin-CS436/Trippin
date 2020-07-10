@@ -5,25 +5,9 @@ import '../index.css';
 const currentLocation = {
     Name: "",
     Address: "",
-    PlacesId: ""
+    PlacesId: "", 
+    Info: {}
 }
-
-
-/*** Handles all changes to current location
- * params =
- *      currentLocation - currentLocation selected in the itinerary list for editting
- *       action - valid actions are addNotes
- *              - (should also be able to have a setCurrentLocation that changes current location when selected) ***/
-const currentLocationReducer = (currentLocation = {name: "", address: "", info: {}, notes: ""}, action) => {
-    if (action.type === 'ADD_NOTES') {
-        // change the notes of current location to the action.text
-        console.log(action.text + "hereherehhere");
-        currentLocation.notes = action.text;
-        console.log(JSON.stringify(currentLocation));
-        return currentLocation;
-    } return currentLocation;
-}
-
 
 
 const mapLocationReducer = (state = currentLocation, action) => {
@@ -33,9 +17,9 @@ const mapLocationReducer = (state = currentLocation, action) => {
                 ...state,
                 Name: action.payload.placeName,
                 Address: action.payload.fulladdress,
-                PlacesId: action.payload.placeId
+                PlacesId: action.payload.placeId,
+                Info: action.payload.info
             }
-
         default:
             return state;
     }
@@ -902,6 +886,8 @@ let jsonObj = [{
 
 ];
 
+
+
 const listReducer = (lists = jsonObj, action) => {
     if (action.type === 'ADD_MSG') {
         return [...lists, action.addMsg];
@@ -924,19 +910,27 @@ const selector = (msgId = 0, action) => {
 // Learn more about service workers: https://bit.ly/CRA-PWA
 
 
-const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1", cityID: 0},
-    {id:1, location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1", cityID: 0},
-    {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0},
-    {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0},
-    {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0},
-    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0}];
+
+
+
+const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1", cityID: 0, notes: "", info: {}},
+    {id:1, location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1", cityID: 0, notes: "", info: {}},
+    {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0, notes: "", info: {}},
+    {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0, note: "", info: {}},
+    {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0, notes: "", info: {}},
+    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0, notes: "", info: {}}];
 
 const locationsReducer = (locations = defaultLocations, action) => {
+    if (action.type === "ADD_LOCATION"){
+        locations.push(action.add);
+        return locations;
+    }
     if (action.type === "DEL_LOCATION"){
         let newArray = locations.slice();
         newArray.splice(action.location_index, 1);
         return newArray;
     }
+
     return locations;
 };
 
@@ -962,7 +956,20 @@ const defaultView = {
         locations: [0,1,2,3,4],
     }
 };
+
+
 const currentViewReducer = (currentView = defaultView, action) => {
+    if (action.type === "ADD_LOCATION"){
+        let newArray = currentView.byID.locations.slice();
+        newArray.push(action.add.id);
+        return {
+            ...currentView,
+            byID: {
+                ...currentView.byID,
+                locations: newArray,
+            }
+        };
+    }
     if (action.type === "DEL_LOCATION"){
         let newArray = currentView.byID.locations.slice();
         newArray.splice(action.location_index, 1);
@@ -977,6 +984,23 @@ const currentViewReducer = (currentView = defaultView, action) => {
     return currentView;
 };
 
+
+/*** Handles all changes to current location
+ * params =
+ *      currentLocation - currentLocation selected in the itinerary list for editting
+ *       action - valid actions are addNotes
+ *              - (should also be able to have a setCurrentLocation that changes current location when selected) ***/
+const currentLocationReducer = (currentLocation = {name: "", address: "", info: {}, notes: ""}, action) => {
+    if (action.type === 'ADD_NOTES') {
+        // change the notes of current location to the action.text
+        console.log(action.text + "hereherehhere");
+        currentLocation.notes = action.text;
+        console.log(JSON.stringify(currentLocation));
+        return currentLocation;
+    } 
+     return currentLocation;
+}
+
 const itineraryReducer = (itinerary = {name: "Test itinerary", dateRanges : ["2020/08/20 - 2020/08/22"]}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
@@ -984,12 +1008,14 @@ const itineraryReducer = (itinerary = {name: "Test itinerary", dateRanges : ["20
             name: action.name
         };
     }
-    else if (action.type === "ADD_LOCATION") {
+    else if (action.type === "ADD_LOCATION___NULL") {
         itinerary.push(action.add);
         return itinerary;
     }
     return itinerary;
 };
+
+
 export default combineReducers({
     locations: locationsReducer,
     itinerary: itineraryReducer,

@@ -172,6 +172,25 @@ class Map extends React.Component {
               newLng = place.geometry.location.lng();
         const placeName = place.name;
 
+        // location info
+        const placeWebsite = place.website;
+        const placeReviews = place.reviews;
+        const placePhotos = place.photos;
+        const placePhoneNumber = place.formatted_phone_number;
+        const placeRating = place.rating;
+        const placeTypes = place.types;
+        const placeStatus = place.business_status;
+
+        const info = {
+            placeWebsite: placeWebsite,
+            placeReviews: placeReviews,
+            placePhotos: placePhotos,
+            placePhoneNumber: placePhoneNumber,
+            placeRating: placeRating,
+            placeTypes: placeTypes,
+            placeStatus: placeStatus
+        }
+
 
         this.setState({
             placeId: (placeId) ? placeId: "",
@@ -187,7 +206,8 @@ class Map extends React.Component {
             mapPosition: {
                 lat: newLat,
                 lng: newLng,
-            }
+            }, 
+            info: info
         })
 
     // } else {
@@ -199,9 +219,10 @@ class Map extends React.Component {
             placeId: this.state.placeId,
             placeName: this.state.placeName,
             fulladdress: this.state.address,
+            info: this.state.info, 
         }
         // Reducer call to update the name of the facility and address
-        console.log(mapLocation);
+        console.log('OnPlaceChange call', mapLocation);
         this.props.getLocation(mapLocation);
     };
 
