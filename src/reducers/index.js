@@ -957,6 +957,8 @@ const locationsReducer = (locations = defaultLocations, action) => {
         console.log("Adding new location: ")
         console.log(newLocation)
         return locations.concat(newLocation);
+    } else if (action.type === "RENDER_LOCATION"){
+        return action.payload;
     }
     return locations;
 };
