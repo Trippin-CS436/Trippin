@@ -8,6 +8,7 @@ const currentLocation = {
     PlacesId: "ChIJK7VbnXxxhlQRCbKQyeRwBJ4",
     Area: "",
     Country: "",
+    Info: {}
 }
 
 
@@ -37,6 +38,7 @@ const mapLocationReducer = (state = currentLocation, action) => {
                 Name: action.payload.placeName,
                 Address: action.payload.fulladdress,
                 PlacesId: action.payload.placeId,
+                Info: action.payload.info,
                 Area: action.payload.placeArea,
                 Country: action.payload.placeCountry
             }
@@ -929,17 +931,24 @@ const selector = (msgId = 0, action) => {
 // Learn more about service workers: https://bit.ly/CRA-PWA
 
 
-const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1", cityID: 0},
-    {id:1, location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1", cityID: 0},
-    {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0},
-    {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0},
-    {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0},
-    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 100},
-    {id:6, location: "Craigdarroch Castle", address: "1050 Joan Crescent, Victoria, BC V8S 3L5", cityID: 2},
-    {id:7, location: "Alcatraz Island", address: "San Francisco, CA 94133, United States", cityID: 1},];
+
+
+
+const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1", cityID: 0, notes: "", info: {}},
+    {id:1, location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1", cityID: 0, notes: "", info: {}},
+    {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0, notes: "", info: {}},
+    {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0, note: "", info: {}},
+    {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0, notes: "", info: {}},
+    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0, notes: "", info: {}}
+    {id:6, location: "Craigdarroch Castle", address: "1050 Joan Crescent, Victoria, BC V8S 3L5", cityID: 2, notes: "", info: {}},
+    {id:7, location: "Alcatraz Island", address: "San Francisco, CA 94133, United States", cityID: 1, notes: "", info: {}},];
 
 const locationsReducer = (locations = defaultLocations, action) => {
-    if (action.type === "DEL_LOCATION"){
+    if (action.type === "ADD_LOCATION"){
+        locations.push(action.add);
+        return locations;
+    }
+    else if (action.type === "DEL_LOCATION"){
         let newArray = locations.slice();
         let indexToRemove = newArray.findIndex((item) => {
            return action.location_id == item.id;
@@ -953,6 +962,8 @@ const locationsReducer = (locations = defaultLocations, action) => {
             location: action.location_name,
             address: action.location_address,
             cityID: action.cityID,
+            notes: "",
+            info: {},
         };
         return locations.concat(newLocation);
     }
@@ -998,7 +1009,7 @@ const itineraryReducer = (itinerary = {name: "Test itinerary", dateRanges : ["20
             name: action.name
         };
     }
-    else if (action.type === "ADD_LOCATION") {
+    else if (action.type === "ADD_LOCATION___NULL") {
         itinerary.push(action.add);
         return itinerary;
     }

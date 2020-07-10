@@ -7,16 +7,14 @@ import MapInfo from "./MapInfo";
 import Navbar from "./Navbar";
 import LocationButton from "./LocationButton";
 class Itineraries extends React.Component {
-    constructor(props){
-        super(props);
-    }
+
     render() {
         const { classes } = this.props;
         return(
             <React.Fragment>
             <div className={classes.bg}>
                 <div className={classes.leftPanel}>
-                    <div className= "top-panel">
+                    <div className= {"top-panel"}>
                     <Map />
                     </div>
                     <div className="bottom-panel">

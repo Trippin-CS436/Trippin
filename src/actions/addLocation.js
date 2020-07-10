@@ -1,6 +1,6 @@
-export const addNotes = location => {
+export const addLocation = location => {
     return {
         type: 'ADD_LOCATION',
-        text: location
+        add: location
     };
 };

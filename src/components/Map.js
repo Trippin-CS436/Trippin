@@ -10,7 +10,7 @@ import {
 import Geocode from "react-geocode";
 import { Descriptions } from 'antd';
 import { connect } from 'react-redux';
-import { getLocation} from '../actions/getLocation';
+import { getLocation } from '../actions/getLocation';
 
 
 
@@ -138,17 +138,13 @@ class Map extends React.Component {
 
         Geocode.fromLatLng(newLat, newLng)
             .then(response => {
-                console.log("This is the response from GeoCode ");
                 console.log(response);
                 const address = response.results[0].formatted_address,
                     addressArray = response.results[0].address_components,
                     city = this.getCity(addressArray),
                     area = this.getArea(addressArray),
                     state = this.getState(addressArray);
-                    //this.getCountry(addressArray);
-                    console.log("This is the address " + address);
                     console.log(address);
-                    console.log(addressArray);
 
                 this.setState({
                     address: (address) ? address : "",
@@ -168,17 +164,20 @@ class Map extends React.Component {
     };
 
     onLoad = (autocomplete) => {
-        console.log('autocomplete: ', autocomplete)
-        this.autocomplete = autocomplete
-      }
+        console.log('autocomplete: ', autocomplete);
+        this.autocomplete = autocomplete;
+        // this.autocomplete.addListener('place_changed', this.onPlaceChanged);
+    };
 
     onPlaceChanged = () => {
-        
+        // if (this.autocomplete !== null) {
+            // console.log(this.autocomplete.getPlace())
+         
         const place = this.autocomplete.getPlace();
         console.log(place);
         const address = place.formatted_address,
-              placeId = place.place_id,
-              addressArray = place.address_components;
+            placeId = place.place_id,
+            addressArray = place.address_components;
         const city = this.getCity(addressArray),
               area = this.getArea(addressArray),
               state = this.getState(addressArray),
@@ -186,6 +185,25 @@ class Map extends React.Component {
               newLat = place.geometry.location.lat(),
               newLng = place.geometry.location.lng();
         const placeName = place.name;
+
+        // location info
+        const placeWebsite = place.website;
+        const placeReviews = place.reviews;
+        const placePhotos = place.photos;
+        const placePhoneNumber = place.formatted_phone_number;
+        const placeRating = place.rating;
+        const placeTypes = place.types;
+        const placeStatus = place.business_status;
+
+        const info = {
+            placeWebsite: placeWebsite,
+            placeReviews: placeReviews,
+            placePhotos: placePhotos,
+            placePhoneNumber: placePhoneNumber,
+            placeRating: placeRating,
+            placeTypes: placeTypes,
+            placeStatus: placeStatus
+        }
 
 
         this.setState({
@@ -203,7 +221,8 @@ class Map extends React.Component {
             mapPosition: {
                 lat: newLat,
                 lng: newLng,
-            }
+            },
+            info: info
         })
 
     // } else {
@@ -217,8 +236,10 @@ class Map extends React.Component {
             fulladdress: this.state.address,
             placeArea: this.state.area,
             placeCountry: this.state.country,
+            info: this.state.info,
         }
         // Reducer call to update the name of the facility and address
+        console.log('OnPlaceChange call', mapLocation);
         console.log("This is Map Location");
         console.log(mapLocation);
         this.props.getLocation(mapLocation);
