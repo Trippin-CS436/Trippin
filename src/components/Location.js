@@ -20,14 +20,17 @@ class Location extends React.Component {
     handleEditBtnClick() {
         this.setState({
             currentLocation: this.state.currentLocation,
-            showNote: !this.state.showNotes
+            showNotes: !this.state.showNotes
         })
     }
 
     renderSubComp(){
-       if (this.state.showNote) {
+       if (this.state.showNotes) {
          return <Notes/>
         }
+       else{
+           return null;
+       }
     }
 
     render() {
@@ -38,7 +41,7 @@ class Location extends React.Component {
                 <label className={"location"}>{this.props.name} </label>
                 <label className={"address"}> {this.props.address}</label>
                 <div className={"buttonDiv"}>
-                    <button className={"btn"}>Edit</button>
+                    <button className={"btn"} name="Edit" onClick={this.handleEditBtnClick}>Edit</button>
                     <button className={"btn"} onClick={() => this.props.deleteLocation(this.props.idx)}>Delete</button>
                 </div>
             </div>
