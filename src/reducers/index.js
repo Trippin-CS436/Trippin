@@ -1002,7 +1002,7 @@ const currentViewReducer = (currentView = defaultView, action) => {
     return currentView;
 };
 
-const itineraryReducer = (itinerary = {name: "Test itinerary", dateRanges : ["2020/08/20 - 2020/08/22"]}, action) =>{
+const itineraryReducer = (itinerary = {name: "Test itinerary", dateRanges : [{start: "2020/08/20", end: "2020/08/28"}]}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
             ...itinerary,
