@@ -15,18 +15,18 @@ class City extends React.Component {
 
         let cityToRenderID = this.props.currentView.byID.city;
         let cityToRender = this.props.cities.filter(function(city){
-            return city.id == cityToRenderID;
+            return city.id === cityToRenderID;
         });
         cityToRender = cityToRender[0];
 
         let countryToRenderID = this.props.currentView.byID.country;
         let countryToRender = this.props.countries.filter(function(country){
-            return country.id == countryToRenderID;
+            return country.id === countryToRenderID;
         });
         countryToRender = countryToRender[0];
 
         let locationsToRender = this.props.locations.filter(function(loc){
-            return loc.cityID == cityToRenderID;
+            return loc.cityID === cityToRenderID;
         });
         return(
             <div className={"cityDiv"}>
