@@ -5,10 +5,6 @@ import { GiCalendar, GiDesk, GiChecklist } from "react-icons/gi";
 import "./Home.css"
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render = () => {
         return (
             <React.Fragment>

@@ -1,8 +1,6 @@
 import React from "react";
 import Location from "./Location";
 import './Iteneraries.css';
-import Notes from "./Notes";
-import {deleteLocation} from "../actions";
 import {connect} from 'react-redux';
 
 
@@ -41,7 +39,7 @@ class City extends React.Component {
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (
-                            <li key={index}> <Location idx={index} name={loc.location} address={loc.address}/></li>
+                            <li key={index}> <Location idx={index} name={loc.location} address={loc.address} id={loc.id}/></li>
                         ))}
                     </ul>
                 </div>
