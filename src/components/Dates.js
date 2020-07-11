@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from 'react-redux';
 import Popup from "reactjs-popup";
-import { KeyboardDatePicker,MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { MuiPickersUtilsProvider,DatePicker  } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import format from 'date-fns/format'
 import {startDateChange,endDateChange} from "../actions";
@@ -26,23 +26,18 @@ class Dates extends React.Component{
                             </a>
                             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                 <div className={"DatePicker"}>
-                                    <KeyboardDatePicker
-                                        disableToolbar
-                                        variant="inline"
-                                        format="yyyy/MM/dd"
+                                    <DatePicker
                                         label={"Start Date"}
                                         value={new Date(this.props.place.dateRanges[0].start)}
                                         onChange={this.handleChangeStartDate}
-                                    />
+                                        animateYearScrolling                                    />
                                 </div>
                                 <div className={"DatePicker"}>
-                                    <KeyboardDatePicker
-                                        disableToolbar
-                                        variant="inline"
-                                        format="yyyy/MM/dd"
+                                    <DatePicker
                                         label={"End Date"}
                                         value={new Date(this.props.place.dateRanges[0].end)}
                                         onChange={this.handleChangeEndDate}
+                                        animateYearScrolling
                                     />
                                 </div>
                             </MuiPickersUtilsProvider>
