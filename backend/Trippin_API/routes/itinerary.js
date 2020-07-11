@@ -9,11 +9,19 @@ router.get('/', function(req, res, next) {
   Itinerary.find()
     .then(itinerary => res.json(itinerary))
     .catch(err => res.status(400).json('Error: ' + err));
-}); 
+});
+
+router.get('/exist/:id', function(req, res, next) {
+  //console.log(req.param.id);
+  Itinerary.exists({id: req.param.id})
+  .then(response => {res.send(response); console.log(response);})
+  .catch(err => res.status(400).json('Error: ' + err))
+})
 
 router.post('/save', function(req, res, next) {
   const newItinerary = new Itinerary({id:req.body.id, locations: req.body.locations, cities: req.body.cities, countries: req.body.countries});
   console.log(newItinerary);
+  console.log(newItinerary.id);
   newItinerary.save()
     .then(() => res.json(newItinerary._id))
     .catch(err => res.status(400).json('Error: ' + err));

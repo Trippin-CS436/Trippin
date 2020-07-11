@@ -1046,6 +1046,24 @@ const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{s
     }
     return itinerary;
 };
+
+const currentItineraryReducer = (currentItinerary = null, action) => {
+    if(action.type === "SAVE_ITINERARY") {
+        return action.payload;
+    } 
+
+    return currentItinerary;
+}
+
+const currentItineraryObjectIDReudcer = (id = null, action) => {
+    if(action.type === "GET_CURRENT_ITINERARY_ID") {
+        return action.payload;
+    }
+    
+    return id;
+}
+
+
 export default combineReducers({
     locations: locationsReducer,
     itinerary: itineraryReducer,
@@ -1056,4 +1074,6 @@ export default combineReducers({
     currentLocation: currentLocationReducer,
     lists: listReducer,
     msgId: selector,
+    currentItinerary: currentItineraryReducer,
+    currentItineraryID: currentItineraryObjectIDReudcer
 });

@@ -109,3 +109,17 @@ export const itineraryNameChange = (name) => {
         name: name,
     };
 };
+
+export const saveItinerary= (itinerary) => {
+    return {
+        type: 'SAVE_ITINERARY',
+        payload: itinerary
+    }
+}
+
+export const getCurrentItineraryID = (id) => {
+    return {
+        type: "GET_CURRENT_ITINERARY_ID",
+        payload: id
+    }
+}

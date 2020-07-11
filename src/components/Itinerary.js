@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { changeView, renderLocation } from '../actions';
+import { changeView, renderLocation, getCurrentItineraryID} from '../actions';
 import './Itinerary.css';
 import './Iteneraries.css';
 import Collapsible from "react-collapsible";
@@ -26,8 +26,14 @@ class Itinerary extends React.Component {
         then(response => {
             console.log(response.data);
             //console.log(response.data.locations);
+            if(response.data.size > 0){
             this.props.renderLocation(response.data[0].locations);
-            console.log("API get is called" + this.props.locations)})
+            this.props.getCurrentItineraryID(response.data[0]._id);
+            console.log("API get is called" + this.props.locations);
+        } else {
+            this.props.renderLocation([]);
+        }
+    })
         .catch(err => console.log("Err" + err));
         console.log("GOT HERE!!!!");
     }
@@ -85,4 +91,4 @@ const mapStateToProps = (state) => { //name is by convention
 };
 
 
-export default connect(mapStateToProps, {changeView, renderLocation})(Itinerary);
+export default connect(mapStateToProps, {changeView, renderLocation, getCurrentItineraryID})(Itinerary);
