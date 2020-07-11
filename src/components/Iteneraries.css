@@ -1,6 +1,9 @@
 h2{
     margin: 10px 10px 0 10px;
 }
+h1{
+    margin: 10px 10px 0 10px;
+}
 .zeroPad{
     padding: 0;
 }
@@ -24,6 +27,7 @@ h2{
 .datesDiv ul{
     list-style-type: none;
     overflow: hidden;
+    display: inline-block;
 }
 .datesDiv ul li{
     float: left;
@@ -99,4 +103,14 @@ h2{
     width: 80%;
 }
 
+.addLocationButton{
+    background-color: #008CBA; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
 

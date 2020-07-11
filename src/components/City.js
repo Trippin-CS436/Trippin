@@ -2,6 +2,7 @@ import React from "react";
 import Location from "./Location";
 import './Iteneraries.css';
 import {connect} from 'react-redux';
+import Dates from "./Dates";
 
 
 class City extends React.Component {
@@ -11,10 +12,7 @@ class City extends React.Component {
         };
     }
     render() {
-        let locationsToRenderID = this.props.currentView.byID.locations;
-        let locationsToRender = this.props.locations.filter(function(loc){
-            return locationsToRenderID.includes(loc.id);
-        });
+
         let cityToRenderID = this.props.currentView.byID.city;
         let cityToRender = this.props.cities.filter(function(city){
             return city.id == cityToRenderID;
@@ -26,16 +24,14 @@ class City extends React.Component {
             return country.id == countryToRenderID;
         });
         countryToRender = countryToRender[0];
+
+        let locationsToRender = this.props.locations.filter(function(loc){
+            return loc.cityID == cityToRenderID;
+        });
         return(
             <div className={"cityDiv"}>
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
-                <div className={"datesDiv"}>
-                    <ul className={"zeroPad zeroMarg"}>
-                        {cityToRender.dateRanges.map((date,index) => (
-                            <li key={index}>{date}</li>
-                        ))}
-                    </ul>
-                </div>
+                <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (

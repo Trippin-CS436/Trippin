@@ -1,11 +1,11 @@
 import React from "react";
 import { withStyles } from "@material-ui/core";
 import City from "./City";
-import './Iteneraries.css';
+import './Itinerary.css';
 import Map from "./Map";
 import MapInfo from "./MapInfo";
 import Navbar from "./Navbar";
-
+import LocationButton from "./LocationButton";
 class Itineraries extends React.Component {
 
     render() {
@@ -24,7 +24,6 @@ class Itineraries extends React.Component {
             </div>
                 <div><Navbar/></div>
             </React.Fragment>
-
         );
     }
 }

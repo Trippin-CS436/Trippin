@@ -58,7 +58,8 @@ class Notes extends React.Component {
 
 const mapStateToProps = (state) => {
     return { 
-        currentLocation: state.currentLocation
+        currentLocation: state.currentLocation,
+        locations: state.locations,
     }
 }
 

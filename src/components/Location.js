@@ -69,7 +69,7 @@ class Location extends React.Component {
     }
 
     render() {
-    
+
         return(
             <div>
             <div className="location-bar">
@@ -86,7 +86,7 @@ class Location extends React.Component {
                 <NotesOutlinedIcon />
                 </IconButton>
 
-                
+
                 <IconButton className={"btn"} aria-label="Photo" name="Photo" onClick={this.handlePhotoBtnClick}>
                 <AddAPhotoOutlinedIcon />
                 </IconButton>
@@ -115,19 +115,3 @@ const mapStateToProps = (state) =>{
 };
 
 export default connect(mapStateToProps, {deleteLocation})(Location);
-
-// const muiStyles = {
-//     bg: {
-//         position: "absolute",
-//         backgroundImage: `url(${require("../assets/vancouver.jpg")})`,
-//         backgroundSize: "cover",
-//         height: "100vh",
-//         width: "100vw",
-//         top: "0",
-//         left: "0",
-//         color: "#000000",
-//         fontSize: "30px"
-//     }
-// }
-
-// export default withStyles(muiStyles)(Location);

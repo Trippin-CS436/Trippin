@@ -5,9 +5,29 @@ import '../index.css';
 const currentLocation = {
     Name: "",
     Address: "",
-    PlacesId: "", 
+    PlacesId: "ChIJK7VbnXxxhlQRCbKQyeRwBJ4",
+    Area: "",
+    Country: "",
     Info: {}
 }
+
+
+/*** Handles all changes to current location
+ * params =
+ *      currentLocation - currentLocation selected in the itinerary list for editting
+ *       action - valid actions are addNotes
+ *              - (should also be able to have a setCurrentLocation that changes current location when selected) ***/
+const currentLocationReducer = (currentLocation = {name: "", address: "", info: {}, notes: ""}, action) => {
+    if (action.type === 'ADD_NOTES') {
+        // change the notes of current location to the action.text
+        console.log(action.text + "hereherehhere");
+        currentLocation.notes = action.text;
+        console.log(JSON.stringify(currentLocation));
+        return currentLocation;
+    }
+    return currentLocation;
+};
+
 
 
 const mapLocationReducer = (state = currentLocation, action) => {
@@ -18,8 +38,11 @@ const mapLocationReducer = (state = currentLocation, action) => {
                 Name: action.payload.placeName,
                 Address: action.payload.fulladdress,
                 PlacesId: action.payload.placeId,
-                Info: action.payload.info
+                Info: action.payload.info,
+                Area: action.payload.placeArea,
+                Country: action.payload.placeCountry
             }
+
         default:
             return state;
     }
@@ -886,8 +909,6 @@ let jsonObj = [{
 
 ];
 
-
-
 const listReducer = (lists = jsonObj, action) => {
     if (action.type === 'ADD_MSG') {
         return [...lists, action.addMsg];
@@ -918,19 +939,38 @@ const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffit
     {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0, notes: "", info: {}},
     {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0, note: "", info: {}},
     {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0, notes: "", info: {}},
-    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0, notes: "", info: {}}];
+    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 100, notes: "", info: {}},
+    {id:6, location: "Craigdarroch Castle", address: "1050 Joan Crescent, Victoria, BC V8S 3L5", cityID: 2, notes: "", info: {}},
+    {id:7, location: "Alcatraz Island", address: "San Francisco, CA 94133, United States", cityID: 1, notes: "", info: {}},];
 
 const locationsReducer = (locations = defaultLocations, action) => {
     if (action.type === "ADD_LOCATION"){
         locations.push(action.add);
         return locations;
     }
-    if (action.type === "DEL_LOCATION"){
+    else if (action.type === "DEL_LOCATION"){
         let newArray = locations.slice();
-        newArray.splice(action.location_index, 1);
+        let indexToRemove = newArray.findIndex((item) => {
+           return action.location_id == item.id;
+        });
+        newArray.splice(indexToRemove, 1);
         return newArray;
     }
-    if (action.type === "ADD_NOTES"){
+    else if (action.type === "NEW_LOCATION"){
+        let newLocation = {
+            id: action.location_id,
+            location: action.location_name,
+            address: action.location_address,
+            cityID: action.cityID,
+            notes: "",
+            info: {},
+        };
+        return locations.concat(newLocation);
+    }
+    else if (action.type === "RENDER_LOCATION"){
+        return action.payload;
+    }
+    else if (action.type === "ADD_NOTES"){
         let notes = action.add.notes;
         let index = action.add.index;
         console.log(index);
@@ -943,18 +983,50 @@ const locationsReducer = (locations = defaultLocations, action) => {
     return locations;
 };
 
-const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : ["2020/08/20 - 2020/08/22"]},
-    {name: "San Francisco", id: 1, countryID: 1, dateRanges : ["2021/11/11 - 2021/12/12"]}];
+const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/21"}]},
+    {name: "San Francisco", id: 1, countryID: 1, dateRanges : [{start: "2020/08/21", end: "2020/08/22"}]},
+    {name: "Victoria", id: 2, countryID: 0, dateRanges : [{start: "2020/08/22", end: "2020/08/23"}]}];
 const cityReducer = (cities = defaultCities, action) =>{
+    if (action.type === 'START_DATE_CHANGE_CITY'){
+        let newArray = cities.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id == item.id;
+        });
+        newArray[indexToChange].dateRanges[action.dateIndex].start = action.date;
+        return newArray
+    }
+    else if (action.type === 'END_DATE_CHANGE_CITY'){
+        let newArray = cities.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id == item.id;
+        });
+        newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
+        return newArray
+    }
 
     return cities;
 };
 
 
-const defaultCountries = [{name: "Canada", id: 0, dateRanges : ["2020/08/20 - 2020/08/22"]},
-    {name: "United States", id: 1, dateRanges : ["2020/08/20 - 2020/08/22"]}];
+const defaultCountries = [{name: "Canada", id: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/25"}]},
+    {name: "United States", id: 1, dateRanges : [{start: "2020/08/25", end: "2020/08/28"}]}];
 const countryReducer = (countries = defaultCountries, action) =>{
-
+    if (action.type === 'START_DATE_CHANGE_COUNTRY'){
+        let newArray = countries.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id == item.id;
+        });
+        newArray[indexToChange].dateRanges[action.dateIndex].start = action.date;
+        return newArray
+    }
+    else if (action.type === 'END_DATE_CHANGE_COUNTRY'){
+        let newArray = countries.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id == item.id;
+        });
+        newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
+        return newArray
+    }
     return countries;
 };
 
@@ -962,40 +1034,16 @@ const defaultView = {
     byID:{
         country: 0,
         city: 0,
-        locations: [0,1,2,3,4],
     }
 };
-
-
 const currentViewReducer = (currentView = defaultView, action) => {
-    if (action.type === "ADD_LOCATION"){
-        let newArray = currentView.byID.locations.slice();
-        newArray.push(action.add.id);
-        return {
-            ...currentView,
-            byID: {
-                ...currentView.byID,
-                locations: newArray,
-            }
-        };
-    }
-    if (action.type === "DEL_LOCATION"){
-        let newArray = currentView.byID.locations.slice();
-        newArray.splice(action.location_index, 1);
-        return {
-            ...currentView,
-            byID: {
-                ...currentView.byID,
-                locations: newArray,
-            }
-        };
+   if(action.type === "CHANGE_VIEW"){
+        return action.newView;
     }
     return currentView;
 };
 
-
-
-const itineraryReducer = (itinerary = {name: "Test itinerary", dateRanges : ["2020/08/20 - 2020/08/22"]}, action) =>{
+const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{start: "2020/08/20", end: "2020/08/28"}]}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
             ...itinerary,
@@ -1009,6 +1057,22 @@ const itineraryReducer = (itinerary = {name: "Test itinerary", dateRanges : ["20
     return itinerary;
 };
 
+const currentItineraryReducer = (currentItinerary = null, action) => {
+    if(action.type === "SAVE_ITINERARY") {
+        return action.payload;
+    }
+
+    return currentItinerary;
+}
+
+const currentItineraryObjectIDReudcer = (id = null, action) => {
+    if(action.type === "GET_CURRENT_ITINERARY_ID") {
+        return action.payload;
+    }
+
+    return id;
+}
+
 
 export default combineReducers({
     locations: locationsReducer,
@@ -1017,6 +1081,9 @@ export default combineReducers({
     cities: cityReducer,
     countries: countryReducer,
     mapLocation: mapLocationReducer,
+    currentLocation: currentLocationReducer,
     lists: listReducer,
     msgId: selector,
+    currentItinerary: currentItineraryReducer,
+    currentItineraryID: currentItineraryObjectIDReudcer
 });

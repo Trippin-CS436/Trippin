@@ -4,3 +4,4 @@ export const getLocation = location => {
         payload: location,
     }
 }
+
