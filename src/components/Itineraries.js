@@ -73,7 +73,8 @@ class Itineraries extends React.Component {
                     </div>
                 </div>
                 <div className={`${classes.rightPanel} ${classes.table}`}>
-                {this.renderItinerary()}
+                {//this.renderItinerary()} 
+                }
                     <City />
                 </div>
             </div>

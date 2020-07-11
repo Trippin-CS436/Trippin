@@ -15,7 +15,7 @@ class City extends React.Component {
         };
     }
 
-    
+
     componentWillUpdate(prevProps) {
         if (prevProps.locations !== this.props.locations) {
             this.setState({
@@ -74,7 +74,6 @@ class City extends React.Component {
             <div className={"cityDiv"}>
             <SaveButton />
                 <h2>{this.props.itinerary.name}</h2>
-                
                 <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
