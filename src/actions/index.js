@@ -50,6 +50,45 @@ export const renderLocation = (locations) => {
         payload: locations
     }
 }
+export const startDateChange = (place,type,date,dateIndex,) => {
+    if (type === 'city'){
+        return{
+            type: "START_DATE_CHANGE_CITY",
+            place: place,
+            date: date,
+            dateIndex: dateIndex,
+        }
+    }
+    else if (type ==='country'){
+        return{
+            type: "START_DATE_CHANGE_COUNTRY",
+            place: place,
+            date: date,
+            dateIndex: dateIndex,
+        }
+    }
+    return {}
+};
+
+export const endDateChange = (place,type,date,dateIndex,) => {
+    if (type === 'city'){
+        return{
+            type: "END_DATE_CHANGE_CITY",
+            place: place,
+            date: date,
+            dateIndex: dateIndex,
+        }
+    }
+    else if (type ==='country'){
+        return{
+            type: "END_DATE_CHANGE_COUNTRY",
+            place: place,
+            date: date,
+            dateIndex: dateIndex,
+        }
+    }
+    return {}
+};
 
 export const changeView = (country,city,locations) => {
     let view = {

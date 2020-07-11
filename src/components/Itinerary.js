@@ -41,7 +41,7 @@ class Itinerary extends React.Component {
                 <Collapsible key={country.name} trigger={
                     <div>
                         <h1>{country.name}</h1>
-                        <Dates place={country} class={"dates"}/>
+                        <Dates place={country} class={"dates"} type={"country"}/>
                     </div>
                 }>
 

@@ -1,7 +1,10 @@
 import React from "react";
 import {connect} from 'react-redux';
 import Popup from "reactjs-popup";
-
+import { KeyboardDatePicker,MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import format from 'date-fns/format'
+import {startDateChange,endDateChange} from "../actions";
 
 class Dates extends React.Component{
 
@@ -13,7 +16,7 @@ class Dates extends React.Component{
                 ))}
             </ul>;
         return(
-            <div className={this.props.class}>
+            <div className={this.props.class+ ""}>
 
                 <Popup className="widthFix" trigger={datesComponent} modal>
                     {close => (
@@ -21,7 +24,28 @@ class Dates extends React.Component{
                             <a className="close" onClick={close}>
                                 &times;
                             </a>
-                            Hello World!
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <div className={"DatePicker"}>
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="yyyy/MM/dd"
+                                        label={"Start Date"}
+                                        value={new Date(this.props.place.dateRanges[0].start)}
+                                        onChange={this.handleChangeStartDate}
+                                    />
+                                </div>
+                                <div className={"DatePicker"}>
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="yyyy/MM/dd"
+                                        label={"End Date"}
+                                        value={new Date(this.props.place.dateRanges[0].end)}
+                                        onChange={this.handleChangeEndDate}
+                                    />
+                                </div>
+                            </MuiPickersUtilsProvider>
                         </div>
                     )}
                 </Popup>
@@ -29,6 +53,16 @@ class Dates extends React.Component{
 
         );
     }
+    handleChangeStartDate = (date) => {
+        console.log("CHANGING START DATE: " + format(date, 'yyyy/MM/dd'));
+        let dateString = format(date, 'yyyy/MM/dd');
+        this.props.startDateChange(this.props.place,this.props.type,dateString,0)
+    };
+    handleChangeEndDate = (date) => {
+        console.log("CHANGING END DATE: " + format(date, 'yyyy/MM/dd'));
+        let dateString = format(date, 'yyyy/MM/dd');
+        this.props.endDateChange(this.props.place,this.props.type,dateString,0)
+    };
 }
 
 const mapStateToProps = (state) =>{
@@ -40,4 +74,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps)(Dates);
+export default connect(mapStateToProps,{startDateChange,endDateChange})(Dates);

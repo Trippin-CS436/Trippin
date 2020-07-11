@@ -32,7 +32,7 @@ class City extends React.Component {
         return(
             <div className={"cityDiv"}>
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
-                <Dates place={cityToRender} class={"datesDiv"}/>
+                <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (

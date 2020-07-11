@@ -977,6 +977,22 @@ const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : [{s
     {name: "San Francisco", id: 1, countryID: 1, dateRanges : [{start: "2020/08/21", end: "2020/08/22"}]},
     {name: "Victoria", id: 2, countryID: 0, dateRanges : [{start: "2020/08/22", end: "2020/08/23"}]}];
 const cityReducer = (cities = defaultCities, action) =>{
+    if (action.type === 'START_DATE_CHANGE_CITY'){
+        let newArray = cities.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id == item.id;
+        });
+        newArray[indexToChange].dateRanges[action.dateIndex].start = action.date;
+        return newArray
+    }
+    else if (action.type === 'END_DATE_CHANGE_CITY'){
+        let newArray = cities.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id == item.id;
+        });
+        newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
+        return newArray
+    }
 
     return cities;
 };
@@ -985,7 +1001,22 @@ const cityReducer = (cities = defaultCities, action) =>{
 const defaultCountries = [{name: "Canada", id: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/25"}]},
     {name: "United States", id: 1, dateRanges : [{start: "2020/08/25", end: "2020/08/28"}]}];
 const countryReducer = (countries = defaultCountries, action) =>{
-
+    if (action.type === 'START_DATE_CHANGE_COUNTRY'){
+        let newArray = countries.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id == item.id;
+        });
+        newArray[indexToChange].dateRanges[action.dateIndex].start = action.date;
+        return newArray
+    }
+    else if (action.type === 'END_DATE_CHANGE_COUNTRY'){
+        let newArray = countries.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id == item.id;
+        });
+        newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
+        return newArray
+    }
     return countries;
 };
 
@@ -1002,7 +1033,7 @@ const currentViewReducer = (currentView = defaultView, action) => {
     return currentView;
 };
 
-const itineraryReducer = (itinerary = {name: "Test itinerary", dateRanges : [{start: "2020/08/20", end: "2020/08/28"}]}, action) =>{
+const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{start: "2020/08/20", end: "2020/08/28"}]}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
             ...itinerary,
