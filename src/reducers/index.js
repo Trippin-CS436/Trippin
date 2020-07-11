@@ -1,5 +1,4 @@
 import {combineReducers} from 'redux';
-import React from 'react';
 import '../index.css';
 
 const currentLocation = {
@@ -12,21 +11,7 @@ const currentLocation = {
 }
 
 
-/*** Handles all changes to current location
- * params =
- *      currentLocation - currentLocation selected in the itinerary list for editting
- *       action - valid actions are addNotes
- *              - (should also be able to have a setCurrentLocation that changes current location when selected) ***/
-const currentLocationReducer = (currentLocation = {name: "", address: "", info: {}, notes: ""}, action) => {
-    if (action.type === 'ADD_NOTES') {
-        // change the notes of current location to the action.text
-        console.log(action.text + "hereherehhere");
-        currentLocation.notes = action.text;
-        console.log(JSON.stringify(currentLocation));
-        return currentLocation;
-    }
-    return currentLocation;
-};
+
 
 
 
@@ -951,7 +936,7 @@ const locationsReducer = (locations = defaultLocations, action) => {
     else if (action.type === "DEL_LOCATION"){
         let newArray = locations.slice();
         let indexToRemove = newArray.findIndex((item) => {
-           return action.location_id == item.id;
+           return action.location_id === item.id;
         });
         newArray.splice(indexToRemove, 1);
         return newArray;
@@ -990,7 +975,7 @@ const cityReducer = (cities = defaultCities, action) =>{
     if (action.type === 'START_DATE_CHANGE_CITY'){
         let newArray = cities.slice();
         let indexToChange = newArray.findIndex((item) => {
-            return action.place.id == item.id;
+            return action.place.id === item.id;
         });
         newArray[indexToChange].dateRanges[action.dateIndex].start = action.date;
         return newArray
@@ -998,7 +983,7 @@ const cityReducer = (cities = defaultCities, action) =>{
     else if (action.type === 'END_DATE_CHANGE_CITY'){
         let newArray = cities.slice();
         let indexToChange = newArray.findIndex((item) => {
-            return action.place.id == item.id;
+            return action.place.id === item.id;
         });
         newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
         return newArray
@@ -1014,7 +999,7 @@ const countryReducer = (countries = defaultCountries, action) =>{
     if (action.type === 'START_DATE_CHANGE_COUNTRY'){
         let newArray = countries.slice();
         let indexToChange = newArray.findIndex((item) => {
-            return action.place.id == item.id;
+            return action.place.id === item.id;
         });
         newArray[indexToChange].dateRanges[action.dateIndex].start = action.date;
         return newArray
@@ -1022,7 +1007,7 @@ const countryReducer = (countries = defaultCountries, action) =>{
     else if (action.type === 'END_DATE_CHANGE_COUNTRY'){
         let newArray = countries.slice();
         let indexToChange = newArray.findIndex((item) => {
-            return action.place.id == item.id;
+            return action.place.id === item.id;
         });
         newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
         return newArray
@@ -1081,7 +1066,6 @@ export default combineReducers({
     cities: cityReducer,
     countries: countryReducer,
     mapLocation: mapLocationReducer,
-    currentLocation: currentLocationReducer,
     lists: listReducer,
     msgId: selector,
     currentItinerary: currentItineraryReducer,

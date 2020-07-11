@@ -3,9 +3,8 @@ import { withStyles } from "@material-ui/core";
 import City from "./City";
 import './Itinerary.css';
 import Map from "./Map";
-import MapInfo from "./MapInfo";
 import Navbar from "./Navbar";
-import LocationButton from "./LocationButton";
+
 class Itineraries extends React.Component {
 
     render() {

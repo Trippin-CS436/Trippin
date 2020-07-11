@@ -5,10 +5,6 @@ import {saveItinerary,getCurrentItineraryID} from "../actions"
 const { uuid } = require('uuidv4');
 
 class SaveButton extends React.Component {
-    constructor(props){
-        super(props);
-
-    }
 
     saveItinerary = () => {
         let Itinerary = {};
