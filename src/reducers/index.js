@@ -938,7 +938,7 @@ const locationsReducer = (locations = defaultLocations, action) => {
     else if (action.type === "DEL_LOCATION"){
         let newArray = locations.slice();
         let indexToRemove = newArray.findIndex((item) => {
-           return action.location_id == item.id;
+           return action.location_id === item.id;
         });
         newArray.splice(indexToRemove, 1);
         return newArray;
