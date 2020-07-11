@@ -930,6 +930,15 @@ const locationsReducer = (locations = defaultLocations, action) => {
         newArray.splice(action.location_index, 1);
         return newArray;
     }
+    if (action.type === "ADD_NOTES"){
+        let notes = action.add.notes;
+        let index = action.add.index;
+        console.log(index);
+        console.log(locations[index]);
+        locations[index].notes = notes;
+        return locations;
+    }
+
 
     return locations;
 };
@@ -985,21 +994,6 @@ const currentViewReducer = (currentView = defaultView, action) => {
 };
 
 
-/*** Handles all changes to current location
- * params =
- *      currentLocation - currentLocation selected in the itinerary list for editting
- *       action - valid actions are addNotes
- *              - (should also be able to have a setCurrentLocation that changes current location when selected) ***/
-const currentLocationReducer = (currentLocation = {name: "", address: "", info: {}, notes: ""}, action) => {
-    if (action.type === 'ADD_NOTES') {
-        // change the notes of current location to the action.text
-        console.log(action.text + "hereherehhere");
-        currentLocation.notes = action.text;
-        console.log(JSON.stringify(currentLocation));
-        return currentLocation;
-    } 
-     return currentLocation;
-}
 
 const itineraryReducer = (itinerary = {name: "Test itinerary", dateRanges : ["2020/08/20 - 2020/08/22"]}, action) =>{
     if (action.type === "NAME_CHANGE"){
@@ -1023,7 +1017,6 @@ export default combineReducers({
     cities: cityReducer,
     countries: countryReducer,
     mapLocation: mapLocationReducer,
-    currentLocation: currentLocationReducer,
     lists: listReducer,
     msgId: selector,
 });
