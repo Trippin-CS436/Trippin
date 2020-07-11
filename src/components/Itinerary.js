@@ -6,6 +6,7 @@ import './Iteneraries.css';
 import Collapsible from "react-collapsible";
 import City from "./City";
 import Map from "./Map";
+import SaveButton from "./SaveButton";
 import LocationButton from "./LocationButton";
 import Dates from "./Dates";
 import axios from "axios";
@@ -63,6 +64,7 @@ class Itinerary extends React.Component {
                 {this.renderItinerary()}
                 <City/>
                 <LocationButton/>
+                <SaveButton/>
                 <Map className={"map"}/>
             </React.Fragment>
         )
