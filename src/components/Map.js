@@ -11,6 +11,7 @@ import Geocode from "react-geocode";
 import { Descriptions } from 'antd';
 import { connect } from 'react-redux';
 import { getLocation } from '../actions/getLocation';
+import MapInfo from "./MapInfo";
 
 
 
@@ -18,7 +19,9 @@ Geocode.setApiKey(process.env.REACT_APP_API_KEY);
 
 const containerStyle = {
     width: '100%',
-    height: '100%'
+    height: '100%',
+    marginTop: '1rem',
+    boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)"
 };
 
 
@@ -226,6 +229,29 @@ class Map extends React.Component {
         this.props.getLocation(mapLocation);
     };
 
+    displayDetails = () => {
+        if (this.state.placeId !== null && this.state.placeId !== ''){
+            return (     
+                  <Descriptions bordered layout="horizontal" style={{ width: '70%', padding: "1rem 1rem", margin: "0rem 2rem 0.5rem 4rem",
+            backgroundColor: "#ebeced", opacity:"90%",  boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", borderRadius: "10px"}}>
+                    <Descriptions.Item label="CITY" span={3}>{this.state.city}</Descriptions.Item>
+                    <Descriptions.Item label="AREA" span={3}>{this.state.area}</Descriptions.Item>
+                    <Descriptions.Item label="STATE" span={3}>{this.state.state}</Descriptions.Item>
+                    <Descriptions.Item label="ADDRESS " span={3}>{this.state.address}</Descriptions.Item>
+                </Descriptions>
+                ) 
+        } else return null;
+    }
+
+    displayLocationInfo = () => {
+        if (this.state.placeId !== null && this.state.placeId !== ''){
+            return (     
+                <div className="bottom-panel">
+                <MapInfo />
+                </div>
+                ) 
+        } else return null;
+    }
 
 
     render() {
@@ -234,13 +260,9 @@ class Map extends React.Component {
         
         return (
 
-            <div style={{ width: '500px', height: '500px'}}>
-                <Descriptions bordered>
-                    <Descriptions.Item label="City">{this.state.city}</Descriptions.Item>
-                    <Descriptions.Item label="Area">{this.state.area}</Descriptions.Item>
-                    <Descriptions.Item label="State">{this.state.state}</Descriptions.Item>
-                    <Descriptions.Item label="Address">{this.state.address}</Descriptions.Item>
-                </Descriptions>
+            <div style={{ width: '85%', height: '450px', padding: "3rem 1rem"}}>
+
+            {this.displayDetails()}
 
                 <LoadScript
                     googleMapsApiKey={process.env.REACT_APP_API_KEY}
@@ -273,9 +295,11 @@ class Map extends React.Component {
               style={{
                 boxSizing: `border-box`,
                 border: `1px solid transparent`,
-                width: `240px`,
+                borderSpacing: '1px',
+                width: `400px`,
                 height: `32px`,
-                padding: `0 12px`,
+                marginTop: '0.5rem',
+                padding: `0.5rem 1rem`,
                 borderRadius: `3px`,
                 boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
                 fontSize: `14px`,
@@ -289,7 +313,8 @@ class Map extends React.Component {
             </Autocomplete>
                     </GoogleMap>
                 </LoadScript>
-          
+
+                {this.displayLocationInfo()}
             </div>
         );
 

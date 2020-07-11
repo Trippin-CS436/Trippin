@@ -17,9 +17,6 @@ class Itineraries extends React.Component {
                     <div className= {"top-panel"}>
                     <Map />
                     </div>
-                    <div className="bottom-panel">
-                    <MapInfo />
-                    </div>
                 </div>
                 <div className={`${classes.rightPanel} ${classes.table}`}>
                     <City/>
