@@ -17,17 +17,17 @@ class SaveButton extends React.Component {
             Itinerary = {
                 id: uuid(),
                 locations: this.props.locations,
-                city: this.props.city,
-                country: this.props.country,
+                cities: this.props.cities,
+                countries: this.props.countries,
             }
             this.props.saveItinerary(Itinerary);
         } else {
             Itinerary = {
                 id: this.props.currentItinerary.id,
                 locations: this.props.locations,
-                city: this.props.city,
-                country: this.props.country,
-            }
+                cities: this.props.cities,
+                countries: this.props.countries,
+            };
             this.props.saveItinerary(Itinerary);
         }
 
@@ -39,6 +39,7 @@ class SaveButton extends React.Component {
                 console.log(res.data);
                 if(res.data) {
                     console.log("Going to call patch");
+                    console.log(Itinerary);
                     axios.patch("http://localhost:9000/itinerary/save/" + this.props.currentItineraryID, Itinerary)
                     .then(res=> {
                         console.log(res.data)
@@ -58,7 +59,7 @@ class SaveButton extends React.Component {
 
                 }
             })
-        
+
 
 
 
@@ -77,8 +78,8 @@ const mapStateToProps = (state) =>{
     return {
         currentItinerary: state.currentItinerary,
         locations: state.locations,
-        city: state.city,
-        country: state.country,
+        cities: state.cities,
+        countries: state.countries,
         currentItineraryID: state.currentItineraryID,
     };
 };
