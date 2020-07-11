@@ -7,7 +7,7 @@ import Collapsible from "react-collapsible";
 import City from "./City";
 import Map from "./Map";
 import SaveButton from "./SaveButton";
-import LocationButton from "./LocationButton";
+//import LocationButton from "./LocationButton";
 import Dates from "./Dates";
 import axios from "axios";
 
@@ -42,7 +42,7 @@ class Itinerary extends React.Component {
         const locations = this.props.locations;
         for (const country of this.props.countries) {
             content.push(
-                <Collapsible key={country.name} trigger={
+                <Collapsible className="" key={country.name} trigger={
                     <div>
                         <h1>{country.name}</h1>
                         <Dates place={country} class={"dates"} type={"country"}/>
@@ -65,11 +65,9 @@ class Itinerary extends React.Component {
         return (
             <React.Fragment>
                 <h1>{this.props.itinerary.name}</h1>
-                {this.renderItinerary()}
-                <City/>
-                <LocationButton/>
-                <SaveButton/>
-                <Map className={"map"}/>
+                <City />
+            
+                <SaveButton />
             </React.Fragment>
         )
     }

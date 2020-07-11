@@ -895,17 +895,17 @@ let jsonObj = [{
 ];
 
 const listReducer = (lists = jsonObj, action) => {
-    if (action.type === 'ADD_MSG') {
+    if (action.type == 'ADD_MSG') {
         return [...lists, action.addMsg];
     }
-    if (action.type === 'DELETE_MSG') {
+    if (action.type == 'DELETE_MSG') {
         return lists.filter((item, index) => index !== action.deleteMsg);
     }
     return lists;
 };
 
 const selector = (msgId = 0, action) => {
-    if (action.type === 'SELECT_MSG') {
+    if (action.type == 'SELECT_MSG') {
         return action.selectMsg;
     }
     return msgId;
@@ -930,13 +930,15 @@ const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffit
 
 const locationsReducer = (locations = defaultLocations, action) => {
     if (action.type === "ADD_LOCATION"){
-        locations.push(action.add);
-        return locations;
+        let newArray = locations.slice();
+        newArray.push(action.add);
+        console.log("newArray: ", newArray);
+        return newArray;
     }
     else if (action.type === "DEL_LOCATION"){
         let newArray = locations.slice();
         let indexToRemove = newArray.findIndex((item) => {
-           return action.location_id === item.id;
+           return action.location_id == item.id;
         });
         newArray.splice(indexToRemove, 1);
         return newArray;
@@ -955,7 +957,7 @@ const locationsReducer = (locations = defaultLocations, action) => {
     else if (action.type === "RENDER_LOCATION"){
         return action.payload;
     }
-    else if (action.type === "ADD_NOTES"){
+    else if (action.type == "ADD_NOTES"){
         let notes = action.add.notes;
         let index = action.add.index;
         console.log(index);
@@ -972,18 +974,18 @@ const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : [{s
     {name: "San Francisco", id: 1, countryID: 1, dateRanges : [{start: "2020/08/21", end: "2020/08/22"}]},
     {name: "Victoria", id: 2, countryID: 0, dateRanges : [{start: "2020/08/22", end: "2020/08/23"}]}];
 const cityReducer = (cities = defaultCities, action) =>{
-    if (action.type === 'START_DATE_CHANGE_CITY'){
+    if (action.type == 'START_DATE_CHANGE_CITY'){
         let newArray = cities.slice();
         let indexToChange = newArray.findIndex((item) => {
-            return action.place.id === item.id;
+            return action.place.id == item.id;
         });
         newArray[indexToChange].dateRanges[action.dateIndex].start = action.date;
         return newArray
     }
-    else if (action.type === 'END_DATE_CHANGE_CITY'){
+    else if (action.type == 'END_DATE_CHANGE_CITY'){
         let newArray = cities.slice();
         let indexToChange = newArray.findIndex((item) => {
-            return action.place.id === item.id;
+            return action.place.id == item.id;
         });
         newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
         return newArray
@@ -996,18 +998,18 @@ const cityReducer = (cities = defaultCities, action) =>{
 const defaultCountries = [{name: "Canada", id: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/25"}]},
     {name: "United States", id: 1, dateRanges : [{start: "2020/08/25", end: "2020/08/28"}]}];
 const countryReducer = (countries = defaultCountries, action) =>{
-    if (action.type === 'START_DATE_CHANGE_COUNTRY'){
+    if (action.type == 'START_DATE_CHANGE_COUNTRY'){
         let newArray = countries.slice();
         let indexToChange = newArray.findIndex((item) => {
-            return action.place.id === item.id;
+            return action.place.id == item.id;
         });
         newArray[indexToChange].dateRanges[action.dateIndex].start = action.date;
         return newArray
     }
-    else if (action.type === 'END_DATE_CHANGE_COUNTRY'){
+    else if (action.type == 'END_DATE_CHANGE_COUNTRY'){
         let newArray = countries.slice();
         let indexToChange = newArray.findIndex((item) => {
-            return action.place.id === item.id;
+            return action.place.id == item.id;
         });
         newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
         return newArray
@@ -1022,20 +1024,20 @@ const defaultView = {
     }
 };
 const currentViewReducer = (currentView = defaultView, action) => {
-   if(action.type === "CHANGE_VIEW"){
+   if(action.type == "CHANGE_VIEW"){
         return action.newView;
     }
     return currentView;
 };
 
 const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{start: "2020/08/20", end: "2020/08/28"}]}, action) =>{
-    if (action.type === "NAME_CHANGE"){
+    if (action.type == "NAME_CHANGE"){
         return{
             ...itinerary,
             name: action.name
         };
     }
-    else if (action.type === "ADD_LOCATION___NULL") {
+    else if (action.type == "ADD_LOCATION___NULL") {
         itinerary.push(action.add);
         return itinerary;
     }
@@ -1043,7 +1045,7 @@ const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{s
 };
 
 const currentItineraryReducer = (currentItinerary = null, action) => {
-    if(action.type === "SAVE_ITINERARY") {
+    if(action.type == "SAVE_ITINERARY") {
         return action.payload;
     }
 
@@ -1051,7 +1053,7 @@ const currentItineraryReducer = (currentItinerary = null, action) => {
 }
 
 const currentItineraryObjectIDReudcer = (id = null, action) => {
-    if(action.type === "GET_CURRENT_ITINERARY_ID") {
+    if(action.type == "GET_CURRENT_ITINERARY_ID") {
         return action.payload;
     }
 

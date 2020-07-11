@@ -8,7 +8,7 @@ class SaveButton extends React.Component {
 
     saveItinerary = () => {
         let Itinerary = {};
-        if (this.props.currentItinerary === null) {
+        if (this.props.currentItinerary == null) {
             console.log("Current Itinerary has not been saved yet");
             Itinerary = {
                 id: uuid(),
@@ -66,7 +66,7 @@ class SaveButton extends React.Component {
 
     render() {
         return (
-            <button className={"addLocationButton"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
+            <button className={"submit-button save-button"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
         )
     }
 }

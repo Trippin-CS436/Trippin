@@ -8,7 +8,7 @@ class Notes extends React.Component {
         super(props);
         let newArray = this.props.location.slice();
         let indexOfLocation= newArray.findIndex((item) => {
-            return this.props.id === item.id;
+            return this.props.id == item.id;
         });
         this.state = {
             currentLocation: this.props.location[indexOfLocation],
