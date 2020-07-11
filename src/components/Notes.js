@@ -1,21 +1,23 @@
 import React from "react";
 import  {connect}  from 'react-redux';
 import  {addNotes} from './../actions/addNotes'
-import Info from "./Info";
 import "./Notes.css"
 
 class Notes extends React.Component {
     constructor(props){
         super(props);
+        let newArray = this.props.location.slice();
+        let indexOfLocation= newArray.findIndex((item) => {
+            return this.props.id == item.id;
+        });
         this.state = {
-            currentLocation: this.props.location[this.props.idx],
-           notesText: this.props.location[this.props.idx].notes,
-           index: this.props.idx
+            currentLocation: this.props.location[indexOfLocation],
+           notesText: this.props.location[indexOfLocation].notes,
+           index: indexOfLocation
            // userImages image object will change when database added: {fileName:"name", fileLoc:"../imgs/name.jpg"}
         };
         this.handleNotesInput = this.handleNotesInput.bind(this);
     }
-
 
     handleNotesInput(event) {
         this.setState({
@@ -41,7 +43,6 @@ class Notes extends React.Component {
             <div className="notes-outer">
                 <div className="notes-inner">
                     <textarea id="notes-text" value={this.state.notesText} onChange={this.handleNotesInput}>
-                        Notes Here 
                     </textarea>
                 </div>
                 <div id="notes-inner-button">
