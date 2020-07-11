@@ -29,8 +29,8 @@ router.post('/save', function(req, res, next) {
 
 router.patch('/save/:id', function(req, res, next) {
   console.log(req.params.id);
-  Itinerary.findOneAndUpdate({id: req.params.id}, {locations: req.body.locations, cities: req.body.cities, countries: req.body.countries})
-    .then(() => res.json("Itinerary updated"))
+  Itinerary.findOneAndUpdate({id: req.params.id}, {locations: req.body.locations, cities: req.body.cities, countries: req.body.countries},)
+    .then(() => res.json("itinerary updated"))
     .catch(err => res.status(404).json('Error: ' + err));
 
 });

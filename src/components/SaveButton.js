@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import axios from 'axios'; 
-import {saveItinerary} from "../actions"
+import {saveItinerary,getCurrentItineraryID} from "../actions"
 const { uuid } = require('uuidv4');
 
 class SaveButton extends React.Component {
@@ -32,7 +32,7 @@ class SaveButton extends React.Component {
         }
 
         console.log(Itinerary.id);
-
+        this.props.getCurrentItineraryID(Itinerary.id);
         axios.get("http://localhost:9000/itinerary/exist/"+ Itinerary.id)
             .then(res => {
                 console.log("exist worked");
@@ -40,6 +40,7 @@ class SaveButton extends React.Component {
                 if(res.data) {
                     console.log("Going to call patch");
                     console.log(Itinerary);
+                    console.log(this.props.currentItineraryID)
                     axios.patch("http://localhost:9000/itinerary/save/" + this.props.currentItineraryID, Itinerary)
                     .then(res=> {
                         console.log(res.data)
@@ -84,4 +85,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps, {saveItinerary})(SaveButton);
+export default connect(mapStateToProps, {saveItinerary,getCurrentItineraryID})(SaveButton);
