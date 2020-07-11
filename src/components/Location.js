@@ -91,7 +91,7 @@ class Location extends React.Component {
                 <AddAPhotoOutlinedIcon />
                 </IconButton>
 
-                <IconButton className={"btn"} aria-label="Delete"  name="Delete" onClick={() => this.props.deleteLocation(this.props.idx)}>
+                <IconButton className={"btn"} aria-label="Delete"  name="Delete" onClick={() => this.props.deleteLocation(this.props.id)}>
                 <DeleteOutlineRoundedIcon />
                 </IconButton>
 
