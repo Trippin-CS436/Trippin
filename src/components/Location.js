@@ -1,24 +1,54 @@
 import React from "react";
 import './Iteneraries.css';
 import Notes from "./Notes";
+import Info from "./Info";
 import {connect} from "react-redux";
 import {deleteLocation} from "../actions";
 import './Location.css';
+//import { makeStyles, withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import NotesOutlinedIcon from '@material-ui/icons/NotesOutlined';
+// import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
+import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
+import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 
 class Location extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            showNotes: false
+            showNotes: false,
+            showInfo: false,
+            showPhotos: false
         };
         this.handleEditBtnClick = this.handleEditBtnClick.bind(this);
+        this.handleInfoBtnClick = this.handleInfoBtnClick.bind(this);
+        this.handlePhotoBtnClick = this.handlePhotoBtnClick.bind(this);
 
 
     }
 
     handleEditBtnClick() {
         this.setState({
-            showNotes: !this.state.showNotes
+            showNotes: !this.state.showNotes,
+            showInfo: false,
+            showPhotos: false
+        })
+    }
+
+    handleInfoBtnClick() {
+        this.setState({
+            showNotes: false,
+            showInfo: !this.state.showInfo,
+            showPhotos: false
+        })
+    }
+
+    handlePhotoBtnClick() {
+        this.setState({
+            showNotes: false,
+            showInfo: false,
+            showPhotos: !this.state.showPhotos
         })
     }
 
@@ -26,7 +56,12 @@ class Location extends React.Component {
        if (this.state.showNotes) {
            const currLoc = this.props.locations[this.props.idx];
            console.log(currLoc);
-         return <Notes location={this.props.locations} idx={this.props.idx}/>
+         return <Notes location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
+        }
+        else if (this.state.showInfo) {
+            const currLoc = this.props.locations[this.props.idx];
+           console.log(currLoc);
+            return <Info location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
        else{
            return null;
@@ -34,15 +69,34 @@ class Location extends React.Component {
     }
 
     render() {
-
+    
         return(
             <div>
             <div className="location-bar">
                 <label className={"location"}>{this.props.name} </label>
                 <label className={"address"}> {this.props.address}</label>
                 <div className={"buttonDiv"}>
-                    <button className={"btn"} name="Edit" onClick={this.handleEditBtnClick}>Edit</button>
-                    <button className={"btn"} onClick={() => this.props.deleteLocation(this.props.idx)}>Delete</button>
+
+                <IconButton className={"btn"} aria-label="Info" name="Info" onClick={this.handleInfoBtnClick}>
+                <ExpandMoreOutlinedIcon />
+                </IconButton>
+
+
+                <IconButton className={"btn"} aria-label="Edit" name="Edit" onClick={this.handleEditBtnClick}>
+                <NotesOutlinedIcon />
+                </IconButton>
+
+                
+                <IconButton className={"btn"} aria-label="Photo" name="Photo" onClick={this.handlePhotoBtnClick}>
+                <AddAPhotoOutlinedIcon />
+                </IconButton>
+
+                <IconButton className={"btn"} aria-label="Delete"  name="Delete" onClick={() => this.props.deleteLocation(this.props.idx)}>
+                <DeleteOutlineRoundedIcon />
+                </IconButton>
+
+
+
                 </div>
             </div>
             <div className="display-notes">
@@ -52,6 +106,8 @@ class Location extends React.Component {
         );
     }
 }
+
+
 const mapStateToProps = (state) =>{
     return {
         locations: state.locations,
