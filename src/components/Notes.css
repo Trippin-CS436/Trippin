@@ -1,0 +1,72 @@
+.notes-outer {
+    margin: 2rem 1rem 2rem 2rem;
+    padding: 1rem 2rem 2rem 1rem;
+}
+
+#notes-text {
+    position: relative;
+    font: 20px 'Karla';
+    margin: 2rem, 2rem, 3rem, 3rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    outline: 0; 
+    box-shadow: -7px 4px 33px 0px rgb(133, 145, 151); 
+    border: none; 
+    background-color: rgba(255, 255, 255, 0.89);
+    border-top: 2px solid #ced4da;
+    border-bottom: 2px solid #ced4da;
+    border-radius: 0; 
+    box-sizing: border-box;
+    opacity: 90%;
+    padding: 0.5rem 0.5rem;
+    width: 80%;
+    height: 250px;
+}
+
+#notes-button {
+    margin: 0.5rem 1rem 1rem 1rem;
+    float: right;
+    background-color: #f4511e;
+    border: none;
+    color: white;
+    padding: 6px 11px;
+    text-align: center;
+    font-size: 14px;
+    margin: 4px 4px;
+    opacity: 0.75;
+    transition: 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#notes-inner-button {
+    width: 80%;
+    margin-top: 1rem;
+}
+
+/**** scroll-bar START ****/
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(71, 116, 122);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(200, 215, 219, 0.747);
+  }
+
+/**** scroll-bar END ***/
+
+
+
+  

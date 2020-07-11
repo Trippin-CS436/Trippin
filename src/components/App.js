@@ -4,28 +4,24 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./Home";
 import Map from "./Map";
 import Itineraries from "./Itineraries";
+import Lists from "./Lists";
 
 function App() {
     return (
         <Router>
             <div>
-<<<<<<< HEAD
-                {/*<Route exact path="./itineraries">*/}
-=======
                 <Route exact path="/itineraries">
->>>>>>> Styling, routing and organizing components. Also added Expandable/Collapsible component
                     <Itineraries />
-<<<<<<< HEAD
-                {/*</Route>*/}
-                {/*<Route exact path="/">*/}
-                {/*    <Home />*/}
-                {/*</Route>*/}
-=======
                 </Route>
                 <Route exact path="/">
+                    <Home />
+                </Route>
+                <Route exact path="/map">
                     <Map />
                 </Route>
->>>>>>> Map Component
+                <Route exact path="/lists">
+                    <Lists />
+                </Route>
             </div>
         </Router>
     );
