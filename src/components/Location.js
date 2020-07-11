@@ -22,9 +22,7 @@ class Location extends React.Component {
 
     renderSubComp(){
        if (this.state.showNotes) {
-           const currLoc = this.props.locations[this.props.idx];
-           console.log(currLoc);
-         return <Notes location={this.props.locations} idx={this.props.idx}/>
+         return <Notes location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
        else{
            return null;

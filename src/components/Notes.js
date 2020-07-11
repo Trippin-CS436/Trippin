@@ -7,10 +7,14 @@ import "./Notes.css"
 class Notes extends React.Component {
     constructor(props){
         super(props);
+        let newArray = this.props.locations.slice();
+        let indexOfLocation= newArray.findIndex((item) => {
+            return this.props.id == item.id;
+        });
         this.state = {
-            currentLocation: this.props.location[this.props.idx],
-           notesText: this.props.location[this.props.idx].notes,
-           index: this.props.idx
+            currentLocation: this.props.location[indexOfLocation],
+           notesText: this.props.location[indexOfLocation].notes,
+           index: indexOfLocation
            // userImages image object will change when database added: {fileName:"name", fileLoc:"../imgs/name.jpg"}
         };
         this.handleNotesInput = this.handleNotesInput.bind(this);
@@ -57,7 +61,8 @@ class Notes extends React.Component {
 
 const mapStateToProps = (state) => {
     return { 
-        currentLocation: state.currentLocation
+        currentLocation: state.currentLocation,
+        locations: state.locations,
     }
 }
 

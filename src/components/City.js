@@ -36,7 +36,7 @@ class City extends React.Component {
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (
-                            <li key={index}> <Location id={loc.id} name={loc.location} address={loc.address}/></li>
+                            <li key={index}> <Location idx={index} id={loc.id} name={loc.location} address={loc.address}/></li>
                         ))}
                     </ul>
                 </div>
