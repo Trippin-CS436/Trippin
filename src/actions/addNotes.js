@@ -1,7 +1,6 @@
-export const addNotes = text => {
-    console.log(text);
+export const addNotes = payload => {
     return {
         type: 'ADD_NOTES',
-        text: text
+        add: payload
     };
 };

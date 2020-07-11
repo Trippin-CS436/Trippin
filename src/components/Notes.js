@@ -8,21 +8,29 @@ class Notes extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-           notesText: this.props.currentLocation.notes,
+            currentLocation: this.props.location[this.props.idx],
+           notesText: this.props.location[this.props.idx].notes,
+           index: this.props.idx
            // userImages image object will change when database added: {fileName:"name", fileLoc:"../imgs/name.jpg"}
         };
         this.handleNotesInput = this.handleNotesInput.bind(this);
-        this.handleSaveNotes = this.handleSaveNotes.bind(this);
     }
+
 
     handleNotesInput(event) {
         this.setState({
+            currentLocation: this.state.currentLocation,
             notesText: event.target.value,
+            index: this.state.index
         });
       }
 
     handleSaveNotes = () => {
-        this.props.addNotes(this.state.notesText);
+        console.log(this.state.notesText);
+        this.props.addNotes({
+        notes: this.state.notesText,
+        index: this.state.index
+        });
     }
 
 

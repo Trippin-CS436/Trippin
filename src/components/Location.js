@@ -9,7 +9,6 @@ class Location extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            currentLocation: this.props.currentLocation,
             showNotes: false
         };
         this.handleEditBtnClick = this.handleEditBtnClick.bind(this);
@@ -17,14 +16,15 @@ class Location extends React.Component {
 
     handleEditBtnClick() {
         this.setState({
-            currentLocation: this.state.currentLocation,
             showNotes: !this.state.showNotes
         })
     }
 
     renderSubComp(){
        if (this.state.showNotes) {
-         return <Notes/>
+           const currLoc = this.props.locations[this.props.idx];
+           console.log(currLoc);
+         return <Notes location={this.props.locations} idx={this.props.idx}/>
         }
        else{
            return null;

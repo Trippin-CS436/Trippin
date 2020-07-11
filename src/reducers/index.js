@@ -970,6 +970,16 @@ const locationsReducer = (locations = defaultLocations, action) => {
     else if (action.type === "RENDER_LOCATION"){
         return action.payload;
     }
+    else if (action.type === "ADD_NOTES"){
+        let notes = action.add.notes;
+        let index = action.add.index;
+        console.log(index);
+        console.log(locations[index]);
+        locations[index].notes = notes;
+        return locations;
+    }
+
+
     return locations;
 };
 
@@ -1050,7 +1060,7 @@ const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{s
 const currentItineraryReducer = (currentItinerary = null, action) => {
     if(action.type === "SAVE_ITINERARY") {
         return action.payload;
-    } 
+    }
 
     return currentItinerary;
 }
@@ -1059,7 +1069,7 @@ const currentItineraryObjectIDReudcer = (id = null, action) => {
     if(action.type === "GET_CURRENT_ITINERARY_ID") {
         return action.payload;
     }
-    
+
     return id;
 }
 
