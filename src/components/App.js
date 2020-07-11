@@ -5,6 +5,7 @@ import Home from "./Home";
 import Map from "./Map";
 import Itineraries from "./Itineraries";
 import Lists from "./Lists";
+import './fonts.css';
 
 function App() {
     return (
