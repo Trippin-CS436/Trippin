@@ -6,7 +6,7 @@
 #notes-text {
     position: relative;
     font: 20px 'Karla';
-    margin: 1rem, 2rem, 2rem, 2rem;
+    margin: 1rem, 2rem, 3rem, 2rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     outline: 0; 
     box-shadow: -7px 4px 33px 0px rgb(133, 145, 151); 
