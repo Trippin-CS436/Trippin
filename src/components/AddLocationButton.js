@@ -36,7 +36,7 @@ class AddLocationButton extends React.Component {
             location: this.props.mapLocation.Name,
             address: this.props.mapLocation.Address,
             cityID: 0,
-            info: this.props.mapLocation.info,
+            info: this.props.mapLocation.Info,
             notes: ""
         });
     }

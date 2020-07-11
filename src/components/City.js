@@ -1,8 +1,6 @@
 import React from "react";
 import Location from "./Location";
 import './Iteneraries.css';
-import Notes from "./Notes";
-import {deleteLocation} from "../actions";
 import {connect} from 'react-redux';
 import Dates from "./Dates";
 
@@ -14,6 +12,7 @@ class City extends React.Component {
         };
     }
     render() {
+
         let cityToRenderID = this.props.currentView.byID.city;
         let cityToRender = this.props.cities.filter(function(city){
             return city.id == cityToRenderID;
@@ -36,7 +35,7 @@ class City extends React.Component {
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (
-                            <li key={index}> <Location idx={index} id={loc.id} name={loc.location} address={loc.address}/></li>
+                            <li key={index}> <Location idx={index} name={loc.location} address={loc.address} id={loc.id}/></li>
                         ))}
                     </ul>
                 </div>

@@ -2,7 +2,10 @@ import React from "react";
 import { connect }  from 'react-redux';
 import './MapInfo.css';
 import AddLocationButton from './AddLocationButton';
-
+//import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { Rating } from '@material-ui/lab';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 
 class MapInfo extends React.Component {
@@ -36,148 +39,57 @@ class MapInfo extends React.Component {
         }
     }
 
-    phoneRender = () => {
-       if (this.state.phone) {
-           return (
-               <div className="phone">
-               <div className="infoLabel">
-               Phone Number: 
-               </div> 
-               <div className="infoDetails">
-               {this.state.phone}
-               </div>
-               </div>
-           )
-       } return null;
-    }
-
-    websiteRender = () => {
-        if (this.state.website) {
-            return (
-                <div className="website">
-                <div className="infoLabel">
-                Website:
-                </div> 
-                <div className="infoDetails">
-                {this.state.website}
-                </div>
-                </div>
-            )
-        } return null;
-     }
-
-     ratingRender = () => {
-        if (this.state.rating) {
-            return (
-                <div className="rating">
-                <div className="infoLabel">
-                Rating
-                </div> 
-                <div className="infoDetails">
-                {this.state.rating}
-                </div>
-                </div>
-            )
-        } return null;
-     }
-
-     reviewsRender = () => {
-        let reviews = this.state.reviews;
-        let infoArray = [];
-        for (var rev in reviews) {
-            // each review has an author_name, author_url, language, rating, text
-            infoArray.push(rev["text"] + " by " + rev["author name"]);
-        }
-        if (this.state.reviews) {
-            return (
-                <div className="review">
-                <div className="infoLabel">
-                Reviews
-                </div> 
-                <div className="infoDetails">
-                <ul>
-                    {infoArray.map((field) => (
-                        <li> {field}</li>
-                    ))}
-                </ul>
-                </div>
-                </div>
-            )
-        } return null;
-     }
-     photosRender = () => {
-        if (this.state.photos) {
-            return (
-                <div className="photos">
-                <div className="infoLabel">
-                Photos
-                </div> 
-                <div className="infoDetails">
-                {this.state.photos}
-                </div>
-                </div>
-            )
-        } return null;
-     }
-
      
 
-  
+
 
     render() {
-
+        let ratingValue = 0;
+        if (this.state.rating) { ratingValue = parseFloat(this.state.rating.toString()); };
+        
        return(
-            <div>
-             <h4>Location Information</h4>
-                <div className="mainInfo">
+            <div className="mainInfo">
+            <Box borderColor="transparent" p={3}>
+            <Box  borderColor="transparent" fontWeight="fontWeightBold" p={3}>
+            <Typography variant="h3">Location Information</Typography>
+            </Box>
 
+           <Box fontWeight="fontWeightLight" component="fieldset"  borderColor="transparent">
+            <Typography variant="h5" >Phone Number</Typography>
+            <Typography variant="h6"> {this.state.phone}</Typography>
+           </Box>
 
-                <div className="phone">
-               <div className="infoLabel">
-               Phone Number: 
-               </div> 
-               <div className="infoDetails">
-               {this.state.phone}
-               </div>
-               </div>
+           <Box fontWeight="fontWeightLight" component="fieldset"    borderColor="transparent">
+            <Typography variant="h5" >Website</Typography>
+            <Typography variant="h6">{this.state.website}</Typography>
+           </Box>
 
-               <div className="website">
-                <div className="infoLabel">
-                Website:
-                </div> 
-                <div className="infoDetails">
-                {this.state.website}
-                </div>
-                </div>
+            <Box component="fieldset" borderColor="transparent" fontWeight="fontWeightLight">
+            <Typography variant="h5">Rating</Typography>
+            <Rating name="half-rating-read" defaultValue={0} value={ratingValue} precision={0.1} readOnly />
+            </Box>
+         
+                
 
-
-                <div className="rating">
-                <div className="infoLabel">
-                Rating:
-                </div> 
-                <div className="infoDetails">
-                {this.state.rating}
-                </div>
-                </div>
-
-                <div className="review">
-                <div className="infoLabel">
-                Reviews:
-                </div> 
-                <div className="infoDetails">
-                </div>
-                </div>
-
-                </div>
 
                 <div className="addButton">
                 <AddLocationButton />
                 </div>
-                
+
+                </Box>
             </div> 
         )
     }
 }
+
+/* const styles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        font: '30px Roboto'
+      },
+    },
+  })); */
 
 const mapStateToProps = (state) => {
     console.log('State',state);

@@ -6,7 +6,7 @@
 #notes-text {
     position: relative;
     font: 20px 'Karla';
-    margin: 2rem, 2rem, 3rem, 3rem;
+    margin: 1rem, 2rem, 2rem, 2rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     outline: 0; 
     box-shadow: -7px 4px 33px 0px rgb(133, 145, 151); 
@@ -18,8 +18,8 @@
     box-sizing: border-box;
     opacity: 90%;
     padding: 0.5rem 0.5rem;
-    width: 80%;
-    height: 250px;
+    width: 70%;
+    height: 10rem;
 }
 
 #notes-button {
@@ -47,7 +47,7 @@
 
 /* width */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
   }
   
   /* Track */

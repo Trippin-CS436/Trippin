@@ -1,7 +1,6 @@
 import React from "react";
 import  {connect}  from 'react-redux';
 import  {addNotes} from './../actions/addNotes'
-import Info from "./Info";
 import "./Notes.css"
 
 class Notes extends React.Component {
@@ -19,7 +18,6 @@ class Notes extends React.Component {
         };
         this.handleNotesInput = this.handleNotesInput.bind(this);
     }
-
 
     handleNotesInput(event) {
         this.setState({
@@ -45,7 +43,6 @@ class Notes extends React.Component {
             <div className="notes-outer">
                 <div className="notes-inner">
                     <textarea id="notes-text" value={this.state.notesText} onChange={this.handleNotesInput}>
-                        Notes Here 
                     </textarea>
                 </div>
                 <div id="notes-inner-button">
