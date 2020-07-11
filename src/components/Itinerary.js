@@ -21,22 +21,22 @@ class Itinerary extends React.Component {
         };
     }
 
-    componentDidMount(){
-        axios.get("http://localhost:9000/itinerary/").
-        then(response => {
-            console.log(response.data);
-            //console.log(response.data.locations);
-            if(response.data.size > 0){
-            this.props.renderLocation(response.data[0].locations);
-            this.props.getCurrentItineraryID(response.data[0]._id);
-            console.log("API get is called" + this.props.locations);
-        } else {
-            this.props.renderLocation([]);
-        }
-    })
-        .catch(err => console.log("Err" + err));
-        console.log("GOT HERE!!!!");
-    }
+    // componentDidMount(){
+    //     axios.get("http://localhost:9000/itinerary/").
+    //     then(response => {
+    //         console.log(response.data);
+    //         //console.log(response.data.locations);
+    //         if(response.data.size > 0){
+    //         this.props.renderLocation(response.data[0].locations);
+    //         this.props.getCurrentItineraryID(response.data[0]._id);
+    //         console.log("API get is called" + this.props.locations);
+    //     } else {
+    //         this.props.renderLocation([]);
+    //     }
+    // })
+    //     .catch(err => console.log("Err" + err));
+    //     console.log("GOT HERE!!!!");
+    // }
 
 
     renderItinerary() {

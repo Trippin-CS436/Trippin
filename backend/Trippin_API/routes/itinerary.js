@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/exist/:id', function(req, res, next) {
   //console.log(req.param.id);
-  Itinerary.exists({id: req.param.id})
+  Itinerary.exists({id: req.params.id})
   .then(response => {res.send(response); console.log(response);})
   .catch(err => res.status(400).json('Error: ' + err))
 })
@@ -29,7 +29,7 @@ router.post('/save', function(req, res, next) {
 
 router.patch('/save/:id', function(req, res, next) {
   console.log(req.params.id);
-  Itinerary.findByIdAndUpdate(req.params.id, {locations: req.body.locations, cities: req.body.cities, countries: req.body.countries})
+  Itinerary.findOneAndUpdate({id: req.params.id}, {locations: req.body.locations, cities: req.body.cities, countries: req.body.countries})
     .then(() => res.json("Itinerary updated"))
     .catch(err => res.status(404).json('Error: ' + err));
 
