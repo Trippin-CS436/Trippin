@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
 var indexRouter = require('./routes/index');
-var itineraryRouter = require('./routes/itinerary');
+var itineraryRouter = require('./routes/itinerary-leann-dev');
 
 
 // read the .env file for URI
