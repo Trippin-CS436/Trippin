@@ -4,10 +4,14 @@ import City from "./City";
 import './Iteneraries.css';
 import Map from "./Map";
 import Navbar from "./Navbar";
+import {connect} from "react-redux";
+import {addMsg, deleteMsg, selectMsg} from "../actions";
+import Redirect from "react-router-dom/es/Redirect";
 
 class Itineraries extends React.Component {
     constructor(props){
         super(props);
+        console.log(this.props.authentication.loginStatus );
     }
     render() {
         const { classes } = this.props;
@@ -20,8 +24,8 @@ class Itineraries extends React.Component {
                 <div className={`${classes.rightPanel} ${classes.table}`}>
                     <City cityName={"Vancouver"}/>
                 </div>
-            </div>
                 <div><Navbar/></div>
+            </div>
             </React.Fragment>
 
         );
@@ -57,4 +61,10 @@ const muiStyles = {
     }
 };
 
-export default withStyles(muiStyles)(Itineraries);
+const mapStateToProps = (state) => { //name is by convention
+    return {
+        authentication: state.authentication
+    }; //now it will appear as props
+};
+
+export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg })(withStyles(muiStyles)(Itineraries));

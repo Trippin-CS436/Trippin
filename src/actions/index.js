@@ -26,3 +26,17 @@ export const chooseUser = userName => {
     }
 };
 
+export const logInOut = boolean => {
+    return {
+        type: 'LOGIN_OUT',
+        logInOut: boolean
+    }
+};
+
+export const setUser = nameEmailObj => {
+    return {
+        type: 'SET_NAME_EMAIL',
+        setUser: nameEmailObj
+    }
+}
+

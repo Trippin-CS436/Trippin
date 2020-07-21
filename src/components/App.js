@@ -5,6 +5,8 @@ import Home from "./Home";
 import Map from "./Map";
 import Itineraries from "./Itineraries";
 import Lists from "./Lists";
+import Login from "./Login";
+
 
 function App() {
     return (
@@ -13,8 +15,11 @@ function App() {
                 <Route exact path="/itineraries">
                     <Itineraries />
                 </Route>
-                <Route exact path="/">
+                <Route exact path="/home">
                     <Home />
+                </Route>
+                <Route exact path="/">
+                    <Login />
                 </Route>
                 <Route exact path="/map">
                     <Map />
