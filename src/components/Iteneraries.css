@@ -1,6 +1,9 @@
 h2{
     margin: 10px 10px 0 10px;
 }
+h1{
+    margin: 10px 10px 0 10px;
+}
 .zeroPad{
     padding: 0;
 }
@@ -8,26 +11,30 @@ h2{
     margin: 0;
 }
 .cityDiv{
-    background-color: lightgrey;
+    font: 30px 'Jost';
+    background-color: #ebeced;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin: 25px 25px;
     border-radius: 25px;
-    padding: 5px 20px;
+    padding: 10px 25px;
     min-width: 500px;
-    min-height: 500px;
 }
 .datesDiv{
+    font: 25px 'Karla';
     margin-left: 15px;
+    border-bottom: 3px solid red;
 }
 .datesDiv ul{
     list-style-type: none;
     overflow: hidden;
+    display: inline-block;
 }
 .datesDiv ul li{
     float: left;
     font-size: 18px;
 }
 .locationsDiv{
+    font: 25px 'Karla';
     margin: 30px 10px 15px 15px;
     position: relative;
 }
@@ -50,6 +57,7 @@ h2{
     line-height: 70%;
 }
 .address{
+    font: 25px 'Karla';
     display: inline-block;
     font-size: 16px;
 }
@@ -60,19 +68,49 @@ h2{
     right: 15px;
 }
 .buttonDiv button{
-    background-color: #f4511e;
+    /*background-color: rgba(244, 85, 30, 0.65); */
     border: none;
-    color: white;
     padding: 6px 11px;
     text-align: center;
     font-size: 14px;
     margin: 4px 4px;
-    opacity: 0.75;
     transition: 0.3s;
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
+
 }
 .buttonDiv button:hover{
-    opacity: 1
+    background-color: rgba(244, 85, 30, 0.65);
 }
+
+.top-panel {
+    padding: 0.5rem 3rem 2rem 1rem;
+    margin: 0.5rem 1rem 1rem 1rem;
+    height: auto;
+    font: 24px 'Jost';
+}
+
+.bottom-panel {
+    font: 25px 'Jost';
+    margin-top: 2rem;
+    margin-left: 1rem;
+    padding: 1rem 1rem;
+    background-color: #ebeced;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+    border-radius: 25px;
+    width: 80%;
+}
+
+.addLocationButton{
+    background-color: #008CBA; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+

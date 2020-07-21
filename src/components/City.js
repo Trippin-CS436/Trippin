@@ -1,38 +1,84 @@
 import React from "react";
 import Location from "./Location";
 import './Iteneraries.css';
-import Notes from "./Notes";
+import {connect} from 'react-redux';
+import Dates from "./Dates";
+import Collapsible from "react-collapsible";
+import SaveButton from "./SaveButton";
 
-export default class City extends React.Component {
+
+class City extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            city: "Vancouver",
-            dateRanges : ["2020/08/20 - 2020/08/22"],
-            locations : [{location: "Roger's Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1"},
-                {location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1"},
-                {location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7"},
-                {location: "Stanley Park", address: " Vancouver, BC V6G 1Z4"},
-                {location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1"},
-                ],
-            notes: new Notes()
+            locations: this.props.locations
         };
     }
+
+
+    componentWillUpdate(prevProps) {
+        if (prevProps.locations !== this.props.locations) {
+            this.setState({
+                ...this.state,
+                locations: this.props.locations
+            })
+        }
+    }
+
+    renderItinerary = () => {
+        const content = [];
+        const locations = this.props.locations;
+        for (const country of this.props.countries) {
+            content.push(
+                <Collapsible className="cityDiv" key={country.name} trigger={
+                    <div>
+                        <h3>{country.name}</h3>
+                        <Dates place={country} class={"date"} type={"country"}/>
+                    </div>
+                }>
+
+                {this.props.cities.filter(function(city){
+                    return city.countryID == country.id;
+                }).map(function(city,index){
+                    return (<div key={index}  onClick={() => this.props.changeView(country,city)}>{city.name}</div>)
+                },this)
+                }
+            </Collapsible>
+            )
+        }
+        return content;
+    }
+
     render() {
-        return(
+
+        let cityToRenderID = this.props.currentView.byID.city;
+        let cityToRender = this.props.cities.filter(function(city){
+            return city.id == cityToRenderID;
+        });
+        cityToRender = cityToRender[0];
+
+        let countryToRenderID = this.props.currentView.byID.country;
+        let countryToRender = this.props.countries.filter(function(country){
+            return country.id == countryToRenderID;
+        });
+        countryToRender = countryToRender[0];
+
+        let locationsToRender = this.props.locations.filter(function(loc){
+            console.log("REnder CITY",loc.location);
+            return loc.cityID === cityToRenderID;
+        });
+
+        
+
+        return (
             <div className={"cityDiv"}>
-                <h2>{this.props.cityName}</h2>
-                <div className={"datesDiv"}>
-                    <ul className={"zeroPad zeroMarg"}>
-                        {this.state.dateRanges.map((date,index) => (
-                            <li key={index}>{date}</li>
-                        ))}
-                    </ul>
-                </div>
+            <SaveButton />
+                <h2>{this.props.itinerary.name}</h2>
+                <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
-                        {this.state.locations.map((loc,index) => (
-                            <li key={index}> <Location name={loc.location} address={loc.address}/></li>
+                        {locationsToRender.map((loc,index) => (
+                            <li key={index}> <Location idx={index} name={loc.location} address={loc.address} id={loc.id}/></li>
                         ))}
                     </ul>
                 </div>
@@ -40,6 +86,19 @@ export default class City extends React.Component {
         );
     }
 }
+const mapStateToProps = (state) =>{
+    return {
+        locations: state.locations,
+        itinerary: state.itinerary,
+        currentView: state.currentView,
+        cities: state.cities,
+        countries: state.countries,
+        lists: state.lists,
+        msgId: state.msgId,
+    };
+};
+
+export default connect(mapStateToProps)(City);
 //
 // const muiStyles = {
 //     bg: {

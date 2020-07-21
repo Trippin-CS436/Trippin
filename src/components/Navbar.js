@@ -11,7 +11,7 @@ class Navbar extends React.Component {
                 <Button href="/" className={classes.link}>Home</Button>
                 <Button href="/itineraries" className={classes.link}>Itineraries</Button>
                 <Button href="/archive" className={classes.link}>Archived Trips</Button>
-                <Button href="/list" className={classes.link}>Your Lists</Button>
+                <Button href="/lists" className={classes.link}>Your Lists</Button>
             </div>
         )
     }

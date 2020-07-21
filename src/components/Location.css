@@ -1,0 +1,13 @@
+.location-bar {
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.save-button {
+    color: white;
+    opacity: 100%;
+    float: right;
+    margin-right:  2rem;
+    margin-top: 2.5rem;
+    
+}

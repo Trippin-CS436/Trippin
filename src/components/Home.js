@@ -1,41 +1,36 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { withStyles } from "@material-ui/core";
 import { GiCalendar, GiDesk, GiChecklist } from "react-icons/gi";
+import "./Home.css"
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render = () => {
-        const { classes } = this.props;
         return (
             <React.Fragment>
-                <div className={classes.bg}>
-                <Grid container classname={classes.container} spacing={2}>
-                    <Grid className={classes.item} item xs={4}>
-                        <Button href="/itineraries" className={classes.button}>
+                <div className="bg">
+                <Grid container className="container" spacing={2}>
+                    <Grid className="item" item xs={12} md={4}>
+                        <Button href="/itineraries" className="button_home">
                             <div>
-                                <GiCalendar className={classes.icon} />
-                                <div className={classes.buttonText}>Future Trip Itineraries</div>
+                                <GiCalendar className="icon" />
+                                <div className="buttonText">Future Trip Itineraries</div>
                             </div>
                         </Button>
                     </Grid>
-                    <Grid className={classes.item} item xs={4}>
-                        <Button href="/archive" className={classes.button}>
+                    <Grid className="item" item xs={12} md={4}>
+                        <Button href="/archive" className="button_home">
                             <div>
-                                <GiDesk className={classes.icon} />
-                                <div className={classes.buttonText}>Archived Itineraries</div>
+                                <GiDesk className="icon" />
+                                <div className="buttonText">Archived Itineraries</div>
                             </div>
                         </Button>
                     </Grid>
-                    <Grid className={classes.item} item xs={4}>
-                        <Button href="/lists" className={classes.button}>
+                    <Grid className="item" item xs={12} md={4}>
+                        <Button href="/lists" className="button_home">
                             <div>
-                                <GiChecklist className={classes.icon} />
-                                <div className={classes.buttonText}>Your lists</div>
+                                <GiChecklist className="icon" />
+                                <div className="buttonText">Your lists</div>
                             </div>
                         </Button>
                     </Grid>
@@ -95,4 +90,4 @@ const muiStyles = {
     }
 };
 
-export default withStyles(muiStyles)(Home);
+export default Home;

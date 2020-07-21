@@ -1,0 +1,45 @@
+h1{
+    margin: 0px 10px 5px 10px;
+    font-size: 2.25em;
+}
+.zeroPad{
+    padding: 0;
+}
+.zeroMarg{
+    margin: 0;
+}
+
+.dates ul{
+    list-style-type: none;
+    overflow: hidden;
+}
+.dates ul li{
+    float: left;
+    font-size: 1em;
+}
+.item-font{
+    font-size: 1.25em;
+}
+.dates{
+    margin-left: 15px;
+    margin-bottom: 3px;
+    display: inline-block;
+}
+.addLocationButton{
+    background-color: #008CBA; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    display: inline-block;
+    margin-right: 10px;
+}
+.map{
+    display: block;
+}
+.DatePicker{
+    display: inline;
+    margin-right: 50px;
+}
