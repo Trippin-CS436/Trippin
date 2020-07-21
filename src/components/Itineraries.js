@@ -4,6 +4,9 @@ import City from "./City";
 import './Itinerary.css';
 import Map from "./Map";
 import Navbar from "./Navbar";
+import {connect} from "react-redux";
+import {addMsg, deleteMsg, selectMsg} from "../actions";
+import Redirect from "react-router-dom/es/Redirect";
 import Collapsible from "react-collapsible";
 import { connect } from 'react-redux';
 import { changeView, renderLocation, getCurrentItineraryID,saveItinerary} from '../actions';
@@ -19,6 +22,7 @@ class Itineraries extends React.Component {
         this.state = {
 
         };
+        console.log(this.props.authentication.loginStatus );
     }
 
     componentDidMount(){
@@ -73,13 +77,14 @@ class Itineraries extends React.Component {
                     </div>
                 </div>
                 <div className={`${classes.rightPanel} ${classes.table}`}>
-                {//this.renderItinerary()} 
+                {//this.renderItinerary()}
                 }
                     <City />
                 </div>
             </div>
                 <div><Navbar/></div>
             </React.Fragment>
+
         );
     }
 }
@@ -125,7 +130,11 @@ const muiStyles = {
     }
 };
 
-export default connect(mapStateToProps, {changeView, renderLocation, getCurrentItineraryID, saveItinerary})(withStyles(muiStyles)(Itineraries));
 
+const mapStateToProps = (state) => { //name is by convention
+    return {
+        authentication: state.authentication
+    }; //now it will appear as props
+};
 
-
+export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(Itineraries));

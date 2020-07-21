@@ -10,7 +10,6 @@ export const selectMsg = msgId => {
         type: 'SELECT_MSG',
         selectMsg: msgId
     }
-
 };
 
 export const deleteMsg = msgId => {
@@ -26,6 +25,20 @@ export const chooseUser = userName => {
         chooseUser: userName
     }
 };
+
+export const logInOut = boolean => {
+    return {
+        type: 'LOGIN_OUT',
+        logInOut: boolean
+    }
+};
+
+export const setUser = nameEmailObj => {
+    return {
+        type: 'SET_NAME_EMAIL',
+        setUser: nameEmailObj
+    }
+}
 
 export const deleteLocation = (id) => {
     return {

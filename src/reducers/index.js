@@ -1,3 +1,7 @@
+import React from 'react';
+import '../index.css';
+import { combineReducers } from 'redux';
+import {setUser} from "../actions";
 import {combineReducers} from 'redux';
 import '../index.css';
 
@@ -894,11 +898,17 @@ let jsonObj = [{
 
 ];
 
+let userState = {
+    "loginStatus": false,
+    "name": '',
+    "email": ''
+};
+
 const listReducer = (lists = jsonObj, action) => {
-    if (action.type == 'ADD_MSG') {
+    if (action.type === 'ADD_MSG') {
         return [...lists, action.addMsg];
     }
-    if (action.type == 'DELETE_MSG') {
+    if (action.type === 'DELETE_MSG') {
         return lists.filter((item, index) => index !== action.deleteMsg);
     }
     return lists;
@@ -910,6 +920,34 @@ const selector = (msgId = 0, action) => {
     }
     return msgId;
 };
+
+const authenticationReducer = (authentication = userState, action) => {
+    if (action.type === "LOGIN_OUT") {
+        let newAuth = {
+            loginStatus: action.logInOut,
+            name: authentication.name,
+            email: authentication.email
+        };
+        return newAuth;
+    }
+    if (action.type === "SET_NAME_EMAIL") {
+        let newAuth = {
+            loginStatus: authentication.loginStatus,
+            name: action.setUser.name,
+            email: action.setUser.email
+        };
+        return newAuth;
+    }
+    return authentication;
+};
+
+export default combineReducers({
+    lists: listReducer,
+    msgId: selector,
+    authentication: authenticationReducer
+});
+
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

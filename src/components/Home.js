@@ -3,9 +3,15 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { GiCalendar, GiDesk, GiChecklist } from "react-icons/gi";
 import "./Home.css"
+import {Redirect} from "react-router";
+import { connect } from "react-redux";
 
 class Home extends React.Component {
     render = () => {
+        if (this.props.authentication.loginStatus === false) {
+            return <Redirect to="/" />
+        }
+
         return (
             <React.Fragment>
                 <div className="bg">
@@ -90,4 +96,9 @@ const muiStyles = {
     }
 };
 
-export default Home;
+const mapStateToProps = (state) => { //name is by convention
+    return {
+        authentication: state.authentication
+    }; //now it will appear as props
+};
+export default connect(mapStateToProps)(Home);

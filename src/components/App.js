@@ -6,6 +6,8 @@ import Map from "./Map";
 import Itineraries from "./Itineraries";
 import Itinerary from "./Itinerary";
 import Lists from "./Lists";
+import Login from "./Login";
+
 import './fonts.css';
 
 function App() {
@@ -15,8 +17,11 @@ function App() {
                 <Route exact path="/itineraries">
                     <Itineraries />
                 </Route>
-                <Route exact path="/">
+                <Route exact path="/home">
                     <Home />
+                </Route>
+                <Route exact path="/">
+                    <Login />
                 </Route>
                 <Route exact path="/map">
                     <Map />
