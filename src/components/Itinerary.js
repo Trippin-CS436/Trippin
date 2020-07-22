@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { changeView, renderLocation, getCurrentItineraryID,saveItinerary} from '../actions';
+import { changeView, renderLocation, getCurrentItineraryID,saveItinerary,itineraryNameChange} from '../actions';
 import './Itinerary.css';
 import './Iteneraries.css';
 import Collapsible from "react-collapsible";
@@ -10,6 +10,10 @@ import SaveButton from "./SaveButton";
 import LocationButton from "./LocationButton";
 import Dates from "./Dates";
 import axios from "axios";
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import IconButton from "@material-ui/core/IconButton";
+import SaveIcon from '@material-ui/icons/Save';
+import { TextField } from '@material-ui/core';
 
 
 class Itinerary extends React.Component {
@@ -17,7 +21,9 @@ class Itinerary extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-
+            editItinerary: false,
+            name: this.props.itinerary.name,
+            helperText: "",
         };
     }
 
@@ -60,11 +66,70 @@ class Itinerary extends React.Component {
         }
         return content;
     }
-
+    handleEditItineraryName(){
+        if (!this.state.editItinerary){
+            this.setState({editItinerary: !this.state.editItinerary});
+        }
+        else{
+            //Do other stuff  first
+            if (this.state.name.length > 0){
+                this.props.itineraryNameChange(this.state.name);
+                this.setState({editItinerary: !this.state.editItinerary});
+            }
+        }
+    }
+    renderItineraryName(){
+        const styles = {
+            //style for font size
+            resize:{
+                fontSize:50
+            },
+        };
+        //Itinerary is not being edited
+        if (!this.state.editItinerary){
+            return (
+                <div>
+                    <h1 id={"itinerary_name"}>{this.props.itinerary.name}</h1>
+                    <IconButton  aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
+                        <EditOutlinedIcon className={"edit-btn"}/>
+                    </IconButton>
+                </div>
+            );
+        }
+        else{
+            return(
+                <div id={"itinerary-div"}>
+                    <TextField id="filled-basic"
+                               label="New Itinerary Name"
+                               variant="outlined"
+                               error ={this.state.name.length === 0 ? true : false }
+                               helperText={this.state.name.length === 0 ? "Itinerary name cannot be empty!" : "" }
+                               defaultValue={this.props.itinerary.name}
+                               inputProps={{
+                                   style: {
+                                       fontSize: "2.5em",
+                                       fontWeight: "bold",
+                                   }}} // font size of input text
+                               onChange={this.handleNameChange.bind(this)}/>
+                    <IconButton  aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
+                        <SaveIcon className={"edit-btn"}/>
+                    </IconButton>
+                </div>
+            );
+        }
+    }
+    handleNameChange(event){
+        this.setState({
+            name: event.target.value,
+        });
+    }
     render() {
+
         return (
             <React.Fragment>
-                <h1>{this.props.itinerary.name}</h1>
+                {this.renderItineraryName()}
+
+                <Dates place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
                 {this.renderItinerary()}
                 <City/>
                 <LocationButton/>
@@ -89,4 +154,4 @@ const mapStateToProps = (state) => { //name is by convention
 };
 
 
-export default connect(mapStateToProps, {changeView, renderLocation, getCurrentItineraryID,saveItinerary})(Itinerary);
+export default connect(mapStateToProps, {changeView, renderLocation, getCurrentItineraryID,saveItinerary,itineraryNameChange})(Itinerary);

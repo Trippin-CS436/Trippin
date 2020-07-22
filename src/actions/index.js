@@ -67,6 +67,13 @@ export const startDateChange = (place,type,date,dateIndex,) => {
             dateIndex: dateIndex,
         }
     }
+    else if (type ==='itinerary'){
+        return{
+            type: "START_DATE_CHANGE_ITINERARY",
+            date: date,
+            dateIndex: dateIndex,
+        }
+    }
     return {}
 };
 
@@ -83,6 +90,13 @@ export const endDateChange = (place,type,date,dateIndex,) => {
         return{
             type: "END_DATE_CHANGE_COUNTRY",
             place: place,
+            date: date,
+            dateIndex: dateIndex,
+        }
+    }
+    else if (type ==='itinerary'){
+        return{
+            type: "END_DATE_CHANGE_ITINERARY",
             date: date,
             dateIndex: dateIndex,
         }

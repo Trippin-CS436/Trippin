@@ -1039,6 +1039,22 @@ const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{s
         itinerary.push(action.add);
         return itinerary;
     }
+    else if (action.type === 'START_DATE_CHANGE_ITINERARY'){
+        let newArray = itinerary.dateRanges.slice();
+        newArray[action.dateIndex].start = action.date;
+        return{
+            ...itinerary,
+            dateRanges: newArray,
+        };
+    }
+    else if (action.type === 'END_DATE_CHANGE_ITINERARY'){
+        let newArray = itinerary.dateRanges.slice();
+        newArray[action.dateIndex].end = action.date;
+        return{
+            ...itinerary,
+            dateRanges: newArray,
+        };
+    }
     return itinerary;
 };
 

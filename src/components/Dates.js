@@ -18,7 +18,7 @@ class Dates extends React.Component{
         return(
             <div className={this.props.class+ ""}>
 
-                <Popup className="widthFix" trigger={datesComponent} modal>
+                <Popup contentStyle={{width: "600px"}}trigger={datesComponent} modal>
                     {close => (
                         <div className="modal" style={{color: "black"}}>
                             <a className="close" onClick={close}>
@@ -65,7 +65,8 @@ const mapStateToProps = (state) =>{
         locations: state.locations,
         currentView: state.currentView,
         cities: state.cities,
-        countries: state.countries
+        countries: state.countries,
+        itinerary: state.itinerary,
     };
 };
 

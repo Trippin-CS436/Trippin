@@ -1,9 +1,8 @@
 .modal {
     font-size: 12pt;
+    min-width: 600px;
 }
-.widthFix {
-    min-width: 400px;
-}
+
 .modal > .header {
     width: 100%;
     border-bottom: 1px solid gray;
