@@ -30,13 +30,14 @@
     "react-google-maps": "^9.4.5",
     "react-icons": "^3.10.0",
     "react-redux": "^7.2.0",
+    "react-router": "latest",
+    "react-router-redux": "^4.0.8",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
+    "redux-auth-wrapper": "^3.0.0",
     "request": "^2.88.2",
     "uniqid": "^5.2.0",
     "uuidv4": "^6.1.1"
-    "redux": "^4.0.5",
-    "react-router": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

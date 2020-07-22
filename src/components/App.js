@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {BrowserRouter as Router, Route, withRouter} from "react-router-dom";
 import Home from "./Home";
 import Map from "./Map";
 import Itineraries from "./Itineraries";
 import Itinerary from "./Itinerary";
 import Lists from "./Lists";
 import Login from "./Login";
-
 import './fonts.css';
+
 
 function App() {
     return (
@@ -17,10 +17,10 @@ function App() {
                 <Route exact path="/itineraries">
                     <Itineraries />
                 </Route>
-                <Route exact path="/home">
+                <Route exact path="/">
                     <Home />
                 </Route>
-                <Route exact path="/">
+                <Route exact path="/login">
                     <Login />
                 </Route>
                 <Route exact path="/map">
@@ -36,5 +36,6 @@ function App() {
         </Router>
     );
 }
+
 
 export default App;

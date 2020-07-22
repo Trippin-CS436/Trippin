@@ -8,7 +8,6 @@ import {connect} from "react-redux";
 import {addMsg, deleteMsg, selectMsg} from "../actions";
 import Redirect from "react-router-dom/es/Redirect";
 import Collapsible from "react-collapsible";
-import { connect } from 'react-redux';
 import { changeView, renderLocation, getCurrentItineraryID,saveItinerary} from '../actions';
 import './Itinerary.css';
 import './Iteneraries.css';
@@ -98,6 +97,7 @@ const mapStateToProps = (state) => { //name is by convention
         cities: state.cities,
         itinerary: state.itinerary,
         locations: state.locations,
+        authentication: state.authentication
     }; //now it will appear as props
 };
 
@@ -130,11 +130,5 @@ const muiStyles = {
     }
 };
 
-
-const mapStateToProps = (state) => { //name is by convention
-    return {
-        authentication: state.authentication
-    }; //now it will appear as props
-};
 
 export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(Itineraries));

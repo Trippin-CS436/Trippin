@@ -2,7 +2,6 @@ import React from 'react';
 import '../index.css';
 import { combineReducers } from 'redux';
 import {setUser} from "../actions";
-import {combineReducers} from 'redux';
 import '../index.css';
 
 const currentLocation = {
@@ -900,8 +899,8 @@ let jsonObj = [{
 
 let userState = {
     "loginStatus": false,
-    "name": '',
-    "email": ''
+    "name": null,
+    "email": null
 };
 
 const listReducer = (lists = jsonObj, action) => {
@@ -941,11 +940,6 @@ const authenticationReducer = (authentication = userState, action) => {
     return authentication;
 };
 
-export default combineReducers({
-    lists: listReducer,
-    msgId: selector,
-    authentication: authenticationReducer
-});
 
 
 
@@ -1109,5 +1103,6 @@ export default combineReducers({
     lists: listReducer,
     msgId: selector,
     currentItinerary: currentItineraryReducer,
-    currentItineraryID: currentItineraryObjectIDReudcer
+    currentItineraryID: currentItineraryObjectIDReudcer,
+    authentication: authenticationReducer
 });

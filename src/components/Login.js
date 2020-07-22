@@ -1,6 +1,5 @@
 import React from 'react';
 import GoogleLogin from 'react-google-login';
-import {Redirect, withRouter} from 'react-router-dom';
 import  FacebookLogin  from 'react-facebook-login';
 import {connect} from "react-redux";
 import { logInOut, setUser } from "../actions";
@@ -38,11 +37,6 @@ class Login extends React.Component {
 
 
     render() {
-        if (this.props.authentication.loginStatus === true) {
-            return (
-                <Redirect to="/home" />
-            )
-        }
         console.log(this.props.authentication);
         return (
             <div className='bg-login'>
@@ -76,4 +70,4 @@ const mapStateToProps = (state) => { //name is by convention
 };
 
 
-export default connect(mapStateToProps, { setUser, logInOut })(withRouter(Login));
+export default connect(mapStateToProps, { setUser, logInOut })(Login);

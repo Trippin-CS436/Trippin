@@ -23,6 +23,7 @@ class Lists extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.addList = this.addList.bind(this);
         this.renderCountry = this.renderCountry.bind(this);
+        this.renderList = this.renderList.bind(this);
     }
 
     handleChange(event) {
