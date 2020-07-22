@@ -14,7 +14,7 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import IconButton from "@material-ui/core/IconButton";
 import SaveIcon from '@material-ui/icons/Save';
 import { TextField } from '@material-ui/core';
-
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 class Itinerary extends React.Component {
 
@@ -49,7 +49,12 @@ class Itinerary extends React.Component {
             content.push(
                 <Collapsible key={country.name} trigger={
                     <div>
-                        <h1>{country.name}</h1>
+                        <div>
+                            <h1 className={"itinerary_name"}>{country.name}</h1>
+                            <IconButton className={""} aria-label="Delete"  name="Delete">
+                                <DeleteForeverIcon color="secondary" className={"edit-btn"} onClick={() => console.log("DELETE")}/>
+                            </IconButton>
+                        </div>
                         <Dates place={country} class={"dates"} type={"country"}/>
                     </div>
                 }>
@@ -57,7 +62,17 @@ class Itinerary extends React.Component {
                 {this.props.cities.filter(function(city){
                     return city.countryID == country.id;
                 }).map(function(city,index){
-                    return (<div key={index} className="stripe item-font" onClick={() => this.props.changeView(country,city)}>{city.name}</div>)
+                    return (
+                        <div key={index} className="stripe item-font relativeDiv" onClick={() => this.props.changeView(country,city)}>
+                            {city.name}
+                            <div className={"buttonDiv"}>
+                                <IconButton  aria-label="Delete"  name="Delete">
+                                    <DeleteForeverIcon color="secondary"  onClick={() => console.log("DELETE")}/>
+                                </IconButton>
+                            </div>
+
+                        </div>
+                    )
                 },this)
                 }
             </Collapsible>
@@ -82,7 +97,7 @@ class Itinerary extends React.Component {
         if (!this.state.editItinerary){
             return (
                 <div>
-                    <h1 id={"itinerary_name"}>{this.props.itinerary.name}</h1>
+                    <h1 className={"itinerary_name"}>{this.props.itinerary.name}</h1>
                     <IconButton  aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
                         <EditOutlinedIcon className={"edit-btn"}/>
                     </IconButton>

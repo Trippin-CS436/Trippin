@@ -1,4 +1,4 @@
-#itinerary_name{
+.itinerary_name{
     margin: 0px 0px 0px 10px;
     font-size: 2.5em;
     display: inline-block;
@@ -13,6 +13,15 @@
 .edit-btn{
     position: relative;
     top: -7px;
+}
+.buttonDiv{
+    display: inline-block;
+    position: absolute;
+    left: 90%;
+    top: -5px;
+}
+.relativeDiv{
+    position: relative;
 }
 h1{
     margin: 0px 10px 5px 10px;
