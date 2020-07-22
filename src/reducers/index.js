@@ -988,7 +988,15 @@ const cityReducer = (cities = defaultCities, action) =>{
         newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
         return newArray
     }
-
+    else if (action.type === "NEW_CITY"){
+        let city = {
+            name: action.name,
+            id: action.id,
+            dateRanges: [],
+            countryID: action.countryID,
+        };
+        return cities.concat(city);
+    }
     return cities;
 };
 
@@ -1011,6 +1019,14 @@ const countryReducer = (countries = defaultCountries, action) =>{
         });
         newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
         return newArray
+    }
+    else if (action.type === "NEW_COUNTRY"){
+        let country = {
+            name: action.name,
+            id: action.id,
+            dateRanges: [],
+        };
+        return countries.concat(country);
     }
     return countries;
 };

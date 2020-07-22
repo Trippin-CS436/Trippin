@@ -137,3 +137,19 @@ export const getCurrentItineraryID = (id) => {
         payload: id
     }
 }
+
+export const insertNewCountry = (id, name) => {
+    return{
+        type: "NEW_COUNTRY",
+        id: id,
+        name: name,
+    }
+}
+export const insertNewCity = (id, name,countryID) => {
+    return{
+        type: "NEW_CITY",
+        id: id,
+        name: name,
+        countryID: countryID,
+    }
+}

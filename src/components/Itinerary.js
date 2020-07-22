@@ -23,7 +23,6 @@ class Itinerary extends React.Component {
         this.state = {
             editItinerary: false,
             name: this.props.itinerary.name,
-            helperText: "",
         };
     }
 
@@ -79,12 +78,6 @@ class Itinerary extends React.Component {
         }
     }
     renderItineraryName(){
-        const styles = {
-            //style for font size
-            resize:{
-                fontSize:50
-            },
-        };
         //Itinerary is not being edited
         if (!this.state.editItinerary){
             return (
@@ -109,7 +102,7 @@ class Itinerary extends React.Component {
                                    style: {
                                        fontSize: "2.5em",
                                        fontWeight: "bold",
-                                   }}} // font size of input text
+                                   }}} // font styling of input text
                                onChange={this.handleNameChange.bind(this)}/>
                     <IconButton  aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
                         <SaveIcon className={"edit-btn"}/>

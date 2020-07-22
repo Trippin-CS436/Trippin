@@ -5,6 +5,7 @@ import { MuiPickersUtilsProvider,DatePicker  } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import format from 'date-fns/format'
 import {startDateChange,endDateChange} from "../actions";
+import DateRangeIcon from '@material-ui/icons/DateRange';
 
 class Dates extends React.Component{
 
