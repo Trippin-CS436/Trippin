@@ -21,7 +21,7 @@ class Itineraries extends React.Component {
         this.state = {
 
         };
-        console.log(this.props.authentication.loginStatus );
+       // console.log(this.props.authentication.loginStatus );
     }
 
     componentDidMount(){

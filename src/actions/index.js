@@ -26,17 +26,16 @@ export const chooseUser = userName => {
     }
 };
 
-export const logInOut = boolean => {
+export const logOut = () => {
     return {
-        type: 'LOGIN_OUT',
-        logInOut: boolean
+        type: 'LOGOUT'
     }
 };
 
-export const setUser = nameEmailObj => {
+export const logIn = nameEmailObj => {
     return {
-        type: 'SET_NAME_EMAIL',
-        setUser: nameEmailObj
+        type: 'LOGIN',
+        logIn: nameEmailObj
     }
 }
 

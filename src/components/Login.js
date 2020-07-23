@@ -2,7 +2,8 @@ import React from 'react';
 import GoogleLogin from 'react-google-login';
 import  FacebookLogin  from 'react-facebook-login';
 import {connect} from "react-redux";
-import { logInOut, setUser } from "../actions";
+import { logIn, logOut } from "../actions";
+import { withRouter } from 'react-router'
 // import { TiSocialFacebookCircular } from 'react-icons/lib/ti/social-facebook-circular';
 
 class Login extends React.Component {
@@ -15,23 +16,23 @@ class Login extends React.Component {
     };
 
     responseFacebook = (response) => {
-            this.props.logInOut(true);
-            this.props.setUser({
+            this.props.logIn({
                 "name": response.name,
-                "email": response.email
+                "email": response.email,
+                "profilePic": response.picture
             });
             console.log(JSON.stringify(this.props.authentication));
-            this.props.history.push('/home');
+            this.props.history.push('/');
     };
 
     success = (response) => {
-        this.props.logInOut(true);
-        this.props.setUser({
+        this.props.logIn({
             "name": response.getBasicProfile().getGivenName(),
-            "email": response.getBasicProfile().getEmail()
+            "email": response.getBasicProfile().getEmail(),
+            "profilePic": response.getBasicProfile.getImageUrl()
         });
         console.log(JSON.stringify(this.props.authentication));
-        this.props.history.push('/home');
+        this.props.history.push('/');
     };
 
 
@@ -70,4 +71,4 @@ const mapStateToProps = (state) => { //name is by convention
 };
 
 
-export default connect(mapStateToProps, { setUser, logInOut })(Login);
+export default connect(mapStateToProps, { logIn, logOut })(withRouter(Login));

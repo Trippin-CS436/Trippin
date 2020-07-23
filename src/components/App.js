@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route, withRouter} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import Home from "./Home";
 import Map from "./Map";
 import Itineraries from "./Itineraries";
@@ -8,30 +8,32 @@ import Itinerary from "./Itinerary";
 import Lists from "./Lists";
 import Login from "./Login";
 import './fonts.css';
+import AuthRoute from "./AuthRoute";
+import Navbar from "./Navbar";
 
 
 function App() {
     return (
         <Router>
             <div>
-                <Route exact path="/itineraries">
+                <AuthRoute exact path="/itineraries">
                     <Itineraries />
-                </Route>
-                <Route exact path="/">
+                </AuthRoute>
+                <AuthRoute exact path="/">
                     <Home />
-                </Route>
+                </AuthRoute>
                 <Route exact path="/login">
                     <Login />
                 </Route>
-                <Route exact path="/map">
+                <AuthRoute exact path="/map">
                     <Map />
-                </Route>
-                <Route exact path="/lists">
+                </AuthRoute>
+                <AuthRoute exact path="/lists">
                     <Lists />
-                </Route>
-                <Route exact path="/test">
+                </AuthRoute>
+                <AuthRoute exact path="/test">
                     <Itinerary />
-                </Route>
+                </AuthRoute>
             </div>
         </Router>
     );

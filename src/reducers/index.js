@@ -1,7 +1,6 @@
 import React from 'react';
 import '../index.css';
 import { combineReducers } from 'redux';
-import {setUser} from "../actions";
 import '../index.css';
 
 const currentLocation = {
@@ -900,7 +899,8 @@ let jsonObj = [{
 let userState = {
     "loginStatus": false,
     "name": null,
-    "email": null
+    "email": null,
+    "profilePic": null
 };
 
 const listReducer = (lists = jsonObj, action) => {
@@ -921,19 +921,21 @@ const selector = (msgId = 0, action) => {
 };
 
 const authenticationReducer = (authentication = userState, action) => {
-    if (action.type === "LOGIN_OUT") {
+    if (action.type === "LOGOUT") {
         let newAuth = {
-            loginStatus: action.logInOut,
-            name: authentication.name,
-            email: authentication.email
+            loginStatus: false,
+            name: null,
+            email: null,
+            profilePic: null
         };
         return newAuth;
     }
-    if (action.type === "SET_NAME_EMAIL") {
+    if (action.type === "LOGIN") {
         let newAuth = {
-            loginStatus: authentication.loginStatus,
-            name: action.setUser.name,
-            email: action.setUser.email
+            loginStatus: true,
+            name: action.logIn.name,
+            email: action.logIn.email,
+            profilePic: action.logIn.profilePic
         };
         return newAuth;
     }
@@ -1084,7 +1086,7 @@ const currentItineraryReducer = (currentItinerary = null, action) => {
     return currentItinerary;
 }
 
-const currentItineraryObjectIDReudcer = (id = null, action) => {
+const currentItineraryObjectIDReducer = (id = null, action) => {
     if(action.type == "GET_CURRENT_ITINERARY_ID") {
         return action.payload;
     }
@@ -1103,6 +1105,6 @@ export default combineReducers({
     lists: listReducer,
     msgId: selector,
     currentItinerary: currentItineraryReducer,
-    currentItineraryID: currentItineraryObjectIDReudcer,
+    currentItineraryID: currentItineraryObjectIDReducer,
     authentication: authenticationReducer
 });
