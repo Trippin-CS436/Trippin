@@ -116,10 +116,10 @@ export const endDateChange = (place,type,date,dateIndex,) => {
     return {}
 };
 
-export const changeView = (city) => {
+export const changeView = (id) => {
     let view = {
         byID: {
-            city: city.id,
+            city: id,
         }
     };
     return {

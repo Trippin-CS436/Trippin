@@ -80,7 +80,7 @@ class Itinerary extends React.Component {
                     return city.countryID === country.id;
                 }).map(function(city,index){
                     return (
-                        <div key={index} className="stripe item-font relativeDiv" onClick={() => this.props.changeView(city)}>
+                        <div key={index} className="stripe item-font relativeDiv" onClick={() => this.props.changeView(city.id)}>
                             {city.name}
                             <div className={"buttonDivDelete"}>
                                 <IconButton  aria-label="Delete"  name="Delete">
@@ -206,12 +206,10 @@ class Itinerary extends React.Component {
     deleteFromItinerary(){
         let countries = this.props.countries;
         let cities = this.props.cities;
+        let citiesReference = this.props.cities;
         let locations = this.props.locations;
-        console.log("DELETING FROM ITINERARY");
         console.log(this.state.deletionIsCountry)
-        if(this.state.deletionIsCountry){
-            console.log("deleting country")
-            this.props.deleteCountry(this.state.idToDelete);
+        if (this.state.deletionIsCountry){
             //cascade deletes to every city and location in delete country
             cities = cities.filter((item) => item.countryID === this.state.idToDelete);
             console.log(cities)
@@ -219,10 +217,13 @@ class Itinerary extends React.Component {
                 //Find a new city to display
                 if (city.id === this.props.currentView.byID.city){
                     let cityToDisplayIndex = this.props.cities.findIndex((item) => {
-                        return this.state.idToDelete !== item.id;
+                        return city.id !== item.id;
                     });
-                    console.log(cityToDisplayIndex);
-                    this.props.changeView(this.props.cities[cityToDisplayIndex]);
+                    //No city left to display
+                    if(cityToDisplayIndex === -1 || countries.length === 1)
+                        this.props.changeView(-1);
+                    else
+                        this.props.changeView(this.props.cities[cityToDisplayIndex].id);
                 }
                 this.props.deleteCity(city.id);
                 locations = locations.filter((item) => item.cityID === city.id);
@@ -230,6 +231,8 @@ class Itinerary extends React.Component {
                     this.props.deleteLocation(location.id);
                 }
             }
+            //Delete the country at the end of deleting cities and locations it contains
+            this.props.deleteCountry(this.state.idToDelete);
         }
         //Delete button hit for city, cascade deletions to locations and possibly change view
         else{
@@ -238,8 +241,10 @@ class Itinerary extends React.Component {
                 let cityToDisplayIndex = cities.findIndex((item) => {
                     return this.state.idToDelete !== item.id;
                 });
-                console.log(cityToDisplayIndex);
-                this.props.changeView(cities[cityToDisplayIndex]);
+                if(cityToDisplayIndex === -1)
+                    this.props.changeView(-1);
+                else
+                    this.props.changeView(cities[cityToDisplayIndex].id);
             }
             this.props.deleteCity(this.state.idToDelete);
             locations = locations.filter((item) => item.cityID === this.state.idToDelete);
@@ -248,8 +253,6 @@ class Itinerary extends React.Component {
             }
 
         }
-        console.log(this.props.cities)
-        console.log(this.props.locations)
         this.handleClose();
     }
 }

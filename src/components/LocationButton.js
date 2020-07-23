@@ -1,4 +1,4 @@
-import {addLocation, insertNewCity, insertNewCountry} from "../actions";
+import {addLocation, changeView, insertNewCity, insertNewCountry} from "../actions";
 import React from "react";
 import {connect} from "react-redux";
 const { uuid } = require('uuidv4');
@@ -13,15 +13,18 @@ class LocationButton extends React.Component {
         )
     }
     addLocationToItinerary() {
+        let isCitiesEmpty = (this.props.cities.length === 0) ? true : false
         let currentMapLocation = this.props.mapLocation;
 
         let city = currentMapLocation.Area;
+        let cityID = uuid();
+
         let address = currentMapLocation.Address;
         let country = currentMapLocation.Country;
         let location = currentMapLocation.Name;
         if (country === "")
             return
-        
+
         if(this.props.countries.map(item => item.name).includes(country)){
             if(this.props.cities.map(item => item.name).includes(city)){
                 //Country and City exist in itinerary
@@ -35,7 +38,6 @@ class LocationButton extends React.Component {
             //New city to add
             else{
                 let countryID = this.props.countries.filter((item) => {return item.name === country})[0].id;
-                let cityID = uuid();
                 //New City to add
                 if (city !== ""){
                     this.props.insertNewCity(cityID,city,countryID)
@@ -50,7 +52,6 @@ class LocationButton extends React.Component {
         else{
             //New Country to add
             let countryID = uuid();
-            let cityID = uuid();
             //New City to add
             if (city !== ""){
                 this.props.insertNewCity(cityID,city,countryID)
@@ -61,7 +62,10 @@ class LocationButton extends React.Component {
                 }
             }
             this.props.insertNewCountry(countryID,country);
-
+        }
+        console.log(this.props.cities)
+        if (isCitiesEmpty){
+            this.props.changeView(cityID);
         }
     }
 }
@@ -75,4 +79,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps,{addLocation,insertNewCountry,insertNewCity})(LocationButton);
+export default connect(mapStateToProps,{changeView,addLocation,insertNewCountry,insertNewCity})(LocationButton);
