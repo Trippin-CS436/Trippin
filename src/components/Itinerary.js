@@ -51,8 +51,8 @@ class Itinerary extends React.Component {
                     <div>
                         <div>
                             <h1 className={"itinerary_name"}>{country.name}</h1>
-                            <IconButton className={""} aria-label="Delete"  name="Delete">
-                                <DeleteForeverIcon color="secondary" className={"edit-btn"} onClick={() => console.log("DELETE")}/>
+                            <IconButton className={"edit-btn"} aria-label="Delete"  name="Delete">
+                                <DeleteForeverIcon color="secondary"  onClick={() => console.log("DELETE")}/>
                             </IconButton>
                         </div>
                         <Dates place={country} class={"dates"} type={"country"}/>
@@ -60,12 +60,12 @@ class Itinerary extends React.Component {
                 }>
 
                 {this.props.cities.filter(function(city){
-                    return city.countryID == country.id;
+                    return city.countryID === country.id;
                 }).map(function(city,index){
                     return (
                         <div key={index} className="stripe item-font relativeDiv" onClick={() => this.props.changeView(country,city)}>
                             {city.name}
-                            <div className={"buttonDiv"}>
+                            <div className={"buttonDivDelete"}>
                                 <IconButton  aria-label="Delete"  name="Delete">
                                     <DeleteForeverIcon color="secondary"  onClick={() => console.log("DELETE")}/>
                                 </IconButton>

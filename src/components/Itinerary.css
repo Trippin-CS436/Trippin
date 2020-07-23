@@ -12,13 +12,15 @@
 }
 .edit-btn{
     position: relative;
-    top: -7px;
+    top: -8px;
+    transform: scale(1.4);
 }
-.buttonDiv{
+.buttonDivDelete{
     display: inline-block;
     position: absolute;
     left: 90%;
-    top: -5px;
+    top: -6px;
+    transform: scale(1.1);
 }
 .relativeDiv{
     position: relative;
