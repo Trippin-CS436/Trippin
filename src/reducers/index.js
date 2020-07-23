@@ -924,7 +924,6 @@ const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffit
     {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0, notes: "", info: {}},
     {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0, note: "", info: {}},
     {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0, notes: "", info: {}},
-    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 100, notes: "", info: {}},
     {id:6, location: "Craigdarroch Castle", address: "1050 Joan Crescent, Victoria, BC V8S 3L5", cityID: 2, notes: "", info: {}},
     {id:7, location: "Alcatraz Island", address: "San Francisco, CA 94133, United States", cityID: 1, notes: "", info: {}},];
 
@@ -997,6 +996,14 @@ const cityReducer = (cities = defaultCities, action) =>{
         };
         return cities.concat(city);
     }
+    else if (action.type ==="DEL_CITY"){
+        let newArray = cities.slice();
+        let indexToRemove = newArray.findIndex((item) => {
+            return action.location_id === item.id;
+        });
+        newArray.splice(indexToRemove, 1);
+        return newArray;
+    }
     return cities;
 };
 
@@ -1028,12 +1035,19 @@ const countryReducer = (countries = defaultCountries, action) =>{
         };
         return countries.concat(country);
     }
+    else if (action.type ==="DEL_COUNTRY"){
+        let newArray = countries.slice();
+        let indexToRemove = newArray.findIndex((item) => {
+            return action.location_id === item.id;
+        });
+        newArray.splice(indexToRemove, 1);
+        return newArray;
+    }
     return countries;
 };
 
 const defaultView = {
     byID:{
-        country: 0,
         city: 0,
     }
 };

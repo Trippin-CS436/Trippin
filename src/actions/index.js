@@ -33,6 +33,18 @@ export const deleteLocation = (id) => {
         location_id: id,
     };
 };
+export const deleteCity = (id) => {
+    return {
+        type: 'DEL_CITY',
+        location_id: id,
+    };
+};
+export const deleteCountry = (id) => {
+    return {
+        type: 'DEL_COUNTRY',
+        location_id: id,
+    };
+};
 
 export const addLocation = (id,name,address,cityID) => {
     return {
@@ -104,10 +116,9 @@ export const endDateChange = (place,type,date,dateIndex,) => {
     return {}
 };
 
-export const changeView = (country,city,locations) => {
+export const changeView = (city) => {
     let view = {
         byID: {
-            country: country.id,
             city: city.id,
         }
     };

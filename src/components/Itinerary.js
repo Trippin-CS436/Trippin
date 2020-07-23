@@ -1,6 +1,13 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { changeView, renderLocation, getCurrentItineraryID,saveItinerary,itineraryNameChange} from '../actions';
+import {
+    changeView,
+    renderLocation,
+    getCurrentItineraryID,
+    saveItinerary,
+    itineraryNameChange,
+    deleteCountry, deleteCity, deleteLocation
+} from '../actions';
 import './Itinerary.css';
 import './Iteneraries.css';
 import Collapsible from "react-collapsible";
@@ -15,6 +22,11 @@ import IconButton from "@material-ui/core/IconButton";
 import SaveIcon from '@material-ui/icons/Save';
 import { TextField } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 class Itinerary extends React.Component {
 
@@ -23,6 +35,10 @@ class Itinerary extends React.Component {
         this.state = {
             editItinerary: false,
             name: this.props.itinerary.name,
+            openDialog: false,
+            idToDelete: null,
+            deletionIsCountry: false,
+            nameOfDeletion: null,
         };
     }
 
@@ -52,7 +68,8 @@ class Itinerary extends React.Component {
                         <div>
                             <h1 className={"itinerary_name"}>{country.name}</h1>
                             <IconButton className={"edit-btn"} aria-label="Delete"  name="Delete">
-                                <DeleteForeverIcon color="secondary"  onClick={() => console.log("DELETE")}/>
+                                <DeleteForeverIcon color="secondary"
+                                                   onClick={(event) => {this.handleDialogOpen(country,true);event.stopPropagation();}}/>
                             </IconButton>
                         </div>
                         <Dates place={country} class={"dates"} type={"country"}/>
@@ -63,11 +80,11 @@ class Itinerary extends React.Component {
                     return city.countryID === country.id;
                 }).map(function(city,index){
                     return (
-                        <div key={index} className="stripe item-font relativeDiv" onClick={() => this.props.changeView(country,city)}>
+                        <div key={index} className="stripe item-font relativeDiv" onClick={() => this.props.changeView(city)}>
                             {city.name}
                             <div className={"buttonDivDelete"}>
                                 <IconButton  aria-label="Delete"  name="Delete">
-                                    <DeleteForeverIcon color="secondary"  onClick={() => console.log("DELETE")}/>
+                                    <DeleteForeverIcon color="secondary"  onClick={(event) => {this.handleDialogOpen(city,false);event.stopPropagation();}}/>
                                 </IconButton>
                             </div>
 
@@ -98,8 +115,8 @@ class Itinerary extends React.Component {
             return (
                 <div>
                     <h1 className={"itinerary_name"}>{this.props.itinerary.name}</h1>
-                    <IconButton  aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
-                        <EditOutlinedIcon className={"edit-btn"}/>
+                    <IconButton  className={"edit-btn"} aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
+                        <EditOutlinedIcon />
                     </IconButton>
                 </div>
             );
@@ -136,17 +153,105 @@ class Itinerary extends React.Component {
         return (
             <React.Fragment>
                 {this.renderItineraryName()}
-
                 <Dates place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
                 {this.renderItinerary()}
                 <City/>
                 <LocationButton/>
                 <SaveButton/>
                 <Map className={"map"}/>
+                {this.renderDeleteConfirmation()}
             </React.Fragment>
         )
     }
 
+    renderDeleteConfirmation() {
+        let placeType = this.state.deletionIsCountry ? "country" : "city"
+
+        let deletionMessage = "Are you sure you want to delete the "
+            + placeType + " '"+ this.state.nameOfDeletion+"' ?";
+        return (<Dialog
+            open={this.state.openDialog}
+            onClose={this.handleClose.bind(this)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+        >
+            <DialogTitle id="alert-dialog-title">{deletionMessage}</DialogTitle>
+            <DialogActions>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<DeleteIcon />}
+                    onClick={this.deleteFromItinerary.bind(this)}
+                >
+                    Delete
+                </Button>
+                <Button onClick={this.handleClose.bind(this)} variant="contained" color="primary" autoFocus>
+                    Cancel
+                </Button>
+            </DialogActions>
+        </Dialog>)
+    }
+
+    handleClose(){
+        this.setState({openDialog: false});
+    }
+    handleDialogOpen(place,isCountry){
+        // stopBubbling(this.event);
+        this.setState({
+            openDialog: true,
+            idToDelete: place.id,
+            deletionIsCountry: isCountry,
+            nameOfDeletion: place.name,});
+    }
+    deleteFromItinerary(){
+        let countries = this.props.countries;
+        let cities = this.props.cities;
+        let locations = this.props.locations;
+        console.log("DELETING FROM ITINERARY");
+        console.log(this.state.deletionIsCountry)
+        if(this.state.deletionIsCountry){
+            console.log("deleting country")
+            this.props.deleteCountry(this.state.idToDelete);
+            //cascade deletes to every city and location in delete country
+            cities = cities.filter((item) => item.countryID === this.state.idToDelete);
+            console.log(cities)
+            for (const city of cities){
+                //Find a new city to display
+                if (city.id === this.props.currentView.byID.city){
+                    let cityToDisplayIndex = this.props.cities.findIndex((item) => {
+                        return this.state.idToDelete !== item.id;
+                    });
+                    console.log(cityToDisplayIndex);
+                    this.props.changeView(this.props.cities[cityToDisplayIndex]);
+                }
+                this.props.deleteCity(city.id);
+                locations = locations.filter((item) => item.cityID === city.id);
+                for (const location of locations){
+                    this.props.deleteLocation(location.id);
+                }
+            }
+        }
+        //Delete button hit for city, cascade deletions to locations and possibly change view
+        else{
+            //Find a new city to display
+            if (this.state.idToDelete === this.props.currentView.byID.city){
+                let cityToDisplayIndex = cities.findIndex((item) => {
+                    return this.state.idToDelete !== item.id;
+                });
+                console.log(cityToDisplayIndex);
+                this.props.changeView(cities[cityToDisplayIndex]);
+            }
+            this.props.deleteCity(this.state.idToDelete);
+            locations = locations.filter((item) => item.cityID === this.state.idToDelete);
+            for (const location of locations){
+                this.props.deleteLocation(location.id);
+            }
+
+        }
+        console.log(this.props.cities)
+        console.log(this.props.locations)
+        this.handleClose();
+    }
 }
 
 //state has entire state of app!!
@@ -158,8 +263,21 @@ const mapStateToProps = (state) => { //name is by convention
         cities: state.cities,
         itinerary: state.itinerary,
         locations: state.locations,
+        currentView: state.currentView,
     }; //now it will appear as props
 };
-
-
-export default connect(mapStateToProps, {changeView, renderLocation, getCurrentItineraryID,saveItinerary,itineraryNameChange})(Itinerary);
+function stopBubbling(evt){
+    evt.stopPropagation();
+    evt.cancelBubble = true;
+}
+const dispatch = {
+    changeView,
+    renderLocation,
+    getCurrentItineraryID,
+    saveItinerary,
+    itineraryNameChange,
+    deleteCity,
+    deleteCountry,
+    deleteLocation,
+};
+export default connect(mapStateToProps, dispatch )(Itinerary);

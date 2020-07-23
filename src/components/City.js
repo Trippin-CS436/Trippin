@@ -19,7 +19,7 @@ class City extends React.Component {
         });
         cityToRender = cityToRender[0];
 
-        let countryToRenderID = this.props.currentView.byID.country;
+        let countryToRenderID = cityToRender.countryID;
         let countryToRender = this.props.countries.filter(function(country){
             return country.id === countryToRenderID;
         });

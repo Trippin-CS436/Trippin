@@ -13,14 +13,18 @@
 .edit-btn{
     position: relative;
     top: -8px;
-    transform: scale(1.4);
+    transform: scale(1.25);
+    z-index: 12;
+
 }
 .buttonDivDelete{
     display: inline-block;
     position: absolute;
     left: 90%;
     top: -6px;
-    transform: scale(1.1);
+    transform: scale(1.05);
+    z-index: 12;
+
 }
 .relativeDiv{
     position: relative;

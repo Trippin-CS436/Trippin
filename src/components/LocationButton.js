@@ -19,7 +19,9 @@ class LocationButton extends React.Component {
         let address = currentMapLocation.Address;
         let country = currentMapLocation.Country;
         let location = currentMapLocation.Name;
-
+        if (country === "")
+            return
+        
         if(this.props.countries.map(item => item.name).includes(country)){
             if(this.props.cities.map(item => item.name).includes(city)){
                 //Country and City exist in itinerary
