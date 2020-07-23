@@ -168,7 +168,8 @@ class Itinerary extends React.Component {
         let placeType = this.state.deletionIsCountry ? "country" : "city"
 
         let deletionMessage = "Are you sure you want to delete the "
-            + placeType + " '"+ this.state.nameOfDeletion+"' ?";
+            + placeType + " '"+ this.state.nameOfDeletion+"' from '" +
+            this.props.itinerary.name + "' ?";
         return (<Dialog
             open={this.state.openDialog}
             onClose={this.handleClose.bind(this)}

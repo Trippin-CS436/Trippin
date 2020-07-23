@@ -12,7 +12,7 @@ class City extends React.Component {
         };
     }
     render() {
-        console.log("rendering city id: " + this.props.currentView.byID.city)
+        //Empty locations/cities
         if (this.props.currentView.byID.city === -1) {
             return (
                 <h1>START ADDING TO THE ITINERARY BY SEARCHING A LOCATION AND HITTING
