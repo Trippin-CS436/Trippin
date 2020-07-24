@@ -63,10 +63,8 @@ class Itinerary extends React.Component {
                 this.props.renderLocation([]);
             }
         })
-            .catch(err => console.log("Err" + err));
-        console.log("GOT HERE!!!!");
+            .catch(err => console.log("Err: " + err));
     }
-
 
     renderItinerary() {
         const content = [];
@@ -158,22 +156,6 @@ class Itinerary extends React.Component {
             name: event.target.value,
         });
     }
-    render() {
-
-        return (
-            <React.Fragment>
-                {this.renderItineraryName()}
-                <Dates place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
-                {this.renderItinerary()}
-                <City/>
-                <LocationButton/>
-                <SaveButton/>
-                <Map className={"map"}/>
-                {this.renderDeleteConfirmation()}
-            </React.Fragment>
-        )
-    }
-
     renderDeleteConfirmation() {
         let placeType = this.state.deletionIsCountry ? "country" : "city"
 
@@ -266,6 +248,23 @@ class Itinerary extends React.Component {
         }
         this.handleClose();
     }
+
+    render() {
+
+        return (
+            <React.Fragment>
+                {this.renderItineraryName()}
+                <Dates place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
+                {this.renderItinerary()}
+                <City/>
+                <LocationButton/>
+                <SaveButton/>
+                <Map className={"map"}/>
+                {this.renderDeleteConfirmation()}
+            </React.Fragment>
+        )
+    }
+
 }
 
 //state has entire state of app!!

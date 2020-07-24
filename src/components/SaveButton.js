@@ -7,6 +7,7 @@ const { uuid } = require('uuidv4');
 class SaveButton extends React.Component {
 
     saveItinerary = () => {
+        console.log("Save itinerary called")
         let Itinerary = {};
         if (this.props.currentItinerary === null) {
             console.log("Current Itinerary has not been saved yet");
@@ -58,12 +59,6 @@ class SaveButton extends React.Component {
 
                 }
             })
-
-
-
-
-
-
     }
 
     render() {

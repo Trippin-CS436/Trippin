@@ -70,12 +70,36 @@ class Dates extends React.Component{
             </Button>)
         return dates;
     }
-
     addNewDate(){
         let dateString = format(new Date(), 'yyyy/MM/dd');
         console.log(dateString)
         this.props.addNewDate(this.props.place,this.props.type,dateString,dateString)
     }
+    handleClose(){
+        this.setState({openDialog: false});
+    }
+    handleChangeStartDate = (date,index) => {
+        let dateString = format(date, 'yyyy/MM/dd');
+        let endDateString = format(new Date(this.props.place.dateRanges[index].end), 'yyyy/MM/dd');
+        //All date validation here
+        if (Date.parse(dateString) <= Date.parse(endDateString)){
+            this.props.startDateChange(this.props.place,this.props.type,dateString,index)
+        }
+        else{
+            this.setState({openDialog: true, errorMessage:"Start date cannot be after end date"});
+        }
+    };
+    handleChangeEndDate = (date,index) => {
+        let dateString = format(date, 'yyyy/MM/dd');
+        let startDateString = format(new Date(this.props.place.dateRanges[index].start), 'yyyy/MM/dd');
+        //All date validation here
+        if (Date.parse(startDateString) <= Date.parse(dateString)){
+            this.props.endDateChange(this.props.place,this.props.type,dateString,index)
+        }
+        else{
+            this.setState({openDialog: true, errorMessage:"End date cannot be before start date"});
+        }
+    };
     render() {
         let datesComponent =(
             <div className={"datesDiv"}>
@@ -114,31 +138,6 @@ class Dates extends React.Component{
 
         );
     }
-    handleClose(){
-        this.setState({openDialog: false});
-    }
-    handleChangeStartDate = (date,index) => {
-        let dateString = format(date, 'yyyy/MM/dd');
-        let endDateString = format(new Date(this.props.place.dateRanges[index].end), 'yyyy/MM/dd');
-        //All date validation here
-        if (Date.parse(dateString) <= Date.parse(endDateString)){
-            this.props.startDateChange(this.props.place,this.props.type,dateString,index)
-        }
-        else{
-            this.setState({openDialog: true, errorMessage:"Start date cannot be after end date"});
-        }
-    };
-    handleChangeEndDate = (date,index) => {
-        let dateString = format(date, 'yyyy/MM/dd');
-        let startDateString = format(new Date(this.props.place.dateRanges[index].start), 'yyyy/MM/dd');
-        //All date validation here
-        if (Date.parse(startDateString) <= Date.parse(dateString)){
-            this.props.endDateChange(this.props.place,this.props.type,dateString,index)
-        }
-        else{
-            this.setState({openDialog: true, errorMessage:"End date cannot be before start date"});
-        }
-    };
 }
 
 const mapStateToProps = (state) =>{
