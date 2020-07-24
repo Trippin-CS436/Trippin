@@ -1,24 +1,21 @@
 .profile-bg{
   position: absolute;
-  background-image: url('https://mdbootstrap.com/img/Photos/Others/img%20%2848%29.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  height: 100vh;
+    height: 100vh;
   width: 100vw;
   top: 0;
   left: 0;
-  background-position: center center;
+    background: whitesmoke center center;
 }
 
 
 
 .profile-container {
-    text-align: center
+    text-align: center;
 }
 
 .profile-container ul {
     list-style-type: none;
-    color: #FFFFFF
+    color: #2E3B52;
 }
 
 .profile-img {
@@ -58,6 +55,10 @@
     box-shadow: 0 0 8px 3px #B8B8B8;
   }
 
+.display-map {
+    left: 30%;
+    width: 40%;
+}
 
   @media (max-width: 740px) {
     .profile-bg

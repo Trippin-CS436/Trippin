@@ -10,9 +10,9 @@ import { GoogleMap, LoadScript, MarkerClusterer, Marker } from "@react-google-ma
 const mapContainerStyle = {
   height: '400px',
   width: '600px',
-}
+};
 
-const center = { lat: -28.024, lng: 140.887 }
+const center = { lat: -28.024, lng: 140.887 };
 
 const locations = [
   { lat: -31.56391, lng: 147.154312 },
@@ -76,26 +76,25 @@ class Profilepage extends React.Component {
       <React.Fragment>
         <div className="profile-bg">
         <div class="mask rgba-black-light align-items-center">
-          <Grid container className="container" spacing={2}>
+          <Grid container className="container" spacing={1}>
             <Grid item xs>
               <div className="profile-container">
                 <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
                 <div className="profile-img">
-                  <img src={this.props.currentUserProfile.profilePicture} />
-                  <i className="fa fa-edit"></i>
+                  <img src={this.props.authentication.profilePic} />
                 </div>
                 <ul className="ul">
-                  <li> {this.props.currentUserProfile.firstName + " " + this.props.currentUserProfile.lastName} </li>
+                  <li> {this.props.authentication.name} </li>
                   <br />
-                  <li> Email Address: {this.props.currentUserProfile.emailAddress} </li>
+                  <li> Email Address: {this.props.authentication.email} </li>
                   <br />
-                  <li> <MapWithMarkerClusterer className="display-map"/> </li>
+                    You have visited {locations.length} countries
+                    <li> You have visited {locations.length} countries
+                      <MapWithMarkerClusterer className="display-map"/>
+                    </li>
                 </ul>
               </div>
             </Grid>
-            <Grid item xs>
-              <h1> Lists goes here</h1>
-              </Grid>
           </Grid>
           </div>
         </div>
@@ -109,7 +108,7 @@ class Profilepage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUserProfile: state.currentUserProfile
+    authentication: state.authentication
   };
 };
 
