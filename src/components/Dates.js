@@ -6,16 +6,60 @@ import DateFnsUtils from "@date-io/date-fns";
 import format from 'date-fns/format'
 import {startDateChange,endDateChange} from "../actions";
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import IconButton from "@material-ui/core/IconButton";
+import './Dates.css';
+import { green } from '@material-ui/core/colors';
+
 
 class Dates extends React.Component{
 
+    renderDatesPopup(){
+        let dates = []
+        dates.push(<h1>{this.props.place.name} dates</h1>)
+        this.props.place.dateRanges.forEach((item,index) => {
+            dates.push(
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <ul>
+                        <li>
+                            Date #{index+1}
+                            <div className={"DatePicker"}>
+                                <DatePicker
+                                    label={"Start Date"}
+                                    value={new Date(item.start)}
+                                    onChange={(date)=>{this.handleChangeStartDate(date,index)}}
+                                    animateYearScrolling                                    />
+                            </div>
+                            <div className={"DatePicker"}>
+                                <DatePicker
+                                    label={"End Date"}
+                                    value={new Date(item.end)}
+                                    onChange={(date)=>{this.handleChangeEndDate(date,index)}}
+                                    animateYearScrolling
+                                />
+                            </div>
+                        </li>
+                    </ul>
+                </MuiPickersUtilsProvider>
+            )
+        });
+        return dates;
+    }
     render() {
-        let datesComponent =
-            <ul className={"zeroPad zeroMarg"}>
+        let datesComponent =(
+            <div className={"datesDiv"}>
+                <ul className={"zeroPad zeroMarg displayInline"}>
                 {this.props.place.dateRanges.map((date,index) => (
                     <li key={index}>{date.start + " - " + date.end}</li>
                 ))}
-            </ul>;
+            </ul>
+                <div className={"buttonCalendar"}>
+                    <IconButton  aria-label="Edit" name="Edit" >
+                        <DateRangeIcon className={"edit-btn"} style={{ color: green[500] }}/>
+                    </IconButton>
+                </div>
+            </div>
+        );
+
         return(
             <div className={this.props.class+ ""}>
 
@@ -25,23 +69,7 @@ class Dates extends React.Component{
                             <a className="close" onClick={close}>
                                 &times;
                             </a>
-                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <div className={"DatePicker"}>
-                                    <DatePicker
-                                        label={"Start Date"}
-                                        value={new Date(this.props.place.dateRanges[0].start)}
-                                        onChange={this.handleChangeStartDate}
-                                        animateYearScrolling                                    />
-                                </div>
-                                <div className={"DatePicker"}>
-                                    <DatePicker
-                                        label={"End Date"}
-                                        value={new Date(this.props.place.dateRanges[0].end)}
-                                        onChange={this.handleChangeEndDate}
-                                        animateYearScrolling
-                                    />
-                                </div>
-                            </MuiPickersUtilsProvider>
+                            {this.renderDatesPopup()}
                         </div>
                     )}
                 </Popup>
@@ -49,15 +77,15 @@ class Dates extends React.Component{
 
         );
     }
-    handleChangeStartDate = (date) => {
+    handleChangeStartDate = (date,index) => {
         console.log("CHANGING START DATE: " + format(date, 'yyyy/MM/dd'));
         let dateString = format(date, 'yyyy/MM/dd');
-        this.props.startDateChange(this.props.place,this.props.type,dateString,0)
+        this.props.startDateChange(this.props.place,this.props.type,dateString,index)
     };
-    handleChangeEndDate = (date) => {
+    handleChangeEndDate = (date,index) => {
         console.log("CHANGING END DATE: " + format(date, 'yyyy/MM/dd'));
         let dateString = format(date, 'yyyy/MM/dd');
-        this.props.endDateChange(this.props.place,this.props.type,dateString,0)
+        this.props.endDateChange(this.props.place,this.props.type,dateString,index)
     };
 }
 

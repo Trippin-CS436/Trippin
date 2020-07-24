@@ -12,7 +12,7 @@ class City extends React.Component {
         };
     }
     render() {
-        //Empty locations/cities
+        //Empty locations/cities. render a 'guide' on how to add to itinerary
         if (this.props.currentView.byID.city === -1) {
             return (
                 <h1>START ADDING TO THE ITINERARY BY SEARCHING A LOCATION AND HITTING
@@ -36,7 +36,7 @@ class City extends React.Component {
         return(
             <div className={"cityDiv"}>
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
-                <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
+                <Dates place={cityToRender} class={"datesDiv bottomBorder"} type={"city"}/>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (

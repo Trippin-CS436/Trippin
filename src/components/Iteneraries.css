@@ -19,20 +19,7 @@ h1{
     padding: 10px 25px;
     min-width: 500px;
 }
-.datesDiv{
-    font: 25px 'Karla';
-    margin-left: 15px;
-    border-bottom: 3px solid red;
-}
-.datesDiv ul{
-    list-style-type: none;
-    overflow: hidden;
-    display: inline-block;
-}
-.datesDiv ul li{
-    float: left;
-    font-size: 18px;
-}
+
 .locationsDiv{
     font: 25px 'Karla';
     margin: 30px 10px 15px 15px;
