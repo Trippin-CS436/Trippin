@@ -47,14 +47,15 @@ h1{
 }
 .dates ul li{
     float: left;
-    font-size: 0.8em;
+    font-size: 0.75em;
 }
 .item-font{
     font-size: 1.25em;
 }
 .dates{
     margin-left: 8px;
-    margin-bottom: 3px;
+    margin-bottom: -30px;
+    margin-top: -30px;
     display: inline-block;
 }
 .addLocationButton{

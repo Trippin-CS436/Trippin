@@ -19,7 +19,7 @@ router.get('/exist/:id', function(req, res, next) {
 })
 
 router.post('/save', function(req, res, next) {
-  const newItinerary = new Itinerary({id:req.body.id, locations: req.body.locations, cities: req.body.cities, countries: req.body.countries});
+  const newItinerary = new Itinerary({id:req.body.id, locations: req.body.locations, cities: req.body.cities, countries: req.body.countries,itinerary:req.body.itinerary});
   console.log(newItinerary);
   console.log(newItinerary.id);
   newItinerary.save()
@@ -29,7 +29,7 @@ router.post('/save', function(req, res, next) {
 
 router.patch('/save/:id', function(req, res, next) {
   console.log(req.params.id);
-  Itinerary.findOneAndUpdate({id: req.params.id}, {locations: req.body.locations, cities: req.body.cities, countries: req.body.countries},)
+  Itinerary.findOneAndUpdate({id: req.params.id}, {locations: req.body.locations, cities: req.body.cities, countries: req.body.countries,itinerary:req.body.itinerary},)
     .then(() => res.json("itinerary updated"))
     .catch(err => res.status(404).json('Error: ' + err));
 

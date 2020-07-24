@@ -1012,6 +1012,18 @@ const cityReducer = (cities = defaultCities, action) =>{
         newArray[indexToChange].dateRanges.splice(action.dateIndex,1);
         return newArray
     }
+    else if (action.type === 'NEW_DATE_CITY'){
+        let newArray = cities.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id === item.id;
+        });
+        let date = {start: action.start, end: action.end}
+        newArray[indexToChange].dateRanges = newArray[indexToChange].dateRanges.concat(date);
+        return newArray
+    }
+    else if (action.type === "RENDER_CITY"){
+        return action.payload;
+    }
     return cities;
 };
 
@@ -1059,12 +1071,24 @@ const countryReducer = (countries = defaultCountries, action) =>{
         newArray[indexToChange].dateRanges.splice(action.dateIndex,1);
         return newArray
     }
+    else if (action.type === 'NEW_DATE_COUNTRY'){
+        let newArray = countries.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id === item.id;
+        });
+        let date = {start: action.start, end: action.end}
+        newArray[indexToChange].dateRanges = newArray[indexToChange].dateRanges.concat(date);
+        return newArray
+    }
+    else if (action.type === "RENDER_COUNTRY"){
+        return action.payload;
+    }
     return countries;
 };
 
 const defaultView = {
     byID:{
-        city: 0,
+        city: 0, //**** set to -1 if nothing to render
     }
 };
 const currentViewReducer = (currentView = defaultView, action) => {
@@ -1108,6 +1132,17 @@ const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{s
             ...itinerary,
             dateRanges: newArray,
         }
+    }
+    else if (action.type === 'NEW_DATE_ITINERARY'){
+        let newArray = [...itinerary.dateRanges];
+        newArray = newArray.concat({start: action.start, end: action.end});
+        return {
+            ...itinerary,
+            dateRanges: newArray,
+        }
+    }
+    else if (action.type === "SET_ITINERARY"){
+        return action.payload
     }
     return itinerary;
 };

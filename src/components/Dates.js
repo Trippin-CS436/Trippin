@@ -4,7 +4,7 @@ import Popup from "reactjs-popup";
 import { MuiPickersUtilsProvider,DatePicker  } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import format from 'date-fns/format'
-import {startDateChange, endDateChange, deleteDate} from "../actions";
+import {startDateChange, endDateChange, deleteDate, addNewDate} from "../actions";
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import IconButton from "@material-ui/core/IconButton";
 import './Dates.css';
@@ -56,10 +56,16 @@ class Dates extends React.Component{
             )
         });
         dates.push(
-            <Button variant="contained" color="primary" autoFocus>
+            <Button variant="contained" color="primary" autoFocus onClick={this.addNewDate.bind(this)}>
                 NEW DATE
             </Button>)
         return dates;
+    }
+
+    addNewDate(){
+        let dateString = format(new Date(), 'yyyy/MM/dd');
+        console.log(dateString)
+        this.props.addNewDate(this.props.place,this.props.type,dateString,dateString)
     }
     render() {
         let datesComponent =(
@@ -116,4 +122,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps,{deleteDate,startDateChange,endDateChange})(Dates);
+export default connect(mapStateToProps,{addNewDate,deleteDate,startDateChange,endDateChange})(Dates);

@@ -15,6 +15,7 @@ class SaveButton extends React.Component {
                 locations: this.props.locations,
                 cities: this.props.cities,
                 countries: this.props.countries,
+                itinerary: this.props.itinerary,
             }
             this.props.saveItinerary(Itinerary);
         } else {
@@ -23,6 +24,7 @@ class SaveButton extends React.Component {
                 locations: this.props.locations,
                 cities: this.props.cities,
                 countries: this.props.countries,
+                itinerary: this.props.itinerary,
             };
             this.props.saveItinerary(Itinerary);
         }
@@ -78,6 +80,7 @@ const mapStateToProps = (state) =>{
         cities: state.cities,
         countries: state.countries,
         currentItineraryID: state.currentItineraryID,
+        itinerary: state.itinerary,
     };
 };
 

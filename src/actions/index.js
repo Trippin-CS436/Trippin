@@ -62,6 +62,18 @@ export const renderLocation = (locations) => {
         payload: locations
     }
 }
+export const renderCountry = (locations) => {
+    return{
+        type: "RENDER_COUNTRY",
+        payload: locations
+    }
+}
+export const renderCity = (locations) => {
+    return{
+        type: "RENDER_CITY",
+        payload: locations
+    }
+}
 export const startDateChange = (place,type,date,dateIndex,) => {
     if (type === 'city'){
         return{
@@ -139,6 +151,33 @@ export const deleteDate = (place,type,dateIndex) => {
     }
     return {}
 };
+export const addNewDate = (place,type,start,end) => {
+    if (type === 'city'){
+        return{
+            type: "NEW_DATE_CITY",
+            place: place,
+            start: start,
+            end: end,
+        }
+    }
+    else if (type ==='country'){
+        return{
+            type: "NEW_DATE_COUNTRY",
+            place: place,
+            start: start,
+            end: end,
+        }
+    }
+    else if (type ==='itinerary'){
+        return{
+            type: "NEW_DATE_ITINERARY",
+            place: place,
+            start: start,
+            end: end,
+        }
+    }
+    return {}
+};
 
 export const changeView = (id) => {
     let view = {
@@ -186,5 +225,11 @@ export const insertNewCity = (id, name,countryID) => {
         id: id,
         name: name,
         countryID: countryID,
+    }
+}
+export const setItineraryFromDB = (itinerary) => {
+    return{
+        type: "SET_ITINERARY",
+        payload:itinerary,
     }
 }
