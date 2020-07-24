@@ -31,7 +31,7 @@ class SaveButton extends React.Component {
             this.props.saveItinerary(Itinerary);
         }
 
-        console.log(Itinerary.id);
+        //console.log(Itinerary.id);
         this.props.getCurrentItineraryID(Itinerary.id);
         axios.get("http://localhost:9000/itinerary/exist/"+ Itinerary.id)
             .then(res => {

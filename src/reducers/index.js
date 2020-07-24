@@ -1074,6 +1074,28 @@ const currentItineraryObjectIDReudcer = (id = null, action) => {
 }
 
 
+
+// -- Current User's information -- //
+const currentUser = {
+    profilePicture: "https://i.pinimg.com/474x/c4/c6/11/c4c611741a47f0237c7c035601243623--suits-usa-men-in-suits.jpg",
+    emailAddress: "www.test@gmail.com",
+    firstName: "Harvey",
+    lastName: "Spectre",
+}
+
+const currentUserProfileReducer = (state = currentUser, action) => {
+    if(action.type === "GET_CURRENT_USER_PROFILE") {
+        return {
+            ...state,
+            profilePicture: action.payload.profilePicture,
+            emailAddress: action.payload.emailAddress,
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+        }
+    }
+    return state;
+}
+
 export default combineReducers({
     locations: locationsReducer,
     itinerary: itineraryReducer,
@@ -1085,5 +1107,6 @@ export default combineReducers({
     lists: listReducer,
     msgId: selector,
     currentItinerary: currentItineraryReducer,
-    currentItineraryID: currentItineraryObjectIDReudcer
+    currentItineraryID: currentItineraryObjectIDReudcer,
+    currentUserProfile: currentUserProfileReducer
 });

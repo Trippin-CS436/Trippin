@@ -7,11 +7,19 @@ import Itineraries from "./Itineraries";
 import Itinerary from "./Itinerary";
 import Lists from "./Lists";
 import './fonts.css';
+import ProfilePage from './ProfilePage';
+
+
+
+
 
 function App() {
     return (
         <Router>
             <div>
+                <Route exact path="/userprofile">
+                    <ProfilePage />
+                </Route>
                 <Route exact path="/itineraries">
                     <Itineraries />
                 </Route>
