@@ -69,6 +69,7 @@ class Itineraries extends React.Component {
         console.log(this.props.locations);
         return(
             <React.Fragment>
+                <div><Navbar/></div>
             <div className={classes.bg}>
                 <div className={classes.leftPanel}>
                     <div className= {"top-panel"}>
@@ -81,7 +82,6 @@ class Itineraries extends React.Component {
                     <City />
                 </div>
             </div>
-                <div><Navbar/></div>
             </React.Fragment>
 
         );

@@ -11,6 +11,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import blue from "@material-ui/core/colors/blue";
+import {connect} from "react-redux";
+import {Avatar} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,16 +26,18 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1
     },
     appBar: {
-        height: "40px"
+        height: "50px",
+        bachgroundColor: "#000000"
     },
     toolBar: {
-        top: "-12px"
+        top: "-7px"
     }
 }));
 
-export default function Navbar() {
+function Navbar(props) {
+    const { authentication } = props;
     const classes = useStyles();
-    const [auth, setAuth] = React.useState(true);
+    const [auth, setAuth] = React.useState(authentication.loginStatus);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
 
@@ -67,7 +72,7 @@ export default function Navbar() {
                                 onClick={handleMenu}
                                 color="inherit"
                             >
-                                <AccountCircle />
+                                <Avatar src={authentication.profilePic} />
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
@@ -94,3 +99,10 @@ export default function Navbar() {
         </div>
     );
 }
+
+const mapStateToProps = (state) => { //name is by convention
+    return {
+        authentication: state.authentication
+    }; //now it will appear as props
+};
+export default connect(mapStateToProps)(Navbar);

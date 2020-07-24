@@ -1,10 +1,14 @@
-import { createStore } from 'redux';
 import combineReducers from './index';
+import { createStore } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
+const persistConfig = {
+    key: 'root',
+    storage,
+}
 
-const store = createStore(combineReducers);
-console.log('Initial State', store.getState());
-store.subscribe(() => console.log('Update state', store.getState()));
-
-export default store;
+const persistedReducer = persistReducer(persistConfig, combineReducers);
+export const store = createStore(persistedReducer);
+export const persistor = persistStore(store);
 

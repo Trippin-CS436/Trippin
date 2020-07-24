@@ -15,6 +15,7 @@ import Navbar from "./Navbar";
 function App() {
     return (
         <Router>
+            <Navbar/>
             <div>
                 <AuthRoute exact path="/itineraries">
                     <Itineraries />

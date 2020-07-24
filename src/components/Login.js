@@ -19,7 +19,7 @@ class Login extends React.Component {
             this.props.logIn({
                 "name": response.name,
                 "email": response.email,
-                "profilePic": response.picture
+                "profilePic": response.picture.data.url
             });
             console.log(JSON.stringify(this.props.authentication));
             this.props.history.push('/');
@@ -29,7 +29,7 @@ class Login extends React.Component {
         this.props.logIn({
             "name": response.getBasicProfile().getGivenName(),
             "email": response.getBasicProfile().getEmail(),
-            "profilePic": response.getBasicProfile.getImageUrl()
+            "profilePic": response.getBasicProfile().getImageUrl()
         });
         console.log(JSON.stringify(this.props.authentication));
         this.props.history.push('/');
@@ -52,7 +52,7 @@ class Login extends React.Component {
                 <br/>
                 <FacebookLogin
                     appId="197967948192976"
-                    autoLoad={true}
+                    autoLoad={false}
                     icon="fa-facebook"
                     fields="name,email,picture"
                     callback={this.responseFacebook}
