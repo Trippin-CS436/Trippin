@@ -1,8 +1,6 @@
+import {combineReducers} from 'redux';
 import React from 'react';
 import '../index.css';
-import { combineReducers } from 'redux';
-import '../index.css';
-
 
 const currentLocation = {
     Name: "",
@@ -14,7 +12,21 @@ const currentLocation = {
 }
 
 
-
+/*** Handles all changes to current location
+ * params =
+ *      currentLocation - currentLocation selected in the itinerary list for editting
+ *       action - valid actions are addNotes
+ *              - (should also be able to have a setCurrentLocation that changes current location when selected) ***/
+const currentLocationReducer = (currentLocation = {name: "", address: "", info: {}, notes: ""}, action) => {
+    if (action.type === 'ADD_NOTES') {
+        // change the notes of current location to the action.text
+        console.log(action.text + "hereherehhere");
+        currentLocation.notes = action.text;
+        console.log(JSON.stringify(currentLocation));
+        return currentLocation;
+    }
+    return currentLocation;
+};
 
 
 
@@ -1096,6 +1108,28 @@ const currentItineraryObjectIDReducer = (id = null, action) => {
 }
 
 
+
+// -- Current User's information -- //
+const currentUser = {
+    profilePicture: "https://i.pinimg.com/474x/c4/c6/11/c4c611741a47f0237c7c035601243623--suits-usa-men-in-suits.jpg",
+    emailAddress: "www.test@gmail.com",
+    firstName: "Harvey",
+    lastName: "Spectre",
+}
+
+const currentUserProfileReducer = (state = currentUser, action) => {
+    if(action.type === "GET_CURRENT_USER_PROFILE") {
+        return {
+            ...state,
+            profilePicture: action.payload.profilePicture,
+            emailAddress: action.payload.emailAddress,
+            firstName: action.payload.firstName,
+            lastName: action.payload.lastName,
+        }
+    }
+    return state;
+}
+
 export default combineReducers({
     locations: locationsReducer,
     itinerary: itineraryReducer,
@@ -1103,9 +1137,11 @@ export default combineReducers({
     cities: cityReducer,
     countries: countryReducer,
     mapLocation: mapLocationReducer,
+    currentLocation: currentLocationReducer,
     lists: listReducer,
     msgId: selector,
     currentItinerary: currentItineraryReducer,
     currentItineraryID: currentItineraryObjectIDReducer,
-    authentication: authenticationReducer
+    authentication: authenticationReducer,
+    currentUserProfile: currentUserProfileReducer
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./Home";
 import Map from "./Map";
 import Itineraries from "./Itineraries";
@@ -11,12 +11,20 @@ import './fonts.css';
 import AuthRoute from "./AuthRoute";
 import Navbar from "./Navbar";
 
+import ProfilePage from './ProfilePage';
+
+
+
+
 
 function App() {
     return (
         <Router>
             <Navbar/>
             <div>
+                <AuthRoute exact path="/userprofile">
+                    <ProfilePage />
+                </AuthRoute>
                 <AuthRoute exact path="/itineraries">
                     <Itineraries />
                 </AuthRoute>
@@ -39,6 +47,5 @@ function App() {
         </Router>
     );
 }
-
 
 export default App;
