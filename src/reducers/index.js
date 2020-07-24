@@ -1004,6 +1004,14 @@ const cityReducer = (cities = defaultCities, action) =>{
         newArray.splice(indexToRemove, 1);
         return newArray;
     }
+    else if (action.type === 'DELETE_DATE_CITY'){
+        let newArray = cities.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id === item.id;
+        });
+        newArray[indexToChange].dateRanges.splice(action.dateIndex,1);
+        return newArray
+    }
     return cities;
 };
 
@@ -1042,6 +1050,14 @@ const countryReducer = (countries = defaultCountries, action) =>{
         });
         newArray.splice(indexToRemove, 1);
         return newArray;
+    }
+    else if (action.type === 'DELETE_DATE_COUNTRY'){
+        let newArray = countries.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id === item.id;
+        });
+        newArray[indexToChange].dateRanges.splice(action.dateIndex,1);
+        return newArray
     }
     return countries;
 };
@@ -1084,6 +1100,14 @@ const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{s
             ...itinerary,
             dateRanges: newArray,
         };
+    }
+    else if (action.type === 'DELETE_DATE_ITINERARY'){
+        let newArray = itinerary.dateRanges.slice();
+        newArray.splice(action.dateIndex,1);
+        return {
+            ...itinerary,
+            dateRanges: newArray,
+        }
     }
     return itinerary;
 };

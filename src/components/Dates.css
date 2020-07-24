@@ -32,3 +32,8 @@
     content: " ,";
     margin-right: 15px;
 }
+.DatePicker{
+    display: inline;
+    margin-right: 30px;
+    margin-left: 20px;
+}

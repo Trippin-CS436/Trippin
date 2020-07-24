@@ -71,11 +71,7 @@ h1{
 .map{
     display: block;
 }
-.DatePicker{
-    display: inline;
-    margin-right: 30px;
-    margin-left: 15px;
-}
+
 .edit-button{
     display: inline-block;
 }

@@ -115,6 +115,30 @@ export const endDateChange = (place,type,date,dateIndex,) => {
     }
     return {}
 };
+export const deleteDate = (place,type,dateIndex) => {
+    if (type === 'city'){
+        return{
+            type: "DELETE_DATE_CITY",
+            place: place,
+            dateIndex: dateIndex,
+        }
+    }
+    else if (type ==='country'){
+        return{
+            type: "DELETE_DATE_COUNTRY",
+            place: place,
+            dateIndex: dateIndex,
+        }
+    }
+    else if (type ==='itinerary'){
+        return{
+            type: "DELETE_DATE_ITINERARY",
+            place: place,
+            dateIndex: dateIndex,
+        }
+    }
+    return {}
+};
 
 export const changeView = (id) => {
     let view = {
