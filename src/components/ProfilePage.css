@@ -1,6 +1,6 @@
 .profile-bg{
   position: absolute;
-  background-image: url("https://mdbootstrap.com/img/Photos/Others/images/91.jpg");
+  background-image: url('https://mdbootstrap.com/img/Photos/Others/img%20%2848%29.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
@@ -10,12 +10,15 @@
   background-position: center center;
 }
 
+
+
 .profile-container {
     text-align: center
 }
 
 .profile-container ul {
     list-style-type: none;
+    color: #FFFFFF
 }
 
 .profile-img {

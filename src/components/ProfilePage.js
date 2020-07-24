@@ -1,6 +1,7 @@
 import React from 'react';
+import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { getCurrentUserProfile } from "../actions/users"
+import { getCurrentUserProfile } from "../actions/users";
 import "./ProfilePage.css";
 import { GoogleMap, LoadScript, MarkerClusterer, Marker } from "@react-google-maps/api";
 
@@ -8,7 +9,7 @@ import { GoogleMap, LoadScript, MarkerClusterer, Marker } from "@react-google-ma
 
 const mapContainerStyle = {
   height: '400px',
-  width: '800px',
+  width: '600px',
 }
 
 const center = { lat: -28.024, lng: 140.887 }
@@ -74,18 +75,28 @@ class Profilepage extends React.Component {
     return (
       <React.Fragment>
         <div className="profile-bg">
-          <div className="profile-container">
-            <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
-            <div className="profile-img">
-              <img src={this.props.currentUserProfile.profilePicture} />
-              <i className="fa fa-edit"></i>
-            </div>
-            <ul className="ul">
-              <li> {this.props.currentUserProfile.firstName + " " + this.props.currentUserProfile.lastName} </li>
-              <br />
-              <li> Email Address: {this.props.currentUserProfile.emailAddress} </li>
-              <li><MapWithMarkerClusterer className="display-map" /></li>
-            </ul>
+        <div class="mask rgba-black-light align-items-center">
+          <Grid container className="container" spacing={2}>
+            <Grid item xs>
+              <div className="profile-container">
+                <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
+                <div className="profile-img">
+                  <img src={this.props.currentUserProfile.profilePicture} />
+                  <i className="fa fa-edit"></i>
+                </div>
+                <ul className="ul">
+                  <li> {this.props.currentUserProfile.firstName + " " + this.props.currentUserProfile.lastName} </li>
+                  <br />
+                  <li> Email Address: {this.props.currentUserProfile.emailAddress} </li>
+                  <br />
+                  <li> <MapWithMarkerClusterer className="display-map"/> </li>
+                </ul>
+              </div>
+            </Grid>
+            <Grid item xs>
+              <h1> Lists goes here</h1>
+              </Grid>
+          </Grid>
           </div>
         </div>
       </React.Fragment>
