@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cors = require("cors");
 var indexRouter = require('./routes/index');
 var itineraryRouter = require('./routes/itinerary');
+var userRouter = require('./routes/user');
 
 
 // read the .env file for URI
@@ -41,6 +42,9 @@ app.use(express.static(path.join(__dirname, '../../build')));
 
 app.use('/', indexRouter);
 app.use('/itinerary', itineraryRouter);
+
+
+app.use('/user', userRouter);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/../../build/index.html'));
