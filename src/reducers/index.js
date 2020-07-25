@@ -178,7 +178,6 @@ const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffit
     {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0, notes: "", info: {}},
     {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0, note: "", info: {}},
     {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0, notes: "", info: {}},
-    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 100, notes: "", info: {}},
     {id:6, location: "Craigdarroch Castle", address: "1050 Joan Crescent, Victoria, BC V8S 3L5", cityID: 2, notes: "", info: {}},
     {id:7, location: "Alcatraz Island", address: "San Francisco, CA 94133, United States", cityID: 1, notes: "", info: {}},];
 
@@ -224,7 +223,7 @@ const locationsReducer = (locations = defaultLocations, action) => {
     return locations;
 };
 
-const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/21"}]},
+const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/21"}, {start: "2020/08/20", end: "2020/08/21"}]},
     {name: "San Francisco", id: 1, countryID: 1, dateRanges : [{start: "2020/08/21", end: "2020/08/22"}]},
     {name: "Victoria", id: 2, countryID: 0, dateRanges : [{start: "2020/08/22", end: "2020/08/23"}]}];
 const cityReducer = (cities = defaultCities, action) =>{
@@ -244,12 +243,48 @@ const cityReducer = (cities = defaultCities, action) =>{
         newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
         return newArray
     }
-
+    else if (action.type === "NEW_CITY"){
+        let city = {
+            name: action.name,
+            id: action.id,
+            dateRanges: [],
+            countryID: action.countryID,
+        };
+        return cities.concat(city);
+    }
+    else if (action.type ==="DEL_CITY"){
+        let newArray = cities.slice();
+        let indexToRemove = newArray.findIndex((item) => {
+            return action.location_id === item.id;
+        });
+        newArray.splice(indexToRemove, 1);
+        return newArray;
+    }
+    else if (action.type === 'DELETE_DATE_CITY'){
+        let newArray = cities.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id === item.id;
+        });
+        newArray[indexToChange].dateRanges.splice(action.dateIndex,1);
+        return newArray
+    }
+    else if (action.type === 'NEW_DATE_CITY'){
+        let newArray = cities.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id === item.id;
+        });
+        let date = {start: action.start, end: action.end}
+        newArray[indexToChange].dateRanges = newArray[indexToChange].dateRanges.concat(date);
+        return newArray
+    }
+    else if (action.type === "RENDER_CITY"){
+        return action.payload;
+    }
     return cities;
 };
 
 
-const defaultCountries = [{name: "Canada", id: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/25"}]},
+const defaultCountries = [{name: "Canada", id: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/25"},{start: "2020/08/29", end: "2020/08/31"}]},
     {name: "United States", id: 1, dateRanges : [{start: "2020/08/25", end: "2020/08/28"}]}];
 const countryReducer = (countries = defaultCountries, action) =>{
     if (action.type === 'START_DATE_CHANGE_COUNTRY'){
@@ -268,13 +303,48 @@ const countryReducer = (countries = defaultCountries, action) =>{
         newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
         return newArray
     }
+    else if (action.type === "NEW_COUNTRY"){
+        let country = {
+            name: action.name,
+            id: action.id,
+            dateRanges: [],
+        };
+        return countries.concat(country);
+    }
+    else if (action.type ==="DEL_COUNTRY"){
+        let newArray = countries.slice();
+        let indexToRemove = newArray.findIndex((item) => {
+            return action.location_id === item.id;
+        });
+        newArray.splice(indexToRemove, 1);
+        return newArray;
+    }
+    else if (action.type === 'DELETE_DATE_COUNTRY'){
+        let newArray = countries.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id === item.id;
+        });
+        newArray[indexToChange].dateRanges.splice(action.dateIndex,1);
+        return newArray
+    }
+    else if (action.type === 'NEW_DATE_COUNTRY'){
+        let newArray = countries.slice();
+        let indexToChange = newArray.findIndex((item) => {
+            return action.place.id === item.id;
+        });
+        let date = {start: action.start, end: action.end}
+        newArray[indexToChange].dateRanges = newArray[indexToChange].dateRanges.concat(date);
+        return newArray
+    }
+    else if (action.type === "RENDER_COUNTRY"){
+        return action.payload;
+    }
     return countries;
 };
 
 const defaultView = {
     byID:{
-        country: 0,
-        city: 0,
+        city: 0, //**** set to -1 if nothing to render
     }
 };
 const currentViewReducer = (currentView = defaultView, action) => {
@@ -294,6 +364,41 @@ const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{s
     else if (action.type === "ADD_LOCATION___NULL") {
         itinerary.push(action.add);
         return itinerary;
+    }
+    else if (action.type === 'START_DATE_CHANGE_ITINERARY'){
+        let newArray = itinerary.dateRanges.slice();
+        newArray[action.dateIndex].start = action.date;
+        return{
+            ...itinerary,
+            dateRanges: newArray,
+        };
+    }
+    else if (action.type === 'END_DATE_CHANGE_ITINERARY'){
+        let newArray = itinerary.dateRanges.slice();
+        newArray[action.dateIndex].end = action.date;
+        return{
+            ...itinerary,
+            dateRanges: newArray,
+        };
+    }
+    else if (action.type === 'DELETE_DATE_ITINERARY'){
+        let newArray = itinerary.dateRanges.slice();
+        newArray.splice(action.dateIndex,1);
+        return {
+            ...itinerary,
+            dateRanges: newArray,
+        }
+    }
+    else if (action.type === 'NEW_DATE_ITINERARY'){
+        let newArray = [...itinerary.dateRanges];
+        newArray = newArray.concat({start: action.start, end: action.end});
+        return {
+            ...itinerary,
+            dateRanges: newArray,
+        }
+    }
+    else if (action.type === "SET_ITINERARY"){
+        return action.payload
     }
     return itinerary;
 };

@@ -50,14 +50,19 @@ class City extends React.Component {
     }
 
     render() {
-
+        //Empty locations/cities. render a 'guide' on how to add to itinerary
+        if (this.props.currentView.byID.city === -1) {
+            return (
+                <h1>START ADDING TO THE ITINERARY BY SEARCHING A LOCATION AND HITTING
+                THE 'ADD LOCATION' BUTTON</h1>);
+        }
         let cityToRenderID = this.props.currentView.byID.city;
         let cityToRender = this.props.cities.filter(function(city){
             return city.id == cityToRenderID;
         });
         cityToRender = cityToRender[0];
 
-        let countryToRenderID = this.props.currentView.byID.country;
+        let countryToRenderID = cityToRender.countryID;
         let countryToRender = this.props.countries.filter(function(country){
             return country.id == countryToRenderID;
         });
@@ -72,9 +77,8 @@ class City extends React.Component {
 
         return (
             <div className={"cityDiv"}>
-            <SaveButton />
-                <h2>{this.props.itinerary.name}</h2>
-                <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
+                <h2>{cityToRender.name}, {countryToRender.name}</h2>
+                <Dates place={cityToRender} class={"datesDiv bottomBorder"} type={"city"}/>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (

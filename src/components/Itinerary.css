@@ -1,7 +1,39 @@
+.itinerary_name{
+    margin: 0px 0px 0px 10px;
+    font-size: 2.5em;
+    display: inline-block;
+}
+.itinerary_dates{
+    font-size: 1.1em;
+}
+#itinerary-div{
+    margin-top: 15px;
+    margin-left: 15px;
+}
+.edit-btn{
+    position: relative;
+    top: -8px;
+    transform: scale(1.25);
+    z-index: 12;
+
+}
+.buttonDivDelete{
+    display: inline-block;
+    position: absolute;
+    left: 90%;
+    top: -6px;
+    transform: scale(1.05);
+    z-index: 12;
+
+}
+.relativeDiv{
+    position: relative;
+}
 h1{
     margin: 0px 10px 5px 10px;
     font-size: 2.25em;
 }
+
 .zeroPad{
     padding: 0;
 }
@@ -15,14 +47,15 @@ h1{
 }
 .dates ul li{
     float: left;
-    font-size: 1em;
+    font-size: 0.75em;
 }
 .item-font{
     font-size: 1.25em;
 }
 .dates{
-    margin-left: 15px;
-    margin-bottom: 3px;
+    margin-left: 8px;
+    margin-bottom: -30px;
+    margin-top: -30px;
     display: inline-block;
 }
 .addLocationButton{
@@ -39,7 +72,7 @@ h1{
 .map{
     display: block;
 }
-.DatePicker{
-    display: inline;
-    margin-right: 50px;
+
+.edit-button{
+    display: inline-block;
 }
