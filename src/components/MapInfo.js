@@ -13,9 +13,7 @@ import { red } from '@material-ui/core/colors';
 import { Paper } from '@material-ui/core';
 import { List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
-import "./InfoPhotos.css"
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+
 
 
 
@@ -79,7 +77,7 @@ class MapInfo extends React.Component {
         let ratingValue = 0;
         if (this.state.rating) { ratingValue = parseFloat(this.state.rating.toString()); };
         
-        if (this.state.rating !== undefined && this.state.rating !== ''){
+        if (this.state.website !== undefined && this.state.website !== ''){
             return (
                 <Box borderColor="transparent" mb={2} p={1} fontWeight="fontWeightLight">
                 <Typography variant="h5">Rating</Typography>
@@ -88,30 +86,6 @@ class MapInfo extends React.Component {
             )
     } else return null;
     }
-
-    photoDisplay = () => {
-        let photos = this.state.photos;
-        if (this.state.photos !== undefined && this.state.photos !== ''){
-        return (
-            <div className="photos">
-            <div className="photos-display">
-            <Paper elevation={2} style={{maxWidth: 400, maxHeight: 200, overflow: 'auto'}}>
-
-        <GridList className="gridList" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', width: 600, height:200, spacing: "0"}} cols={5}>
-          {photos.map((photo) => (
-            <GridListTile style={{width: "100px", spacing: "0"}} key={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})} cols={5}>
-
-              <img src={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})}  />
-            </GridListTile>
-          ))}
-        </GridList>
-        </Paper>
-
-            </div>
-            </div>
-        );
-    } else return null;
-}
 
     reviewDisplay = () => {
 
@@ -132,7 +106,7 @@ class MapInfo extends React.Component {
 
     reviewRender = (reviews) => {
         return (
-            <Paper elevation={2} style={{maxWidth: 600, maxHeight: 300, overflow: 'auto', margin: "1rem 2rem 1rem 3rem"}}>
+            <Paper elevation={2} style={{maxWidth: 500, maxHeight: 300, overflow: 'auto', margin: "2rem 3rem 1rem 3rem"}}>
             <List>
             {reviews.map((review, key) => (
             <ListItem key={`item-${key}-${key}`}>
@@ -152,7 +126,7 @@ class MapInfo extends React.Component {
         let rating = review.rating;
         return (
 
-        <Card style={{maxWidth: "500px", padding: "1rem 1rem"}} layout="vertical">
+        <Card style={{maxWidth: "400px", padding: "1rem 1rem"}} layout="vertical">
 
         <CardHeader
           avatar={
@@ -194,12 +168,6 @@ class MapInfo extends React.Component {
            {this.websiteDisplay()}
 
            {this.ratingDisplay()}
-
-           <Box fontWeight="fontWeightLight"  borderColor="transparent">
-                <Typography variant="h5" >Website</Typography>
-                {this.photoDisplay()}
-               </Box>
-
 
            {this.reviewDisplay()}
 

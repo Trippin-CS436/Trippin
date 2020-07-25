@@ -11,9 +11,7 @@ import { red } from '@material-ui/core/colors';
 import { Paper } from '@material-ui/core';
 import { List } from '@material-ui/core';
 import { ListItem } from '@material-ui/core';
-import "./InfoPhotos.css"
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
+
 
 
 class Info extends React.Component {
@@ -42,30 +40,6 @@ class Info extends React.Component {
         };
     }
 
-    photoDisplay = () => {
-      let photos = this.state.photos;
-      if (this.state.photos !== undefined && this.state.photos !== ''){
-      return (
-          <div className="photos">
-          <div className="photos-display">
-          <Paper elevation={2} style={{maxWidth: 700, maxHeight: 200, overflow: 'auto'}}>
-
-      <GridList className="gridList" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', width: 700, height:200, spacing: "0"}} cols={7}>
-        {photos.map((photo) => (
-          <GridListTile style={{width: "100px", spacing: "0"}} key={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})} cols={7}>
-
-            <img src={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})}  />
-          </GridListTile>
-        ))}
-      </GridList>
-      </Paper>
-
-          </div>
-          </div>
-      );
-  } else return null;
-}
-
     reviewDisplay = () => {
 
         // reviews is an array of reviews
@@ -73,7 +47,7 @@ class Info extends React.Component {
         if ( reviews !== undefined) {
             if (reviews.length > 0) {
             return (
-                <Box style={{marginBottom: "4rem"}}borderColor="transparent" mb={2} p={1} fontWeight="fontWeightLight">
+                <Box borderColor="transparent" mb={2} p={1} fontWeight="fontWeightLight">
                 <Typography variant="h5">Reviews</Typography>
                 {this.reviewRender(reviews)}
                 </Box>
@@ -85,7 +59,7 @@ class Info extends React.Component {
 
     reviewRender = (reviews) => {
         return (
-            <Paper elevation={2} style={{maxWidth: 600, maxHeight: 300, overflow: 'auto', margin: "2rem 2rem 1rem 2rem"}}>
+            <Paper elevation={2} style={{maxWidth: 500, maxHeight: 300, overflow: 'auto', margin: "2rem 3rem 1rem 3rem"}}>
             <List>
             {reviews.map((review, key) => (
             <ListItem key={`item-${key}-${key}`}>
@@ -105,7 +79,7 @@ class Info extends React.Component {
         let rating = review.rating;
         return (
 
-        <Card style={{maxWidth: "500px", padding: "0.5rem 0.5rem"}} layout="vertical">
+        <Card style={{maxWidth: "400px", padding: "1rem 1rem"}} layout="vertical">
 
         <CardHeader
           avatar={
@@ -155,17 +129,7 @@ class Info extends React.Component {
                 </Box>
                 
                 </Box>
-
-                <Box fontWeight="fontWeightLight" p={2} borderColor="transparent">
-                <Typography variant="h5" >Website</Typography>
-                {this.photoDisplay()}
-               </Box> 
-
-
                 {this.reviewDisplay()}
-
-                
-              
             </div> 
         )
     }
