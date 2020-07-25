@@ -7,7 +7,7 @@ import Collapsible from "react-collapsible";
 import City from "./City";
 import Map from "./Map";
 import SaveButton from "./SaveButton";
-import LocationButton from "./LocationButton";
+// import LocationButton from "./LocationButton";
 import Dates from "./Dates";
 import axios from "axios";
 
@@ -21,6 +21,20 @@ class Itinerary extends React.Component {
         };
     }
 
+    componentDidMount(){
+        axios.get("http://localhost:9000/itinerary/")
+            .then(response => {
+            if(response.data.length > 0){
+                this.props.renderLocation(response.data[0].locations);
+                this.props.getCurrentItineraryID(response.data[0]._id);
+                this.props.saveItinerary({id: response.data[0].id});
+            } else {
+                this.props.renderLocation([]);
+            }
+        })
+            .catch(err => console.log("Err" + err));
+        console.log("GOT HERE!!!!");
+    }
     componentDidMount(){
         axios.get("http://localhost:9000/itinerary/").
         then(response => {
@@ -68,7 +82,6 @@ class Itinerary extends React.Component {
                 <h1>{this.props.itinerary.name}</h1>
                 {this.renderItinerary()}
                 <City/>
-                <LocationButton/>
                 <SaveButton/>
                 <Map className={"map"}/>
             </React.Fragment>

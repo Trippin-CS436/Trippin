@@ -63,7 +63,7 @@ class Location extends React.Component {
            console.log(currLoc);
             return <Info location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
-       else{
+       else {
            return null;
        }
     }
@@ -91,7 +91,7 @@ class Location extends React.Component {
                 <AddAPhotoOutlinedIcon />
                 </IconButton>
 
-                <IconButton className={"btn"} aria-label="Delete"  name="Delete" onClick={() => this.props.deleteLocation(this.props.idx)}>
+                <IconButton className={"btn"} aria-label="Delete"  name="Delete" onClick={() => this.props.deleteLocation(this.props.id)}>
                 <DeleteOutlineRoundedIcon />
                 </IconButton>
 

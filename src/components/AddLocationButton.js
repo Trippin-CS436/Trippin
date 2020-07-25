@@ -26,19 +26,38 @@ class AddLocationButton extends React.Component {
     }
 
     handleButtonClick = () => {
-        this.addNewLocation(this.props.mapLocation);
+        this.addLocationToItinerary();
         this.updateButtonMsg();
     }
 
-    addNewLocation = () => {
-        this.props.addLocation({
-            id: uuid(),
-            location: this.props.mapLocation.Name,
-            address: this.props.mapLocation.Address,
-            cityID: 0,
-            info: this.props.mapLocation.Info,
-            notes: ""
-        });
+
+
+    addLocationToItinerary = () =>{
+        console.log('Adding Location to Itinerary');
+        let currentMapLocation = this.props.mapLocation;
+
+        let city = currentMapLocation.Area;
+        let country = currentMapLocation.Country;
+        let location = currentMapLocation.Name;
+
+        if(this.props.countries.map(item => item.name).includes(country)){
+            if(this.props.cities.map(item => item.name).includes(city)){
+                let cityID = this.props.cities.filter((item) => {return item.name == city})[0].id;
+                console.log(cityID);
+                if(!this.props.locations.map(item => item.location).includes(location)){
+                    this.props.addLocation({
+                        id: uuid(),
+                        location: this.props.mapLocation.Name,
+                        address: this.props.mapLocation.Address,
+                        cityID: 0,
+                        info: this.props.mapLocation.Info,
+                        notes: ""
+                    });
+                    console.log("valid location");
+                    console.log(this.props.locations);
+                }
+            }
+        }
     }
 
      
@@ -83,7 +102,10 @@ class AddLocationButton extends React.Component {
 
 const mapStateToProps = (state) => {
     return { 
-        mapLocation: state.mapLocation
+        mapLocation: state.mapLocation,
+        cities: state.cities,
+        countries: state.countries,
+        locations: state.locations,
     }
 }
 

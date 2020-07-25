@@ -7,7 +7,7 @@ const itinerarySchema = new Schema({
     locations: {type: Array, "default": []},
     cities: {type: Array, "default": []},
     countries: {type: Array, "default": []},
-})
+},{minimize: false})
 
 const Itinerary = mongoose.model("itineraries", itinerarySchema);
 

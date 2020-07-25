@@ -10,7 +10,6 @@ export const selectMsg = msgId => {
         type: 'SELECT_MSG',
         selectMsg: msgId
     }
-
 };
 
 export const deleteMsg = msgId => {
@@ -27,6 +26,19 @@ export const chooseUser = userName => {
     }
 };
 
+export const logOut = () => {
+    return {
+        type: 'LOGOUT'
+    }
+};
+
+export const logIn = nameEmailObj => {
+    return {
+        type: 'LOGIN',
+        logIn: nameEmailObj
+    }
+}
+
 export const deleteLocation = (id) => {
     return {
         type: 'DEL_LOCATION',
@@ -34,7 +46,7 @@ export const deleteLocation = (id) => {
     };
 };
 
-export const addLocation = (id,name,address,cityID) => {
+/* export const addLocation = (id,name,address,cityID) => {
     return {
         type: 'NEW_LOCATION',
         location_id: id,
@@ -43,6 +55,7 @@ export const addLocation = (id,name,address,cityID) => {
         cityID: cityID,
     };
 };
+*/
 
 export const renderLocation = (locations) => {
     return{

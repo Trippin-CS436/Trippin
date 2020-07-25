@@ -5,14 +5,10 @@ import {saveItinerary,getCurrentItineraryID} from "../actions"
 const { uuid } = require('uuidv4');
 
 class SaveButton extends React.Component {
-    constructor(props){
-        super(props);
-
-    }
 
     saveItinerary = () => {
         let Itinerary = {};
-        if (this.props.currentItinerary === null) {
+        if (this.props.currentItinerary == null) {
             console.log("Current Itinerary has not been saved yet");
             Itinerary = {
                 id: uuid(),
@@ -43,7 +39,7 @@ class SaveButton extends React.Component {
                     console.log(this.props.currentItineraryID)
                     axios.patch("http://localhost:9000/itinerary/save/" + this.props.currentItineraryID, Itinerary)
                     .then(res=> {
-                        console.log(res.data)
+                        console.log(res.data);
                     })
                     .catch(err=> {
                         console.log(err);
@@ -70,7 +66,7 @@ class SaveButton extends React.Component {
 
     render() {
         return (
-            <button className={"addLocationButton"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
+            <button className={"submit-button save-button"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
         )
     }
 }

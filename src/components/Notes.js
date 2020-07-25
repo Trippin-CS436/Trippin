@@ -6,7 +6,7 @@ import "./Notes.css"
 class Notes extends React.Component {
     constructor(props){
         super(props);
-        let newArray = this.props.locations.slice();
+        let newArray = this.props.location.slice();
         let indexOfLocation= newArray.findIndex((item) => {
             return this.props.id == item.id;
         });

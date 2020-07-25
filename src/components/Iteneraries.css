@@ -11,14 +11,16 @@ h1{
     margin: 0;
 }
 .cityDiv{
+    font: 30px 'Jost';
     background-color: #ebeced;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin: 25px 25px;
     border-radius: 25px;
-    padding: 5px 20px;
+    padding: 10px 25px;
     min-width: 500px;
 }
 .datesDiv{
+    font: 25px 'Karla';
     margin-left: 15px;
     border-bottom: 3px solid red;
 }
@@ -32,7 +34,8 @@ h1{
     font-size: 18px;
 }
 .locationsDiv{
-    margin: 20px 10px 15px 15px;
+    font: 25px 'Karla';
+    margin: 30px 10px 15px 15px;
     position: relative;
 }
 .locationsDiv ul{
@@ -54,6 +57,7 @@ h1{
     line-height: 70%;
 }
 .address{
+    font: 25px 'Karla';
     display: inline-block;
     font-size: 16px;
 }
@@ -81,23 +85,24 @@ h1{
 }
 
 .top-panel {
-    box-sizing: border-box;
-    padding: 2rem 2rem;
-    margin: 0.5rem 1rem;
+    padding: 0.5rem 3rem 2rem 1rem;
+    margin: 0.5rem 1rem 1rem 1rem;
+    height: auto;
+    font: 24px 'Jost';
 }
 
 .bottom-panel {
-    box-sizing: border-box;
-    margin-top: 6rem;
-    margin-left: 3rem;
-    padding: 2rem 2rem;
-    opacity: 95%;
+    font: 25px 'Jost';
+    margin-top: 2rem;
+    margin-left: 1rem;
+    padding: 1rem 1rem;
     background-color: #ebeced;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 25px 25px;
+    margin-bottom: 25px;
     border-radius: 25px;
-    min-width: 500px;
+    width: 80%;
 }
+
 .addLocationButton{
     background-color: #008CBA; /* Green */
     border: none;
@@ -108,3 +113,4 @@ h1{
     display: inline-block;
     font-size: 16px;
 }
+

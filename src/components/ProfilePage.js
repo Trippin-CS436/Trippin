@@ -13,9 +13,9 @@ const shareUrl = 'http://github.com';
 const mapContainerStyle = {
   height: '400px',
   width: '600px',
-}
+};
 
-const center = { lat: -28.024, lng: 140.887 }
+const center = { lat: -28.024, lng: 140.887 };
 
 const locations = [
   { lat: -31.56391, lng: 147.154312 },
@@ -75,6 +75,32 @@ class Profilepage extends React.Component {
       )
     }
 
+
+    // <div class="mask rgba-black-light align-items-center">
+    //       <Grid container className="container" spacing={1}>
+    //         <Grid item xs>
+    //           <div className="profile-container">
+    //             <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
+    //             <div className="profile-img">
+    //               <img src={this.props.authentication.profilePic} />
+    //             </div>
+    //             <ul className="ul">
+    //               <li> {this.props.authentication.name} </li>
+    //               <br />
+    //               <li> Email Address: {this.props.authentication.email} </li>
+    //               <br />
+    //                 You have visited {locations.length} countries
+    //                 <li> You have visited {locations.length} countries
+    //                   <MapWithMarkerClusterer className="display-map"/>
+    //                 </li>
+    //             </ul>
+    //           </div>
+    //         </Grid>
+    //       </Grid>
+    //       </div>
+
+
+
     return (
       <React.Fragment>
         <div className="profile-bg">
@@ -84,31 +110,34 @@ class Profilepage extends React.Component {
                 <div className="profile-container">
                   <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
                   <div className="profile-img">
-                    <img src={this.props.currentUserProfile.profilePicture} />
+                    <img src={this.props.authentication.profilePic} />
                     <i className="fa fa-edit"></i>
                   </div>
                   <ul className="ul">
-                    <li> {this.props.currentUserProfile.firstName + " " + this.props.currentUserProfile.lastName} </li>
+                    <li> {this.props.authentication.name} </li>
                     <br />
-                    <li> Email Address: {this.props.currentUserProfile.emailAddress} </li>
+                    <li> Email Address: {this.props.authentication.email} </li>
                     <br />
-                    <li> <MapWithMarkerClusterer className="display-map" /> </li>
+                    You have visited {locations.length} countries
+                    <li> You have visited {locations.length} countries
+                      <MapWithMarkerClusterer className="display-map" />
+                    </li>
                     <br />
                     <li>
                       <EmailShareButton
-                      url= {shareUrl}
-                      subject={title}
-                      body="body"
-                    >
-                      <EmailIcon size={32} round />
-                    </EmailShareButton>
-                    <FacebookShareButton
-                      url={shareUrl}
-                      quote={title}
-                      
-                    >
-                      <FacebookIcon size={32} round />
-                    </FacebookShareButton>
+                        url={shareUrl}
+                        subject={title}
+                        body="body"
+                      >
+                        <EmailIcon size={32} round />
+                      </EmailShareButton>
+                      <FacebookShareButton
+                        url={shareUrl}
+                        quote={title}
+
+                      >
+                        <FacebookIcon size={32} round />
+                      </FacebookShareButton>
                     </li>
                   </ul>
                 </div>
@@ -129,11 +158,11 @@ class Profilepage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUserProfile: state.currentUserProfile
+          authentication: state.authentication
   };
 };
 
 
 
 
-export default connect(mapStateToProps, { getCurrentUserProfile })(Profilepage)
+export default connect(mapStateToProps, { getCurrentUserProfile})(Profilepage)
