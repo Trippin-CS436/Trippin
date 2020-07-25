@@ -58,7 +58,7 @@ export const deleteCountry = (id) => {
     };
 };
 
-/* export const addLocation = (id,name,address,cityID) => {
+export const addLocation = (id,name,address,cityID) => {
     return {
         type: 'NEW_LOCATION',
         location_id: id,
@@ -67,7 +67,7 @@ export const deleteCountry = (id) => {
         cityID: cityID,
     };
 };
-*/
+
 
 export const renderLocation = (locations) => {
     return{
