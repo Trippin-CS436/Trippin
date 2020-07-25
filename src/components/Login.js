@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import { logIn, logOut } from "../actions";
 import { withRouter } from 'react-router'
 // import { TiSocialFacebookCircular } from 'react-icons/lib/ti/social-facebook-circular';
+import axios from "axios";
 
 class Login extends React.Component {
     constructor(props) {
@@ -16,23 +17,78 @@ class Login extends React.Component {
     };
 
     responseFacebook = (response) => {
-            this.props.logIn({
-                "name": response.name,
-                "email": response.email,
-                "profilePic": response.picture.data.url
-            });
+        let name = response.name;
+        let email = response.email;
+        let profilePic = response.picture.data.url;
+        axios.get("http://localhost:9000/user/" + response.email).then(
+            res => {
+                if (res.data.length > 0) {
+                    this.props.logIn({
+                       //  id: res.data[0]._id,
+                        loginStatus: true,
+                        name: name,
+                        email: email,
+                        profilePic: profilePic,
+                        visited: res.data[0].visited,
+                        itineraries: res.data[0].itineraries
+
+                    });
+                }
+                else {
+                    axios.post("http://localhost:9000/user/newUser/", {email: email}).then(
+                        resp => {
+                            this.props.logIn({
+                                // id: resp._id,
+                                loginStatus: true,
+                                name: name,
+                                email: email,
+                                profilePic: profilePic,
+                                visited: [],
+                                itineraries: []
+                            });
+                        }).catch(err => console.log("Err" + err));
+                }
+            }).catch(err => console.log("Err" + err));
             console.log(JSON.stringify(this.props.authentication));
             this.props.history.push('/');
     };
 
     success = (response) => {
-        this.props.logIn({
-            "name": response.getBasicProfile().getGivenName(),
-            "email": response.getBasicProfile().getEmail(),
-            "profilePic": response.getBasicProfile().getImageUrl()
-        });
+           let name =  response.getBasicProfile().getGivenName();
+           let email =  response.getBasicProfile().getEmail();
+           let profilePic =  response.getBasicProfile().getImageUrl();
+        axios.get("http://localhost:9000/user/" + email).then(
+            res => {
+                if (res.data.length > 0) {
+                    this.props.logIn({
+                        // id: res.data[0].id,
+                        loginStatus: true,
+                        name: name,
+                        email: email,
+                        profilePic: profilePic,
+                        visited: res.data[0].visited,
+                        itineraries: res.data[0].itineraries
+
+                    });
+                }
+                else {
+                    axios.post("http://localhost:9000/user/newUser/", {email: email}).then(
+                        resp => {
+                            this.props.logIn({
+                                // id: resp,
+                                loginStatus: true,
+                                name: name,
+                                email: email,
+                                profilePic: profilePic,
+                                visited: [],
+                                itineraries: []
+                            });
+                        }).catch(err => console.log("Err" + err));
+                }
+            }).catch(err => console.log("Err" + err));
         console.log(JSON.stringify(this.props.authentication));
         this.props.history.push('/');
+
     };
 
 

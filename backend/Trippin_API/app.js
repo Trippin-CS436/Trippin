@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cors = require("cors");
 var indexRouter = require('./routes/index');
 var itineraryRouter = require('./routes/itinerary');
+var userRouter = require('./routes/user');
 
 
 // read the .env file for URI
@@ -39,6 +40,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/itinerary', itineraryRouter);
+
+
+app.use('/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

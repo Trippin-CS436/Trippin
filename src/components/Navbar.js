@@ -60,8 +60,8 @@ function Navbar(props) {
                     <IconButton edge="start" className={classes.menuButton} color="blue" aria-label="menu">
                         <MenuIcon />
                     </IconButton>
+                    <img src="../assets/vancouver.jpg" />
                     <Typography variant="h6" className={classes.title}>
-                        Photos
                     </Typography>
                     {auth && (
                         <div>
