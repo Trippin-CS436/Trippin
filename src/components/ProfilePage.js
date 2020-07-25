@@ -4,8 +4,11 @@ import { connect } from "react-redux";
 import { getCurrentUserProfile } from "../actions/users";
 import "./ProfilePage.css";
 import { GoogleMap, LoadScript, MarkerClusterer, Marker } from "@react-google-maps/api";
+import { EmailShareButton, FacebookShareButton, FacebookMessengerShareButton, EmailIcon, FacebookIcon, FacebookMessengerIcon } from "react-share";
 
+const title = "My Itinerary";
 
+const shareUrl = 'http://github.com';
 
 const mapContainerStyle = {
   height: '400px',
@@ -75,28 +78,45 @@ class Profilepage extends React.Component {
     return (
       <React.Fragment>
         <div className="profile-bg">
-        <div class="mask rgba-black-light align-items-center">
-          <Grid container className="container" spacing={2}>
-            <Grid item xs>
-              <div className="profile-container">
-                <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
-                <div className="profile-img">
-                  <img src={this.props.currentUserProfile.profilePicture} />
-                  <i className="fa fa-edit"></i>
+          <div class="mask rgba-black-light align-items-center">
+            <Grid container className="container" spacing={2}>
+              <Grid item xs>
+                <div className="profile-container">
+                  <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
+                  <div className="profile-img">
+                    <img src={this.props.currentUserProfile.profilePicture} />
+                    <i className="fa fa-edit"></i>
+                  </div>
+                  <ul className="ul">
+                    <li> {this.props.currentUserProfile.firstName + " " + this.props.currentUserProfile.lastName} </li>
+                    <br />
+                    <li> Email Address: {this.props.currentUserProfile.emailAddress} </li>
+                    <br />
+                    <li> <MapWithMarkerClusterer className="display-map" /> </li>
+                    <br />
+                    <li>
+                      <EmailShareButton
+                      url= {shareUrl}
+                      subject={title}
+                      body="body"
+                    >
+                      <EmailIcon size={32} round />
+                    </EmailShareButton>
+                    <FacebookShareButton
+                      url={shareUrl}
+                      quote={title}
+                      
+                    >
+                      <FacebookIcon size={32} round />
+                    </FacebookShareButton>
+                    </li>
+                  </ul>
                 </div>
-                <ul className="ul">
-                  <li> {this.props.currentUserProfile.firstName + " " + this.props.currentUserProfile.lastName} </li>
-                  <br />
-                  <li> Email Address: {this.props.currentUserProfile.emailAddress} </li>
-                  <br />
-                  <li> <MapWithMarkerClusterer className="display-map"/> </li>
-                </ul>
-              </div>
-            </Grid>
-            <Grid item xs>
-              <h1> Lists goes here</h1>
               </Grid>
-          </Grid>
+              <Grid item xs>
+                <h1> Lists goes here</h1>
+              </Grid>
+            </Grid>
           </div>
         </div>
       </React.Fragment>
