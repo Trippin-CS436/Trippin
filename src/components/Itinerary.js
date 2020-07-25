@@ -43,7 +43,7 @@ class Itinerary extends React.Component {
     }
 
     componentDidMount(){
-        axios.get("http://localhost:9000/itinerary/")
+        axios.get("/itinerary/")
             .then(response => {
             if(response.data.length > 0){
                 console.log(response.data)
