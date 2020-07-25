@@ -97,9 +97,6 @@ class Login extends React.Component {
         console.log(this.props.authentication);
         return (
             <div className='bg-login'>
-                <div className={"smallIcon-login"}>
-                    <img src={require("../assets/trippin-logo-bottom.png")}></img>
-                </div>
                 <GoogleLogin
                     clientId="839868194801-vofkpao3v7j2ktes9ojrramfk16gk9ec.apps.googleusercontent.com"
                     buttonText="Login with Google"
