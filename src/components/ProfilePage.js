@@ -13,6 +13,7 @@ const shareUrl = 'http://github.com';
 const mapContainerStyle = {
   height: '400px',
   width: '600px',
+  display: 'inline-block',
 };
 
 const center = { lat: -28.024, lng: 140.887 };
@@ -121,9 +122,6 @@ class Profilepage extends React.Component {
                       <li> You have visited {locations.length} countries
                       <br />
                       </li>
-                      <li>
-                      <MapWithMarkerClusterer className="display-map" />
-                      </li>
                       <br />
                       <li>
                         <EmailShareButton
@@ -142,6 +140,9 @@ class Profilepage extends React.Component {
                         </FacebookShareButton>
                       </li>
                     </ul>
+                    <div id="display-map">
+                    <MapWithMarkerClusterer/>
+                    </div>
                   </div>
                 </Grid>
               </Grid>
