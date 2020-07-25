@@ -1,6 +1,6 @@
 .profile-bg{
   position: absolute;
-    height: 100vh;
+  height: 100vh;
   width: 100vw;
   top: 0;
   left: 0;
@@ -11,10 +11,10 @@
 
 .profile-container {
     text-align: center;
-    align-content: center;
 }
 
 .profile-container ul {
+    align-items: center;
     list-style-type: none;
     color: #2E3B52;
 }

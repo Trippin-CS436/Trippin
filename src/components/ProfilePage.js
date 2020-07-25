@@ -104,7 +104,7 @@ class Profilepage extends React.Component {
     return (
         <React.Fragment>
           <div className="profile-bg">
-            <div class="mask rgba-black-light align-items-center">
+            <div className="mask rgba-black-light align-items-center">
               <Grid container className="container" spacing={2}>
                 <Grid item xs>
                   <div className="profile-container">
@@ -119,7 +119,10 @@ class Profilepage extends React.Component {
                       <li> Email Address: {this.props.authentication.email} </li>
                       <br />
                       <li> You have visited {locations.length} countries
-                        <MapWithMarkerClusterer className="display-map" />
+                      <br />
+                      </li>
+                      <li>
+                      <MapWithMarkerClusterer className="display-map" />
                       </li>
                       <br />
                       <li>
