@@ -182,13 +182,14 @@ const authenticationReducer = (authentication = userState, action) => {
 
 
 
-const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1", cityID: 0, notes: "", info: {}},
-    {id:1, location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1", cityID: 0, notes: "", info: {}},
-    {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0, notes: "", info: {}},
-    {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0, note: "", info: {}},
-    {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0, notes: "", info: {}},
-    {id:6, location: "Craigdarroch Castle", address: "1050 Joan Crescent, Victoria, BC V8S 3L5", cityID: 2, notes: "", info: {}},
-    {id:7, location: "Alcatraz Island", address: "San Francisco, CA 94133, United States", cityID: 1, notes: "", info: {}},];
+const defaultLocations = [{id:0, location: "Rogers Arena", address: "800 Griffiths Way, Vancouver, BC V6B 6G1", cityID: 0, notes: "", info: {}, userPhotos: []},
+    {id:1, location: "Playland", address: "2901 E Hastings St, Vancouver, BC V5K 5J1", cityID: 0, notes: "", info: {}, userPhotos: []},
+    {id:2, location: "Science World", address: "1455 Quebec St, Vancouver, BC V6A 3Z7", cityID: 0, notes: "", info: {}, userPhotos: []},
+    {id:3, location: "Stanley Park", address: " Vancouver, BC V6G 1Z4", cityID: 0, note: "", info: {}, userPhotos: []},
+    {id:4, location: "Capilano Suspension Bridge", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 0, notes: "", info: {}, userPhotos: []},
+    {id:5, location: "SHOULD NOT RENDER THIS LOCATION", address: "3735 Capilano Rd, North Vancouver, BC V7R 4J1", cityID: 100, notes: "", info: {}, userPhotos: []},
+    {id:6, location: "Craigdarroch Castle", address: "1050 Joan Crescent, Victoria, BC V8S 3L5", cityID: 2, notes: "", info: {}, userPhotos: []},
+    {id:7, location: "Alcatraz Island", address: "San Francisco, CA 94133, United States", cityID: 1, notes: "", info: {}, userPhotos: []}];
 
 const locationsReducer = (locations = defaultLocations, action) => {
     if (action.type === "ADD_LOCATION"){
@@ -225,6 +226,14 @@ const locationsReducer = (locations = defaultLocations, action) => {
         console.log(index);
         console.log(locations[index]);
         locations[index].notes = notes;
+        return locations;
+    }
+    else if (action.type == "ADD_PHOTOS"){
+        let photos = action.add.files;
+        let index = action.add.index;
+        console.log(index);
+        console.log(locations[index]);
+        locations[index].userPhotos.push(photos);
         return locations;
     }
 

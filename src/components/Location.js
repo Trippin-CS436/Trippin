@@ -2,6 +2,9 @@ import React from "react";
 import './Iteneraries.css';
 import Notes from "./Notes";
 import Info from "./Info";
+import DropPhotos from "./DropPhotos";
+import Photos from "./Photos";
+import InfoPhotos from "./InfoPhotos";
 import {connect} from "react-redux";
 import {deleteLocation} from "../actions";
 import './Location.css';
@@ -11,7 +14,7 @@ import NotesOutlinedIcon from '@material-ui/icons/NotesOutlined';
 // import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
 import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
-import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
+import PhotoAlbumOutlinedIcon from '@material-ui/icons/PhotoAlbumOutlined';
 
 class Location extends React.Component {
     constructor(props){
@@ -24,6 +27,7 @@ class Location extends React.Component {
         this.handleEditBtnClick = this.handleEditBtnClick.bind(this);
         this.handleInfoBtnClick = this.handleInfoBtnClick.bind(this);
         this.handlePhotoBtnClick = this.handlePhotoBtnClick.bind(this);
+        this.handleAddPhotoBtnClick = this.handleAddPhotoBtnClick.bind(this);
 
 
     }
@@ -32,7 +36,8 @@ class Location extends React.Component {
         this.setState({
             showNotes: !this.state.showNotes,
             showInfo: false,
-            showPhotos: false
+            showPhotos: false,
+            showAddPhotos: false
         })
     }
 
@@ -40,7 +45,8 @@ class Location extends React.Component {
         this.setState({
             showNotes: false,
             showInfo: !this.state.showInfo,
-            showPhotos: false
+            showPhotos: false,
+            showAddPhotos: false
         })
     }
 
@@ -48,8 +54,18 @@ class Location extends React.Component {
         this.setState({
             showNotes: false,
             showInfo: false,
-            showPhotos: !this.state.showPhotos
+            showPhotos: !this.state.showPhotos,
+            showAddPhotos: false
         })
+    }
+
+    handleAddPhotoBtnClick() {
+        this.setState({
+            showNotes: false,
+            showInfo: false,
+            showPhotos: false, 
+            showAddPhotos: !this.state.showAddPhotos
+        });
     }
 
     renderSubComp(){
@@ -63,9 +79,11 @@ class Location extends React.Component {
            console.log(currLoc);
             return <Info location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
-       else {
-           return null;
-       }
+       else if (this.state.showPhotos) {
+           return <InfoPhotos location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
+       
+    } else 
+       return null;
     }
 
     render() {
@@ -87,13 +105,19 @@ class Location extends React.Component {
                 </IconButton>
 
 
+
                 <IconButton className={"btn"} aria-label="Photo" name="Photo" onClick={this.handlePhotoBtnClick}>
-                <AddAPhotoOutlinedIcon />
+                <PhotoAlbumOutlinedIcon />
+                </IconButton>
+                
+                <IconButton aria-label="Photo" name="Photo" >
+                <DropPhotos location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
                 </IconButton>
 
                 <IconButton className={"btn"} aria-label="Delete"  name="Delete" onClick={() => this.props.deleteLocation(this.props.id)}>
                 <DeleteOutlineRoundedIcon />
                 </IconButton>
+
 
 
 
