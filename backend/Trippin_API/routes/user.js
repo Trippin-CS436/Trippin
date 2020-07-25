@@ -5,13 +5,13 @@ const router = express.Router();
 
 
 /* GET users listing. */
-router.route('/').get((req, res) => {
-    User.find({email: res.params.email}).then(user => res.json(user))
+router.route('/:email').get((req, res) => {
+    User.find({email: req.body.email}).then(user => res.json(user))
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/save').post((req,res) => {
-    const newUser = new User({id:req.body.id, locations: req.body.locations, cities: req.body.cities, countries: req.body.countries});
+router.route('/newUser').post((req,res) => {
+    const newUser = new User({id:req.body.id, email: req.body.email, visited: [], itineraries: []});
     console.log(newUser);
     console.log(newUser.id);
     newUser.save()
@@ -21,8 +21,8 @@ router.route('/save').post((req,res) => {
 
 router.route('/save/:id').patch((req,res) => {
     console.log(req.params.id);
-    User.findOneAndUpdate({id: req.params.id}, {locations: req.body.locations, cities: req.body.cities, countries: req.body.countries},)
-        .then(() => res.json("itinerary updated"))
+    User.findOneAndUpdate({id: req.params.id}, {visited: req.body.visited, itineraries: req.body.itineraries},)
+        .then(() => res.json("User updated"))
         .catch(err => res.status(404).json('Error: ' + err));
 
 });
