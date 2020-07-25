@@ -36,3 +36,28 @@
     transform: rotate(360deg);
   }
 }
+html {
+  background-image: repeating-linear-gradient(-45deg, #23B8C2,#FBA43B);
+  background-repeat: repeat-y;
+  background-attachment: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.smallIcon{
+  transform: scale(0.125);
+  display: inline-block;
+  margin-left: -460px;
+}
+.smallIcon-login{
+  transform: scale(0.25);
+  display: inline-block;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  text-align: center;
+  margin-top: -245px;
+}

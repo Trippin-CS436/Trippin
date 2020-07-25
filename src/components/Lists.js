@@ -8,6 +8,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {Checkbox} from "@material-ui/core";
 import "./Expandable.css"
+
 class Lists extends React.Component {
 
     constructor(props){
@@ -22,6 +23,7 @@ class Lists extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.addList = this.addList.bind(this);
         this.renderCountry = this.renderCountry.bind(this);
+        this.renderList = this.renderList.bind(this);
     }
 
     handleChange(event) {
@@ -141,7 +143,8 @@ class Lists extends React.Component {
 const mapStateToProps = (state) => { //name is by convention
     return {
         lists: state.lists,
-        msgId: state.msgId
+        msgId: state.msgId,
+        authentication: state.authentication
     }; //now it will appear as props
 };
 

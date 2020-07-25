@@ -1,14 +1,49 @@
 .bg{
-    top: 0;
-    left: 0;
-    background-repeat: repeat-y;
-    color: #000000;
-    width: 120vw;
-    height: 150vh;
     position: absolute;
-    font-size: 30px;
-    background-size: contain;
-    background-image: url(/static/media/vancouver.7e23aeae.jpg);
+    background: repeating-linear-gradient(-45deg, #23B8C2,#FBA43B);
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0
+}
+
+
+.bg-login {
+    background: #282c34;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0
+}
+.google {
+    position: absolute;
+    width: 300px;
+    height: 50px;
+    z-index: 15;
+    top: 60%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+    text-align: center;
+    font-size: 14pt;
+}
+
+.facebook {
+    position: absolute;
+    width: 300px;
+    height: 50px;
+    z-index: 15;
+    top: 70%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+    padding-left: 10px;
+    color: ghostwhite;
+    background: #3b5998;
+    font-size: 11pt;
+    border-radius: 4px;
+
 }
 .text {
     color: #000000;
@@ -60,8 +95,6 @@
     .buttonText {
     font-size: 1.25em
     }
-    .bg {
-        background: lightsteelblue;
-    }
+
 
 }
