@@ -4,6 +4,8 @@ import Button from "@material-ui/core/Button";
 import { GiCalendar, GiDesk, GiChecklist } from "react-icons/gi";
 import "./Home.css"
 
+import { connect } from "react-redux";
+
 class Home extends React.Component {
     render = () => {
         return (
@@ -90,4 +92,9 @@ const muiStyles = {
     }
 };
 
-export default Home;
+const mapStateToProps = (state) => { //name is by convention
+    return {
+        authentication: state.authentication
+    }; //now it will appear as props
+};
+export default connect(mapStateToProps)(Home);

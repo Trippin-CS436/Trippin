@@ -66,6 +66,7 @@ class Itinerary extends React.Component {
             .catch(err => console.log("Err: " + err));
     }
 
+
     renderItinerary() {
         const content = [];
         const locations = this.props.locations;

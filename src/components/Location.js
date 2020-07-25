@@ -63,7 +63,7 @@ class Location extends React.Component {
            console.log(currLoc);
             return <Info location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
-       else{
+       else {
            return null;
        }
     }

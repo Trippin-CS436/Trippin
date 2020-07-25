@@ -9,7 +9,7 @@ class SaveButton extends React.Component {
     saveItinerary = () => {
         console.log("Save itinerary called")
         let Itinerary = {};
-        if (this.props.currentItinerary === null) {
+        if (this.props.currentItinerary == null) {
             console.log("Current Itinerary has not been saved yet");
             Itinerary = {
                 id: uuid(),
@@ -30,7 +30,7 @@ class SaveButton extends React.Component {
             this.props.saveItinerary(Itinerary);
         }
 
-        console.log(Itinerary.id);
+        //console.log(Itinerary.id);
         this.props.getCurrentItineraryID(Itinerary.id);
         axios.get("http://localhost:9000/itinerary/exist/"+ Itinerary.id)
             .then(res => {
@@ -42,7 +42,7 @@ class SaveButton extends React.Component {
                     console.log(this.props.currentItineraryID)
                     axios.patch("http://localhost:9000/itinerary/save/" + this.props.currentItineraryID, Itinerary)
                     .then(res=> {
-                        console.log(res.data)
+                        console.log(res.data);
                     })
                     .catch(err=> {
                         console.log(err);
@@ -63,7 +63,7 @@ class SaveButton extends React.Component {
 
     render() {
         return (
-            <button className={"addLocationButton"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
+            <button className={"submit-button save-button"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
         )
     }
 }
