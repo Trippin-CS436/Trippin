@@ -1,3 +1,9 @@
+# Trippin
+
+## Project Description
+
+Our app is a personal travel planner. It will have 3 main functions: planning for future trip itinerary, archiving old trips with notes/photos for future reference, and keeping a check list of places one has been to. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
