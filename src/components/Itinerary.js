@@ -122,7 +122,7 @@ class Itinerary extends React.Component {
         //Itinerary is not being edited
         if (!this.state.editItinerary){
             return (
-                <div className={"itineraryHeader"}>
+                <div>
                     <h1 className={"itinerary_name"}>{this.props.itinerary.name}</h1>
                     <IconButton  className={"edit-btn"} aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
                         <EditOutlinedIcon />
@@ -133,21 +133,24 @@ class Itinerary extends React.Component {
         else{
             return(
                 <div id={"itinerary-div"}>
-                    <TextField id="filled-basic"
-                               label="New Itinerary Name"
-                               variant="outlined"
-                               error ={this.state.name.length === 0 ? true : false }
-                               helperText={this.state.name.length === 0 ? "Itinerary name cannot be empty!" : "" }
-                               defaultValue={this.props.itinerary.name}
-                               inputProps={{
-                                   style: {
-                                       fontSize: "2.5em",
-                                       fontWeight: "bold",
-                                   }}} // font styling of input text
-                               onChange={this.handleNameChange.bind(this)}/>
-                    <IconButton  aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
-                        <SaveIcon className={"edit-btn"}/>
-                    </IconButton>
+                    <div style={{paddingTop:10}}>
+                        <TextField id="filled-basic"
+                                    label="New Itinerary Name"
+                                    variant="outlined"
+                                    error ={this.state.name.length === 0 ? true : false }
+                                    helperText={this.state.name.length === 0 ? "Itinerary name cannot be empty!" : "" }
+                                    defaultValue={this.props.itinerary.name}
+                                    inputProps={{
+                                        style: {
+                                            fontSize: "2.5em",
+                                            fontWeight: "bold",
+                                        }}} // font styling of input text
+                                    onChange={this.handleNameChange.bind(this)}/>
+                        <IconButton  aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
+                            <SaveIcon className={"edit-btn"}/>
+                        </IconButton>
+                    </div>
+
                 </div>
             );
         }
@@ -254,7 +257,9 @@ class Itinerary extends React.Component {
 
         return (
             <React.Fragment>
-                {this.renderItineraryName()}
+                <div className={"itineraryHeader"}>
+                    {this.renderItineraryName()}
+                </div>
                 <div className={"itineraryHeader"}>
                     <Dates place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
                 </div>

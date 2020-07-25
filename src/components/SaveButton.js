@@ -63,7 +63,7 @@ class SaveButton extends React.Component {
 
     render() {
         return (
-            <button className={"submit-button save-button"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
+            <button className={"addLocationButton"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
         )
     }
 }
