@@ -4,6 +4,9 @@ import City from "./City";
 import './Itinerary.css';
 import Map from "./Map";
 import Navbar from "./Navbar";
+import Itinerary from "./Itinerary";
+import LocationButton from "./LocationButton";
+import SaveButton from "./SaveButton";
 
 class Itineraries extends React.Component {
 
@@ -14,12 +17,19 @@ class Itineraries extends React.Component {
             <div className={classes.bg}>
                 <div className={classes.leftPanel}>
                     <div className= {"top-panel"}>
-                    <Map />
+                        <Itinerary />
+                        <div className={classes.bottomPanel}>
+                            <LocationButton/>
+                            <SaveButton/>
+                            <Map/>
+                        </div>
                     </div>
                 </div>
                 <div className={`${classes.rightPanel} ${classes.table}`}>
                     <City/>
+
                 </div>
+
             </div>
                 <div><Navbar/></div>
             </React.Fragment>
@@ -43,7 +53,7 @@ const muiStyles = {
         position: "absolute",
         // height: "100vh",
         left: "50vw",
-        width: "50vw"
+        width: "50vw",
     },
     leftPanel: {
         position: "absolute",
@@ -51,8 +61,13 @@ const muiStyles = {
         width: "50vw",
         top: "6vh"
     },
+    bottomPanel: {
+        position: "relative",
+        //height: "100vh",
+        width: "50vw",
+    },
     table: {
-        top: "14vh"
+        top: "5vh"
     }
 };
 

@@ -76,3 +76,6 @@ h1{
 .edit-button{
     display: inline-block;
 }
+.itineraryHeader{
+    background-color: #ebeced;
+}

@@ -80,7 +80,7 @@ class Itinerary extends React.Component {
                                                    onClick={(event) => {this.handleDialogOpen(country,true);event.stopPropagation();}}/>
                             </IconButton>
                         </div>
-                        <Dates place={country} class={"dates"} type={"country"}/>
+                            <Dates place={country} class={"dates"} type={"country"}/>
                     </div>
                 }>
 
@@ -121,7 +121,7 @@ class Itinerary extends React.Component {
         //Itinerary is not being edited
         if (!this.state.editItinerary){
             return (
-                <div>
+                <div className={"itineraryHeader"}>
                     <h1 className={"itinerary_name"}>{this.props.itinerary.name}</h1>
                     <IconButton  className={"edit-btn"} aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
                         <EditOutlinedIcon />
@@ -254,12 +254,14 @@ class Itinerary extends React.Component {
         return (
             <React.Fragment>
                 {this.renderItineraryName()}
-                <Dates place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
+                <div className={"itineraryHeader"}>
+                    <Dates place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
+                </div>
                 {this.renderItinerary()}
-                <City/>
-                <LocationButton/>
-                <SaveButton/>
-                <Map className={"map"}/>
+                {/*<City/>*/}
+                {/*<LocationButton/>*/}
+                {/*<SaveButton/>*/}
+                {/*<Map className={"map"}/>*/}
                 {this.renderDeleteConfirmation()}
             </React.Fragment>
         )
