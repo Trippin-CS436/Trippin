@@ -42,8 +42,8 @@
     "uuidv4": "^6.1.1"
   },
   "scripts": {
-    "start": "cd backend && node ./bin/www",
-    "heroku-postbuild": "npm install && npm run build && cd backend && npm install",
+    "start": "cd backend/Trippin_API && node ./bin/www",
+    "heroku-postbuild": "npm install && npm run build && cd backend/Trippin_API && npm install",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
