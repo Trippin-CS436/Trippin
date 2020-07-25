@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+html {
+  background-image: repeating-linear-gradient(-45deg, #23B8C2,#FBA43B);
+  background-repeat: repeat-y;
+  background-attachment: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
