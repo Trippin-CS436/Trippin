@@ -51,8 +51,7 @@ class AddLocationButton extends React.Component {
                         address: this.props.mapLocation.Address,
                         cityID: 0,
                         info: this.props.mapLocation.Info,
-                        notes: "",
-                        userPhotos: []
+                        notes: ""
                     });
                     console.log("valid location");
                     console.log(this.props.locations);
