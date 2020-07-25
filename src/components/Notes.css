@@ -16,7 +16,6 @@
     border-bottom: 2px solid #ced4da;
     border-radius: 0; 
     box-sizing: border-box;
-    opacity: 90%;
     padding: 0.5rem 0.5rem;
     width: 70%;
     height: 10rem;
@@ -31,7 +30,6 @@
     padding: 6px 11px;
     text-align: center;
     font-size: 14px;
-    opacity: 0.75;
     transition: 0.3s;
     text-decoration: none;
     cursor: pointer;
