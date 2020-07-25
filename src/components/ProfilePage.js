@@ -4,8 +4,11 @@ import { connect } from "react-redux";
 import { getCurrentUserProfile } from "../actions/users";
 import "./ProfilePage.css";
 import { GoogleMap, LoadScript, MarkerClusterer, Marker } from "@react-google-maps/api";
+import { EmailShareButton, FacebookShareButton, FacebookMessengerShareButton, EmailIcon, FacebookIcon, FacebookMessengerIcon } from "react-share";
 
+const title = "My Itinerary";
 
+const shareUrl = 'http://github.com';
 
 const mapContainerStyle = {
   height: '400px',
@@ -92,6 +95,23 @@ class Profilepage extends React.Component {
                     <li> You have visited {locations.length} countries
                       <MapWithMarkerClusterer className="display-map"/>
                     </li>
+                    <br />
+                    <li>
+                        <EmailShareButton
+                            url= {shareUrl}
+                            subject={title}
+                            body="body"
+                        >
+                            <EmailIcon size={32} round />
+                        </EmailShareButton>
+                        <FacebookShareButton
+                            url={shareUrl}
+                            quote={title}
+
+                        >
+                            <FacebookIcon size={32} round />
+                        </FacebookShareButton>
+                    </li>
                 </ul>
               </div>
             </Grid>
@@ -108,7 +128,7 @@ class Profilepage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    authentication: state.authentication
+    currentUserProfile: state.currentUserProfile
   };
 };
 
