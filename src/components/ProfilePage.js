@@ -76,49 +76,49 @@ class Profilepage extends React.Component {
     }
 
     return (
-      <React.Fragment>
-        <div className="profile-bg">
-        <div class="mask rgba-black-light align-items-center">
-          <Grid container className="container" spacing={1}>
-            <Grid item xs>
-              <div className="profile-container">
-                <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
-                <div className="profile-img">
-                  <img src={this.props.authentication.profilePic} />
-                </div>
-                <ul className="ul">
-                  <li> {this.props.authentication.name} </li>
-                  <br />
-                  <li> Email Address: {this.props.authentication.email} </li>
-                  <br />
-                    You have visited {locations.length} countries
-                    <li> You have visited {locations.length} countries
-                      <MapWithMarkerClusterer className="display-map"/>
-                    </li>
-                    <br />
-                    <li>
+        <React.Fragment>
+          <div className="profile-bg">
+            <div class="mask rgba-black-light align-items-center">
+              <Grid container className="container" spacing={2}>
+                <Grid item xs>
+                  <div className="profile-container">
+                    <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
+                    <div className="profile-img">
+                      <img src={this.props.authentication.profilePic} />
+                      <i className="fa fa-edit"></i>
+                    </div>
+                    <ul className="ul">
+                      <li> {this.props.authentication.name} </li>
+                      <br />
+                      <li> Email Address: {this.props.authentication.email} </li>
+                      <br />
+                      <li> You have visited {locations.length} countries
+                        <MapWithMarkerClusterer className="display-map" />
+                      </li>
+                      <br />
+                      <li>
                         <EmailShareButton
-                            url= {shareUrl}
+                            url={shareUrl}
                             subject={title}
                             body="body"
                         >
-                            <EmailIcon size={32} round />
+                          <EmailIcon size={32} round />
                         </EmailShareButton>
                         <FacebookShareButton
                             url={shareUrl}
                             quote={title}
 
                         >
-                            <FacebookIcon size={32} round />
+                          <FacebookIcon size={32} round />
                         </FacebookShareButton>
-                    </li>
-                </ul>
-              </div>
-            </Grid>
-          </Grid>
+                      </li>
+                    </ul>
+                  </div>
+                </Grid>
+              </Grid>
+            </div>
           </div>
-        </div>
-      </React.Fragment>
+        </React.Fragment>
     )
   }
 }
@@ -128,7 +128,7 @@ class Profilepage extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentUserProfile: state.currentUserProfile
+    authentication: state.authentication
   };
 };
 

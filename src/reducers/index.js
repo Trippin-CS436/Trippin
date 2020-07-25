@@ -1,7 +1,6 @@
 import {combineReducers} from 'redux';
 import React from 'react';
 import '../index.css';
-import axios from "axios";
 
 const currentLocation = {
     Name: "",
@@ -119,12 +118,9 @@ let jsonObj = [{
 
 let userState = {
     "loginStatus": false,
-    "userId": null,
     "name": null,
     "email": null,
     "profilePic": null,
-    "itineraries": null,
-    "visited": null
 };
 
 const listReducer = (lists = jsonObj, action) => {
@@ -146,23 +142,21 @@ const selector = (msgId = 0, action) => {
 
 const authenticationReducer = (authentication = userState, action) => {
     if (action.type === "LOGOUT") {
-        return userState;
+            let newAuth = {
+                loginStatus: false,
+                name: null,
+                email: null,
+                profilePic: null
+            };
+            return newAuth;
     }
     if (action.type === "LOGIN") {
-        let newAuth = {};
-        axios.get("http://localhost:9000/user/" + action.logIn.email).then(
-        response => {
-            newAuth = {
-                id: response.data[0].id,
-                loginStatus: true,
-                name: action.logIn.name,
-                email: action.logIn.email,
-                profilePic: action.logIn.profilePic,
-                visited: response.data[0].visited,
-                itineraries: response.data[0].itineraries
-
-            };
-        }).catch(err => console.log("Err" + err));
+        let newAuth = {
+            loginStatus: true,
+            name: action.logIn.name,
+            email: action.logIn.email,
+            profilePic: action.logIn.profilePic
+        };
         return newAuth;
     }
     return authentication;
