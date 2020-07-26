@@ -17,6 +17,7 @@ class Login extends React.Component {
     };
 
     responseFacebook = (response) => {
+        console.log(response);
         let name = response.name;
         let email = response.email;
         let profilePic = response.picture.data.url;
@@ -104,6 +105,7 @@ class Login extends React.Component {
                     onFailure={this.responseGoogle}
                     cookiePolicy={'single_host_origin'}
                     className="google"
+                    redirectUri="http://me.trippin.com:3000/userprofile"
                 />
                 <br/>
                 <FacebookLogin

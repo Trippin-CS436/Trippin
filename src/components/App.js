@@ -12,6 +12,7 @@ import AuthRoute from "./AuthRoute";
 import Navbar from "./Navbar";
 
 import ProfilePage from './ProfilePage';
+import ProfilePageLinh from "./ProfilePageLinh";
 
 
 
@@ -20,14 +21,11 @@ import ProfilePage from './ProfilePage';
 function App() {
     return (
         <Router>
-            <Navbar/>
             <div>
                 <AuthRoute exact path="/userprofile">
-                    <ProfilePage />
+                    <ProfilePageLinh />
                 </AuthRoute>
-                <AuthRoute exact path="/itineraries">
-                    <Itineraries />
-                </AuthRoute>
+                <AuthRoute path="/itineraries/:itineraryId" component={Itineraries} />
                 <AuthRoute exact path="/">
                     <Home />
                 </AuthRoute>

@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
@@ -65,7 +66,7 @@ class Profilepage extends React.Component {
           googleMapsApiKey={process.env.REACT_APP_API_KEY}
           libraries={["places"]}>
           <GoogleMap id='marker-example' mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
-            <MarkerClusterer /*options={options}*/>
+            <MarkerClusterer /!*options={options}*!/>
               {(clusterer) =>
                 this.props.authentication.visited.map((location) => (
                   <Marker key={createKey(location)} position={location} clusterer={clusterer} />
@@ -140,3 +141,4 @@ const mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, { getCurrentUserProfile })(Profilepage)
+*/
