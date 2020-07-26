@@ -53,7 +53,7 @@ class Itineraries extends React.Component {
                     <div>
                         <div className={classes.leftPanel}>
                             <div className= {"top-panel"}>
-                                <Itinerary />
+                                <Itinerary location={this.props.locations} />
                                 <div className={classes.bottomPanel}>
                                     <div style={{marginTop: 5}}>
                                         <LocationButton/>

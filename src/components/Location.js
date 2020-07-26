@@ -81,7 +81,11 @@ class Location extends React.Component {
         }
        else if (this.state.showPhotos) {
            return <InfoPhotos location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
-       
+       } else if (this.state.showAddPhotos) {
+           let photos = this.props.locations[this.props.idx].userPhotos;
+           if (photos.length > 0){
+        return (<div>{photos.map((file) => <img src={file.preview} /> )}</div>  );
+           } else return null;
     } else 
        return null;
     }
@@ -116,7 +120,7 @@ class Location extends React.Component {
 
                 <IconButton className={"btn"} aria-label="Delete"  name="Delete" onClick={() => this.props.deleteLocation(this.props.id)}>
                 <DeleteOutlineRoundedIcon />
-                </IconButton>
+                </IconButton> 
 
 
 

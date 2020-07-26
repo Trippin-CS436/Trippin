@@ -12,11 +12,13 @@ class InfoPhotos extends React.Component {
         let indexOfLocation= newArray.findIndex((item) => {
             return this.props.id == item.id;
         });
+        console.log(this.props.location[indexOfLocation]);
+        console.log(this.props.location);
         this.state = {
             currentLocation: this.props.location[indexOfLocation],
             info: this.props.location[indexOfLocation].info,
-           photos: this.props.location[indexOfLocation].info.placePhotos,
-           index: indexOfLocation
+            photos: this.props.location[indexOfLocation].info.placePhotos,
+            index: indexOfLocation
            // userImages image object will change when database added: {fileName:"name", fileLoc:"../imgs/name.jpg"}
         };
     }

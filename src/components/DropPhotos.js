@@ -30,11 +30,13 @@ export class DropzoneDialogButton extends Component {
  
     handleSave(files) {
         //Saving files to state for further use and closing Modal.
+        this.props.addPhotos({files: files, index: this.state.index});
         this.setState({
             files: files,
-            open: false
+            open: false,
+            photos: this.props.locations[this.state.index].userPhotos
         });
-        this.props.addPhotos({files: files, index: this.state.index});
+
     }
  
     handleOpen() {
@@ -44,8 +46,10 @@ export class DropzoneDialogButton extends Component {
     }
  
     render() {
+        let photos = this.props.locations[this.state.index].userPhotos;
         return (
             <div>
+
 
                 <IconButton aria-label="Add Photo" name="Add Photo" onClick={this.handleOpen.bind(this)}>
                 <AddAPhotoOutlinedIcon />
@@ -59,6 +63,8 @@ export class DropzoneDialogButton extends Component {
                     maxFileSize={5000000}
                     onClose={this.handleClose.bind(this)}
                 />
+
+            
             </div>
         );
     }

@@ -21,27 +21,10 @@ function App() {
         <Router>
             <Navbar/>
             <div>
-                <AuthRoute exact path="/userprofile">
-                    <ProfilePage />
-                </AuthRoute>
-                <AuthRoute exact path="/itineraries">
+                <Route exact path="/itineraries">
                     <Itineraries />
-                </AuthRoute>
-                <AuthRoute exact path="/">
-                    <Home />
-                </AuthRoute>
-                <Route exact path="/login">
-                    <Login />
                 </Route>
-                <AuthRoute exact path="/map">
-                    <Map />
-                </AuthRoute>
-                <AuthRoute exact path="/lists">
-                    <Lists />
-                </AuthRoute>
-                <AuthRoute exact path="/test">
-                    <Itinerary />
-                </AuthRoute>
+               
             </div>
         </Router>
     );

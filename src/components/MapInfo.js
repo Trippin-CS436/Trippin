@@ -91,7 +91,7 @@ class MapInfo extends React.Component {
 
     photoDisplay = () => {
         let photos = this.state.photos;
-        if (this.state.photos !== undefined && this.state.photos !== ''){
+        if (this.state.photos !== undefined && this.state.photos !== null && this.state.photos.length > 0 ){
         return (
             <div className="photos">
             <div className="photos-display">
@@ -102,6 +102,7 @@ class MapInfo extends React.Component {
             <GridListTile style={{width: "100px", spacing: "0"}} key={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})} cols={5}>
 
               <img src={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})}  />
+
             </GridListTile>
           ))}
         </GridList>
@@ -196,7 +197,7 @@ class MapInfo extends React.Component {
            {this.ratingDisplay()}
 
            <Box fontWeight="fontWeightLight"  borderColor="transparent">
-                <Typography variant="h5" >Website</Typography>
+                <Typography variant="h5" >Location Photos</Typography>
                 {this.photoDisplay()}
                </Box>
 
