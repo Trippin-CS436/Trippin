@@ -107,8 +107,10 @@ class ProfilePageLinh extends React.Component {
         return (
             <React.Fragment>
                 <div className="right-panel">
-                    <div className="profile-logo">
+                    <div className="profile-logo-panel">
+                        <img className="logo-position" src={require("../assets/trippin-logo.png")}/>
                     </div>
+                    <div className="logo-panel-placeholder" />
                     <section id="upcoming" className="section-box">
                         <h2> You have {this.props.authentication.itineraries.length} upcoming Trips in </h2>
                     </section>
