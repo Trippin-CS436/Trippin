@@ -62,13 +62,14 @@ class Login extends React.Component {
             res => {
                 if (res.data.length > 0) {
                     this.props.logIn({
-                        // id: res.data[0].id,
+                        id: res.data[0]._id,
                         loginStatus: true,
                         name: name,
                         email: email,
                         profilePic: profilePic,
                         visited: res.data[0].visited,
-                        itineraries: res.data[0].itineraries
+                        itineraries: res.data[0].itineraries,
+                        archived: res.data[0].itineraries
 
                     });
                 }
@@ -76,13 +77,14 @@ class Login extends React.Component {
                     axios.post("http://localhost:9000/user/newUser/", {email: email}).then(
                         resp => {
                             this.props.logIn({
-                                // id: resp,
+                                id: resp.toString(),
                                 loginStatus: true,
                                 name: name,
                                 email: email,
                                 profilePic: profilePic,
                                 visited: [],
-                                itineraries: []
+                                itineraries: [],
+                                archived: []
                             });
                         }).catch(err => console.log("Err" + err));
                 }

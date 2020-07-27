@@ -121,9 +121,10 @@ let userState = {
     "name": null,
     "email": null,
     "profilePic": null,
-    // "id": null,
+    "id": null,
     "visited": null,
-    "itineraries": null
+    "itineraries": null,
+    "archived": null
 };
 
 const listReducer = (lists = jsonObj, action) => {
@@ -150,9 +151,10 @@ const authenticationReducer = (authentication = userState, action) => {
                 "name": null,
                 "email": null,
                 "profilePic": null,
-               // "id": null,
+               "id": null,
                 "visited": null,
-                "itineraries": null
+                "itineraries": null,
+                "archived": null
             };
             return newAuth;
     }
@@ -164,7 +166,8 @@ const authenticationReducer = (authentication = userState, action) => {
             profilePic: action.logIn.profilePic,
            // id: action.logIn._id,
             visited: action.logIn.visited,
-            itineraries: action.logIn.itineraries
+            itineraries: action.logIn.itineraries,
+            archived: action.logIn.archived
         };
         return newAuth;
     }
