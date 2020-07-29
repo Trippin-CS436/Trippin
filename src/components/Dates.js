@@ -72,18 +72,31 @@ class Dates extends React.Component{
     }
     addNewDate(){
         let dateString = format(new Date(), 'yyyy/MM/dd');
-        console.log(dateString)
+        if (this.props.place.dateRanges.length > 0){
+            let length = this.props.place.dateRanges.length;
+            dateString = format(new Date(this.props.place.dateRanges[length - 1].end), 'yyyy/MM/dd');
+        }
         this.props.addNewDate(this.props.place,this.props.type,dateString,dateString)
     }
     handleClose(){
         this.setState({openDialog: false});
     }
+
     handleChangeStartDate = (date,index) => {
         let dateString = format(date, 'yyyy/MM/dd');
         let endDateString = format(new Date(this.props.place.dateRanges[index].end), 'yyyy/MM/dd');
         //All date validation here
         if (Date.parse(dateString) <= Date.parse(endDateString)){
-            this.props.startDateChange(this.props.place,this.props.type,dateString,index)
+            let datesCopy = this.props.place.dateRanges;
+            let oldValue = datesCopy[index].start;
+            datesCopy[index].start = dateString;
+            if(this.checkOverlappingDates(datesCopy)){
+                this.props.startDateChange(this.props.place,this.props.type,dateString,index)
+            }
+            else {
+                datesCopy[index].start = oldValue;
+                this.setState({openDialog: true, errorMessage:"Cannot have overlapping dates!"});
+            }
         }
         else{
             this.setState({openDialog: true, errorMessage:"Start date cannot be after end date"});
@@ -94,12 +107,41 @@ class Dates extends React.Component{
         let startDateString = format(new Date(this.props.place.dateRanges[index].start), 'yyyy/MM/dd');
         //All date validation here
         if (Date.parse(startDateString) <= Date.parse(dateString)){
-            this.props.endDateChange(this.props.place,this.props.type,dateString,index)
+            let datesCopy = this.props.place.dateRanges.slice();
+            let oldValue = datesCopy[index].end;
+            datesCopy[index].end = dateString;
+            if(this.checkOverlappingDates(datesCopy)){
+                console.log("got here")
+                this.props.endDateChange(this.props.place,this.props.type,dateString,index)
+            }
+            else {
+                datesCopy[index].end = oldValue;
+                this.setState({openDialog: true, errorMessage:"Cannot have overlapping dates!"});
+            }
         }
         else{
             this.setState({openDialog: true, errorMessage:"End date cannot be before start date"});
         }
     };
+
+    checkOverlappingDates(dates){
+        for (let i = 0; i < dates.length; i++){
+            for (let j = 0; j < dates.length; j++){
+                if (i !== j){
+                    let startDate = new Date(dates[i].start);
+                    let endDate = new Date(dates[i].end);
+                    let startDate2 = new Date(dates[j].start);
+                    let endDate2 = new Date(dates[j].end);
+                    console.log(startDate)
+                    console.log(startDate2)
+                    if ((startDate > startDate2 && startDate < endDate2) || (endDate > startDate2 && endDate < endDate2)){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
     render() {
         let datesComponent =(
             <div className={"datesDiv"}>
