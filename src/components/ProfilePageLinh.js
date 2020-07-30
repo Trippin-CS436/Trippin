@@ -1,13 +1,15 @@
 import React from 'react';
-import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { getCurrentUserProfile } from "../actions/users";
+import { logOut } from "../actions/index";
 import "./ProfilePageLinh.css";
 import { GoogleMap, LoadScript, MarkerClusterer, Marker } from "@react-google-maps/api";
 import { EmailShareButton, FacebookShareButton, FacebookMessengerShareButton, EmailIcon, FacebookIcon, FacebookMessengerIcon } from "react-share";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import TabPanel from "@material-ui/lab/TabPanel";
+import { GoogleLogout } from 'react-google-login';
+import Button from "@material-ui/core/Button";
+import withStyles from "@material-ui/core/styles/withStyles";
+import axios from "axios";
 
 const title = "My Itinerary";
 
@@ -55,10 +57,128 @@ const locations = [
 
 
 class ProfilePageLinh extends React.Component {
-    render() {
-        function createKey(location) {
-            return location.lat + location.lng
+    constructor(props) {
+        super(props);
+        this.state = {names: []};
+    }
+
+    componentDidMount() {
+        let promises = [];
+        let names = [];
+        for (const itineraryID of this.props.authentication.itineraries) {
+            promises.push(axios.get("http://localhost:9000/itinerary/" + itineraryID));
         }
+        Promise.all(promises).then( response => {
+            let i=0;
+            for (const itineraryID of this.props.authentication.itineraries) {
+                names.push(response[i].data[0].itinerary.name);
+                i++;
+            }
+            this.setState({names: names});
+        }).catch( err => console.log(err));
+    }
+
+    createKey = (location) => {
+        return location.lat + location.lng
+    };
+
+    googleLogOut = (response) => {
+        this.props.logOut();
+        console.log(response);
+    };
+
+    googleLogOutFailure = (response) => {
+        console.log(response);
+    };
+
+    fbLogOut = () => {
+        console.log(window);
+        console.log("got here!");
+        // window.FB.logout((response) => {console.log(response)});
+        console.log("got to window.FB");
+        console.log(this.props.authentication);
+        this.props.logOut();
+        console.log(this.props.authentication);
+    };
+
+    render() {
+        const StyledButton = withStyles({
+            root: {
+                position: 'relative',
+                background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+                borderRadius: 7,
+                border: 0,
+                color: 'white',
+                height: 48,
+                padding: '0 30px',
+                fontSize: '12pt',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                alignSelf: 'center'
+            }
+        })(Button);
+        const SectionBox = withStyles({
+            root: {
+                position: 'relative',
+                background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+                borderRadius: 7,
+                border: 0,
+                color: 'white',
+                height: 48,
+                width: '80%',
+                padding: '30px',
+                fontSize: '12pt',
+                fontWeight: '500',
+                margin: '15px 15px 0px'
+            }
+        })(Button);
+        const SectionButton = withStyles({
+            root: {
+                position: 'relative',
+                background: 'linear-gradient(45deg, #7fdbda 30%, #ade498 90%)',
+                borderRadius: 7,
+                border: 0,
+                color: '#212121',
+                height: 45,
+                padding: '20px',
+                fontSize: '12pt',
+                fontWeight: '500',
+                margin: '30px 15px',
+                textAlign: 'center'
+            }
+        })(Button);
+
+        const ItineraryList = () => {
+            let returnRendering = [];
+            let i=0;
+                for (const itineraryID of this.props.authentication.itineraries) {
+                    console.log(this.state.names);
+                    console.log(this.state.names[0]);
+                    returnRendering.push(
+                        <div>
+                            <SectionBox key={itineraryID} href={"itineraries/"+ itineraryID}> {this.state.names[i]}</SectionBox>
+                        <EmailShareButton
+                            className='center-button'
+                            url={"/shared/"+itineraryID}
+                            subject={title}
+                            body="body"
+                        >
+                            <EmailIcon size={32} round />
+                        </EmailShareButton>
+                        <FacebookShareButton
+                            className='center-button'
+                        url={"/shared/"+itineraryID}
+                        quote={title}
+                        >
+                        <FacebookIcon size={32} round />
+                    </FacebookShareButton>
+                        </div>);
+                    i++;
+                }
+            return returnRendering;
+        };
+
+
 
         const MapWithMarkerClusterer = () => {
             return (
@@ -69,7 +189,7 @@ class ProfilePageLinh extends React.Component {
                         <MarkerClusterer /*options={options}*/>
                             {(clusterer) =>
                                 this.props.authentication.visited.map((location) => (
-                                    <Marker key={createKey(location)} position={location} clusterer={clusterer} />
+                                    <Marker key={this.createKey(location)} position={location} clusterer={clusterer} />
                                 ))
                             }
                         </MarkerClusterer>
@@ -113,6 +233,8 @@ class ProfilePageLinh extends React.Component {
                     <div className="logo-panel-placeholder" />
                     <section id="upcoming" className="section-box">
                         <h2> You have {this.props.authentication.itineraries.length} upcoming Trips in </h2>
+                        <ItineraryList/>
+                        <SectionButton> NEW ITINERARY </SectionButton>
                     </section>
                     <section id="visited" className="section-box">
                         <h2> You have visited {this.props.authentication.visited.length} places! </h2>
@@ -131,6 +253,16 @@ class ProfilePageLinh extends React.Component {
                         <p>Email Address: {this.props.authentication.email}</p>
                         <VerticalTabs />
                     </div>
+                    {this.props.authentication.isGoogle ? (<GoogleLogout
+                        render={(renderProps) =>  (
+                            <StyledButton onClick={renderProps.onClick} disabled={renderProps.disabled}> LOGOUT </StyledButton> )}
+                        clientId="839868194801-vofkpao3v7j2ktes9ojrramfk16gk9ec.apps.googleusercontent.com"
+                        buttonText="Logout"
+                        onLogoutSuccess={this.googleLogOut}
+                        onFailure={this.googleLogOutFailure}
+                    >
+                    </GoogleLogout>) :
+                        (<StyledButton onClick={(e)=>{e.preventDefault(); this.fbLogOut()}}> LOGOUT </StyledButton>)}
                 </div>
             </React.Fragment>
         )
@@ -149,4 +281,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps, { getCurrentUserProfile })(ProfilePageLinh)
+export default connect(mapStateToProps, { logOut  })(ProfilePageLinh)

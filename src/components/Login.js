@@ -12,72 +12,28 @@ class Login extends React.Component {
         super(props);
     }
 
-    responseGoogle = (response) => {
-        console.log(response);
-    };
-
-    responseFacebook = (response) => {
-        console.log(response);
-        let name = response.name;
-        let email = response.email;
-        let profilePic = response.picture.data.url;
-        axios.get("http://localhost:9000/user/" + response.email).then(
-            res => {
-                if (res.data.length > 0) {
-                    this.props.logIn({
-                       //  id: res.data[0]._id,
-                        loginStatus: true,
-                        name: name,
-                        email: email,
-                        profilePic: profilePic,
-                        visited: res.data[0].visited,
-                        itineraries: res.data[0].itineraries
-
-                    });
-                }
-                else {
-                    axios.post("http://localhost:9000/user/newUser/", {email: email}).then(
-                        resp => {
-                            this.props.logIn({
-                                // id: resp._id,
-                                loginStatus: true,
-                                name: name,
-                                email: email,
-                                profilePic: profilePic,
-                                visited: [],
-                                itineraries: []
-                            });
-                        }).catch(err => console.log("Err" + err));
-                }
-            }).catch(err => console.log("Err" + err));
-            console.log(JSON.stringify(this.props.authentication));
-            this.props.history.push('/');
-    };
-
-    success = (response) => {
-           let name =  response.getBasicProfile().getGivenName();
-           let email =  response.getBasicProfile().getEmail();
-           let profilePic =  response.getBasicProfile().getImageUrl();
+    logInfo(response, name, email, profilePic, method) {
+        console.log("http://localhost:9000/user/" + email);
         axios.get("http://localhost:9000/user/" + email).then(
             res => {
                 if (res.data.length > 0) {
                     this.props.logIn({
                         id: res.data[0]._id,
+                        isGoogle: method,
                         loginStatus: true,
                         name: name,
                         email: email,
                         profilePic: profilePic,
                         visited: res.data[0].visited,
                         itineraries: res.data[0].itineraries,
-                        archived: res.data[0].itineraries
-
+                        archived: res.data[0].archived
                     });
-                }
-                else {
+                } else {
                     axios.post("http://localhost:9000/user/newUser/", {email: email}).then(
                         resp => {
                             this.props.logIn({
-                                id: resp.toString(),
+                                id: resp,
+                                isGoogle: method,
                                 loginStatus: true,
                                 name: name,
                                 email: email,
@@ -89,15 +45,36 @@ class Login extends React.Component {
                         }).catch(err => console.log("Err" + err));
                 }
             }).catch(err => console.log("Err" + err));
+    };
+
+    responseGoogle = (response) => {
+        console.log(response);
+    };
+
+    responseFacebook = (response) => {
+        console.log(response);
+        let name = response.name;
+        let email = response.email;
+        let profilePic = response.picture.data.url;
+        this.logInfo(response, name, email, profilePic, false);
+            console.log(JSON.stringify(this.props.authentication));
+            this.props.history.push('/userprofile');
+    };
+
+    success = (response) => {
+           let name =  response.getBasicProfile().getGivenName();
+           let email =  response.getBasicProfile().getEmail();
+           let profilePic =  response.getBasicProfile().getImageUrl();
+            this.logInfo(response, name, email, profilePic, true);
         console.log(JSON.stringify(this.props.authentication));
-        this.props.history.push('/');
+        this.props.history.push('/userprofile');
 
     };
 
 
 
     render() {
-        console.log(this.props.authentication);
+        console.log(window);
         return (
             <div className='bg-login'>
                     <img className="smallIcon-login" src={require("../assets/trippin-logo-bottom.png")}></img>

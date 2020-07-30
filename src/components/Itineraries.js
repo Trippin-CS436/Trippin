@@ -25,7 +25,8 @@ class Itineraries extends React.Component {
     }
 
     componentDidMount(){
-        axios.get("http://localhost:9000/itinerary/")
+        this.setState({id: this.props.match.params.id});
+        axios.get("http://localhost:9000/itinerary/" + this.state.id)
             .then(response => {
             if(response.data.length > 0){
                 this.props.renderLocation(response.data[0].locations);

@@ -11,7 +11,7 @@ router.route('/:email').get((req, res) => {
 });
 
 router.route('/newUser').post((req,res) => {
-    const newUser = new User({email: req.body.email, visited: [], itineraries: []});
+    const newUser = new User({email: req.body.email, visited: [], itineraries: [], archived: []});
     console.log(newUser);
     newUser.save()
         .then(() => res.json(newUser._id))

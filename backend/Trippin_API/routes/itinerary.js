@@ -7,8 +7,13 @@ const router = express.Router();
 /* GET users listing. */
 router.route('/').get((req, res) => {
   Itinerary.find()
-  .then(itinerary => res.json(itinerary))
-    .catch(err => res.status(400).json('Error: ' + err));
+      .then(itinerary => res.json(itinerary))
+      .catch(err => res.status(400).json('Error: ' + err));
+});
+router.route('/:id').get((req, res) => {
+  Itinerary.find({id: req.params.id})
+      .then(itinerary => res.json(itinerary))
+      .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/exist/:id').get((req, res) => {
