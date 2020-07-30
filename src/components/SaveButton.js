@@ -32,7 +32,7 @@ class SaveButton extends React.Component {
 
         //console.log(Itinerary.id);
         this.props.getCurrentItineraryID(Itinerary.id);
-        axios.get("/itinerary/exist/"+ Itinerary.id)
+        axios.get("http://localhost:6000/itinerary/save/"+ Itinerary.id)
             .then(res => {
                 console.log("exist worked");
                 console.log(res.data);
@@ -40,7 +40,7 @@ class SaveButton extends React.Component {
                     console.log("Going to call patch");
                     console.log(Itinerary);
                     console.log(this.props.currentItineraryID)
-                    axios.patch("/itinerary/save/" + this.props.currentItineraryID, Itinerary)
+                    axios.patch("http://localhost:6000/itinerary/save/" + this.props.currentItineraryID, Itinerary)
                     .then(res=> {
                         console.log(res.data);
                     })
@@ -49,7 +49,7 @@ class SaveButton extends React.Component {
                     })
                 } else {
                 console.log("Going to call post");
-                axios.post("/itinerary/save", Itinerary)
+                axios.post("http://localhost:6000/itinerary/save/", Itinerary)
                     .then(res => {
                         console.log("Itinerary added to db and the Object id is "  + res.data);
                     })
@@ -78,4 +78,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps, {getCurrentItineraryID})(SaveButton);
+export default connect(mapStateToProps, {saveItinerary, getCurrentItineraryID})(SaveButton);

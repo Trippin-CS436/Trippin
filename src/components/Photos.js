@@ -48,7 +48,6 @@ class InfoPhotos extends React.Component {
 
 const mapStateToProps = (state) => {
     return { 
-        currentLocation: state.currentLocation,
         locations: state.locations
     }
 }

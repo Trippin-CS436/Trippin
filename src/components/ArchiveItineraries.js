@@ -15,7 +15,7 @@ class Archive extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:9000/archive/")
+        axios.get("http://localhost:6000/archive/")
         .then(response => {
         if(response.data.length > 0){
             this.props.itineraries(response.data);

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {DropzoneDialog} from 'material-ui-dropzone';
 import  {connect}  from 'react-redux';
 import  {addPhotos} from '../actions/addPhotos';
-import Button from '@material-ui/core/Button';
 import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 import IconButton from '@material-ui/core/IconButton';
  
@@ -66,7 +65,6 @@ export class DropzoneDialogButton extends Component {
 
 const mapStateToProps = (state) => {
     return { 
-        currentLocation: state.currentLocation,
         locations: state.locations,
     }
 }

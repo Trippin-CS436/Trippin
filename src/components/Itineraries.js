@@ -27,20 +27,6 @@ class Itineraries extends React.Component {
        // console.log(this.props.authentication.loginStatus );
     }
 
-    componentDidMount(){
-        axios.get("/itinerary/")
-            .then(response => {
-            if(response.data.length > 0){
-                this.props.renderLocation(response.data[0].locations);
-                this.props.getCurrentItineraryID(response.data[0]._id);
-                this.props.saveItinerary({id: response.data[0].id});
-            } else {
-                this.props.renderLocation([]);
-            }
-        })
-            .catch(err => console.log("Err" + err));
-        console.log("GOT HERE!!!!");
-    }
 
 
     render() {

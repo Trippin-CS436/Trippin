@@ -5,7 +5,6 @@ import Home from "./Home";
 import Map from "./Map";
 import Itineraries from "./Itineraries";
 import Itinerary from "./Itinerary";
-import Lists from "./Lists";
 import Login from "./Login";
 import './fonts.css';
 import AuthRoute from "./AuthRoute";
@@ -21,24 +20,21 @@ function App() {
         <Router>
             <Navbar/>
             <div>
-                <AuthRoute exact path="/userprofile">
+                <Route exact path="/userprofile">
                     <ProfilePage />
-                </AuthRoute>
+                </Route>
                 <Route exact path="/itineraries">
                     <Itineraries />
                 </Route>
-                <AuthRoute exact path="/">
+                <Route exact path="/">
                     <Home />
-                </AuthRoute>
+                </Route>
                 <Route exact path="/login">
                     <Itineraries />
                 </Route>
-                <AuthRoute exact path="/map">
+                <Route exact path="/map">
                     <Map />
-                </AuthRoute>
-                <AuthRoute exact path="/lists">
-                    <Lists />
-                </AuthRoute>
+                </Route>
                 <AuthRoute exact path="/test">
                     <Itinerary />
                 </AuthRoute>
