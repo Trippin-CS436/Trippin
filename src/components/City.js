@@ -25,29 +25,6 @@ class City extends React.Component {
         }
     }
 
-    renderItinerary = () => {
-        const content = [];
-        const locations = this.props.locations;
-        for (const country of this.props.countries) {
-            content.push(
-                <Collapsible className="cityDiv" key={country.name} trigger={
-                    <div>
-                        <h3>{country.name}</h3>
-                        <Dates place={country} class={"date"} type={"country"}/>
-                    </div>
-                }>
-
-                {this.props.cities.filter(function(city){
-                    return city.countryID == country.id;
-                }).map(function(city,index){
-                    return (<div key={index}  onClick={() => this.props.changeView(country,city)}>{city.name}</div>)
-                },this)
-                }
-            </Collapsible>
-            )
-        }
-        return content;
-    }
 
     render() {
         //Empty locations/cities. render a 'guide' on how to add to itinerary
@@ -77,7 +54,9 @@ class City extends React.Component {
         return (
             <div className={"cityDiv"}>
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
-                <Dates place={cityToRender} class={"datesDiv bottomBorder"} type={"city"}/>
+                <div className={"bottomBorder"}>
+                    <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
+                </div>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (

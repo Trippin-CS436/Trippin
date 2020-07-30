@@ -13,7 +13,7 @@
     margin-left: 10px;
     margin-bottom: -10px;
     margin-top: -10px;
-    display: block;
+    display: inline-block;
     list-style-type: none;
 }
 .bottomBorder{
