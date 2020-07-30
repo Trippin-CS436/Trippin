@@ -38,4 +38,8 @@
     display: inline;
     margin-right: 30px;
     margin-left: 20px;
+    z-index: 12;
+}
+.rs-picker-menu{
+    z-index: 9999 !important;
 }

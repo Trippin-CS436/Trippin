@@ -1,10 +1,8 @@
 import React from "react";
 import {connect} from 'react-redux';
 import Popup from "reactjs-popup";
-import { MuiPickersUtilsProvider,DatePicker  } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
 import format from 'date-fns/format'
-import {startDateChange, endDateChange, deleteDate, addNewDate} from "../actions";
+import {addNewDate, changeDate, deleteDate} from "../actions";
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import IconButton from "@material-ui/core/IconButton";
 import './Dates.css';
@@ -13,6 +11,8 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import Alert from "@material-ui/lab/Alert";
+import {DateRangePicker} from "rsuite";
+import 'rsuite/dist/styles/rsuite-default.css';
 
 
 class Dates extends React.Component{
@@ -33,26 +33,22 @@ class Dates extends React.Component{
         this.props.place.dateRanges.forEach((item,index) => {
             dates.push(
                 <div style={{fontSize: 20}}>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
                         <ul style={{paddingLeft: 15}}>
                             <li>
                                 Date #{index+1}
+                                <React.Fragment>
                                 <div className={"DatePicker"}>
-                                    <DatePicker
-                                        label={"Start Date"}
-                                        value={new Date(item.start)}
-                                        onChange={(date)=>{this.handleChangeStartDate(date,index)}}
-                                        animateYearScrolling                                    />
-                                </div>
-                                <div className={"DatePicker"}>
-                                    <DatePicker
-                                        label={"End Date"}
-                                        value={new Date(item.end)}
-                                        onChange={(date)=>{this.handleChangeEndDate(date,index)}}
-                                        animateYearScrolling
+                                    <DateRangePicker
+                                        value={item.value}
+                                        size="lg"
+                                        cleanable={false}
+                                        onChange={value => {
+                                            this.handleDateChange(value,index);
+                                        }}
                                     />
                                 </div>
-                                <div style={{marginTop:10,display:"inline-block"}}>
+                                </React.Fragment>
+                                    <div style={{marginTop:10,display:"inline-block"}}>
                                     <IconButton  key={index}aria-label="Delete"  name="Delete">
                                         <DeleteForeverIcon color={"secondary"} onClick={this.handleDateDelete.bind(this,index)}/>
                                     </IconButton>
@@ -60,7 +56,6 @@ class Dates extends React.Component{
 
                             </li>
                         </ul>
-                    </MuiPickersUtilsProvider>
                 </div>
             )
         });
@@ -71,67 +66,41 @@ class Dates extends React.Component{
         return dates;
     }
     addNewDate(){
-        let dateString = format(new Date(), 'yyyy/MM/dd');
+        let value = [new Date(), new Date()];
+        console.log(value)
         if (this.props.place.dateRanges.length > 0){
             let length = this.props.place.dateRanges.length;
-            dateString = format(new Date(this.props.place.dateRanges[length - 1].end), 'yyyy/MM/dd');
+            let endDatePrevious = this.props.place.dateRanges[length - 1].value[1];
+            value = [endDatePrevious,endDatePrevious];
         }
-        this.props.addNewDate(this.props.place,this.props.type,dateString,dateString)
+        this.props.addNewDate(this.props.place,this.props.type,value)
     }
     handleClose(){
         this.setState({openDialog: false});
     }
 
-    handleChangeStartDate = (date,index) => {
-        let dateString = format(date, 'yyyy/MM/dd');
-        let endDateString = format(new Date(this.props.place.dateRanges[index].end), 'yyyy/MM/dd');
-        //All date validation here
-        if (Date.parse(dateString) <= Date.parse(endDateString)){
-            let datesCopy = this.props.place.dateRanges;
-            let oldValue = datesCopy[index].start;
-            datesCopy[index].start = dateString;
-            if(this.checkOverlappingDates(datesCopy)){
-                this.props.startDateChange(this.props.place,this.props.type,dateString,index)
-            }
-            else {
-                datesCopy[index].start = oldValue;
-                this.setState({openDialog: true, errorMessage:"Cannot have overlapping dates!"});
-            }
+    handleDateChange(dateRange,index){
+        let datesCopy = this.props.place.dateRanges;
+        let oldValue = datesCopy[index].value;
+        datesCopy[index].value = dateRange;
+        if(this.checkOverlappingDates(datesCopy)){
+            console.log("DATES DON'T OVERLAP")
+            this.props.changeDate(this.props.place,this.props.type,dateRange,index)
         }
         else{
-            this.setState({openDialog: true, errorMessage:"Start date cannot be after end date"});
+            datesCopy[index].value = oldValue;
+            this.setState({openDialog: true, errorMessage:"Cannot have overlapping dates!"});
         }
-    };
-    handleChangeEndDate = (date,index) => {
-        let dateString = format(date, 'yyyy/MM/dd');
-        let startDateString = format(new Date(this.props.place.dateRanges[index].start), 'yyyy/MM/dd');
-        //All date validation here
-        if (Date.parse(startDateString) <= Date.parse(dateString)){
-            let datesCopy = this.props.place.dateRanges.slice();
-            let oldValue = datesCopy[index].end;
-            datesCopy[index].end = dateString;
-            if(this.checkOverlappingDates(datesCopy)){
-                console.log("got here")
-                this.props.endDateChange(this.props.place,this.props.type,dateString,index)
-            }
-            else {
-                datesCopy[index].end = oldValue;
-                this.setState({openDialog: true, errorMessage:"Cannot have overlapping dates!"});
-            }
-        }
-        else{
-            this.setState({openDialog: true, errorMessage:"End date cannot be before start date"});
-        }
-    };
+    }
 
     checkOverlappingDates(dates){
         for (let i = 0; i < dates.length; i++){
             for (let j = 0; j < dates.length; j++){
                 if (i !== j){
-                    let startDate = new Date(dates[i].start);
-                    let endDate = new Date(dates[i].end);
-                    let startDate2 = new Date(dates[j].start);
-                    let endDate2 = new Date(dates[j].end);
+                    let startDate = new Date(dates[i].value[0]);
+                    let endDate = new Date(dates[i].value[1]);
+                    let startDate2 = new Date(dates[j].value[0]);
+                    let endDate2 = new Date(dates[j].value[1]);
                     console.log(startDate)
                     console.log(startDate2)
                     if ((startDate > startDate2 && startDate < endDate2) || (endDate > startDate2 && endDate < endDate2)){
@@ -142,12 +111,14 @@ class Dates extends React.Component{
         }
         return true;
     }
+
     render() {
+
         let datesComponent =(
             <div className={"datesDiv"}>
                 <ul className={"zeroPad zeroMarg displayInline"}>
                 {this.props.place.dateRanges.map((date,index) => (
-                    <li key={index}>{date.start + " - " + date.end}</li>
+                    <li key={index}>{format(new Date(date.value[0]), 'yyyy/MM/dd') + " - " + format(new Date(date.value[1]), 'yyyy/MM/dd')}</li>
                 ))}
             </ul>
                 <div className={"buttonCalendar"}>
@@ -157,7 +128,6 @@ class Dates extends React.Component{
                 </div>
             </div>
         );
-
         return(
             <div className={this.props.class+ ""}>
 
@@ -192,4 +162,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps,{addNewDate,deleteDate,startDateChange,endDateChange})(Dates);
+export default connect(mapStateToProps,{addNewDate,changeDate,deleteDate})(Dates);

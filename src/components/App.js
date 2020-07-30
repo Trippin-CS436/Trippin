@@ -24,14 +24,14 @@ function App() {
                 <AuthRoute exact path="/userprofile">
                     <ProfilePage />
                 </AuthRoute>
-                <AuthRoute exact path="/itineraries">
+                <Route exact path="/itineraries">
                     <Itineraries />
-                </AuthRoute>
+                </Route>
                 <AuthRoute exact path="/">
                     <Home />
                 </AuthRoute>
                 <Route exact path="/login">
-                    <Login />
+                    <Itineraries />
                 </Route>
                 <AuthRoute exact path="/map">
                     <Map />

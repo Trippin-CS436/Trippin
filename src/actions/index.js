@@ -87,59 +87,6 @@ export const renderCity = (locations) => {
         payload: locations
     }
 }
-export const startDateChange = (place,type,date,dateIndex,) => {
-    if (type === 'city'){
-        return{
-            type: "START_DATE_CHANGE_CITY",
-            place: place,
-            date: date,
-            dateIndex: dateIndex,
-        }
-    }
-    else if (type ==='country'){
-        return{
-            type: "START_DATE_CHANGE_COUNTRY",
-            place: place,
-            date: date,
-            dateIndex: dateIndex,
-        }
-    }
-    else if (type ==='itinerary'){
-        return{
-            type: "START_DATE_CHANGE_ITINERARY",
-            date: date,
-            dateIndex: dateIndex,
-        }
-    }
-    return {}
-};
-
-export const endDateChange = (place,type,date,dateIndex,) => {
-    if (type === 'city'){
-        return{
-            type: "END_DATE_CHANGE_CITY",
-            place: place,
-            date: date,
-            dateIndex: dateIndex,
-        }
-    }
-    else if (type ==='country'){
-        return{
-            type: "END_DATE_CHANGE_COUNTRY",
-            place: place,
-            date: date,
-            dateIndex: dateIndex,
-        }
-    }
-    else if (type ==='itinerary'){
-        return{
-            type: "END_DATE_CHANGE_ITINERARY",
-            date: date,
-            dateIndex: dateIndex,
-        }
-    }
-    return {}
-};
 export const deleteDate = (place,type,dateIndex) => {
     if (type === 'city'){
         return{
@@ -164,29 +111,53 @@ export const deleteDate = (place,type,dateIndex) => {
     }
     return {}
 };
-export const addNewDate = (place,type,start,end) => {
+export const changeDate = (place,type,date,dateIndex) => {
+    if (type === 'city'){
+        return{
+            type: "CHANGE_DATE_CITY",
+            place: place,
+            date: date,
+            dateIndex: dateIndex,
+        }
+    }
+    else if (type ==='country'){
+        return{
+            type: "CHANGE_DATE_COUNTRY",
+            place: place,
+            date: date,
+            dateIndex: dateIndex,
+        }
+    }
+    else if (type ==='itinerary'){
+        return{
+            type: "CHANGE_DATE_ITINERARY",
+            place: place,
+            date: date,
+            dateIndex: dateIndex,
+        }
+    }
+    return {}
+};
+export const addNewDate = (place,type,value) => {
     if (type === 'city'){
         return{
             type: "NEW_DATE_CITY",
             place: place,
-            start: start,
-            end: end,
+            value: value,
         }
     }
     else if (type ==='country'){
         return{
             type: "NEW_DATE_COUNTRY",
             place: place,
-            start: start,
-            end: end,
+            value: value,
         }
     }
     else if (type ==='itinerary'){
         return{
             type: "NEW_DATE_ITINERARY",
             place: place,
-            start: start,
-            end: end,
+            value: value,
         }
     }
     return {}

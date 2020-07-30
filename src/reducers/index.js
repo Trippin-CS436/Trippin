@@ -241,24 +241,16 @@ const locationsReducer = (locations = defaultLocations, action) => {
     return locations;
 };
 
-const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/21"}, {start: "2020/08/20", end: "2020/08/21"}]},
-    {name: "San Francisco", id: 1, countryID: 1, dateRanges : [{start: "2020/08/21", end: "2020/08/22"}]},
-    {name: "Victoria", id: 2, countryID: 0, dateRanges : [{start: "2020/08/22", end: "2020/08/23"}]}];
+const defaultCities = [{name: "Vancouver", id: 0, countryID: 0, dateRanges : []},
+    {name: "San Francisco", id: 1, countryID: 1, dateRanges : []},
+    {name: "Victoria", id: 2, countryID: 0, dateRanges : []}];
 const cityReducer = (cities = defaultCities, action) =>{
-    if (action.type === 'START_DATE_CHANGE_CITY'){
+    if (action.type === 'CHANGE_DATE_CITY'){
         let newArray = cities.slice();
         let indexToChange = newArray.findIndex((item) => {
             return action.place.id === item.id;
         });
-        newArray[indexToChange].dateRanges[action.dateIndex].start = action.date;
-        return newArray
-    }
-    else if (action.type === 'END_DATE_CHANGE_CITY'){
-        let newArray = cities.slice();
-        let indexToChange = newArray.findIndex((item) => {
-            return action.place.id === item.id;
-        });
-        newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
+        newArray[indexToChange].dateRanges[action.dateIndex].value = action.date;
         return newArray
     }
     else if (action.type === "NEW_CITY"){
@@ -291,7 +283,7 @@ const cityReducer = (cities = defaultCities, action) =>{
         let indexToChange = newArray.findIndex((item) => {
             return action.place.id === item.id;
         });
-        let date = {start: action.start, end: action.end}
+        let date = {value: action.value};
         newArray[indexToChange].dateRanges = newArray[indexToChange].dateRanges.concat(date);
         return newArray
     }
@@ -302,23 +294,15 @@ const cityReducer = (cities = defaultCities, action) =>{
 };
 
 
-const defaultCountries = [{name: "Canada", id: 0, dateRanges : [{start: "2020/08/20", end: "2020/08/25"},{start: "2020/08/29", end: "2020/08/31"}]},
-    {name: "United States", id: 1, dateRanges : [{start: "2020/08/25", end: "2020/08/28"}]}];
+const defaultCountries = [{name: "Canada", id: 0, dateRanges : []},
+    {name: "United States", id: 1, dateRanges : []}];
 const countryReducer = (countries = defaultCountries, action) =>{
-    if (action.type === 'START_DATE_CHANGE_COUNTRY'){
+    if (action.type === 'CHANGE_DATE_COUNTRY'){
         let newArray = countries.slice();
         let indexToChange = newArray.findIndex((item) => {
             return action.place.id === item.id;
         });
-        newArray[indexToChange].dateRanges[action.dateIndex].start = action.date;
-        return newArray
-    }
-    else if (action.type === 'END_DATE_CHANGE_COUNTRY'){
-        let newArray = countries.slice();
-        let indexToChange = newArray.findIndex((item) => {
-            return action.place.id === item.id;
-        });
-        newArray[indexToChange].dateRanges[action.dateIndex].end = action.date;
+        newArray[indexToChange].dateRanges[action.dateIndex].value = action.date;
         return newArray
     }
     else if (action.type === "NEW_COUNTRY"){
@@ -350,8 +334,9 @@ const countryReducer = (countries = defaultCountries, action) =>{
         let indexToChange = newArray.findIndex((item) => {
             return action.place.id === item.id;
         });
-        let date = {start: action.start, end: action.end}
+        let date = {value: action.value};
         newArray[indexToChange].dateRanges = newArray[indexToChange].dateRanges.concat(date);
+        console.log(newArray[indexToChange].dateRanges)
         return newArray
     }
     else if (action.type === "RENDER_COUNTRY"){
@@ -372,7 +357,7 @@ const currentViewReducer = (currentView = defaultView, action) => {
     return currentView;
 };
 
-const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{start: "2020/08/20", end: "2020/08/28"}]}, action) =>{
+const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : []}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
             ...itinerary,
@@ -383,17 +368,9 @@ const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{s
         itinerary.push(action.add);
         return itinerary;
     }
-    else if (action.type === 'START_DATE_CHANGE_ITINERARY'){
+    else if (action.type === 'CHANGE_DATE_ITINERARY'){
         let newArray = itinerary.dateRanges.slice();
-        newArray[action.dateIndex].start = action.date;
-        return{
-            ...itinerary,
-            dateRanges: newArray,
-        };
-    }
-    else if (action.type === 'END_DATE_CHANGE_ITINERARY'){
-        let newArray = itinerary.dateRanges.slice();
-        newArray[action.dateIndex].end = action.date;
+        newArray[action.dateIndex].value = action.date;
         return{
             ...itinerary,
             dateRanges: newArray,
@@ -409,7 +386,8 @@ const itineraryReducer = (itinerary = { name: "Test itinerary", dateRanges : [{s
     }
     else if (action.type === 'NEW_DATE_ITINERARY'){
         let newArray = [...itinerary.dateRanges];
-        newArray = newArray.concat({start: action.start, end: action.end});
+        let date = {value: action.value};
+        newArray = newArray.concat(date);
         return {
             ...itinerary,
             dateRanges: newArray,
