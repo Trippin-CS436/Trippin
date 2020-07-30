@@ -53,10 +53,7 @@ class City extends React.Component {
         //Empty locations/cities. render a 'guide' on how to add to itinerary
         if (this.props.currentView.byID.city === -1) {
             return (
-                <div className={"cityDiv"}>
-                    <h3>START ADDING TO THE ITINERARY BY SEARCHING A LOCATION AND HITTING
-                    THE 'ADD LOCATION' BUTTON</h3>
-                </div>
+                null
             );
         }
         let cityToRenderID = this.props.currentView.byID.city;

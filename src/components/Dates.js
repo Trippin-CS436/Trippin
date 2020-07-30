@@ -45,6 +45,7 @@ class Dates extends React.Component{
                                         onChange={value => {
                                             this.handleDateChange(value,index);
                                         }}
+                                        ranges={[]}
                                     />
                                 </div>
                                 </React.Fragment>
