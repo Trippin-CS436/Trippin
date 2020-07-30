@@ -6,12 +6,15 @@
 
 .displayInline{
     display: inline-block;
+    list-style-type: none;
 }
 .datesDiv{
     font: 25px 'Karla';
     margin-left: 10px;
     margin-bottom: -10px;
     margin-top: -10px;
+    display: block;
+    list-style-type: none;
 }
 .bottomBorder{
     border-bottom: 3px solid red;

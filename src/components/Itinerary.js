@@ -75,13 +75,13 @@ class Itinerary extends React.Component {
                 <Collapsible key={country.name} trigger={
                     <div>
                         <div>
-                            <h1 className={"itinerary_name"}>{country.name}</h1>
+                            <h1 className={"country_name"}>{country.name}</h1>
                             <IconButton className={"edit-btn"} aria-label="Delete"  name="Delete">
                                 <DeleteForeverIcon color="secondary"
                                                    onClick={(event) => {this.handleDialogOpen(country,true);event.stopPropagation();}}/>
                             </IconButton>
                         </div>
-                            <Dates place={country} class={"dates"} type={"country"}/>
+                            <Dates place={country} type={"country"}/>
                     </div>
                 }>
 

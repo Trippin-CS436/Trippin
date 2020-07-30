@@ -3,6 +3,11 @@
     font-size: 2.5em;
     display: inline-block;
 }
+.country_name{
+    margin: 0px 0px 0px 10px;
+    font-size: 2em;
+    display: inline-block;
+}
 .itinerary_dates{
     font-size: 1.1em;
 }
@@ -52,12 +57,7 @@ h1{
 .item-font{
     font-size: 1.25em;
 }
-.dates{
-    margin-left: 8px;
-    margin-bottom: -30px;
-    margin-top: -30px;
-    display: inline-block;
-}
+
 .addLocationButton{
     background-color: #008CBA; /* Green */
     border: none;
@@ -79,4 +79,5 @@ h1{
 .itineraryHeader{
     background-color: #ebeced;
 }
+
 

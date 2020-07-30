@@ -33,7 +33,7 @@ class Dates extends React.Component{
         this.props.place.dateRanges.forEach((item,index) => {
             dates.push(
                 <div style={{fontSize: 20}}>
-                        <ul style={{paddingLeft: 15}}>
+                        <ul style={{paddingLeft: 15,listStyleType:"none"}}>
                             <li>
                                 Date #{index+1}
                                 <React.Fragment>
