@@ -129,6 +129,7 @@ class Dates extends React.Component{
                 </div>
             </div>
         );
+        // let datesComponent = null;
         return(
             <div className={this.props.class+ ""}>
 

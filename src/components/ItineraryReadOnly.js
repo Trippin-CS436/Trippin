@@ -79,7 +79,7 @@ class ItineraryReadOnly extends React.Component {
                         <div style={{marginBottom: '10px'}}>
                             <h1 className={"itinerary_name"}>{country.name}</h1>
                         </div>
-                            <DatesReadOnly place={country} class={"dates"} type={"country"}/>
+                            <DatesReadOnly place={country} class={"dates"} type={"country"} {...this.props}/>
                     </div>
                 }>
 
@@ -250,7 +250,7 @@ class ItineraryReadOnly extends React.Component {
                     {this.renderItineraryName()}
                 </div>
                 <div className={"itineraryHeader"}>
-                    <DatesReadOnly place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
+                    <DatesReadOnly place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"} {...this.props}/>
                 </div>
                 {this.renderItinerary()}
                 {/*<City/>*/}

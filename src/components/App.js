@@ -10,7 +10,6 @@ import Login from "./Login";
 import './fonts.css';
 import AuthRoute from "./AuthRoute";
 import Navbar from "./Navbar";
-
 import ProfilePage from './ProfilePage';
 import ProfilePageLinh from "./ProfilePageLinh";
 import SharePage from "./SharePage";
@@ -23,13 +22,11 @@ function App() {
     return (
         <Router>
             <div>
+                <Route path="/shared/:id" component={SharePage} />
                 <AuthRoute exact path="/userprofile">
                     <ProfilePageLinh />
                 </AuthRoute>
-                <AuthRoute path="/itineraries/:id" component={Itineraries} />
-                <AuthRoute exact path="/">
-                    <Home />
-                </AuthRoute>
+                <AuthRoute exact path="/itineraries/:id" component={Itineraries} />
                 <Route exact path="/login">
                     <Login />
                 </Route>
@@ -42,7 +39,6 @@ function App() {
                 <AuthRoute exact path="/test">
                     <Itinerary />
                 </AuthRoute>
-                <Route path="/shared/:id" component={SharePage} />
             </div>
         </Router>
     );

@@ -10,7 +10,9 @@ router.route('/').get((req, res) => {
       .then(itinerary => res.json(itinerary))
       .catch(err => res.status(400).json('Error: ' + err));
 });
+
 router.route('/:id').get((req, res) => {
+  console.log(req.params.id);
   Itinerary.find({id: req.params.id})
       .then(itinerary => res.json(itinerary))
       .catch(err => res.status(400).json('Error: ' + err));
