@@ -6,7 +6,7 @@ export default class SharePage extends Component {
     render() {
         return (
             <div>
-                <ItineraryReadOnly/>
+                <ItineraryReadOnly {...this.props}/>
                 <CityReadOnly/>
             </div>
         )

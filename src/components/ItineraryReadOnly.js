@@ -39,11 +39,13 @@ class ItineraryReadOnly extends React.Component {
             idToDelete: null,
             deletionIsCountry: false,
             nameOfDeletion: null,
+            id: this.props.match.params.id
         };
     }
 
     componentDidMount(){
-        axios.get("/itinerary/")
+        console.log(this.state.id);
+        axios.get("http://localhost:9000/itinerary/" + this.state.id)
             .then(response => {
             if(response.data.length > 0){
                 console.log(response.data)

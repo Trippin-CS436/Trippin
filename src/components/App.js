@@ -42,7 +42,7 @@ function App() {
                 <AuthRoute exact path="/test">
                     <Itinerary />
                 </AuthRoute>
-                <Route exact path="/shared/:id" component={SharePage} />
+                <Route path="/shared/:id" component={SharePage} />
             </div>
         </Router>
     );
