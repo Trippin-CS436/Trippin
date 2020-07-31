@@ -159,7 +159,7 @@ class ProfilePageLinh extends React.Component {
                             <SectionBox key={itineraryID} href={"itineraries/"+ itineraryID}> {this.state.names[i]}</SectionBox>
                         <EmailShareButton
                             className='center-button'
-                            url={"/shared/"+itineraryID}
+                            url={"localhost:3000/shared/"+itineraryID}
                             subject={title}
                             body="body"
                         >
@@ -167,7 +167,7 @@ class ProfilePageLinh extends React.Component {
                         </EmailShareButton>
                         <FacebookShareButton
                             className='center-button'
-                        url={"/shared/"+itineraryID}
+                        url={"localhost:3000/shared/"+itineraryID}
                         quote={title}
                         >
                         <FacebookIcon size={32} round />

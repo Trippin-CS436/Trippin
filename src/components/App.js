@@ -13,6 +13,7 @@ import Navbar from "./Navbar";
 
 import ProfilePage from './ProfilePage';
 import ProfilePageLinh from "./ProfilePageLinh";
+import SharePage from "./SharePage";
 
 
 
@@ -25,7 +26,7 @@ function App() {
                 <AuthRoute exact path="/userprofile">
                     <ProfilePageLinh />
                 </AuthRoute>
-                <AuthRoute path="/itineraries/:id" component={Itineraries} />
+                <AuthRoute path="/itineraries/:id" children={<Itineraries />} />
                 <AuthRoute exact path="/">
                     <Home />
                 </AuthRoute>
@@ -41,6 +42,7 @@ function App() {
                 <AuthRoute exact path="/test">
                     <Itinerary />
                 </AuthRoute>
+                <Route path="/shared/:id" component={SharePage}></Route>
             </div>
         </Router>
     );

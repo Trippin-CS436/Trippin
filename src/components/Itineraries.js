@@ -13,7 +13,7 @@ import './Itinerary.css';
 import './Iteneraries.css';
 import Dates from "./Dates";
 import axios from "axios";
-
+import { withRouter} from "react-router";
 import Itinerary from "./Itinerary";
 import LocationButton from "./LocationButton";
 import SaveButton from "./SaveButton";
@@ -22,13 +22,14 @@ class Itineraries extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-
+            id: null
         };
        // console.log(this.props.authentication.loginStatus );
     }
 
     componentDidMount(){
         this.setState({id: this.props.match.params.id});
+        console.log(this.state.id);
         axios.get("http://localhost:9000/itinerary/" + this.state.id)
             .then(response => {
             if(response.data.length > 0){
@@ -120,4 +121,4 @@ const muiStyles = {
 };
 
 
-export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(Itineraries));
+export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withRouter(withStyles(muiStyles)(Itineraries)));
