@@ -3,9 +3,8 @@ import Location from "./Location";
 import './Iteneraries.css';
 import {connect} from 'react-redux';
 import Dates from "./Dates";
-import Collapsible from "react-collapsible";
 import SaveButton from "./SaveButton";
-
+import Collapsible from "react-collapsible";
 
 class City extends React.Component {
     constructor(props){
@@ -49,10 +48,12 @@ class City extends React.Component {
             return loc.cityID === cityToRenderID;
         });
 
+
         
 
         return (
             <div className={"cityDiv"}>
+            <SaveButton style={{float: "right"}}/>
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
                 <div className={"bottomBorder"}>
                     <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>

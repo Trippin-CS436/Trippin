@@ -18,6 +18,8 @@ import Itinerary from "./Itinerary";
 import LocationButton from "./LocationButton";
 import SaveButton from "./SaveButton";
 import {useParams} from "react-router-dom";
+import {reset} from '../actions/reset';
+
 
 class Itineraries extends React.Component {
     constructor(props){
@@ -28,20 +30,9 @@ class Itineraries extends React.Component {
        // console.log(this.props.authentication.loginStatus );
     }
 
-    componentDidMount(){
-        console.log(this.state.id);
-        axios.get("http://localhost:9000/itinerary/" + this.state.id)
-            .then(response => {
-            if(response.data.length > 0){
-                this.props.renderLocation(response.data[0].locations);
-                this.props.getCurrentItineraryID(response.data[0]._id);
-                this.props.saveItinerary({id: response.data[0].id});
-            } else {
-                this.props.renderLocation([]);
-            }
-        })
-            .catch(err => console.log("Err" + err));
-        console.log("GOT HERE!!!!");
+    
+    componentDidMount() {
+        this.props.reset();
     }
 
 
@@ -58,8 +49,6 @@ class Itineraries extends React.Component {
                                 <Itinerary />
                                 <div className={classes.bottomPanel}>
                                     <div style={{marginTop: 5}}>
-                                        <LocationButton/>
-                                        <SaveButton/>
                                     </div>
                                     <Map/>
                                 </div>
@@ -121,4 +110,4 @@ const muiStyles = {
 };
 
 
-export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(Itineraries));
+export default connect(mapStateToProps, { reset, addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(Itineraries));

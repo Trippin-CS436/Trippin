@@ -21,7 +21,7 @@ class Notes extends React.Component {
 
     handleNotesInput(event) {
         this.setState({
-            currentLocation: this.state.currentLocation,
+            currentLocation: this.props.location[this.props.index],
             notesText: event.target.value,
             index: this.state.index
         });
@@ -58,7 +58,6 @@ class Notes extends React.Component {
 
 const mapStateToProps = (state) => {
     return { 
-        currentLocation: state.currentLocation,
         locations: state.locations,
     }
 }

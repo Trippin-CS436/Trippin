@@ -1,13 +1,13 @@
 import React from "react";
 import {connect} from "react-redux";
 import axios from 'axios'; 
-import {saveItinerary,getCurrentItineraryID} from "../actions"
+import {saveItinerary,getCurrentItineraryID} from "../actions";
+import {reset} from "../actions/reset";
 const { uuid } = require('uuidv4');
 
 class SaveButton extends React.Component {
 
     saveItinerary = () => {
-        console.log("Save itinerary called")
         let Itinerary = {};
         if (this.props.currentItinerary == null) {
             console.log("Current Itinerary has not been saved yet");
@@ -16,7 +16,7 @@ class SaveButton extends React.Component {
                 locations: this.props.locations,
                 cities: this.props.cities,
                 countries: this.props.countries,
-                itinerary: this.props.itinerary,
+                itinerary: this.props.itinerary
             }
             this.props.saveItinerary(Itinerary);
         } else {
@@ -25,14 +25,14 @@ class SaveButton extends React.Component {
                 locations: this.props.locations,
                 cities: this.props.cities,
                 countries: this.props.countries,
-                itinerary: this.props.itinerary,
+                itinerary: this.props.itinerary
             };
             this.props.saveItinerary(Itinerary);
         }
 
-        //console.log(Itinerary.id);
+        console.log(Itinerary.id);
         this.props.getCurrentItineraryID(Itinerary.id);
-        axios.get("/itinerary/exist/"+ Itinerary.id)
+        axios.get("http://localhost:5000/itinerary/exist/"+ Itinerary.id)
             .then(res => {
                 console.log("exist worked");
                 console.log(res.data);
@@ -40,7 +40,7 @@ class SaveButton extends React.Component {
                     console.log("Going to call patch");
                     console.log(Itinerary);
                     console.log(this.props.currentItineraryID)
-                    axios.patch("/itinerary/save/" + this.props.currentItineraryID, Itinerary)
+                    axios.patch("http://localhost:5000/itinerary/save/" + this.props.currentItineraryID, Itinerary)
                     .then(res=> {
                         console.log(res.data);
                     })
@@ -49,20 +49,27 @@ class SaveButton extends React.Component {
                     })
                 } else {
                 console.log("Going to call post");
-                axios.post("/itinerary/save", Itinerary)
+                axios.post("http://localhost:5000/itinerary/save", Itinerary)
                     .then(res => {
                         console.log("Itinerary added to db and the Object id is "  + res.data);
                     })
                     .catch(err => {
                         console.log(err);
                     })
+
                 }
             })
+
+
+
+
+
+
     }
 
     render() {
         return (
-            <button className={"addLocationButton"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
+            <button className={"submit-button save-button"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
         )
     }
 }
@@ -74,8 +81,8 @@ const mapStateToProps = (state) =>{
         cities: state.cities,
         countries: state.countries,
         currentItineraryID: state.currentItineraryID,
-        itinerary: state.itinerary,
+        itinerary: state.itinerary
     };
 };
 
-export default connect(mapStateToProps, {getCurrentItineraryID})(SaveButton);
+export default connect(mapStateToProps, {reset, saveItinerary,getCurrentItineraryID})(SaveButton);
