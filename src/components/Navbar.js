@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1
     },
     menuButton: {
-        marginRight: theme.spacing(2)
+        marginRight: theme.spacing(1)
     },
     title: {
         flexGrow: 1
@@ -60,8 +60,11 @@ function Navbar(props) {
                     <IconButton edge="start" className={classes.menuButton} color="blue" aria-label="menu">
                         <MenuIcon />
                     </IconButton>
-                    <img src="../assets/vancouver.jpg" />
+                    <div className={"smallIcon"}>
+                        <img src={require("../assets/trippin-logo.png")}></img>
+                    </div>
                     <Typography variant="h6" className={classes.title}>
+
                     </Typography>
                     {auth && (
                         <div>
@@ -92,6 +95,7 @@ function Navbar(props) {
                                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                                 <MenuItem onClick={handleClose}>My account</MenuItem>
                             </Menu>
+
                         </div>
                     )}
                 </Toolbar>

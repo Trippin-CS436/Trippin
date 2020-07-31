@@ -14,6 +14,9 @@ import './Iteneraries.css';
 import Dates from "./Dates";
 import axios from "axios";
 
+import Itinerary from "./Itinerary";
+import LocationButton from "./LocationButton";
+import SaveButton from "./SaveButton";
 
 class Itineraries extends React.Component {
     constructor(props){
@@ -41,50 +44,32 @@ class Itineraries extends React.Component {
     }
 
 
-    renderItinerary() {
-        const content = [];
-        const locations = this.props.locations;
-        for (const country of this.props.countries) {
-            content.push(
-                <Collapsible className="cityDiv" key={country.name} trigger={
-                    <div>
-                        <h1>{country.name}</h1>
-                        <Dates place={country} class={"dates"} type={"country"}/>
-                    </div>
-                }>
-
-                {this.props.cities.filter(function(city){
-                    return city.countryID == country.id;
-                }).map(function(city,index){
-                    return (<div key={index} className="stripe item-font" onClick={() => this.props.changeView(country,city)}>{city.name}</div>)
-                },this)
-                }
-            </Collapsible>
-            )
-        }
-        return content;
-    }
-
     render() {
         const { classes } = this.props;
         console.log(this.props.locations);
         return(
-            <React.Fragment>
-                <div><Navbar/></div>
-            <div className={classes.bg}>
-                <div className={classes.leftPanel}>
-                    <div className= {"top-panel"}>
-                    <Map />
+            <div className={classes.bg + " bgScroll"} >
+                <React.Fragment>
+                    <div><Navbar/></div>
+                    <div>
+                        <div className={classes.leftPanel}>
+                            <div className= {"top-panel"}>
+                                <Itinerary />
+                                <div className={classes.bottomPanel}>
+                                    <div style={{marginTop: 5}}>
+                                        <LocationButton/>
+                                        <SaveButton/>
+                                    </div>
+                                    <Map/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={`${classes.rightPanel} ${classes.table}`}>
+                            <City/>
+                        </div>
                     </div>
-                </div>
-                <div className={`${classes.rightPanel} ${classes.table}`}>
-                {//this.renderItinerary()}
-                }
-                    <City />
-                </div>
+                </React.Fragment>
             </div>
-            </React.Fragment>
-
         );
     }
 }
@@ -105,8 +90,6 @@ const mapStateToProps = (state) => { //name is by convention
 const muiStyles = {
     bg: {
         position: "absolute",
-        backgroundImage: `url(${require("../assets/vancouver.jpg")})`,
-        backgroundSize: "cover",
         height: "100vh",
         width: "100vw",
         top: "0",
@@ -118,7 +101,7 @@ const muiStyles = {
         position: "absolute",
         // height: "100vh",
         left: "50vw",
-        width: "50vw"
+        width: "50vw",
     },
     leftPanel: {
         position: "absolute",
@@ -126,8 +109,13 @@ const muiStyles = {
         width: "50vw",
         top: "6vh"
     },
+    bottomPanel: {
+        position: "relative",
+        //height: "100vh",
+        width: "50vw",
+    },
     table: {
-        top: "14vh"
+        top: "5vh"
     }
 };
 

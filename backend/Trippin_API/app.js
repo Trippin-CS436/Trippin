@@ -37,12 +37,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, '../../build')));
 
 app.use('/', indexRouter);
 app.use('/itinerary', itineraryRouter);
 
 
 app.use('/user', userRouter);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/../../build/index.html'));
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

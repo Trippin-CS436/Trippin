@@ -18,6 +18,7 @@
     "express": "^4.17.1",
     "express-pino-logger": "^5.0.0",
     "material-ui": "^0.20.2",
+    "material-ui-dropzone": "^3.3.1",
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-async": "^10.0.1",
@@ -42,10 +43,12 @@
     "uuidv4": "^6.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cd backend/Trippin_API && node ./bin/www",
+    "heroku-postbuild": "npm install && npm run build && cd backend/Trippin_API && npm install",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "local": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -252,7 +252,7 @@ class Map extends React.Component {
         if (this.state.placeId !== null && this.state.placeId !== ''){
             return (     
                   <Descriptions bordered layout="horizontal" style={{ width: '70%', padding: "1rem 1rem", margin: "0rem 2rem 0.5rem 4rem",
-            backgroundColor: "#ebeced", opacity:"90%",  boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", borderRadius: "10px"}}>
+            backgroundColor: "#ebeced",  boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", borderRadius: "10px"}}>
                     <Descriptions.Item label="CITY" span={3}>{this.state.city}</Descriptions.Item>
                     <Descriptions.Item label="AREA" span={3}>{this.state.area}</Descriptions.Item>
                     <Descriptions.Item label="STATE" span={3}>{this.state.state}</Descriptions.Item>
