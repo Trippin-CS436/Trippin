@@ -117,13 +117,15 @@ let jsonObj = [{
 ];
 
 let userState = {
+    "isGoogle": null,
     "loginStatus": false,
     "name": null,
     "email": null,
     "profilePic": null,
-    // "id": null,
+    "id": null,
     "visited": null,
-    "itineraries": null
+    "itineraries": null,
+    "archived": null
 };
 
 const listReducer = (lists = jsonObj, action) => {
@@ -146,25 +148,29 @@ const selector = (msgId = 0, action) => {
 const authenticationReducer = (authentication = userState, action) => {
     if (action.type === "LOGOUT") {
             let newAuth = {
+                "isGoogle": null,
                 "loginStatus": false,
                 "name": null,
                 "email": null,
                 "profilePic": null,
-               // "id": null,
+               "id": null,
                 "visited": null,
-                "itineraries": null
+                "itineraries": null,
+                "archived": null
             };
             return newAuth;
     }
     if (action.type === "LOGIN") {
         let newAuth = {
             loginStatus: true,
+            isGoogle: action.logIn.isGoogle,
             name: action.logIn.name,
             email: action.logIn.email,
             profilePic: action.logIn.profilePic,
-           // id: action.logIn._id,
+            id: action.logIn._id,
             visited: action.logIn.visited,
-            itineraries: action.logIn.itineraries
+            itineraries: action.logIn.itineraries,
+            archived: action.logIn.archived
         };
         return newAuth;
     }
@@ -429,7 +435,6 @@ const currentUserProfileReducer = (state = currentUser, action) => {
     if(action.type === "GET_CURRENT_USER_PROFILE") {
         return {
             ...state,
-            profilePicture: action.payload.profilePicture,
             emailAddress: action.payload.emailAddress,
             firstName: action.payload.firstName,
             lastName: action.payload.lastName,

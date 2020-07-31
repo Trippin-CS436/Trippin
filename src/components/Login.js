@@ -5,45 +5,80 @@ import {connect} from "react-redux";
 import { logIn, logOut } from "../actions";
 import { withRouter } from 'react-router'
 // import { TiSocialFacebookCircular } from 'react-icons/lib/ti/social-facebook-circular';
+import axios from "axios";
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
     }
 
+    logInfo(response, name, email, profilePic, method) {
+        console.log("http://localhost:9000/user/" + email);
+        axios.get("http://localhost:9000/user/" + email).then(
+            res => {
+                if (res.data.length > 0) {
+                    this.props.logIn({
+                        id: res.data[0]._id,
+                        isGoogle: method,
+                        loginStatus: true,
+                        name: name,
+                        email: email,
+                        profilePic: profilePic,
+                        visited: res.data[0].visited,
+                        itineraries: res.data[0].itineraries,
+                        archived: res.data[0].archived
+                    });
+                } else {
+                    axios.post("http://localhost:9000/user/newUser/", {email: email}).then(
+                        resp => {
+                            this.props.logIn({
+                                id: resp,
+                                isGoogle: method,
+                                loginStatus: true,
+                                name: name,
+                                email: email,
+                                profilePic: profilePic,
+                                visited: [],
+                                itineraries: [],
+                                archived: []
+                            });
+                        }).catch(err => console.log("Err" + err));
+                }
+            }).catch(err => console.log("Err" + err));
+    };
+
     responseGoogle = (response) => {
         console.log(response);
     };
 
     responseFacebook = (response) => {
-            this.props.logIn({
-                "name": response.name,
-                "email": response.email,
-                "profilePic": response.picture.data.url
-            });
+        console.log(response);
+        let name = response.name;
+        let email = response.email;
+        let profilePic = response.picture.data.url;
+        this.logInfo(response, name, email, profilePic, false);
             console.log(JSON.stringify(this.props.authentication));
-            this.props.history.push('/');
+            this.props.history.push('/userprofile');
     };
 
     success = (response) => {
-        this.props.logIn({
-            "name": response.getBasicProfile().getGivenName(),
-            "email": response.getBasicProfile().getEmail(),
-            "profilePic": response.getBasicProfile().getImageUrl()
-        });
+           let name =  response.getBasicProfile().getGivenName();
+           let email =  response.getBasicProfile().getEmail();
+           let profilePic =  response.getBasicProfile().getImageUrl();
+            this.logInfo(response, name, email, profilePic, true);
         console.log(JSON.stringify(this.props.authentication));
-        this.props.history.push('/');
+        this.props.history.push('/userprofile');
+
     };
 
 
 
     render() {
-        console.log(this.props.authentication);
+        console.log(window);
         return (
             <div className='bg-login'>
-                <div className={"smallIcon-login"}>
-                    <img src={require("../assets/trippin-logo-bottom.png")}></img>
-                </div>
+                    <img className="smallIcon-login" src={require("../assets/trippin-logo-bottom.png")}></img>
+                <br/>
                 <GoogleLogin
                     clientId="839868194801-vofkpao3v7j2ktes9ojrramfk16gk9ec.apps.googleusercontent.com"
                     buttonText="Login with Google"
@@ -51,6 +86,7 @@ class Login extends React.Component {
                     onFailure={this.responseGoogle}
                     cookiePolicy={'single_host_origin'}
                     className="google"
+                    redirectUri="http://me.trippin.com:3000/userprofile"
                 />
                 <br/>
                 <FacebookLogin
