@@ -156,7 +156,7 @@ class ProfilePageLinh extends React.Component {
                     console.log(this.state.names[0]);
                     returnRendering.push(
                         <div>
-                            <SectionBox key={itineraryID} href={"itineraries/"+ itineraryID}> {this.state.names[i]}</SectionBox>
+                            <SectionBox key={itineraryID} href={"/itineraries/"+ itineraryID}> {this.state.names[i]}</SectionBox>
                         <EmailShareButton
                             className='center-button'
                             url={"localhost:3000/shared/"+itineraryID}
