@@ -56,7 +56,6 @@ class SaveButton extends React.Component {
                     .catch(err => {
                         console.log(err);
                     })
-
                 }
             })
     }
@@ -79,4 +78,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps, {saveItinerary,getCurrentItineraryID})(SaveButton);
+export default connect(mapStateToProps, {getCurrentItineraryID})(SaveButton);

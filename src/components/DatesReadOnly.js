@@ -21,86 +21,20 @@ class DatesReadOnly extends React.Component{
             errorMessage: "",
         };
     }
-    
-    handleDateDelete(index){
-        this.props.deleteDate(this.props.place,this.props.type,index)
-    }
-    renderDatesPopup(){
-        let dates = [];
-        dates.push(<h1>{this.props.place.name} Dates</h1>)
-        this.props.place.dateRanges.forEach((item,index) => {
-            dates.push(
-                <div style={{fontSize: 20}}>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                        <ul style={{paddingLeft: 15}}>
-                            <li>
-                                Date #{index+1}
-                                <div className={"DatePicker"}>
-                                    <DatePicker
-                                        label={"Start Date"}
-                                        value={new Date(item.start)}
-                                        onChange={(date)=>{this.handleChangeStartDate(date,index)}}
-                                        animateYearScrolling                                    />
-                                </div>
-                                <div className={"DatePicker"}>
-                                    <DatePicker
-                                        label={"End Date"}
-                                        value={new Date(item.end)}
-                                        onChange={(date)=>{this.handleChangeEndDate(date,index)}}
-                                        animateYearScrolling
-                                    />
-                                </div>
 
-                            </li>
-                        </ul>
-                    </MuiPickersUtilsProvider>
-                </div>
-            )
-        });
-        dates.push(
-            <Button variant="contained" color="primary" autoFocus onClick={this.addNewDate.bind(this)}>
-                NEW DATE
-            </Button>)
-        return dates;
-    }
-    addNewDate(){
-        let dateString = format(new Date(), 'yyyy/MM/dd');
-        console.log(dateString)
-        this.props.addNewDate(this.props.place,this.props.type,dateString,dateString)
-    }
-    handleClose(){
-        this.setState({openDialog: false});
-    }
-    handleChangeStartDate = (date,index) => {
-        let dateString = format(date, 'yyyy/MM/dd');
-        let endDateString = format(new Date(this.props.place.dateRanges[index].end), 'yyyy/MM/dd');
-        //All date validation here
-        if (Date.parse(dateString) <= Date.parse(endDateString)){
-            this.props.startDateChange(this.props.place,this.props.type,dateString,index)
-        }
-        else{
-            this.setState({openDialog: true, errorMessage:"Start date cannot be after end date"});
-        }
-    };
-    handleChangeEndDate = (date,index) => {
-        let dateString = format(date, 'yyyy/MM/dd');
-        let startDateString = format(new Date(this.props.place.dateRanges[index].start), 'yyyy/MM/dd');
-        //All date validation here
-        if (Date.parse(startDateString) <= Date.parse(dateString)){
-            this.props.endDateChange(this.props.place,this.props.type,dateString,index)
-        }
-        else{
-            this.setState({openDialog: true, errorMessage:"End date cannot be before start date"});
-        }
-    };
     render() {
         let datesComponent =(
             <div className={"datesDiv"}>
                 <ul className={"zeroPad zeroMarg displayInline"}>
-                {this.props.place.dateRanges.map((date,index) => (
-                    <li key={index}>{date.start + " - " + date.end}</li>
-                ))}
-            </ul>
+                    {this.props.place.dateRanges.map((date,index) => (
+                        <li key={index}>{format(new Date(date.value[0]), 'yyyy/MM/dd') + " - " + format(new Date(date.value[1]), 'yyyy/MM/dd')}</li>
+                    ))}
+                </ul>
+                <div className={"buttonCalendar"}>
+                    <IconButton  aria-label="Edit" name="Edit" >
+                        <DateRangeIcon className={"edit-btn"} style={{ color: green[500] }}/>
+                    </IconButton>
+                </div>
             </div>
         );
 
@@ -123,4 +57,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps,{addNewDate,deleteDate,startDateChange,endDateChange})(DatesReadOnly);
+export default connect(mapStateToProps,{addNewDate,deleteDate,})(DatesReadOnly);

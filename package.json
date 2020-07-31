@@ -39,6 +39,7 @@
     "redux-auth-wrapper": "^3.0.0",
     "redux-persist": "^6.0.0",
     "request": "^2.88.2",
+    "rsuite": "^4.8.0",
     "uniqid": "^5.2.0",
     "uuidv4": "^6.1.1"
   },
