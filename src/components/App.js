@@ -11,6 +11,7 @@ import './fonts.css';
 import AuthRoute from "./AuthRoute";
 import Navbar from "./Navbar";
 import ProfilePage from './ProfilePage';
+import SharePage from './SharePage';
 
 
 
@@ -21,27 +22,27 @@ function App() {
         <Router>
             <Navbar/>
             <div>
-                <AuthRoute exact path="/userprofile">
+                <Route exact path="/userprofile">
                     <ProfilePage />
-                </AuthRoute>
-                <AuthRoute exact path="/itineraries">
+                </Route>
+                <Route exact path="/itineraries">
                     <Itineraries />
-                </AuthRoute>
-                <AuthRoute exact path="/">
+                </Route>
+                <Route exact path="/">
                     <Home />
-                </AuthRoute>
+                </Route>
                 <Route exact path="/login">
                     <Login />
                 </Route>
-                <AuthRoute exact path="/map">
+                <Route exact path="/map">
                     <Map />
-                </AuthRoute>
-                <AuthRoute exact path="/lists">
+                </Route>
+                <Route exact path="/lists">
                     <Lists />
-                </AuthRoute>
-                <AuthRoute exact path="/test">
-                    <Itinerary />
-                </AuthRoute>
+                </Route>
+                <Route exact path="/test">
+                    <SharePage/>
+                </Route>
             </div>
         </Router>
     );

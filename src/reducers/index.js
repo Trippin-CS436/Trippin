@@ -451,7 +451,6 @@ const currentUserProfileReducer = (state = currentUser, action) => {
     if(action.type === "GET_CURRENT_USER_PROFILE") {
         return {
             ...state,
-            profilePicture: action.payload.profilePicture,
             emailAddress: action.payload.emailAddress,
             firstName: action.payload.firstName,
             lastName: action.payload.lastName,
