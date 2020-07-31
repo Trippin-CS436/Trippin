@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import '../index.css';
 
-const currentLocation = {
+const defaultMapLocation = {
     Name: "",
     Address: "",
     PlacesId: "",
@@ -12,7 +12,7 @@ const currentLocation = {
 
 
 
-const mapLocationReducer = (state = currentLocation, action) => {
+const mapLocationReducer = (state = defaultMapLocation, action) => {
     switch(action.type) {
         case 'GET_LOCATION':
             return {
@@ -24,7 +24,8 @@ const mapLocationReducer = (state = currentLocation, action) => {
                 Area: action.payload.placeArea,
                 Country: action.payload.placeCountry
             }
-
+        case 'RESET_MAP':
+            return defaultMapLocation;
         default:
             return state;
     }
@@ -111,9 +112,10 @@ const locationsReducer = (locations = [], action) => {
         console.log(locations[index]);
         locations[index].userPhotos.push(photos);
         return locations;
+    } else if (action.type === "RESET"){
+        let locations = [];
+        return locations;
     }
-
-
     return locations;
 };
 
@@ -126,6 +128,10 @@ const cityReducer = (cities = [], action) =>{
         });
         newArray[indexToChange].dateRanges[action.dateIndex].value = action.date;
         return newArray
+    }
+    else if (action.type === 'RESET'){
+        let newCities = [];
+        return newCities;
     }
     else if (action.type === "NEW_CITY"){
         let city = {
@@ -213,7 +219,7 @@ const countryReducer = (countries = [], action) =>{
     else if (action.type === "RENDER_COUNTRY"){
         return action.payload;
     }
-    return countries;
+    return countries = [];
 };
 
 const defaultView = {
@@ -228,12 +234,16 @@ const currentViewReducer = (currentView = defaultView, action) => {
     return currentView;
 };
 
-const itineraryReducer = (itinerary = { name: "", dateRanges : [{start: "2020/08/20", end: "2020/08/28"} ]}, action) =>{
+let itineraryReducer = (itinerary = { name: "", dateRanges : [{start: "", end: ""}]}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
             ...itinerary,
             name: action.name
         };
+    }
+    else if (action.type === 'RESET'){
+        let newItinerary =  { name: "", dateRanges : [{start: "", end: ""}]};
+        return newItinerary;
     }
     else if (action.type === 'CHANGE_DATE_ITINERARY'){
         let newArray = itinerary.dateRanges.slice();

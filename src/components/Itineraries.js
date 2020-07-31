@@ -17,6 +17,8 @@ import axios from "axios";
 import Itinerary from "./Itinerary";
 import LocationButton from "./LocationButton";
 import SaveButton from "./SaveButton";
+import {reset} from '../actions/reset';
+
 
 class Itineraries extends React.Component {
     constructor(props){
@@ -27,6 +29,10 @@ class Itineraries extends React.Component {
        // console.log(this.props.authentication.loginStatus );
     }
 
+    
+    componentDidMount() {
+        this.props.reset();
+    }
 
 
     render() {
@@ -42,7 +48,6 @@ class Itineraries extends React.Component {
                                 <Itinerary />
                                 <div className={classes.bottomPanel}>
                                     <div style={{marginTop: 5}}>
-                                        <LocationButton/>
                                         <SaveButton/>
                                     </div>
                                     <Map/>
@@ -105,4 +110,4 @@ const muiStyles = {
 };
 
 
-export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(Itineraries));
+export default connect(mapStateToProps, { reset, addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(Itineraries));

@@ -12,6 +12,7 @@ import { Descriptions } from 'antd';
 import { connect } from 'react-redux';
 import { getLocation } from '../actions/getLocation';
 import MapInfo from "./MapInfo";
+import { resetMap } from "../actions/resetMap";
 
 
 
@@ -55,6 +56,7 @@ class Map extends React.Component {
 }
 
     componentDidMount() {
+        this.props.resetMap();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
                 this.setState({
@@ -192,12 +194,21 @@ class Map extends React.Component {
         // location info
         const placeWebsite = place.website;
         const placeReviews = place.reviews;
-        const placePhotos = place.photos;
         const placePhoneNumber = place.formatted_phone_number;
         const placeRating = place.rating;
         const placeTypes = place.types;
         const placeStatus = place.business_status;
+        const placePhotos = place.photos;
 
+        /*
+        const placePhotoArray = place.photos;
+        // get the photos from array by calling getUrl
+        let placePhotos = [];
+        placePhotoArray.map((photo) => {
+        let p = photo.getUrl({'maxWidth': 200, 'maxHeight': 200});
+        placePhotos.push(p);
+        });
+*/
         const info = {
             placeWebsite: placeWebsite,
             placeReviews: placeReviews,
@@ -207,7 +218,6 @@ class Map extends React.Component {
             placeTypes: placeTypes,
             placeStatus: placeStatus
         }
-
 
         this.setState({
             placeId: (placeId) ? placeId: "",
@@ -330,7 +340,7 @@ class Map extends React.Component {
               }}
             />
             </Autocomplete>
-                    </GoogleMap>
+                    </GoogleMap> 
                 </LoadScript>
 
                 {this.displayLocationInfo()}
@@ -340,4 +350,4 @@ class Map extends React.Component {
     }
 }
 
-export default connect(null, {getLocation})(React.memo(Map));
+export default connect(null, {getLocation, resetMap})(React.memo(Map));
