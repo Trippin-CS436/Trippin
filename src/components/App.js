@@ -25,7 +25,7 @@ function App() {
                 <AuthRoute exact path="/userprofile">
                     <ProfilePageLinh />
                 </AuthRoute>
-                <AuthRoute path="/itineraries/:itineraryId" component={Itineraries} />
+                <AuthRoute path="/itineraries/:id" component={Itineraries} />
                 <AuthRoute exact path="/">
                     <Home />
                 </AuthRoute>
