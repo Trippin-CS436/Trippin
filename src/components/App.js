@@ -26,7 +26,7 @@ function App() {
                 <AuthRoute exact path="/userprofile">
                     <ProfilePageLinh />
                 </AuthRoute>
-                <AuthRoute path="/itineraries/:id" children={<Itineraries />} />
+                <AuthRoute path="/itineraries/:id" component={Itineraries} />
                 <AuthRoute exact path="/">
                     <Home />
                 </AuthRoute>
@@ -42,7 +42,7 @@ function App() {
                 <AuthRoute exact path="/test">
                     <Itinerary />
                 </AuthRoute>
-                <Route path="/shared/:id" component={SharePage}></Route>
+                <Route exact path="/shared/:id" component={SharePage} />
             </div>
         </Router>
     );

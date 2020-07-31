@@ -17,18 +17,18 @@ import { withRouter} from "react-router";
 import Itinerary from "./Itinerary";
 import LocationButton from "./LocationButton";
 import SaveButton from "./SaveButton";
+import {useParams} from "react-router-dom";
 
 class Itineraries extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            id: null
+            id: this.props.match.params.id
         };
        // console.log(this.props.authentication.loginStatus );
     }
 
     componentDidMount(){
-        this.setState({id: this.props.match.params.id});
         console.log(this.state.id);
         axios.get("http://localhost:9000/itinerary/" + this.state.id)
             .then(response => {
@@ -121,4 +121,4 @@ const muiStyles = {
 };
 
 
-export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withRouter(withStyles(muiStyles)(Itineraries)));
+export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(Itineraries));
