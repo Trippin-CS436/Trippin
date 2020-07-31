@@ -43,7 +43,7 @@ class Itinerary extends React.Component {
     }
 
     componentDidMount(){
-                    this.props.changeView(-1);
+            this.props.changeView(-1);
     }
 
 

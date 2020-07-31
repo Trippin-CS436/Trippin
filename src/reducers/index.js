@@ -24,7 +24,7 @@ const mapLocationReducer = (state = defaultMapLocation, action) => {
                 Area: action.payload.placeArea,
                 Country: action.payload.placeCountry
             }
-        case 'RESET_MAP':
+        case 'RESET':
             return defaultMapLocation;
         default:
             return state;
@@ -218,8 +218,11 @@ const countryReducer = (countries = [], action) =>{
     }
     else if (action.type === "RENDER_COUNTRY"){
         return action.payload;
+    } else if (action.type === 'RESET'){
+        let newCities = [];
+        return newCities;
     }
-    return countries = [];
+    return countries;
 };
 
 const defaultView = {
@@ -234,7 +237,7 @@ const currentViewReducer = (currentView = defaultView, action) => {
     return currentView;
 };
 
-let itineraryReducer = (itinerary = { name: "", dateRanges : [{start: "", end: ""}]}, action) =>{
+let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: "", end: ""}]}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
             ...itinerary,
@@ -242,7 +245,7 @@ let itineraryReducer = (itinerary = { name: "", dateRanges : [{start: "", end: "
         };
     }
     else if (action.type === 'RESET'){
-        let newItinerary =  { name: "", dateRanges : [{start: "", end: ""}]};
+        let newItinerary =  { name: "ENTER NAME HERE", dateRanges : [{start: "", end: ""}]};
         return newItinerary;
     }
     else if (action.type === 'CHANGE_DATE_ITINERARY'){
@@ -279,6 +282,9 @@ let itineraryReducer = (itinerary = { name: "", dateRanges : [{start: "", end: "
 const currentItineraryReducer = (currentItinerary = null, action) => {
     if(action.type === "SAVE_ITINERARY") {
         return action.payload;
+    } else if(action.type === 'RESET') {
+        let newCurrentItinerary = null;
+        return newCurrentItinerary;
     }
 
     return currentItinerary;
@@ -287,6 +293,9 @@ const currentItineraryReducer = (currentItinerary = null, action) => {
 const currentItineraryObjectIDReducer = (id = null, action) => {
     if(action.type === "GET_CURRENT_ITINERARY_ID") {
         return action.payload;
+    } else if(action.type === 'RESET') {
+        let newCurrentItinerary = null;
+        return newCurrentItinerary;
     }
 
     return id;

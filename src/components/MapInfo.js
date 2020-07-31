@@ -100,7 +100,7 @@ class MapInfo extends React.Component {
         <GridList className="gridList" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', width: 1000, spacing: "0"}} cols={10}>
           {photos.map((photo) => (
             <GridListTile style={{width: "100px", spacing: "0"}} key={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})} cols={10}>
-
+            
               <img src={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})}  />
             </GridListTile>
           ))}

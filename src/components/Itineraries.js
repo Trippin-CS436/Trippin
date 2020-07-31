@@ -48,7 +48,6 @@ class Itineraries extends React.Component {
                                 <Itinerary />
                                 <div className={classes.bottomPanel}>
                                     <div style={{marginTop: 5}}>
-                                        <SaveButton/>
                                     </div>
                                     <Map/>
                                 </div>
