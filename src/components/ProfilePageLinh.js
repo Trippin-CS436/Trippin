@@ -10,6 +10,7 @@ import { GoogleLogout } from 'react-google-login';
 import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import axios from "axios";
+import Popup from "reactjs-popup";
 
 const title = "My Itinerary";
 
@@ -59,7 +60,10 @@ const locations = [
 class ProfilePageLinh extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {names: []};
+        this.state = {
+            names: [],
+            newTripName: null
+        };
     }
 
     componentDidMount() {
@@ -147,6 +151,10 @@ class ProfilePageLinh extends React.Component {
                 textAlign: 'center'
             }
         })(Button);
+
+        const newItinerary = () => {
+
+        }
 
         const ItineraryList = () => {
             let returnRendering = [];

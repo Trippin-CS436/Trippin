@@ -7,7 +7,7 @@ export default class SharePage extends Component {
         return (
             <div>
                 <ItineraryReadOnly {...this.props}/>
-                <CityReadOnly/>
+                <CityReadOnly {...this.props}/>
             </div>
         )
     }
