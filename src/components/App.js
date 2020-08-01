@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from "./Home";
 import Map from "./Map";
 import Itineraries from "./Itineraries";
@@ -22,11 +22,12 @@ function App() {
     return (
         <Router>
             <div>
-                <Route exact path="/shared/:id" component={SharePage} />
+                <Switch>
+                <Route path="/shared/:id" component={SharePage} />
                 <AuthRoute exact path="/userprofile">
                     <ProfilePageLinh />
                 </AuthRoute>
-                <AuthRoute exact path="/itineraries/:id" component={Itineraries} />
+                <AuthRoute path="/itineraries/:id" component={Itineraries} />
                 <Route exact path="/login">
                     <Login />
                 </Route>
@@ -39,6 +40,7 @@ function App() {
                 <AuthRoute exact path="/test">
                     <Itinerary />
                 </AuthRoute>
+                </Switch>
             </div>
         </Router>
     );

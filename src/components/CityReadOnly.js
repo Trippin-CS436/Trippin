@@ -15,7 +15,7 @@ class CityReadOnly extends React.Component {
     }
 
 
-    componentWillUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
         if (prevProps.locations !== this.props.locations) {
             this.setState({
                 ...this.state,

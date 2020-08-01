@@ -73,7 +73,7 @@ class ProfilePageLinh extends React.Component {
         };
     }
 
-    componentDidUpdate() {
+    componentDidMount() {
         let promises = [];
         let names = [];
         for (const itineraryID of this.props.authentication.itineraries) {
