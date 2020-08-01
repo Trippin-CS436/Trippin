@@ -115,12 +115,13 @@ class Dates extends React.Component{
 
     render() {
 
-        let datesComponent =(
+        let datesComponent = (
             <div className={"datesDiv"}>
                 <ul className={"zeroPad zeroMarg displayInline"}>
 
                 {this.props.place.dateRanges.map((date,index) => (
-                    <li key={index}>{format(new Date(date.value[0]), 'yyyy/MM/dd') + " - " + format(new Date(date.value[1]), 'yyyy/MM/dd')}</li>
+                    <li key={index}>
+                        {format(new Date(date.value[0]), 'yyyy/MM/dd') + " - " + format(new Date(date.value[1]), 'yyyy/MM/dd')}</li>
                 ))}
             </ul>
                 <div className={"buttonCalendar"}>
@@ -130,10 +131,12 @@ class Dates extends React.Component{
                 </div>
             </div>
         );
+
+        //let datesComponent = null;
         return(
             <div className={this.props.class+ ""}>
 
-                <Popup contentStyle={{width: "600px"}}trigger={datesComponent} modal>
+                <Popup contentStyle={{width: "600px"}} trigger={datesComponent} modal>
                     {close => (
                         <div className="modal" style={{color: "black"}}>
                             <a className="close" onClick={close}>

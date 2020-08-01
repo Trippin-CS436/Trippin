@@ -5,10 +5,16 @@ import './Itinerary.css';
 import Map from "./Map";
 import Navbar from "./Navbar";
 import {connect} from "react-redux";
-import {addMsg, deleteMsg, selectMsg} from "../actions";
 import Redirect from "react-router-dom/es/Redirect";
 import Collapsible from "react-collapsible";
-import { changeView, renderLocation, getCurrentItineraryID,saveItinerary} from '../actions';
+import {
+    changeView,
+    renderLocation,
+    getCurrentItineraryID,
+    saveItinerary,
+    itineraryNameChange,
+    deleteCountry, deleteCity, deleteLocation, renderCity, renderCountry, setItineraryFromDB
+} from '../actions';
 import './Itinerary.css';
 import './Iteneraries.css';
 import Dates from "./Dates";
@@ -22,27 +28,44 @@ import {useParams} from "react-router-dom";
 class Itineraries extends React.Component {
     constructor(props){
         super(props);
+        this.props.changeView(-1);
         this.state = {
             id: this.props.match.params.id
         };
        // console.log(this.props.authentication.loginStatus );
+        console.log(this.props.match.params.id);
     }
 
-    componentDidUpdate(){
+    componentDidMount(){
         console.log(this.state.id);
         axios.get("http://localhost:9000/itinerary/" + this.state.id)
             .then(response => {
-            if(response.data.length > 0){
-                this.props.renderLocation(response.data[0].locations);
-                this.props.getCurrentItineraryID(response.data[0]._id);
-                this.props.saveItinerary({id: response.data[0].id});
-            } else {
-                this.props.renderLocation([]);
-            }
+                if(response.data.length > 0){
+                    console.log(response.data);
+                    this.props.renderLocation(response.data[0].locations);
+                    this.props.renderCity(response.data[0].cities);
+                    this.props.renderCountry(response.data[0].countries);
+                    this.props.getCurrentItineraryID(response.data[0]._id);
+                    this.props.saveItinerary({id: response.data[0].id});
+                    this.props.setItineraryFromDB(response.data[0].itinerary);
+                    if(response.data[0].cities.length >= 1){
+                        this.props.changeView(response.data[0].cities[0].id)
+                    }
+                    else{
+                        this.props.changeView(-1)
+                    }
+                } else {
+                    this.props.renderLocation([]);
+                }
         })
             .catch(err => console.log("Err" + err));
         console.log("GOT HERE!!!!");
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("Component did update");
+    }
+
 
 
     render() {
@@ -120,5 +143,17 @@ const muiStyles = {
     }
 };
 
-
-export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(Itineraries));
+const dispatch = {
+    changeView,
+    renderLocation,
+    renderCity,
+    renderCountry,
+    getCurrentItineraryID,
+    saveItinerary,
+    itineraryNameChange,
+    deleteCity,
+    deleteCountry,
+    deleteLocation,
+    setItineraryFromDB,
+};
+export default connect(mapStateToProps, dispatch)(withStyles(muiStyles)(Itineraries));

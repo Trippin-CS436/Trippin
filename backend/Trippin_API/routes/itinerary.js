@@ -1,7 +1,7 @@
 const express = require('express');
 const Itinerary = require('../models/itinerary.model');
 const router = express.Router();
-let i=0;
+
 
 
 /* GET users listing. */
@@ -11,11 +11,20 @@ router.route('/').get((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
 });
 router.route('/:id').get((req, res) => {
-  console.log(i);
   console.log(req.params.id);
   Itinerary.find({id: req.params.id})
-      .then(itinerary => {res.json(itinerary); i++})
+      .then(itinerary => res.json(itinerary))
       .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/share/:id').get((req, res) => {
+  console.log(req.params.id);
+  Itinerary.findById(req.params.id)
+      .then(itinerary => {
+        res.json(itinerary);
+        console.log(itinerary);
+      })
+      .catch(err => res.status(404).json('Error: ' + err));
 });
 
 router.route('/exist/:id').get((req, res) => {
