@@ -18,6 +18,16 @@ router.route('/:id').get((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.route('/share/:id').get((req, res) => {
+  console.log(req.params.id);
+  Itinerary.findById(req.params.id)
+      .then(itinerary => {
+        res.json(itinerary);
+        console.log(itinerary);
+      })
+      .catch(err => res.status(404).json('Error: ' + err));
+});
+
 router.route('/exist/:id').get((req, res) => {
   Itinerary.exists({id: req.params.id})
   .then(response => {res.send(response); console.log(response);})

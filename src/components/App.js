@@ -22,7 +22,7 @@ function App() {
     return (
         <Router>
             <div>
-                <Route path="/shared/:id" component={SharePage} />
+                <Route exact path="/shared/:id" component={SharePage} />
                 <AuthRoute exact path="/userprofile">
                     <ProfilePageLinh />
                 </AuthRoute>

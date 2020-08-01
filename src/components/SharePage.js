@@ -20,24 +20,23 @@ class SharePage extends Component {
                 id: this.props.match.params.id
             };
             // console.log(this.props.authentication.loginStatus );
-            console.log(this.props.match.params.id);
+            //console.log(this.props.match.params.id);
         }
 
         componentDidMount(){
             console.log("Component is mounted");
             console.log(this.state.id);
-            axios.get("http://localhost:9000/itinerary/" + this.state.id)
+            axios.get("http://localhost:9000/itinerary/share/" + this.state.id)
                 .then(response => {
-                    if(response.data.length > 0){
-                        console.log(response.data);
-                        this.props.renderLocation(response.data[0].locations);
-                        this.props.renderCity(response.data[0].cities);
-                        this.props.renderCountry(response.data[0].countries);
-                        this.props.getCurrentItineraryID(response.data[0]._id);
-                        this.props.saveItinerary({id: response.data[0].id});
-                        this.props.setItineraryFromDB(response.data[0].itinerary);
-                        if(response.data[0].cities.length >= 1){
-                            this.props.changeView(response.data[0].cities[0].id)
+                    if(response.data){
+                        this.props.renderLocation(response.data.locations);
+                        this.props.renderCity(response.data.cities);
+                        this.props.renderCountry(response.data.countries);
+                        this.props.getCurrentItineraryID(response.data._id);
+                        this.props.saveItinerary({id: response.data.id});
+                        this.props.setItineraryFromDB(response.data.itinerary);
+                        if(response.data.cities.length >= 1){
+                            this.props.changeView(response.data.cities[0].id)
                         }
                         else{
                             this.props.changeView(-1)
