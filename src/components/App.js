@@ -14,6 +14,7 @@ import Navbar from "./Navbar";
 import ProfilePage from './ProfilePage';
 import ProfilePageLinh from "./ProfilePageLinh";
 import SharePage from "./SharePage";
+import City from "./City";
 
 
 
@@ -31,7 +32,7 @@ function App() {
                     <Home />
                 </AuthRoute>
                 <Route exact path="/login">
-                    <Login />
+                    <Login/>
                 </Route>
                 <AuthRoute exact path="/map">
                     <Map />
@@ -42,6 +43,7 @@ function App() {
                 <AuthRoute exact path="/test">
                     <Itinerary />
                 </AuthRoute>
+
                 <Route path="/shared/:id" component={SharePage} />
             </div>
         </Router>
