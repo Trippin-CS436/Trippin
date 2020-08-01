@@ -1,3 +1,4 @@
+/*
 import React from "react";
 import { connect } from 'react-redux';
 import { addMsg, selectMsg, deleteMsg } from '../actions';
@@ -150,3 +151,4 @@ const mapStateToProps = (state) => { //name is by convention
 
 
 export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg })(Lists);
+*/

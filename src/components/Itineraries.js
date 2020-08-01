@@ -28,7 +28,7 @@ class Itineraries extends React.Component {
        // console.log(this.props.authentication.loginStatus );
     }
 
-    componentDidMount(){
+    componentDidUpdate(){
         console.log(this.state.id);
         axios.get("http://localhost:9000/itinerary/" + this.state.id)
             .then(response => {

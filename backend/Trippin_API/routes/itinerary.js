@@ -1,7 +1,7 @@
 const express = require('express');
 const Itinerary = require('../models/itinerary.model');
 const router = express.Router();
-
+let i=0;
 
 
 /* GET users listing. */
@@ -11,8 +11,10 @@ router.route('/').get((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
 });
 router.route('/:id').get((req, res) => {
+  console.log(i);
+  console.log(req.params.id);
   Itinerary.find({id: req.params.id})
-      .then(itinerary => res.json(itinerary))
+      .then(itinerary => {res.json(itinerary); i++})
       .catch(err => res.status(400).json('Error: ' + err));
 });
 
