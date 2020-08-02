@@ -24,20 +24,21 @@ function App() {
             <div>
                 <Switch>
                 <Route path="/shared/:id" component={SharePage} />
-                <AuthRoute exact path="/userprofile">
+                <AuthRoute path="/" />
+                <AuthRoute path="/userprofile">
                     <ProfilePageLinh />
                 </AuthRoute>
                 <AuthRoute path="/itineraries/:id" component={Itineraries} />
-                <Route exact path="/login">
+                <Route path="/login">
                     <Login />
                 </Route>
-                <AuthRoute exact path="/map">
+                <AuthRoute path="/map">
                     <Map />
                 </AuthRoute>
-                <AuthRoute exact path="/lists">
+                <AuthRoute path="/lists">
                     <Lists />
                 </AuthRoute>
-                <AuthRoute exact path="/test">
+                <AuthRoute path="/test">
                     <Itinerary />
                 </AuthRoute>
                 </Switch>
