@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {logOut} from "../actions/index";
+import {logOut, updateUserArchived, updateUserItinerary} from "../actions/index";
 import "./ProfilePageLinh.css";
 import {GoogleMap, LoadScript, MarkerClusterer, Marker} from "@react-google-maps/api";
 import {
@@ -95,6 +95,7 @@ class ProfilePageLinh extends React.Component {
                 shareUrlObjectID: shareUrlObjectID
             });
         }).catch(err => console.log(err));
+        console.log(this.props.authentication);
     }
 
     createKey = (location) => {
@@ -167,7 +168,22 @@ class ProfilePageLinh extends React.Component {
             }
         })(Button);
 
-        const deleteItineraryFunction = () => {
+        const deleteItineraryFunction = (id) => {
+            let updatedIdList = this.props.authentication.itineraries.filter(item => (item !== id));
+            axios.patch('http://localhost:9000/user/save/itineraries/' + this.props.authentication.id,
+                {itineraries: updatedIdList}).then( res => {
+                this.props.updateUserItinerary(updatedIdList);
+                axios.delete('http://localhost:9000/itinerary/delete/' + id).then(resp => console.log(resp)).catch(err => console.log(err));
+            }).catch(err => console.log(err));
+
+
+
+
+/*            axios.delete('http://localhost:9000/itinerary/delete/' + id).then( res => {
+                updatedIdList = this.props.authentication.itineraries.filter(item => (item !== id));
+                this.props.updateUserItinerary(updatedIdList);
+                axios.patch('http://localhost:9000/user/save/')
+            }).catch(err => console.log(err));*/
         };
 
         const DeleteItineraryButton = (props) => {
@@ -189,7 +205,7 @@ class ProfilePageLinh extends React.Component {
                                 <button
                                     className="modal-button"
                                     onClick={() => {
-                                        deleteItineraryFunction();
+                                        deleteItineraryFunction(props.id);
                                         close();
                                     }}
                                 >
@@ -344,4 +360,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, {logOut})(ProfilePageLinh)
+export default connect(mapStateToProps, {logOut, updateUserArchived, updateUserItinerary})(ProfilePageLinh)

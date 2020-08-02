@@ -37,6 +37,21 @@ export const logIn = nameEmailObj => {
         type: 'LOGIN',
         logIn: nameEmailObj
     }
+};
+
+export const updateUserItinerary = newItinerary => {
+    return {
+        type: 'UPDATE_USER_ITINERARY',
+        updateUserItinerary: newItinerary
+
+    }
+};
+export const updateUserArchived = newArchived => {
+    return {
+        type: 'UPDATE_USER_ARCHIVED',
+        updateUserArchived: newArchived
+
+    }
 }
 
 export const deleteLocation = (id) => {

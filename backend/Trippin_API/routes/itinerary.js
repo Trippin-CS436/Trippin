@@ -61,7 +61,7 @@ router.route('/save/:id').patch((req,res) => {
 
   router.route('/delete/:id').delete((req,res) => {
     console.log(req.params.id);
-    Itinerary.findByIdAndDelete(req.params.id)
+    Itinerary.deleteOne({id: req.params.id})
       .then(() => res.json("Itinerary deleted"))
       .catch(err => res.status(404).json('Error: ' + err));
     });

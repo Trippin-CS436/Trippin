@@ -167,10 +167,38 @@ const authenticationReducer = (authentication = userState, action) => {
             name: action.logIn.name,
             email: action.logIn.email,
             profilePic: action.logIn.profilePic,
-            id: action.logIn._id,
+            id: action.logIn.id,
             visited: action.logIn.visited,
             itineraries: action.logIn.itineraries,
             archived: action.logIn.archived
+        };
+        return newAuth;
+    }
+    if (action.type === "UPDATE_USER_ITINERARY") {
+        let newAuth = {
+            loginStatus: authentication.loginStatus,
+            isGoogle: authentication.isGoogle,
+            name: authentication.name,
+            email: authentication.email,
+            profilePic: authentication.profilePic,
+            id: authentication.id,
+            visited: authentication.visited,
+            itineraries: action.updateUserItinerary,
+            archived: authentication.archived
+        };
+        return newAuth;
+    }
+    if (action.type === "UPDATE_USER_ARCHIVED") {
+        let newAuth = {
+            loginStatus: authentication.loginStatus,
+            isGoogle: authentication.isGoogle,
+            name: authentication.name,
+            email: authentication.email,
+            profilePic: authentication.profilePic,
+            id: authentication.id,
+            visited: authentication.visited,
+            itineraries: authentication.itineraries,
+            archived: action.updateUserArchived
         };
         return newAuth;
     }
