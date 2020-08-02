@@ -18,6 +18,8 @@ import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import axios from "axios";
 import Popup from "reactjs-popup";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import IconButton from "@material-ui/core/IconButton";
 
 const title = "My Itinerary";
 
@@ -69,6 +71,7 @@ class ProfilePageLinh extends React.Component {
         super(props);
         this.state = {
             names: [],
+            shareUrlObjectID: [],
             newTripName: null
         };
     }
@@ -76,6 +79,7 @@ class ProfilePageLinh extends React.Component {
     componentDidMount() {
         let promises = [];
         let names = [];
+        let shareUrlObjectID = [];
         for (const itineraryID of this.props.authentication.itineraries) {
             promises.push(axios.get("http://localhost:9000/itinerary/" + itineraryID));
         }
@@ -83,9 +87,13 @@ class ProfilePageLinh extends React.Component {
             let i = 0;
             for (const itineraryID of this.props.authentication.itineraries) {
                 names.push(response[i].data[0].itinerary.name);
+                shareUrlObjectID.push(response[i].data[0]._id);
                 i++;
             }
-            this.setState({names: names});
+            this.setState({
+                names: names,
+                shareUrlObjectID: shareUrlObjectID
+            });
         }).catch(err => console.log(err));
     }
 
@@ -136,7 +144,7 @@ class ProfilePageLinh extends React.Component {
                 border: 0,
                 color: 'white',
                 height: 48,
-                width: '80%',
+                width: '83%',
                 padding: '30px',
                 fontSize: '12pt',
                 fontWeight: '500',
@@ -159,35 +167,62 @@ class ProfilePageLinh extends React.Component {
             }
         })(Button);
 
-        const newItinerary = () => {
+        const deleteItineraryFunction = () => {
+        };
 
-        }
+        const DeleteItineraryButton = (props) => {
+            return (
+                <Popup className="widthFix" trigger={
+                    <IconButton className="icon-btn" aria-label="Delete"  name="Delete">
+                    <DeleteForeverIcon className={"delete-btn"} color="secondary"/>
+                    </IconButton>} modal>
+                    {close => (
+                        <div className="modal">
+                            <a className="close" onClick={close}>
+                                &times;
+                            </a>
+                            <div className="header"> Warning Message </div>
+                            <div className="content">
+                                Are you sure you want to delete {props.name} trip?
+                            </div>
+                            <div className="actions">
+                                <button
+                                    className="modal-button"
+                                    onClick={() => {
+                                        deleteItineraryFunction();
+                                        close();
+                                    }}
+                                >
+                                    Yes
+                                </button>
+                                <button
+                                    className="modal-button"
+                                    onClick={() => {
+                                        close();
+                                    }}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </Popup>
+            )
+        };
 
         const ItineraryList = () => {
             let returnRendering = [];
             let i = 0;
             for (const itineraryID of this.props.authentication.itineraries) {
-                // console.log(this.state.names);
-                // console.log(this.state.names[0]);
-                axios.get("http://localhost:9000/itinerary/" + itineraryID)
-                    .then(response => {
-                            console.log("---response succeeded----");
-                            console.log(response.data);
-                            shareUrlObjectID = response.data[0]._id;
-                            console.log(response.data._id);
-                            console.log("shareURL after set is" + shareUrlObjectID);
-                        }
-                    )
-                    .catch(err => console.log(err));
                 returnRendering.push(
                     <div>
                         <SectionBox key={itineraryID}
                                     href={"/itineraries/" + itineraryID}> {this.state.names[i]} </SectionBox>
 
-                        {console.log("shareURL right before set is " + shareUrlObjectID)}
+                        {console.log("shareURL right before set is " + this.state.shareUrlObjectID[i])}
                         <EmailShareButton
                             className='center-button'
-                            url={"localhost:3000/shared/" + shareUrlObjectID}
+                            url={"localhost:3000/shared/" + this.state.shareUrlObjectID[i]}
                             subject={title}
                             body="body"
                         >
@@ -195,11 +230,12 @@ class ProfilePageLinh extends React.Component {
                         </EmailShareButton>
                         <FacebookShareButton
                             className='center-button'
-                            url={"localhost:3000/shared/" + shareUrlObjectID}
+                            url={"localhost:3000/shared/" + this.state.shareUrlObjectID[i]}
                             quote={title}
                         >
                             <FacebookIcon size={32} round/>
                         </FacebookShareButton>
+                        <DeleteItineraryButton name={this.state.names[i]} id={itineraryID}/>
                     </div>);
                 i++;
             }
