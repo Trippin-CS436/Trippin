@@ -11,13 +11,15 @@ import {
     deleteCountry, deleteCity, deleteLocation, renderCity, renderCountry, setItineraryFromDB
 } from '../actions';
 import {connect} from "react-redux";
+import {Redirect, Route} from "react-router";
 
 class SharePage extends Component {
         constructor(props){
             super(props);
             this.props.changeView(-1);
             this.state = {
-                id: this.props.match.params.id
+                id: this.props.match.params.id,
+                invalidID: false,
             };
             // console.log(this.props.authentication.loginStatus );
             //console.log(this.props.match.params.id);
@@ -45,11 +47,18 @@ class SharePage extends Component {
                         this.props.renderLocation([]);
                     }
                 })
-                .catch(err => console.log("Err" + err));
-            console.log("GOT HERE!!!!");
+                .catch(err => {
+                    console.log("invalid ID given");
+                    this.setState({invalidID: true});
+                });
         }
 
     render() {
+        if (this.state.invalidID){
+            return (
+                <Redirect to="/404-Page-Not-Found"/>
+            );
+        }
         return (
             <div>
                 <ItineraryReadOnly {...this.props}/>

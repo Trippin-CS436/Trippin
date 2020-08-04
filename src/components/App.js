@@ -13,6 +13,7 @@ import Navbar from "./Navbar";
 import ProfilePage from './ProfilePage';
 import ProfilePageLinh from "./ProfilePageLinh";
 import SharePage from "./SharePage";
+import NotFound from "./NotFound";
 
 
 
@@ -41,6 +42,7 @@ function App() {
                 <AuthRoute path="/test">
                     <Itinerary />
                 </AuthRoute>
+                <Route component={NotFound}/>
                 </Switch>
             </div>
         </Router>
