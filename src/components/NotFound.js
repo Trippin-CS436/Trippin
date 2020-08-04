@@ -10,7 +10,7 @@ export default class NotFound extends React.Component{
             <div>
                 <div className={"bg404"}>
                     <h1 className={"NotFound"}>404 Page Not Found</h1>
-                    <div className={"smallIcon"}><img src={require("../assets/trippin-logo.png")}></img></div>
+                    <div className={"smallIcon404"}><img src={require("../assets/trippin-logo.png")}></img></div>
                 </div>
             </div>
         );
