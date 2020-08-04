@@ -33,6 +33,9 @@
 .locationsDiv ul li:last-child{
     margin-bottom: 0;
 }
+.locationsDiv ul li:first-child{
+    margin-top: 5px;
+}
 .location{
     display: block;
     font-weight: 600;
