@@ -44,6 +44,7 @@ class Login extends React.Component {
                             });
                         }).catch(err => console.log("Err" + err));
                 }
+                this.props.history.push('/userprofile');
             }).catch(err => console.log("Err" + err));
     };
 
@@ -57,8 +58,6 @@ class Login extends React.Component {
         let email = response.email;
         let profilePic = response.picture.data.url;
         this.logInfo(response, name, email, profilePic, false);
-            console.log(JSON.stringify(this.props.authentication));
-            this.props.history.push('/userprofile');
     };
 
     success = (response) => {
@@ -67,8 +66,6 @@ class Login extends React.Component {
            let profilePic =  response.getBasicProfile().getImageUrl();
             this.logInfo(response, name, email, profilePic, true);
         console.log(JSON.stringify(this.props.authentication));
-        this.props.history.push('/userprofile');
-
     };
 
 

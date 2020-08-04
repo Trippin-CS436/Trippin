@@ -24,7 +24,7 @@ function App() {
             <div>
                 <Switch>
                 <Route path="/shared/:id" component={SharePage} />
-                {/*<AuthRoute path="/" />*/}
+                <AuthRoute exact path="/" />
                 <AuthRoute path="/userprofile">
                     <ProfilePageLinh />
                 </AuthRoute>

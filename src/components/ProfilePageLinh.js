@@ -129,12 +129,6 @@ class ProfilePageLinh extends React.Component {
                 borderRadius: 7,
                 border: 0,
                 color: 'white',
-                height: 48,
-                padding: '0 30px',
-                fontSize: '12pt',
-                left: "25%",
-                right: "25%",
-                minWidth: "30px"
             }
         })(Button);
         const SectionBox = withStyles({
@@ -230,6 +224,7 @@ class ProfilePageLinh extends React.Component {
             let returnRendering = [];
             let i = 0;
             for (const itineraryID of this.props.authentication.itineraries) {
+                console.log(this.state.names[i]);
                 returnRendering.push(
                     <div>
                         <SectionBox key={itineraryID}
@@ -237,6 +232,7 @@ class ProfilePageLinh extends React.Component {
 
                         {console.log("shareURL right before set is " + this.state.shareUrlObjectID[i])}
                         <EmailShareButton
+                            key={itineraryID}
                             className='center-button'
                             url={"localhost:3000/shared/" + this.state.shareUrlObjectID[i]}
                             subject={title}
@@ -245,13 +241,14 @@ class ProfilePageLinh extends React.Component {
                             <EmailIcon size={32} round/>
                         </EmailShareButton>
                         <FacebookShareButton
+                            key={itineraryID}
                             className='center-button'
                             url={"localhost:3000/shared/" + this.state.shareUrlObjectID[i]}
                             quote={title}
                         >
                             <FacebookIcon size={32} round/>
                         </FacebookShareButton>
-                        <DeleteItineraryButton name={this.state.names[i]} id={itineraryID}/>
+                        <DeleteItineraryButton key={itineraryID} name={this.state.names[i]} id={itineraryID}/>
                     </div>);
                 i++;
             }
@@ -313,7 +310,7 @@ class ProfilePageLinh extends React.Component {
                 <div className="tab-horizontal">
                     <Tabs
                         orientation="horizontal"
-                        variant="standard"
+                        variant="fullWidth"
                         value={value}
                         onChange={handleChange}
                         aria-label="Tabs for sections"
@@ -360,7 +357,7 @@ class ProfilePageLinh extends React.Component {
                     </div>
                     {this.props.authentication.isGoogle ? (<GoogleLogout
                             render={(renderProps) => (
-                                <StyledButton onClick={renderProps.onClick}
+                                <StyledButton className="logout-button" onClick={renderProps.onClick}
                                               disabled={renderProps.disabled}> LOGOUT </StyledButton>)}
                             clientId="839868194801-vofkpao3v7j2ktes9ojrramfk16gk9ec.apps.googleusercontent.com"
                             buttonText="Logout"
@@ -368,7 +365,7 @@ class ProfilePageLinh extends React.Component {
                             onFailure={this.googleLogOutFailure}
                         >
                         </GoogleLogout>) :
-                        (<StyledButton onClick={(e) => {
+                        (<StyledButton className="logout-button" onClick={(e) => {
                             e.preventDefault();
                             this.fbLogOut()
                         }}> LOGOUT </StyledButton>)}

@@ -112,6 +112,16 @@ section {
 
 }
 
+.logout-button {
+    position: relative;
+    height: 48px;
+    padding: 0 30px;
+    font-size: 12pt;
+    left: 25%;
+    right: 25%;
+    min-width: 30px
+}
+
 .modal {
     font-size: 12pt;
     min-width: 600px;
