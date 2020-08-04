@@ -32,7 +32,8 @@ class Itineraries extends React.Component {
         super(props);
         this.props.changeView(-1);
         this.state = {
-            id: this.props.match.params.id
+            id: this.props.match.params.id,
+            invalidID: false,
         };
        // console.log(this.props.authentication.loginStatus );
         console.log(this.props.match.params.id);
@@ -40,6 +41,10 @@ class Itineraries extends React.Component {
 
     componentDidMount(){
         console.log(this.state.id);
+        if (!this.props.authentication.itineraries.includes(this.state.id)){
+            this.setState({invalidID:true});
+            return;
+        }
         axios.get("http://localhost:9000/itinerary/" + this.state.id)
             .then(response => {
                 if(response.data.length > 0){
@@ -71,6 +76,9 @@ class Itineraries extends React.Component {
 
 
     render() {
+        if (this.state.invalidID){
+            return (<Redirect to="/userprofile"/>)
+        }
         const { classes } = this.props;
         console.log(this.props.locations);
         return(

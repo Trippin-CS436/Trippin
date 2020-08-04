@@ -18,6 +18,8 @@
 }
 .bottomBorder{
     border-bottom: 3px solid red;
+    margin-top: -10px;
+    margin-left: -10px;
 }
 .datesDiv ul{
     list-style-type: none;

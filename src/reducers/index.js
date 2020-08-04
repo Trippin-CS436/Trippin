@@ -381,7 +381,7 @@ const countryReducer = (countries = defaultCountries, action) =>{
 
 const defaultView = {
     byID:{
-        city: 0, //**** set to -1 if nothing to render
+        city: -1, //**** set to -1 if nothing to render
     }
 };
 const currentViewReducer = (currentView = defaultView, action) => {
