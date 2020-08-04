@@ -23,6 +23,8 @@ import { withRouter} from "react-router";
 import Itinerary from "./Itinerary";
 import LocationButton from "./LocationButton";
 import SaveButton from "./SaveButton";
+import "./Lists.css";
+import "./Expandable.css"
 import {useParams} from "react-router-dom";
 
 class Itineraries extends React.Component {

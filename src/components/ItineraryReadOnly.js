@@ -43,30 +43,30 @@ class ItineraryReadOnly extends React.Component {
         };
     }
 
-    componentDidMount(){
-        console.log(this.state.id);
-        axios.get("http://localhost:9000/itinerary/" + this.state.id)
-            .then(response => {
-            if(response.data.length > 0){
-                console.log(response.data);
-                this.props.renderLocation(response.data[0].locations);
-                this.props.renderCity(response.data[0].cities);
-                this.props.renderCountry(response.data[0].countries);
-                this.props.getCurrentItineraryID(response.data[0]._id);
-                this.props.saveItinerary({id: response.data[0].id});
-                this.props.setItineraryFromDB(response.data[0].itinerary);
-                if(response.data[0].cities.length >= 1){
-                    this.props.changeView(response.data[0].cities[0].id)
-                }
-                else{
-                    this.props.changeView(-1)
-                }
-            } else {
-                this.props.renderLocation([]);
-            }
-        })
-            .catch(err => console.log("Err: " + err));
-    }
+    // componentDidMount(){
+    //     console.log(this.state.id);
+    //     axios.get("http://localhost:9000/itinerary/" + this.state.id)
+    //         .then(response => {
+    //         if(response.data.length > 0){
+    //             console.log(response.data);
+    //             this.props.renderLocation(response.data[0].locations);
+    //             this.props.renderCity(response.data[0].cities);
+    //             this.props.renderCountry(response.data[0].countries);
+    //             this.props.getCurrentItineraryID(response.data[0]._id);
+    //             this.props.saveItinerary({id: response.data[0].id});
+    //             this.props.setItineraryFromDB(response.data[0].itinerary);
+    //             if(response.data[0].cities.length >= 1){
+    //                 this.props.changeView(response.data[0].cities[0].id)
+    //             }
+    //             else{
+    //                 this.props.changeView(-1)
+    //             }
+    //         } else {
+    //             this.props.renderLocation([]);
+    //         }
+    //     })
+    //         .catch(err => console.log("Err: " + err));
+    // }
 
 
     renderItinerary() {
