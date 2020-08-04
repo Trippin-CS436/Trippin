@@ -43,30 +43,30 @@ class ItineraryReadOnly extends React.Component {
         };
     }
 
-    componentDidMount(){
-        console.log(this.state.id);
-        axios.get("http://localhost:9000/itinerary/" + this.state.id)
-            .then(response => {
-            if(response.data.length > 0){
-                console.log(response.data)
-                this.props.renderLocation(response.data[0].locations);
-                this.props.renderCity(response.data[0].cities);
-                this.props.renderCountry(response.data[0].countries);
-                this.props.getCurrentItineraryID(response.data[0]._id);
-                this.props.saveItinerary({id: response.data[0].id});
-                this.props.setItineraryFromDB(response.data[0].itinerary);
-                if(response.data[0].cities.length >= 1){
-                    this.props.changeView(response.data[0].cities[0].id)
-                }
-                else{
-                    this.props.changeView(-1)
-                }
-            } else {
-                this.props.renderLocation([]);
-            }
-        })
-            .catch(err => console.log("Err: " + err));
-    }
+    // componentDidMount(){
+    //     console.log(this.state.id);
+    //     axios.get("http://localhost:9000/itinerary/" + this.state.id)
+    //         .then(response => {
+    //         if(response.data.length > 0){
+    //             console.log(response.data);
+    //             this.props.renderLocation(response.data[0].locations);
+    //             this.props.renderCity(response.data[0].cities);
+    //             this.props.renderCountry(response.data[0].countries);
+    //             this.props.getCurrentItineraryID(response.data[0]._id);
+    //             this.props.saveItinerary({id: response.data[0].id});
+    //             this.props.setItineraryFromDB(response.data[0].itinerary);
+    //             if(response.data[0].cities.length >= 1){
+    //                 this.props.changeView(response.data[0].cities[0].id)
+    //             }
+    //             else{
+    //                 this.props.changeView(-1)
+    //             }
+    //         } else {
+    //             this.props.renderLocation([]);
+    //         }
+    //     })
+    //         .catch(err => console.log("Err: " + err));
+    // }
 
 
     renderItinerary() {
@@ -79,7 +79,7 @@ class ItineraryReadOnly extends React.Component {
                         <div style={{marginBottom: '10px'}}>
                             <h1 className={"itinerary_name"}>{country.name}</h1>
                         </div>
-                            <DatesReadOnly place={country} class={"dates"} type={"country"}/>
+                            <DatesReadOnly place={country} class={"dates"} type={"country"} {...this.props}/>
                     </div>
                 }>
 
@@ -250,7 +250,7 @@ class ItineraryReadOnly extends React.Component {
                     {this.renderItineraryName()}
                 </div>
                 <div className={"itineraryHeader"}>
-                    <DatesReadOnly place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
+                    <DatesReadOnly place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"} {...this.props}/>
                 </div>
                 {this.renderItinerary()}
                 {/*<City/>*/}

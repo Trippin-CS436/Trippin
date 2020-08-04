@@ -30,11 +30,6 @@ class DatesReadOnly extends React.Component{
                         <li key={index}>{format(new Date(date.value[0]), 'yyyy/MM/dd') + " - " + format(new Date(date.value[1]), 'yyyy/MM/dd')}</li>
                     ))}
                 </ul>
-                <div className={"buttonCalendar"}>
-                    <IconButton  aria-label="Edit" name="Edit" >
-                        <DateRangeIcon className={"edit-btn"} style={{ color: green[500] }}/>
-                    </IconButton>
-                </div>
             </div>
         );
 

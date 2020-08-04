@@ -15,7 +15,7 @@ class CityReadOnly extends React.Component {
     }
 
 
-    componentWillUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
         if (prevProps.locations !== this.props.locations) {
             this.setState({
                 ...this.state,
@@ -32,7 +32,7 @@ class CityReadOnly extends React.Component {
                 <Collapsible className="cityDiv" key={country.name} trigger={
                     <div>
                         <h3>{country.name}</h3>
-                        <DatesReadOnly place={country} class={"date"} type={"country"}/>
+                        <DatesReadOnly place={country} class={"date"} type={"country"} {...this.props}/>
                     </div>
                 }>
 
@@ -80,7 +80,7 @@ class CityReadOnly extends React.Component {
         return (
             <div className={"cityDiv"}>
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
-                <DatesReadOnly place={cityToRender} class={"datesDiv bottomBorder"} type={"city"}/>
+                <DatesReadOnly place={cityToRender} class={"datesDiv bottomBorder"} type={"city"} {...this.props}/>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (
