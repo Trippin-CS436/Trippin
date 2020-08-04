@@ -132,9 +132,9 @@ class ProfilePageLinh extends React.Component {
                 height: 48,
                 padding: '0 30px',
                 fontSize: '12pt',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                alignSelf: 'center'
+                left: "25%",
+                right: "25%",
+                minWidth: "30px"
             }
         })(Button);
         const SectionBox = withStyles({
@@ -164,7 +164,7 @@ class ProfilePageLinh extends React.Component {
                 fontSize: '12pt',
                 fontWeight: '500',
                 margin: '30px 15px',
-                textAlign: 'center'
+                left: "40%"
             }
         })(Button);
 
@@ -285,17 +285,42 @@ class ProfilePageLinh extends React.Component {
             };
 
             return (
-                <div>
+                <div className="tab-vertical">
                     <Tabs
                         orientation="vertical"
                         variant="standard"
                         value={value}
                         onChange={handleChange}
-                        aria-label="Vertical tabs example"
+                        aria-label="Tabs for sections"
                     >
-                        <Tab label="Upcoming Trips" href="#upcoming"/>
-                        <Tab label="Visited places" href="#visited"/>
-                        <Tab label="Archived Trips" href="#archived"/>
+                        <Tab className="noHover" label="Upcoming Trips" href="#upcoming"/>
+                        <Tab className="noHover" label="Visited places" href="#visited"/>
+                        <Tab className="noHover" label="Archived Trips" href="#archived"/>
+
+                    </Tabs>
+
+                </div>
+            );
+        };
+        const HorizontalTabs = () => {
+            const [value, setValue] = React.useState(0);
+
+            const handleChange = (event, newValue) => {
+                setValue(newValue);
+            };
+
+            return (
+                <div className="tab-horizontal">
+                    <Tabs
+                        orientation="horizontal"
+                        variant="standard"
+                        value={value}
+                        onChange={handleChange}
+                        aria-label="Tabs for sections"
+                    >
+                        <Tab className="noHover" label="Upcoming Trips" href="#upcoming"/>
+                        <Tab className="noHover" label="Visited places" href="#visited"/>
+                        <Tab className="noHover" label="Archived Trips" href="#archived"/>
 
                     </Tabs>
 
@@ -329,8 +354,9 @@ class ProfilePageLinh extends React.Component {
                     </div>
                     <div className="left-panel-text">
                         <p> {this.props.authentication.name} </p>
-                        <p>Email Address: {this.props.authentication.email}</p>
+                        <p className="tab-vertical">Email Address: {this.props.authentication.email}</p>
                         <VerticalTabs/>
+                        <HorizontalTabs/>
                     </div>
                     {this.props.authentication.isGoogle ? (<GoogleLogout
                             render={(renderProps) => (

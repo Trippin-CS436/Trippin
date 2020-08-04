@@ -1,4 +1,4 @@
-html {
+* {
     scroll-behavior: smooth;
 }
 
@@ -24,6 +24,12 @@ section {
     text-align: left;
     align-content: center;
     text-overflow: fade;
+    z-index: 15;
+}
+
+.noHover:hover{
+    color: inherit;
+    text-decoration: inherit;
 }
 
 .left-panel-text {
@@ -55,7 +61,7 @@ section {
     position: fixed;
     background-color: #212121;
     top: 0;
-    left: 20%;
+    left: 0;
     width: 100%;
     height: 70px;
     z-index: 10;
@@ -68,7 +74,7 @@ section {
     width: 150px;
     height:150px;
     top: -40px;
-    left: -50px;
+    left: 100px
 }
 
 .logo-panel-placeholder {
@@ -159,6 +165,14 @@ section {
 
 }
 
+.tab-vertical {
+    display: inherit;
+}
+
+.tab-horizontal {
+    display: none;
+}
+
 .center-button {
     position: relative;
     top: 20px;
@@ -202,6 +216,39 @@ section {
      {
       height: 1000px;
     }
+    .profile-logo-panel {
+        display: none
+    }
+    .profile-left-panel {
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 20%;
+    }
+
+    .right-panel {
+        width: 100%;
+        left: 0
+    }
+
+    .logo-panel-placeholder {
+        height: 20%
+    }
+
+  .profile-img {
+      width: 50px;
+      height: 50px;
+  }
+  .tab-horizontal {
+      width: 100%;
+      display: inherit;
+      align-content: center;
+      justify-content: center;
+  }
+  .tab-vertical {
+      display :none;
+  }
+
   }
 
   
