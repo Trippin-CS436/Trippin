@@ -3,8 +3,9 @@ import Location from "./Location";
 import './Iteneraries.css';
 import {connect} from 'react-redux';
 import Dates from "./Dates";
-import SaveButton from "./SaveButton";
 import Collapsible from "react-collapsible";
+import SaveButton from "./SaveButton";
+
 
 class City extends React.Component {
     constructor(props){
@@ -27,17 +28,21 @@ class City extends React.Component {
 
     render() {
         //Empty locations/cities. render a 'guide' on how to add to itinerary
-        if (this.props.currentView.byID.city === -1) {
+        if (this.props.currentView.byID.city === -1 || this.props.currentView.byID.city === 0) {
             return (
-                null
+                <div className={"cityDiv"}>
+                    <h3>START ADDING TO THE ITINERARY BY SEARCHING A LOCATION AND HITTING
+                    THE 'ADD LOCATION' BUTTON</h3>
+                </div>
             );
         }
+        console.log('City to Render ID', this.props.currentView);
         let cityToRenderID = this.props.currentView.byID.city;
         let cityToRender = this.props.cities.filter(function(city){
             return city.id == cityToRenderID;
         });
         cityToRender = cityToRender[0];
-
+        console.log('City to Render: ', cityToRender);
         let countryToRenderID = cityToRender.countryID;
         let countryToRender = this.props.countries.filter(function(country){
             return country.id == countryToRenderID;
@@ -48,12 +53,11 @@ class City extends React.Component {
             return loc.cityID === cityToRenderID;
         });
 
-
         
 
         return (
             <div className={"cityDiv"}>
-            <SaveButton style={{float: "right"}}/>
+            <SaveButton />
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
                 <div className={"bottomBorder"}>
                     <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
@@ -82,19 +86,3 @@ const mapStateToProps = (state) =>{
 };
 
 export default connect(mapStateToProps)(City);
-//
-// const muiStyles = {
-//     bg: {
-//         position: "absolute",
-//         backgroundImage: `url(${require("../assets/vancouver.jpg")})`,
-//         backgroundSize: "cover",
-//         height: "100vh",
-//         width: "100vw",
-//         top: "0",
-//         left: "0",
-//         color: "#000000",
-//         fontSize: "30px"
-//     }
-// };
-
-// export default withStyles(muiStyles)(City);

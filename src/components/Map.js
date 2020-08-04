@@ -200,15 +200,12 @@ class Map extends React.Component {
         const placeStatus = place.business_status;
         const placePhotos = place.photos;
 
-        /*
-        const placePhotoArray = place.photos;
-        // get the photos from array by calling getUrl
-        let placePhotos = [];
-        placePhotoArray.map((photo) => {
-        let p = photo.getUrl({'maxWidth': 200, 'maxHeight': 200});
-        placePhotos.push(p);
-        });
-*/
+        let placePhotoUrls = [];
+
+        if (placePhotos !== undefined && placePhotos.length > 0) {
+        placePhotoUrls = placePhotos.map((photo) => { return photo.getUrl({'maxWidth': 200, 'maxHeight': 200})});
+        }
+        
         const info = {
             placeWebsite: placeWebsite,
             placeReviews: placeReviews,
@@ -216,7 +213,8 @@ class Map extends React.Component {
             placePhoneNumber: placePhoneNumber,
             placeRating: placeRating,
             placeTypes: placeTypes,
-            placeStatus: placeStatus
+            placeStatus: placeStatus,
+            placePhotoUrls: placePhotoUrls
         }
 
         this.setState({

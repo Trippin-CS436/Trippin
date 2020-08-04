@@ -42,6 +42,9 @@ class AddLocationButton extends React.Component {
         let country = currentMapLocation.Country;
         let location = currentMapLocation.Name;
         let info = currentMapLocation.Info;
+        // get the Url Photos; 
+
+
         if (info === undefined) {
             info = {placeWebsite: 'NOT AVAILABLE',
         placeReviews: [],
@@ -49,7 +52,8 @@ class AddLocationButton extends React.Component {
     placePhoneNumber: 'NOT AVAILABLE',
     placeRating: null,
     placeTypes: [],
-    placeStatus: ''
+    placeStatus: '',
+    placePhotoUrls: []
     };
         }
         if (country === "")

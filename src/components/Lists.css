@@ -1,0 +1,54 @@
+.modal {
+    font-size: 12pt;
+    min-width: 600px;
+}
+
+.modal > .header {
+    width: 100%;
+    border-bottom: 1px solid gray;
+    font-size: 18px;
+    text-align: center;
+    padding: 5px;
+}
+.modal > .content {
+    width: 100%;
+    padding: 10px 5px;
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+.modal > .actions {
+    width: 100%;
+    padding: 10px 5px;
+    margin: auto;
+    text-align: center;
+}
+.modal > .close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    padding: 2px 5px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 24px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #cfcece;
+}
+.button {
+    left: 40%;
+    right: 40%;
+    color: white;
+    background: darkslateblue;
+    font-size: 15pt;
+    font-family: "Apple Braille";
+
+}
+
+.stripe {
+    padding: 2px;
+    background-color: white;
+}
+.stripe:nth-child(even) {
+    background-color: #EBF2FF;
+}

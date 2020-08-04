@@ -15,6 +15,7 @@ import NotesOutlinedIcon from '@material-ui/icons/NotesOutlined';
 import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
 import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
 import PhotoAlbumOutlinedIcon from '@material-ui/icons/PhotoAlbumOutlined';
+import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 
 class LocationReadyOnly extends React.Component {
     constructor(props){
@@ -79,9 +80,12 @@ class LocationReadyOnly extends React.Component {
            console.log(currLoc);
             return <Info location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
-       else if (this.state.showPhotos) {
-           return <InfoPhotos location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
-       
+        else if (this.state.showPhotos) {
+            return (
+                <div>
+                 <Photos location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
+             </div>
+            )
     } else 
        return null;
     }
@@ -98,6 +102,11 @@ class LocationReadyOnly extends React.Component {
                 <IconButton className={"btn"} aria-label="Info" name="Info" onClick={this.handleInfoBtnClick}>
                 <ExpandMoreOutlinedIcon />
                 </IconButton>
+
+                <IconButton className={"btn"} aria-label="Photo" name="Photo" onClick={this.handlePhotoBtnClick}>
+                <PhotoCameraOutlinedIcon />
+                </IconButton>
+                
                 
                 </div>
             </div>

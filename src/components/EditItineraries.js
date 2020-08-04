@@ -6,33 +6,44 @@ import Map from "./Map";
 import Navbar from "./Navbar";
 import {connect} from "react-redux";
 import {addMsg, deleteMsg, selectMsg} from "../actions";
-import Redirect from "react-router-dom/es/Redirect";
+import { Redirect } from "react-router-dom"
 import Collapsible from "react-collapsible";
 import { changeView, renderLocation, getCurrentItineraryID,saveItinerary} from '../actions';
 import './Itinerary.css';
 import './Iteneraries.css';
 import Dates from "./Dates";
 import axios from "axios";
-import { withRouter} from "react-router";
+import { withRouter } from "react-router";
 import Itinerary from "./Itinerary";
 import LocationButton from "./LocationButton";
 import SaveButton from "./SaveButton";
 import {useParams} from "react-router-dom";
-import {reset} from '../actions/reset';
-
 
 class Itineraries extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            id: this.props.match.params.id
+            id: this.props.match.params.id,
+            itineraryID: this.props.editItineraryID
         };
        // console.log(this.props.authentication.loginStatus );
     }
 
-    
-    componentDidMount() {
-        this.props.reset();
+    componentDidMount(){
+        // get the itinerary id
+        console.log(this.state.id);
+        axios.get("http://localhost:9000/itinerary/" + this.state.id)
+            .then(response => {
+            if(response.data.length > 0){
+                this.props.renderLocation(response.data[0].locations);
+                this.props.getCurrentItineraryID(response.data[0]._id);
+                this.props.saveItinerary({id: response.data[0].id});
+            } else {
+                this.props.renderLocation([]);
+            }
+        })
+            .catch(err => console.log("Err" + err));
+        console.log("GOT HERE!!!!");
     }
 
 
@@ -49,13 +60,15 @@ class Itineraries extends React.Component {
                                 <Itinerary />
                                 <div className={classes.bottomPanel}>
                                     <div style={{marginTop: 5}}>
+                                        <LocationButton/>
+                                        <SaveButton/>
                                     </div>
                                     <Map/>
                                 </div>
                             </div>
                         </div>
                         <div className={`${classes.rightPanel} ${classes.table}`}>
-                            <City/>
+                            <City />
                         </div>
                     </div>
                 </React.Fragment>
@@ -110,4 +123,4 @@ const muiStyles = {
 };
 
 
-export default connect(mapStateToProps, { reset, addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(Itineraries));
+export default connect(mapStateToProps, { addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(Itineraries));

@@ -27,12 +27,16 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import AttachmentOutlinedIcon from '@material-ui/icons/AttachmentOutlined';
+import AttachmentModal from './AttachmentModal';
+import DropPhotos from './DropPhotos';
 
 class Itinerary extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
+            openUpload: false,
             editItinerary: false,
             name: this.props.itinerary.name,
             openDialog: false,
@@ -107,10 +111,17 @@ class Itinerary extends React.Component {
                     <IconButton  className={"edit-btn"} aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
                         <EditOutlinedIcon />
                     </IconButton>
-                </div>
+                    <IconButton style={{width:60, height:60, float: "right", padding:"1rem", paddingRight: "2rem"}} className={"btn"} aria-label="Attachment" name="Attachment" onClick={this.handleOpen.bind(this)}>
+                        <AttachmentOutlinedIcon className="btn" style={{width:40, height:40}}/>
+                    </IconButton>
+
+                    <AttachmentModal onOpen={this.state.openUpload}
+                        onClose={this.handleOpen.bind(this)}>
+          <DropPhotos />
+        </AttachmentModal>
+      </div>
             );
-        }
-        else{
+        } else{
             return(
                 <div id={"itinerary-div"}>
                     <div style={{paddingTop:10}}>
@@ -134,6 +145,12 @@ class Itinerary extends React.Component {
                 </div>
             );
         }
+    }
+
+    handleOpen() {
+        this.setState({
+            openUpload: !this.state.openUpload
+        });
     }
     handleNameChange(event){
         this.setState({

@@ -50,11 +50,10 @@ class CityReadOnly extends React.Component {
 
     render() {
         //Empty locations/cities. render a 'guide' on how to add to itinerary
-        if (this.props.currentView.byID.city === -1) {
+        if (this.props.currentView.byID.city === -1 ) {
             return (
                 <div className={"cityDiv"}>
-                    <h3>START ADDING TO THE ITINERARY BY SEARCHING A LOCATION AND HITTING
-                    THE 'ADD LOCATION' BUTTON</h3>
+                    <h3>SELECT A COUNTRY AND CITY TO BROWSE</h3>
                 </div>
             );
         }

@@ -101,6 +101,7 @@ const locationsReducer = (locations = [], action) => {
         return newArray;
     }
     else if (action.type === "RENDER_LOCATION"){
+        console.log('Locations to render: ', action.payload);
         return action.payload;
     }
     else if (action.type === "ADD_NOTES"){
@@ -109,15 +110,33 @@ const locationsReducer = (locations = [], action) => {
         console.log(index);
         console.log(locations[index]);
         locations[index].notes = notes;
+        console.log('Reducer location Notes: ', locations);
         return locations;
     }
     else if (action.type === "ADD_PHOTOS"){
-        let photos = action.add.files;
+        let photos = action.add.photoFiles; // array of files to add
         let index = action.add.index;
         console.log(index);
         console.log(locations[index]);
-        locations[index].userPhotos.push(photos);
+        function add(photo) {
+            locations[index].userPhotos.push(photo);
+        }
+        photos.forEach(add);
+        console.log('Reducer location Photo: ', locations);
         return locations;
+    } else if (action.type === 'DELETE_PHOTO') {
+        let imgIndex = action.delete.imgIndex;
+        let locID = action.delete.locID;
+        let newArray = locations.slice();
+        let locIndex = newArray.findIndex((item) => {
+           return locID === item.id;
+        });
+        let newPhotos = locations[locIndex].userPhotos;
+        newPhotos.splice(imgIndex, 1);
+        locations[locIndex].userPhotos = newPhotos;
+        console.log('Reducer location Remove Photo: ', locations);
+        let testArray = locations.slice();
+        return testArray; 
     } else if (action.type === "RESET"){
         let locations = [];
         return locations;
@@ -233,25 +252,50 @@ const countryReducer = (countries = [], action) =>{
 
 const defaultView = {
     byID:{
-        city: 0, //**** set to -1 if nothing to render
+        city: -1, //**** set to -1 if nothing to render
     }
 };
 const currentViewReducer = (currentView = defaultView, action) => {
    if(action.type === "CHANGE_VIEW"){
         return action.newView;
     }
+    if(action.type === 'RESET'){
+        return {
+            byID: {
+                city: -1
+            }
+        }
+    }
     return currentView;
 };
 
-let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: "", end: ""}]}, action) =>{
+let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: "", end: ""}], files: []}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
             ...itinerary,
             name: action.name
         };
+    } else if (action.type === 'ADD_FILES'){
+        let newFiles = action.add;
+        let oldFiles = itinerary.files !== undefined ? itinerary.files : [];
+        function add(file) {
+            oldFiles.push(file);
+        }
+        newFiles.forEach(add);
+        itinerary.files = oldFiles;
+        console.log('Reducer itinerary files: ', itinerary);
+        return itinerary;
+        
+    } else if (action.type === 'DELETE_FILE'){
+        let fileIndex = action.delete;
+        let oldFiles = itinerary.files !== undefined ? itinerary.files : [];
+        oldFiles.splice(fileIndex, 1);
+        itinerary.files = oldFiles;
+        console.log('Reducer itinerary files: ', itinerary);
+        return itinerary;
     }
     else if (action.type === 'RESET'){
-        let newItinerary =  { name: "ENTER NAME HERE", dateRanges : [{start: "", end: ""}]};
+        let newItinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: "", end: ""}], files: []};
         return newItinerary;
     }
     else if (action.type === 'CHANGE_DATE_ITINERARY'){
@@ -280,6 +324,7 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
         }
     }
     else if (action.type === "SET_ITINERARY"){
+        console.log('Itinerary name:', action.payload.name);
         return action.payload
     }
     return itinerary;
@@ -294,6 +339,12 @@ const currentItineraryReducer = (currentItinerary = null, action) => {
     }
 
     return currentItinerary;
+}
+
+const editItineraryIDReducer = (id = null, action) => {
+    if(action.type === "EDIT_ITINERARY") {
+        return action.edit;
+    } return id;
 }
 
 const currentItineraryObjectIDReducer = (id = null, action) => {
@@ -340,5 +391,6 @@ export default combineReducers({
     currentItinerary: currentItineraryReducer,
     currentItineraryID: currentItineraryObjectIDReducer,
     authentication: authenticationReducer,
-    currentUserProfile: currentUserProfileReducer
+    currentUserProfile: currentUserProfileReducer,
+    editItineraryID: editItineraryIDReducer
 });

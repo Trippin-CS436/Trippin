@@ -115,20 +115,7 @@ class Dates extends React.Component{
 
     render() {
 
-        let datesComponent =(
-            <div className={"datesDiv"}>
-                <ul className={"zeroPad zeroMarg displayInline"}>
-                {this.props.place.dateRanges.map((date,index) => (
-                    <li key={index}>{format(new Date(date.value[0]), 'yyyy/MM/dd') + " - " + format(new Date(date.value[1]), 'yyyy/MM/dd')}</li>
-                ))}
-            </ul>
-                <div className={"buttonCalendar"}>
-                    <IconButton  aria-label="Edit" name="Edit" >
-                        <DateRangeIcon className={"edit-btn"} style={{ color: green[500] }}/>
-                    </IconButton>
-                </div>
-            </div>
-        );
+        let datesComponent = null;
         return(
             <div className={this.props.class+ ""}>
 

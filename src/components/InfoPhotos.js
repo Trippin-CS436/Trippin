@@ -23,15 +23,20 @@ class InfoPhotos extends React.Component {
 
 
 
+
     render() {
-        
+        let photos = this.state.photos;
+        if (photos === undefined) {
+            photos = [];
+        }
+        console.log('Photos to render', photos);
         return(
             <div className="photos">
             <div className="photos-display">
             <Paper elevation={2} style={{maxWidth: 700, maxHeight: 250, overflow: 'auto', margin: "1rem 1rem 1rem 1rem"}}>
 
             <GridList className="gridList" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', width: 1000, spacing: "0"}} cols={10}>
-          {this.state.photos.map((url) => (
+          {photos.map((url) => (
             <GridListTile style={{width: "200px", spacing: "0", height: "200px"}} key={url} cols={10}>
             {}
               <img src={url} />
