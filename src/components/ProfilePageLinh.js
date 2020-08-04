@@ -15,20 +15,17 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {GoogleLogout} from 'react-google-login';
 import Button from "@material-ui/core/Button";
-import withStyles from "@material-ui/core/styles/withStyles";
+import { withStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import Popup from "reactjs-popup";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import IconButton from "@material-ui/core/IconButton";
+import { StylesProvider } from '@material-ui/core/styles';
 
 const title = "My Itinerary";
 
 let shareUrlObjectID = '';
 
-const mapContainerStyle = {
-    height: '400px',
-    width: '600px',
-};
 
 const center = {lat: -28.024, lng: 140.887};
 
@@ -122,15 +119,33 @@ class ProfilePageLinh extends React.Component {
     };
 
     render() {
-        const StyledButton = withStyles({
+        const style = theme =>({
             root: {
-                position: 'relative',
                 background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
                 borderRadius: 7,
                 border: 0,
                 color: 'white',
+                [theme.breakpoints.up('md')]: {
+                    position: 'relative',
+                    height: 48,
+                    padding: '0 30px',
+                    fontSize: '12pt',
+                    left: "25%",
+                    right: "25%",
+                    minWidth: "30px"
+                },
+                [theme.breakpoints.down('md')]: {
+                    position: 'fixed',
+                    height: 25,
+                    padding: '0 30px',
+                    fontSize: '10pt',
+                    right: "10px",
+                    top: "10px",
+                    minWidth: "30px"
+                }
             }
-        })(Button);
+        });
+        const StyledButton = withStyles(style)(Button);
         const SectionBox = withStyles({
             root: {
                 position: 'relative',
@@ -255,6 +270,14 @@ class ProfilePageLinh extends React.Component {
             return returnRendering;
         };
 
+        const mapContainerStyle = {
+            height: '20%',
+            minHeight: '300px',
+            width: '90%',
+            left: '5%',
+            marginTop: '10px',
+            marginBottom: '10px'
+        };
 
         const MapWithMarkerClusterer = () => {
             return (
@@ -357,7 +380,7 @@ class ProfilePageLinh extends React.Component {
                     </div>
                     {this.props.authentication.isGoogle ? (<GoogleLogout
                             render={(renderProps) => (
-                                <StyledButton className="logout-button" onClick={renderProps.onClick}
+                                <StyledButton onClick={renderProps.onClick}
                                               disabled={renderProps.disabled}> LOGOUT </StyledButton>)}
                             clientId="839868194801-vofkpao3v7j2ktes9ojrramfk16gk9ec.apps.googleusercontent.com"
                             buttonText="Logout"
@@ -365,7 +388,7 @@ class ProfilePageLinh extends React.Component {
                             onFailure={this.googleLogOutFailure}
                         >
                         </GoogleLogout>) :
-                        (<StyledButton className="logout-button" onClick={(e) => {
+                        (<StyledButton onClick={(e) => {
                             e.preventDefault();
                             this.fbLogOut()
                         }}> LOGOUT </StyledButton>)}
