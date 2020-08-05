@@ -1,5 +1,5 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
+import {Grid, withStyles} from "@material-ui/core";
 import City from "./City";
 import './Itinerary.css';
 import Map from "./Map";
@@ -19,6 +19,8 @@ import LocationButton from "./LocationButton";
 import SaveButton from "./SaveButton";
 import {useParams} from "react-router-dom";
 import {reset} from '../actions/reset';
+import {Resizable, ResizableBox} from "react-resizable";
+import DragHandleIcon from "@material-ui/core/SvgIcon/SvgIcon";
 const { uuid } = require('uuidv4');
 
 
@@ -45,19 +47,22 @@ class NewItineraries extends React.Component {
                 <React.Fragment>
                     <div><Navbar/></div>
                     <div>
-                        <div className={classes.leftPanel}>
-                            <div className= {"top-panel"}>
-                                <Itinerary editName={true}/>
-                                <div className={classes.bottomPanel}>
-                                    <div style={{marginTop: 5}}>
-                                    </div>
-                                    <Map/>
+                        <Resizable resizeHandles={['s']}>
+                            <ResizableBox width="100%" height={400} handle={<div className={`custom-handle`}><DragHandleIcon/> </div>}
+                                          minConstraints={[0, 0]} maxConstraints={[1000, 1000]}>
+                                <Map/>
+                            </ResizableBox>
+                        </Resizable>
+                        <Grid container spacing={0}>
+                            <Grid item sm={12} lg={4} style={{marginBottom: '25px'}}>
+                                <div>
+                                    <Itinerary editName={true} />
                                 </div>
-                            </div>
-                        </div>
-                        <div className={`${classes.rightPanel} ${classes.table}`}>
-                            <City />
-                        </div>
+                            </Grid>
+                            <Grid item sm={12} lg={8}>
+                                <City />
+                            </Grid>
+                        </Grid>
                     </div>
                 </React.Fragment>
             </div>

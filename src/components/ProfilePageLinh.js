@@ -114,7 +114,7 @@ class ProfilePageLinh extends React.Component {
     fbLogOut = () => {
         console.log(window);
         console.log("got here!");
-        window.FB.logout((response) => {console.log(response)});
+        // window.FB.logout((response) => {console.log(response)});
         console.log("got to window.FB");
         console.log(this.props.authentication);
         this.props.logOut();

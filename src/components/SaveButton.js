@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import axios from 'axios'; 
-import {saveItinerary, getCurrentItineraryID} from "../actions"
+import {saveItinerary, getCurrentItineraryID, updateUserItinerary} from "../actions"
 import {reset} from "../actions/reset";
 const { uuid } = require('uuidv4');
 
@@ -29,6 +29,8 @@ class SaveButton extends React.Component {
             };
             this.props.saveItinerary(Itinerary);
         }
+        let itineraries = this.props.authentication.itineraries;
+        itineraries.push(Itinerary.id);
 
         //console.log(Itinerary.id);
         this.props.getCurrentItineraryID(Itinerary.id);
@@ -51,7 +53,12 @@ class SaveButton extends React.Component {
                 console.log("Going to call post");
                 axios.post("http://localhost:9000/itinerary/save", Itinerary)
                     .then(res => {
-                        console.log("Itinerary added to db and the Object id is "  + res.data);
+                        console.log("saved new itinerary")
+                        axios.patch("http://localhost:9000/user/save/itineraries/" + this.props.authentication.id, {itineraries:itineraries})
+                            .then((res) => {
+                                console.log("updating reducers")
+                                this.props.updateUserItinerary(itineraries)
+                            })
                     })
                     .catch(err => {
                         console.log(err);
@@ -75,7 +82,8 @@ const mapStateToProps = (state) =>{
         countries: state.countries,
         currentItineraryID: state.currentItineraryID,
         itinerary: state.itinerary,
+        authentication: state.authentication,
     };
 };
 
-export default connect(mapStateToProps, {reset, saveItinerary,getCurrentItineraryID})(SaveButton);
+export default connect(mapStateToProps, {updateUserItinerary,reset, saveItinerary,getCurrentItineraryID})(SaveButton);
