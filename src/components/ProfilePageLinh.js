@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {logOut, updateUserArchived, updateUserItinerary} from "../actions/index";
+import {logOut, updateUserArchived, updateUserItinerary, changeView} from "../actions/index";
 import "./ProfilePageLinh.css";
 import {GoogleMap, LoadScript, MarkerClusterer, Marker} from "@react-google-maps/api";
 import {
@@ -66,6 +66,7 @@ const locations = [
 class ProfilePageLinh extends React.Component {
     constructor(props) {
         super(props);
+        this.props.changeView(-1);
         this.state = {
             names: [],
             shareUrlObjectID: [],
@@ -111,7 +112,7 @@ class ProfilePageLinh extends React.Component {
     fbLogOut = () => {
         console.log(window);
         console.log("got here!");
-        // window.FB.logout((response) => {console.log(response)});
+        window.FB.logout((response) => {console.log(response)});
         console.log("got to window.FB");
         console.log(this.props.authentication);
         this.props.logOut();
@@ -271,8 +272,7 @@ class ProfilePageLinh extends React.Component {
         };
 
         const mapContainerStyle = {
-            height: '20%',
-            minHeight: '300px',
+            height: "300px",
             width: '90%',
             left: '5%',
             marginTop: '10px',
@@ -406,4 +406,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, {logOut, updateUserArchived, updateUserItinerary})(ProfilePageLinh)
+export default connect(mapStateToProps, {logOut, updateUserArchived, updateUserItinerary, changeView})(ProfilePageLinh)
