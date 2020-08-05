@@ -134,7 +134,7 @@ class Itinerary extends React.Component {
         //Itinerary is not being edited
         if (!this.state.editItinerary){
             return (
-                <div>
+                <div id={"itinerary-div"}>
                     <h1 className={"itinerary_name"}>{this.props.itinerary.name}</h1>
                     <IconButton  className={"edit-btn"} aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
                         <EditOutlinedIcon />
@@ -285,10 +285,9 @@ class Itinerary extends React.Component {
             <React.Fragment>
                 <div className={"itineraryHeader"}>
                     {this.renderItineraryName()}
-                </div>
-                <div className={"itineraryHeader"}>
                     <Dates place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
                 </div>
+
                 {this.renderItinerary()}
                 {/*<City/>*/}
                 {/*<LocationButton/>*/}
