@@ -79,8 +79,8 @@ class Login extends React.Component {
     render() {
         console.log(window);
         return (
-            <div className='bg-login'>
-                    <img className="smallIcon-login" src={require("../assets/trippin-logo-bottom.png")}></img>
+            <div className='bg-login' style={{textAlign: 'center'}}>
+                    <img className="smallIcon-login" style={{width:"1000px", height:"1000px", top: '-5%'}}src={require("../assets/trippin-logo-bottom.png")}></img>
                 <br/>
                 <GoogleLogin
                     clientId="839868194801-vofkpao3v7j2ktes9ojrramfk16gk9ec.apps.googleusercontent.com"
@@ -112,5 +112,8 @@ const mapStateToProps = (state) => { //name is by convention
     }; //now it will appear as props
 };
 
+const smallIconStyle = {
+
+}
 
 export default connect(mapStateToProps, { logIn, logOut })(withRouter(Login));

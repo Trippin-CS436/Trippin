@@ -27,6 +27,7 @@ const containerStyle = {
 
 
 
+
 class Map extends React.Component {
     constructor(props) {
     super(props);
@@ -342,5 +343,6 @@ class Map extends React.Component {
 
     }
 }
+
 
 export default connect(null, {getLocation})(React.memo(Map));
