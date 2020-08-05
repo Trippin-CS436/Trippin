@@ -177,8 +177,11 @@ class Map extends React.Component {
     onPlaceChanged = () => {
         // if (this.autocomplete !== null) {
             // console.log(this.autocomplete.getPlace())
-         
         const place = this.autocomplete.getPlace();
+        if(place.address_components === undefined){
+            alert("Please Select From The Search Box's Suggested Location, If A Location Is Not Present, Google Map Cannot Find Your Search");
+        } else {
+        console.log("--------This is testing getPlace-------------");
         console.log(place);
         const address = place.formatted_address,
             placeId = place.place_id,
@@ -258,7 +261,7 @@ class Map extends React.Component {
         console.log("This is Map State");
         console.log(this.state)
         this.props.getLocation(mapLocation);
-    };
+    }};
 
     displayDetails = () => {
         if (this.state.placeId !== null && this.state.placeId !== ''){

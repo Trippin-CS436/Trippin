@@ -64,7 +64,10 @@ class Login extends React.Component {
            let name =  response.getBasicProfile().getGivenName();
            let email =  response.getBasicProfile().getEmail();
            let profilePic =  response.getBasicProfile().getImageUrl();
-            this.logInfo(response, name, email, profilePic, true);
+           profilePic = profilePic.split("96-c")[0] + "140-c";
+           console.log("----This is the Profile Pic After Substring-------");
+           console.log(profilePic);
+           this.logInfo(response, name, email, profilePic, true);
         console.log(JSON.stringify(this.props.authentication));
     };
 
