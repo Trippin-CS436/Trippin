@@ -81,7 +81,7 @@ class CityReadOnly extends React.Component {
             <div className={"cityDiv"}>
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
                 <div className={"bottomBorder"}>
-                    <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
+                    <DatesReadOnly place={cityToRender} class={"datesDiv"} type={"city"}/>
                 </div>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>

@@ -248,8 +248,6 @@ class ItineraryReadOnly extends React.Component {
             <React.Fragment>
                 <div className={"itineraryHeader"}>
                     {this.renderItineraryName()}
-                </div>
-                <div className={"itineraryHeader"}>
                     <DatesReadOnly place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"} {...this.props}/>
                 </div>
                 {this.renderItinerary()}
