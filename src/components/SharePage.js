@@ -66,7 +66,7 @@ class SharePage extends Component {
         return (
             <React.Fragment>
             <Navbar />
-            <Grid container spacing={0} style={{backgroundColor: 'inherit'}}>
+            <Grid container spacing={0} style={{}}>
                 <Grid item sm={12} lg={4} style={{marginBottom: '25px'}}>
                     <div>
                         <ItineraryReadOnly {...this.props}/>

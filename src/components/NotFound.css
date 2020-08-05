@@ -2,7 +2,7 @@
     background-image: none;
     position: relative;
     z-index: 1;
-    color: white;
+    color: red;
     display: block;
     font-size: 4em;
     max-width: 100%;
@@ -36,6 +36,6 @@
     max-width: 100%;
     min-width: 888px;
 }
-html{
+html,body{
     background: repeat linear-gradient(315deg, #7f5a83 0%, #0b2c43 74%);
 }
