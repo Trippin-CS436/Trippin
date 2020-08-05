@@ -7,12 +7,13 @@
 }
 .cityDiv{
     font: 30px 'Jost';
-    background-color: #ebeced;
+    background-color: #121212;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin: 25px 25px;
     border-radius: 25px;
     padding: 2rem 25px;
     min-width: 500px;
+    color: white
 }
 
 .locationsDiv{
@@ -66,7 +67,7 @@
 
 }
 .buttonDiv button:hover{
-    background-color: rgba(244, 85, 30, 0.65);
+    background-color: #ec407a;
 }
 
 .top-panel {
@@ -111,10 +112,11 @@
     margin-bottom: 25px;
     border-radius: 25px;
 
-    position: fixed;
-    right: 10px;
+    position: absolute;
+    right: 20px;
     top: 100px;
     height: 200px;
     overflow-y: scroll;
+    z-index: 15;
 }
 

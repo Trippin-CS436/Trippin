@@ -150,21 +150,25 @@ class ProfilePageLinh extends React.Component {
             }
         });
         const StyledButton = withStyles(style)(Button);
-        const SectionBox = withStyles({
+        const sectionStyle = theme => ({
             root: {
                 position: 'relative',
-                background: 'linear-gradient(315deg, #32407b 0%, #515585 74%)',
-                borderRadius: 15,
-                border: 0,
-                color: 'white',
-                height: 48,
-                width: '80%',
-                padding: '30px',
-                fontSize: '10pt',
-                fontWeight: '700',
-                margin: '15px 15px 0px'
+                    background: 'linear-gradient(315deg, #32407b 0%, #515585 74%)',
+                    borderRadius: 15,
+                    border: 0,
+                    color: 'white',
+                    height: 48,
+                    width: '80%',
+                    padding: '30px',
+                    fontSize: '10pt',
+                    fontWeight: '700',
+                    margin: '15px 15px 0px',
+                [theme.breakpoints.down('md')]: {
+                    width: '90%'
+                }
             }
-        })(Button);
+        });
+        const SectionBox = withStyles(sectionStyle)(Button);
         const SectionButton = withStyles({
             root: {
                 position: 'relative',

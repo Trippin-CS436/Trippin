@@ -10,6 +10,7 @@ import {addMsg, deleteMsg, selectMsg} from "../actions";
 import { Redirect } from "react-router-dom"
 import Collapsible from "react-collapsible";
 import { Resizable, ResizableBox } from 'react-resizable';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 
 import {
     changeView,
@@ -96,21 +97,18 @@ class Itineraries extends React.Component {
                     <div><Navbar/></div>
                     <div>
                         <Resizable resizeHandles={['s']}>
-                            <ResizableBox width="100%" height={400} handle={(h) => <button className={`custom-handle`} />}
-                                          minConstraints={[100, 100]} maxConstraints={[1000, 1000]}>
+                            <ResizableBox width="100%" height={400} handle={<div className={`custom-handle`}><DragHandleIcon/> </div>}
+                                          minConstraints={[0, 0]} maxConstraints={[1000, 1000]}>
                                 <Map/>
                             </ResizableBox>
                         </Resizable>
                         <Grid container spacing={0}>
-                            <Grid item sm={12} lg={6}>
+                            <Grid item sm={12} lg={4} style={{marginBottom: '25px'}}>
                                 <div>
                                     <Itinerary />
-                                    <div>
-                                            <SaveButton style={{marginTop: 5}}/>
-                                    </div>
                                 </div>
                             </Grid>
-                            <Grid item sm={12} lg={6}>
+                            <Grid item sm={12} lg={8}>
                                     <City />
                             </Grid>
                         </Grid>

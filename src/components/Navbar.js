@@ -29,11 +29,14 @@ const useStyles = makeStyles((theme) => ({
     },
     appBar: {
         height: "50px",
-        bachgroundColor: "#000000"
+        bachgroundColor: "#000000",
+        width: "100vw"
     },
     toolBar: {
         background: '#121212',
-        top: "-7px"
+        top: "-7px",
+        width: "100vw"
+
     }
 }));
 
@@ -66,7 +69,7 @@ function Navbar(props) {
                 <Toolbar className={classes.toolBar}>
 
                     <div className={"smallIcon"}>
-                        <Link to={"/userprofile"}><img src={require("../assets/trippin-logo.png")}></img></Link>
+                        <Link to={"/userprofile"}><img src={require("../assets/logo_white.png")}/></Link>
                     </div>
                     <Typography variant="h6" className={classes.title}>
 

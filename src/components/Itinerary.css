@@ -1,18 +1,19 @@
 .itinerary_name{
     margin: 0px 0px 0px 10px;
-    font-size: 2em;
+    font-size: 1.5em;
     display: inline-block;
 }
 .country_name{
     margin: 0px 0px 0px 10px;
-    font-size: 1.5em;
+    font-size: 1.2em;
     display: inline-block;
 }
 .itinerary_dates{
     font-size: 1.1em;
 }
-#itinerary-div{
-    margin-top: 15px;
+.itinerary-div{
+    position: relative;
+    margin-top: 40px;
     margin-left: 15px;
     margin-bottom: 10px;
 }
@@ -56,7 +57,8 @@ h1{
     font-size: 0.75em;
 }
 .item-font{
-    font-size: 1.25em;
+    font-size: 14pt;
+    font-family: Helvetica;
 }
 
 .addLocationButton{
@@ -78,11 +80,12 @@ h1{
     display: inline-block;
 }
 .itineraryHeader{
-    background-color: #ebeced;
+    background-color: #b4004e;
     padding: 1rem 0.5rem 0.2rem 2rem;
-    border-radius: 25px;
-    margin-bottom: 1rem;
+    border-radius: 25px 25px 0px 0px;
     font: 20px Karla;
+    margin: 25px 25px 0px 25px;
+    color: white;
 }
 
 

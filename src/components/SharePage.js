@@ -12,6 +12,10 @@ import {
 } from '../actions';
 import {connect} from "react-redux";
 import {Redirect, Route} from "react-router";
+import {Grid} from "@material-ui/core";
+import Itinerary from "./Itinerary";
+import City from "./City";
+import Navbar from "./Navbar";
 
 class SharePage extends Component {
         constructor(props){
@@ -60,10 +64,19 @@ class SharePage extends Component {
             );
         }
         return (
-            <div style={{color:"black"}}>
-                <ItineraryReadOnly {...this.props}/>
-                <CityReadOnly {...this.props}/>
-            </div>
+            <React.Fragment>
+            <Navbar />
+            <Grid container spacing={0} style={{backgroundColor: 'inherit'}}>
+                <Grid item sm={12} lg={4} style={{marginBottom: '25px'}}>
+                    <div>
+                        <ItineraryReadOnly {...this.props}/>
+                    </div>
+                </Grid>
+                <Grid item sm={12} lg={8}>
+                    <CityReadOnly {...this.props}/>
+                </Grid>
+            </Grid>
+            </React.Fragment>
         )
     }
 }

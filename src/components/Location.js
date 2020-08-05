@@ -149,26 +149,26 @@ class Location extends React.Component {
                 <div className={"buttonDiv"}>
 
                 <IconButton className={"btn"} aria-label="Info" name="Info" onClick={this.handleInfoBtnClick}>
-                <ExpandMoreOutlinedIcon />
+                <ExpandMoreOutlinedIcon style={{color: "white"}} />
                 </IconButton>
 
 
                 <IconButton className={"btn"} aria-label="Edit" name="Edit" onClick={this.handleEditBtnClick}>
-                <NotesOutlinedIcon />
+                <NotesOutlinedIcon style={{color: "white"}}/>
                 </IconButton>
 
 
 
                 <IconButton className={"btn"} aria-label="Photo" name="Photo" onClick={this.handlePhotoBtnClick}>
-                <PhotoCameraOutlinedIcon />
+                <PhotoCameraOutlinedIcon style={{color: "white"}}/>
                 </IconButton>
                 
                 <IconButton aria-label="AddPhoto" name="AddPhoto" onClick={this.handleOpen.bind(this)} >
-                <AddAPhotoOutlinedIcon />
+                <AddAPhotoOutlinedIcon style={{color: "white"}}/>
                 </IconButton>
 
                 <IconButton className={"btn"} aria-label="Delete"  name="Delete" onClick={() => this.props.deleteLocation(this.props.id)}>
-                <DeleteOutlineRoundedIcon />
+                <DeleteOutlineRoundedIcon style={{color: "white"}}/>
                 </IconButton>
 
 
