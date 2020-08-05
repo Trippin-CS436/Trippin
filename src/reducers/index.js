@@ -26,6 +26,8 @@ const mapLocationReducer = (state = defaultMapLocation, action) => {
             }
         case 'RESET':
             return defaultMapLocation;
+        case 'RESET_MAP':
+            return defaultMapLocation;
         default:
             return state;
     }

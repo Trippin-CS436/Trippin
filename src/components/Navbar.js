@@ -14,6 +14,8 @@ import Menu from '@material-ui/core/Menu';
 import blue from "@material-ui/core/colors/blue";
 import {connect} from "react-redux";
 import {Avatar} from "@material-ui/core";
+import {Link} from "react-router-dom";
+import {logOut} from "../actions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,15 +56,17 @@ function Navbar(props) {
         setAnchorEl(null);
     };
 
+    const handleCloseAndLogOut = () => {
+        setAnchorEl(null);
+        props.logOut();
+    };
     return (
         <div className={classes.root}>
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar className={classes.toolBar}>
-                    <IconButton edge="start" className={classes.menuButton} aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
+
                     <div className={"smallIcon"}>
-                        <img src={require("../assets/logo_white.png")}></img>
+                        <Link to={"/userprofile"}><img src={require("../assets/trippin-logo.png")}></img></Link>
                     </div>
                     <Typography variant="h6" className={classes.title}>
 
@@ -93,8 +97,8 @@ function Navbar(props) {
                                 open={open}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                <MenuItem onClick={handleClose}>My account</MenuItem>
+                                <MenuItem onClick={handleClose}><Link to={"/userprofile"}>Profile</Link></MenuItem>
+                                <MenuItem onClick={handleCloseAndLogOut}>Log Out</MenuItem>
                             </Menu>
 
                         </div>
@@ -110,4 +114,4 @@ const mapStateToProps = (state) => { //name is by convention
         authentication: state.authentication
     }; //now it will appear as props
 };
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps,{logOut})(Navbar);

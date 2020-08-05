@@ -30,6 +30,7 @@ import SaveButton from "./SaveButton";
 import "./Lists.css";
 import "./Expandable.css"
 import {useParams} from "react-router-dom";
+import { resetMap } from '../actions/resetMap';
 import Button from "@material-ui/core/Button";
 
 class Itineraries extends React.Component {
@@ -46,6 +47,7 @@ class Itineraries extends React.Component {
     }
 
     componentDidMount(){
+        this.props.resetMap();
         // get the itinerary id
         console.log(this.state.id);
         if (!this.props.authentication.itineraries.includes(this.state.id)){
@@ -87,8 +89,6 @@ class Itineraries extends React.Component {
             return (<Redirect to="/userprofile"/>)
         }
         const { classes } = this.props;
-
-
         console.log(this.props.locations);
         return(
             <div className={classes.bg + " bgScroll"} >
@@ -144,6 +144,26 @@ const muiStyles = {
         color: "#000000",
         fontSize: "30px"
     },
+    rightPanel: {
+        position: "absolute",
+        // height: "100vh",
+        left: "50vw",
+        width: "50vw",
+    },
+    leftPanel: {
+        position: "absolute",
+        //height: "100vh",
+        width: "50vw",
+        top: "6vh"
+    },
+    bottomPanel: {
+        position: "relative",
+        //height: "100vh",
+        width: "50vw",
+    },
+    table: {
+        top: "5vh"
+    }
 };
 
 const dispatch = {
@@ -158,5 +178,6 @@ const dispatch = {
     deleteCountry,
     deleteLocation,
     setItineraryFromDB,
+    resetMap
 };
 export default connect(mapStateToProps, dispatch)(withStyles(muiStyles)(Itineraries));
