@@ -37,7 +37,7 @@ class Itinerary extends React.Component {
         super(props);
         this.state = {
             openUpload: false,
-            editItinerary: false,
+            editItinerary: this.props.editName,
             name: this.props.itinerary.name,
             openDialog: false,
             idToDelete: null,
@@ -122,6 +122,14 @@ class Itinerary extends React.Component {
             }
         }
     }
+    keyPressed(e){
+        if (e.keyCode == 13){
+            if (this.state.name.length > 0 ){
+                this.props.itineraryNameChange(this.state.name);
+            }
+            this.setState({editItinerary: !this.state.editItinerary});
+        }
+    }
     renderItineraryName(){
         //Itinerary is not being edited
         if (!this.state.editItinerary){
@@ -151,6 +159,7 @@ class Itinerary extends React.Component {
                                     error ={this.state.name.length === 0 ? true : false }
                                     helperText={this.state.name.length === 0 ? "Itinerary name cannot be empty!" : "" }
                                     defaultValue={this.props.itinerary.name}
+                                    onKeyDown={this.keyPressed.bind(this)}
                                     inputProps={{
                                         style: {
                                             fontSize: "2.5em",

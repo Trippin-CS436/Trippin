@@ -47,7 +47,7 @@ class NewItineraries extends React.Component {
                     <div>
                         <div className={classes.leftPanel}>
                             <div className= {"top-panel"}>
-                                <Itinerary />
+                                <Itinerary editName={true}/>
                                 <div className={classes.bottomPanel}>
                                     <div style={{marginTop: 5}}>
                                     </div>
