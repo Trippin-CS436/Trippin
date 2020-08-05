@@ -15,6 +15,7 @@ import blue from "@material-ui/core/colors/blue";
 import {connect} from "react-redux";
 import {Avatar} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import {logOut} from "../actions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,6 +55,10 @@ function Navbar(props) {
         setAnchorEl(null);
     };
 
+    const handleCloseAndLogOut = () => {
+        setAnchorEl(null);
+        props.logOut();
+    };
     return (
         <div className={classes.root}>
             <AppBar position="static" className={classes.appBar}>
@@ -92,7 +97,7 @@ function Navbar(props) {
                                 onClose={handleClose}
                             >
                                 <MenuItem onClick={handleClose}><Link to={"/userprofile"}>Profile</Link></MenuItem>
-                                <MenuItem onClick={handleClose}>Log Out</MenuItem>
+                                <MenuItem onClick={handleCloseAndLogOut}>Log Out</MenuItem>
                             </Menu>
 
                         </div>
@@ -108,4 +113,4 @@ const mapStateToProps = (state) => { //name is by convention
         authentication: state.authentication
     }; //now it will appear as props
 };
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps,{logOut})(Navbar);
