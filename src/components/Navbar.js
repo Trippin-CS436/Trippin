@@ -74,26 +74,26 @@ function Navbar(props) {
                                 onClick={handleMenu}
                                 color="inherit"
                             >
-                                <Link to={"/userprofile"}><Avatar src={authentication.profilePic} /></Link>
+                                <Avatar src={authentication.profilePic} />
                             </IconButton>
-                            {/*<Menu*/}
-                            {/*    id="menu-appbar"*/}
-                            {/*    anchorEl={anchorEl}*/}
-                            {/*    anchorOrigin={{*/}
-                            {/*        vertical: 'top',*/}
-                            {/*        horizontal: 'right',*/}
-                            {/*    }}*/}
-                            {/*    keepMounted*/}
-                            {/*    transformOrigin={{*/}
-                            {/*        vertical: 'top',*/}
-                            {/*        horizontal: 'right',*/}
-                            {/*    }}*/}
-                            {/*    open={open}*/}
-                            {/*    onClose={handleClose}*/}
-                            {/*>*/}
-                            {/*    <MenuItem onClick={handleClose}>Profile</MenuItem>*/}
-                            {/*    <MenuItem onClick={handleClose}>My account</MenuItem>*/}
-                            {/*</Menu>*/}
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={open}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={handleClose}><Link to={"/userprofile"}>Profile</Link></MenuItem>
+                                <MenuItem onClick={handleClose}>Log Out</MenuItem>
+                            </Menu>
 
                         </div>
                     )}
