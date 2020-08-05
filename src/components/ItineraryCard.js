@@ -17,9 +17,9 @@ export const ItineraryCard = ({itineraryData, index}) => {
             <br />
         </p>
         <ul className="info">
-            <li><LocationOnSharpIcon style={{width: 40, height: 40}}/><span>{locations.length}</span></li>
-            <li><FlagOutlinedIcon style={{width: 40, height: 40}}/><span>{countries.length}</span></li>
-            <li><LocationCityRoundedIcon style={{width: 40, height: 40}} /><span>{cities.length}</span></li>
+            <li><LocationOnSharpIcon style={{width: 40, height: 40, color: "white"}}/><span>{locations.length}</span></li>
+            <li><FlagOutlinedIcon style={{width: 40, height: 40, color: "white"}}/><span>{countries.length}</span></li>
+            <li><LocationCityRoundedIcon style={{width: 40, height: 40, color: "white"}} /><span>{cities.length}</span></li>
         </ul>
 
 

@@ -26,6 +26,7 @@ class MapInfo extends React.Component {
         this.state = {
             mapLocation: this.props.mapLocation,
             info: this.props.mapLocation.Info,
+            address: this.props.mapLocation.Address,
             phone: this.props.mapLocation.Info.placePhoneNumber,
             website: this.props.mapLocation.Info.placeWebsite,
             status: this.props.mapLocation.Info.placeStatus,
@@ -51,6 +52,17 @@ class MapInfo extends React.Component {
             })
         }
     }
+    
+     addressDisplay = () => {
+      if (this.state.address !== undefined && this.state.address !== ''){
+        return (
+          <Box fontWeight="fontWeightLight" p={2} borderColor="transparent">
+          <Typography variant="h5" >Address</Typography>
+          <Typography variant="subtitle1"> {this.state.address}</Typography>
+          </Box>
+        )
+       } else return null;
+      }
 
     phoneDisplay = () => {
         if (this.state.phone !== undefined && this.state.phone !== ''){
@@ -200,6 +212,8 @@ class MapInfo extends React.Component {
             <Box  borderColor="transparent"  fontWeight="fontWeightBold" borderBottom={1} p={1} mb={2}>
             <Typography>LOCATION INFORMATION</Typography>
             </Box>
+
+           {this.addressDisplay()}
 
            {this.phoneDisplay()}
 

@@ -1,13 +1,17 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
+import {Grid, withStyles} from "@material-ui/core";
 import City from "./City";
 import './Itinerary.css';
+import './Expandable.css';
 import Map from "./Map";
 import Navbar from "./Navbar";
 import {connect} from "react-redux";
 import {addMsg, deleteMsg, selectMsg} from "../actions";
 import { Redirect } from "react-router-dom"
 import Collapsible from "react-collapsible";
+import { Resizable, ResizableBox } from 'react-resizable';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
+
 import {
     changeView,
     renderLocation,
@@ -27,6 +31,8 @@ import SaveButton from "./SaveButton";
 import "./Lists.css";
 import "./Expandable.css"
 import {useParams} from "react-router-dom";
+import { resetMap } from '../actions/resetMap';
+import Button from "@material-ui/core/Button";
 
 class Itineraries extends React.Component {
     constructor(props){
@@ -42,6 +48,7 @@ class Itineraries extends React.Component {
     }
 
     componentDidMount(){
+        this.props.resetMap();
         // get the itinerary id
         console.log(this.state.id);
         if (!this.props.authentication.itineraries.includes(this.state.id)){
@@ -89,19 +96,22 @@ class Itineraries extends React.Component {
                 <React.Fragment>
                     <div><Navbar/></div>
                     <div>
-                        <div className={classes.leftPanel}>
-                            <div className= {"top-panel"}>
-                                <Itinerary />
-                                <div className={classes.bottomPanel}>
-                                    <div style={{marginTop: 5}}>
-                                    </div>
-                                    <Map/>
+                        <Resizable resizeHandles={['s']}>
+                            <ResizableBox width="100%" height={400} handle={<div className={`custom-handle`}><DragHandleIcon/> </div>}
+                                          minConstraints={[0, 0]} maxConstraints={[1000, 1000]}>
+                                <Map/>
+                            </ResizableBox>
+                        </Resizable>
+                        <Grid container spacing={0}>
+                            <Grid item sm={12} lg={4} style={{marginBottom: '25px'}}>
+                                <div>
+                                    <Itinerary />
                                 </div>
-                            </div>
-                        </div>
-                        <div className={`${classes.rightPanel} ${classes.table}`}>
-                            <City />
-                        </div>
+                            </Grid>
+                            <Grid item sm={12} lg={8}>
+                                    <City />
+                            </Grid>
+                        </Grid>
                     </div>
                 </React.Fragment>
             </div>
@@ -166,5 +176,6 @@ const dispatch = {
     deleteCountry,
     deleteLocation,
     setItineraryFromDB,
+    resetMap
 };
 export default connect(mapStateToProps, dispatch)(withStyles(muiStyles)(Itineraries));

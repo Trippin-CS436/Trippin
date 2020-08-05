@@ -1,18 +1,19 @@
 .Collapsible {
      background-color: white;
+    margin: 0 25px;
  }
 .Collapsible__contentInner {
-    padding: 20px;
     border: 1px solid lightGrey;
     border-top: 0;
+    padding: 5px 20px;
+    font-size: 16pt;
 }
 .Collapsible__contentInner p {
-    margin-bottom: 10px;
-    font-size: 14px;
-    line-height: 20px;
+    padding: 5px 20px;
+    font-size: 16pt;
 }
 .Collapsible__contentInner p:last-child {
-    margin-bottom: 0;
+    margin-bottom: 25px;
 }
 .Collapsible__trigger {
     display: block;
@@ -21,11 +22,12 @@
     position: relative;
     border: 1px solid white;
     padding: 10px;
-    background: midnightblue;
+    background: #121212;
     color: white;
+    font-size: 18pt;
 }
 .Collapsible__trigger:after {
-    font-family: 'FontAwesome';
+    font-family: 'Helvetica';
     content: '\f107';
     position: absolute;
     right: 10px;
@@ -52,4 +54,87 @@
     font-size: 12px;
     background-color: #cbb700;
     color: black;
+}
+
+.react-resizable {
+    position: relative;
+}
+.react-resizable-handle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    box-sizing: border-box;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2IDYiIHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiNmZmZmZmYwMCIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2cHgiIGhlaWdodD0iNnB4Ij48ZyBvcGFjaXR5PSIwLjMwMiI+PHBhdGggZD0iTSA2IDYgTCAwIDYgTCAwIDQuMiBMIDQgNC4yIEwgNC4yIDQuMiBMIDQuMiAwIEwgNiAwIEwgNiA2IEwgNiA2IFoiIGZpbGw9IiMwMDAwMDAiLz48L2c+PC9zdmc+');
+    background-position: bottom right;
+    padding: 0 3px 3px 0;
+}
+.react-resizable-handle-sw {
+    bottom: 0;
+    left: 0;
+    cursor: sw-resize;
+    transform: rotate(90deg);
+}
+.react-resizable-handle-se {
+    bottom: 0;
+    right: 0;
+    cursor: se-resize;
+}
+.react-resizable-handle-nw {
+    top: 0;
+    left: 0;
+    cursor: nw-resize;
+    transform: rotate(180deg);
+}
+.react-resizable-handle-ne {
+    top: 0;
+    right: 0;
+    cursor: ne-resize;
+    transform: rotate(270deg);
+}
+.react-resizable-handle-w,
+.react-resizable-handle-e {
+    top: 50%;
+    margin-top: -10px;
+    cursor: ew-resize;
+}
+.react-resizable-handle-w {
+    left: 0;
+    transform: rotate(135deg);
+}
+.react-resizable-handle-e {
+    right: 0;
+    transform: rotate(315deg);
+}
+.react-resizable-handle-n,
+.react-resizable-handle-s {
+    left: 50%;
+    margin-left: -10px;
+    cursor: ns-resize;
+}
+.react-resizable-handle-n {
+    top: 0;
+    transform: rotate(225deg);
+}
+.react-resizable-handle-s {
+    bottom: 0;
+    transform: rotate(45deg);
+}
+
+.custom-handle {
+    position: relative;
+    background-color: #ec407a;
+    left: 49%;
+    height: 1.3em;
+    width: 3em;
+    font-size: 10pt;
+    color: whitesmoke;
+    text-align: center;
+    justify-content: center;
+    margin-top: -10px;
+    align-content: center;
+    border-radius: 5px;
+
+
 }

@@ -7,12 +7,13 @@
 }
 .cityDiv{
     font: 30px 'Jost';
-    background-color: #ebeced;
+    background-color: #121212;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin: 25px 25px;
     border-radius: 25px;
     padding: 2rem 25px;
     min-width: 500px;
+    color: white
 }
 
 .locationsDiv{
@@ -66,10 +67,11 @@
 
 }
 .buttonDiv button:hover{
-    background-color: rgba(244, 85, 30, 0.65);
+    background-color: #ec407a;
 }
 
 .top-panel {
+    position: relative;
     padding: 0.5rem 3rem 2rem 1rem;
     margin: 1rem 1rem 1rem 1rem;
     height: auto;
@@ -77,6 +79,7 @@
 }
 
 .bottom-panel {
+    position: relative;
     font: 25px 'Jost';
     margin-top: 2rem;
     margin-left: 1rem;
@@ -97,5 +100,23 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+}
+
+.map-info {
+    font: 25px 'Jost';
+    margin-top: 2rem;
+    margin-left: 1rem;
+    padding: 1rem 1rem;
+    background-color: #ebeced;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 25px;
+    border-radius: 25px;
+
+    position: absolute;
+    right: 20px;
+    top: 100px;
+    height: 200px;
+    overflow-y: scroll;
+    z-index: 15;
 }
 

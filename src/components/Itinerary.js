@@ -231,7 +231,7 @@ class Itinerary extends React.Component {
         let cities = this.props.cities;
         let citiesReference = this.props.cities;
         let locations = this.props.locations;
-        console.log(this.state.deletionIsCountry)
+        console.log(this.state.deletionIsCountry);
         if (this.state.deletionIsCountry){
             //cascade deletes to every city and location in delete country
             cities = cities.filter((item) => item.countryID === this.state.idToDelete);

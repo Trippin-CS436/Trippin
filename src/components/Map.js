@@ -263,6 +263,7 @@ class Map extends React.Component {
         this.props.getLocation(mapLocation);
     }};
 
+/*
     displayDetails = () => {
         if (this.state.placeId !== null && this.state.placeId !== ''){
             return (     
@@ -276,11 +277,12 @@ class Map extends React.Component {
                 ) 
         } else return null;
     }
+*/
 
     displayLocationInfo = () => {
         if (this.state.placeId !== null && this.state.placeId !== ''){
             return (     
-                <div className="bottom-panel">
+                <div className="map-info">
                 <MapInfo />
                 </div>
                 ) 
@@ -294,10 +296,8 @@ class Map extends React.Component {
         
         return (
 
-            <div style={{ width: '85%', height: '450px', padding: "3rem 1rem"}}>
-
-            {this.displayDetails()}
-
+            <div style={{ width: '100%', height: '100%', padding: "0 1rem"}}>
+                <React.Fragment>
                 <LoadScript
                     googleMapsApiKey={process.env.REACT_APP_API_KEY}
                     libraries={["places"]}
@@ -305,7 +305,7 @@ class Map extends React.Component {
                     <GoogleMap
                         mapContainerStyle={containerStyle}
                         zoom={8}
-                        center={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
+                        center={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng + 1 }}
                     >
                         <Marker
                             draggable={true}
@@ -345,10 +345,10 @@ class Map extends React.Component {
               }}
             />
             </Autocomplete>
-                    </GoogleMap> 
+                    </GoogleMap>
                 </LoadScript>
-
-                {this.displayLocationInfo()}
+                    {this.displayLocationInfo()}
+                </React.Fragment>
             </div>
         );
 
