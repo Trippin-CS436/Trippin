@@ -323,7 +323,7 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
         return itinerary;
     }
     else if (action.type === 'RESET'){
-        let newItinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: "", end: ""}], files: []};
+        let newItinerary = { name: "Enter Name of Itinerary", dateRanges : [], files: []};
         return newItinerary;
     }
     else if (action.type === 'CHANGE_DATE_ITINERARY'){
