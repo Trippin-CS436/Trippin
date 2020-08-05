@@ -40,7 +40,7 @@ class Photos extends React.Component {
         <GridList className="gridList" style={{ transform: 'translateZ(0)', display: 'flex', flexWrap: 'nowrap', justifyContent: 'space-around', spacing: "0"}} cols={5}>
           {photosToRender.map((photo, index) => (
             <GridListTile  key={photo.name} >
-            <img src={URL.createObjectURL(photo)} alt="User Image" />
+            <img src={photo} alt="User Image" />
             <GridListTileBar
               title={photo.name}
               actionIcon={
