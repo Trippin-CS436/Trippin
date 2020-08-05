@@ -81,7 +81,7 @@ class ProfilePageLinh extends React.Component {
         let names = [];
         let shareUrlObjectID = [];
         for (const itineraryID of this.props.authentication.itineraries) {
-            promises.push(axios.get("http://localhost:9000/itinerary/" + itineraryID));
+            promises.push(axios.get("/itinerary/" + itineraryID));
         }
         Promise.all(promises).then(response => {
             let i = 0;
@@ -187,10 +187,10 @@ class ProfilePageLinh extends React.Component {
 
         const deleteItineraryFunction = (id) => {
             let updatedIdList = this.props.authentication.itineraries.filter(item => (item !== id));
-            axios.patch('http://localhost:9000/user/save/itineraries/' + this.props.authentication.id,
+            axios.patch('/user/save/itineraries/' + this.props.authentication.id,
                 {itineraries: updatedIdList}).then( res => {
                 this.props.updateUserItinerary(updatedIdList);
-                axios.delete('http://localhost:9000/itinerary/delete/' + id).then(resp => console.log(resp)).catch(err => console.log(err));
+                axios.delete('/itinerary/delete/' + id).then(resp => console.log(resp)).catch(err => console.log(err));
             }).catch(err => console.log(err));
 
 
@@ -257,7 +257,7 @@ class ProfilePageLinh extends React.Component {
                         <EmailShareButton
                             key={itineraryID}
                             className='center-button'
-                            url={"localhost:3000/shared/" + this.state.shareUrlObjectID[i]}
+                            url={"https://trippin436.herokuapp.com/shared/" + this.state.shareUrlObjectID[i]}
                             subject={title}
                             body="body"
                         >
@@ -266,7 +266,7 @@ class ProfilePageLinh extends React.Component {
                         <FacebookShareButton
                             key={itineraryID}
                             className='center-button'
-                            url={"localhost:3000/shared/" + this.state.shareUrlObjectID[i]}
+                            url={"https://trippin436.herokuapp.com/shared/" + this.state.shareUrlObjectID[i]}
                             quote={title}
                         >
                             <FacebookIcon size={32} round/>

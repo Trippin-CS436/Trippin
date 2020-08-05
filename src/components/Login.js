@@ -13,8 +13,7 @@ class Login extends React.Component {
     }
 
     logInfo(response, name, email, profilePic, method) {
-        console.log("http://localhost:9000/user/" + email);
-        axios.get("http://localhost:9000/user/" + email).then(
+        axios.get("/user/" + email).then(
             res => {
                 if (res.data.length > 0) {
                     this.props.logIn({
@@ -29,7 +28,7 @@ class Login extends React.Component {
                         archived: res.data[0].archived
                     });
                 } else {
-                    axios.post("http://localhost:9000/user/newUser/", {email: email}).then(
+                    axios.post("/user/newUser/", {email: email}).then(
                         resp => {
                             this.props.logIn({
                                 id: resp,

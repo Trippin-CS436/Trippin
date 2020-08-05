@@ -55,7 +55,7 @@ class Itineraries extends React.Component {
             this.setState({invalidID:true});
             return;
         }
-        axios.get("http://localhost:9000/itinerary/" + this.state.id)
+        axios.get("/itinerary/" + this.state.id)
             .then(response => {
                 if(response.data.length > 0){
                     console.log(response.data);
@@ -135,12 +135,13 @@ const mapStateToProps = (state) => { //name is by convention
 const muiStyles = {
     bg: {
         position: "absolute",
-        height: "100vh",
-        width: "100vw",
+        width: "100%",
         top: "0",
         left: "0",
         color: "#000000",
-        fontSize: "30px"
+        fontSize: "30px",
+        backgroundImage: "linear-gradient(315deg, #7f5a83 0%, #0b2c43 74%)",
+        backgroundRepeat: "repeat-y",
     },
     rightPanel: {
         position: "absolute",

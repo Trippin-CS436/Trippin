@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import Home from "./Home";
 import Map from "./Map";
 import NewItineraries from "./NewItineraries";
@@ -30,7 +30,9 @@ function App() {
                 <AuthRoute path="/userprofile">
                     <ProfilePageLinh />
                 </AuthRoute>
-                <AuthRoute exact path="/" />
+                <AuthRoute exact path="/">
+                    <Redirect to={"/userprofile"}/>
+                </AuthRoute>
                 <AuthRoute path="/itineraries/:id" component={EditItineraries} />
                 <AuthRoute exact path="/archive">
                     <Archive />
