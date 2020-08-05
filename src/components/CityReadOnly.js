@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Collapsible from "react-collapsible";
 import LocationReadOnly from "./LocationReadOnly";
 import DatesReadOnly from "./DatesReadOnly";
+import Dates from "./Dates";
 
 
 class CityReadOnly extends React.Component {
@@ -79,7 +80,9 @@ class CityReadOnly extends React.Component {
         return (
             <div className={"cityDiv"}>
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
-                <DatesReadOnly place={cityToRender} class={"datesDiv bottomBorder"} type={"city"} {...this.props}/>
+                <div className={"bottomBorder"}>
+                    <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
+                </div>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (
