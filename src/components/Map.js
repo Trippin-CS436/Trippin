@@ -248,11 +248,15 @@ class Map extends React.Component {
             placeArea: this.state.area,
             placeCountry: this.state.country,
             info: this.state.info,
+            lat: this.state.mapPosition.lat,
+            lon: this.state.mapPosition.lng,
         }
         // Reducer call to update the name of the facility and address
         console.log('OnPlaceChange call', mapLocation);
         console.log("This is Map Location");
         console.log(mapLocation);
+        console.log("This is Map State");
+        console.log(this.state)
         this.props.getLocation(mapLocation);
     };
 

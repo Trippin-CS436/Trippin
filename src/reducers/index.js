@@ -22,7 +22,9 @@ const mapLocationReducer = (state = defaultMapLocation, action) => {
                 PlacesId: action.payload.placeId,
                 Info: action.payload.info,
                 Area: action.payload.placeArea,
-                Country: action.payload.placeCountry
+                Country: action.payload.placeCountry,
+                lat: action.payload.lat,
+                lon: action.payload.lon,
             }
         case 'RESET':
             return defaultMapLocation;
@@ -118,6 +120,8 @@ const authenticationReducer = (authentication = userState, action) => {
 const locationsReducer = (locations = [], action) => {
     if (action.type === "NEW_LOCATION"){
         let newLocation = action.payload;
+        console.log("IN REDUCER")
+        console.log(action.payload)
         return locations.concat(newLocation);
     }
     else if (action.type === "DEL_LOCATION"){

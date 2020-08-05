@@ -145,9 +145,9 @@ class Itinerary extends React.Component {
 
                     <AttachmentModal onOpen={this.state.openUpload}
                         onClose={this.handleOpen.bind(this)}>
-          <DropPhotos />
-        </AttachmentModal>
-      </div>
+                      <DropPhotos />
+                    </AttachmentModal>
+                </div>
             );
         } else{
             return(

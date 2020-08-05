@@ -93,6 +93,7 @@ class Login extends React.Component {
                     fields="name,email,picture.type(large)"
                     callback={this.responseFacebook}
                     cssClass="facebook"/>
+
             </div>
 
         )

@@ -34,7 +34,8 @@ class AddLocationButton extends React.Component {
     addLocationToItinerary = () => {
         let isCitiesEmpty = (this.props.cities.length === 0) ? true : false
         let currentMapLocation = this.props.mapLocation;
-
+        console.log("CURRENT MAP LOCATION")
+        console.log(currentMapLocation)
         let city = currentMapLocation.Area;
         let cityID = uuid();
 
@@ -42,7 +43,9 @@ class AddLocationButton extends React.Component {
         let country = currentMapLocation.Country;
         let location = currentMapLocation.Name;
         let info = currentMapLocation.Info;
-        // get the Url Photos; 
+        let lat = currentMapLocation.lat;
+        let lon = currentMapLocation.lon;
+        // get the Url Photos;
 
 
         if (info === undefined) {
@@ -73,7 +76,9 @@ class AddLocationButton extends React.Component {
                         info: info,
                         notes: '',
                         userPhotos: [],
-                        cityID: cityID
+                        cityID: cityID,
+                        lat: lat,
+                        lon: lon,
                     }
                     this.props.addLocation(newLocation);
                 }
@@ -95,7 +100,9 @@ class AddLocationButton extends React.Component {
                             info: info,
                             notes: '',
                             userPhotos: [],
-                            cityID: cityID
+                            cityID: cityID,
+                            lat: lat,
+                            lon: lon,
                         }
                         this.props.addLocation(newLocation);
                     }
@@ -119,7 +126,9 @@ class AddLocationButton extends React.Component {
                         info: info,
                         notes: '',
                         userPhotos: [],
-                        cityID: cityID
+                        cityID: cityID,
+                        lat: lat,
+                        lon: lon,
                     }
                     this.props.addLocation(newLocation);
                 }
