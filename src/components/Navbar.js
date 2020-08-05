@@ -14,6 +14,7 @@ import Menu from '@material-ui/core/Menu';
 import blue from "@material-ui/core/colors/blue";
 import {connect} from "react-redux";
 import {Avatar} from "@material-ui/core";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,11 +58,9 @@ function Navbar(props) {
         <div className={classes.root}>
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar className={classes.toolBar}>
-                    <IconButton edge="start" className={classes.menuButton} color="blue" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
+
                     <div className={"smallIcon"}>
-                        <img src={require("../assets/trippin-logo.png")}></img>
+                        <Link to={"/userprofile"}><img src={require("../assets/trippin-logo.png")}></img></Link>
                     </div>
                     <Typography variant="h6" className={classes.title}>
 
@@ -75,26 +74,26 @@ function Navbar(props) {
                                 onClick={handleMenu}
                                 color="inherit"
                             >
-                                <Avatar src={authentication.profilePic} />
+                                <Link to={"/userprofile"}><Avatar src={authentication.profilePic} /></Link>
                             </IconButton>
-                            <Menu
-                                id="menu-appbar"
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-                                open={open}
-                                onClose={handleClose}
-                            >
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                <MenuItem onClick={handleClose}>My account</MenuItem>
-                            </Menu>
+                            {/*<Menu*/}
+                            {/*    id="menu-appbar"*/}
+                            {/*    anchorEl={anchorEl}*/}
+                            {/*    anchorOrigin={{*/}
+                            {/*        vertical: 'top',*/}
+                            {/*        horizontal: 'right',*/}
+                            {/*    }}*/}
+                            {/*    keepMounted*/}
+                            {/*    transformOrigin={{*/}
+                            {/*        vertical: 'top',*/}
+                            {/*        horizontal: 'right',*/}
+                            {/*    }}*/}
+                            {/*    open={open}*/}
+                            {/*    onClose={handleClose}*/}
+                            {/*>*/}
+                            {/*    <MenuItem onClick={handleClose}>Profile</MenuItem>*/}
+                            {/*    <MenuItem onClick={handleClose}>My account</MenuItem>*/}
+                            {/*</Menu>*/}
 
                         </div>
                     )}
