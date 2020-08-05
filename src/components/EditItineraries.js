@@ -27,6 +27,7 @@ import SaveButton from "./SaveButton";
 import "./Lists.css";
 import "./Expandable.css"
 import {useParams} from "react-router-dom";
+import { resetMap } from '../actions/resetMap';
 
 class Itineraries extends React.Component {
     constructor(props){
@@ -42,6 +43,7 @@ class Itineraries extends React.Component {
     }
 
     componentDidMount(){
+        this.props.resetMap();
         // get the itinerary id
         console.log(this.state.id);
         if (!this.props.authentication.itineraries.includes(this.state.id)){
@@ -167,5 +169,6 @@ const dispatch = {
     deleteCountry,
     deleteLocation,
     setItineraryFromDB,
+    resetMap
 };
 export default connect(mapStateToProps, dispatch)(withStyles(muiStyles)(Itineraries));
