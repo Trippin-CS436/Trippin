@@ -19,6 +19,7 @@ import LocationButton from "./LocationButton";
 import SaveButton from "./SaveButton";
 import {useParams} from "react-router-dom";
 import {reset} from '../actions/reset';
+const { uuid } = require('uuidv4');
 
 
 class NewItineraries extends React.Component {
@@ -32,6 +33,7 @@ class NewItineraries extends React.Component {
     
     componentDidMount() {
         this.props.reset();
+        this.props.saveItinerary({id:uuid()})
     }
 
 
