@@ -124,13 +124,14 @@ class ProfilePageLinh extends React.Component {
     render() {
         const style = theme =>({
             root: {
-                background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-                borderRadius: 7,
+                background: '#ec407a',
+                borderRadius: 15,
                 border: 0,
-                color: 'white',
+                color: '#212121',
+                fontWeight: '700',
                 [theme.breakpoints.up('md')]: {
                     position: 'relative',
-                    height: 48,
+                    height: 40,
                     padding: '0 30px',
                     fontSize: '12pt',
                     left: "25%",
@@ -152,29 +153,29 @@ class ProfilePageLinh extends React.Component {
         const SectionBox = withStyles({
             root: {
                 position: 'relative',
-                background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-                borderRadius: 7,
+                background: 'linear-gradient(315deg, #32407b 0%, #515585 74%)',
+                borderRadius: 15,
                 border: 0,
                 color: 'white',
                 height: 48,
-                width: '83%',
+                width: '80%',
                 padding: '30px',
-                fontSize: '12pt',
-                fontWeight: '500',
+                fontSize: '10pt',
+                fontWeight: '700',
                 margin: '15px 15px 0px'
             }
         })(Button);
         const SectionButton = withStyles({
             root: {
                 position: 'relative',
-                background: 'linear-gradient(45deg, #7fdbda 30%, #ade498 90%)',
-                borderRadius: 7,
+                background: "#ec407a",
+                borderRadius: 15,
                 border: 0,
                 color: '#212121',
                 height: 45,
                 padding: '20px',
                 fontSize: '12pt',
-                fontWeight: '500',
+                fontWeight: '600',
                 margin: '30px 15px',
                 left: "40%"
             }
@@ -275,10 +276,10 @@ class ProfilePageLinh extends React.Component {
 
         const mapContainerStyle = {
             height: "300px",
-            width: '90%',
-            left: '5%',
+            width: '80%',
+            left: '10%',
             marginTop: '10px',
-            marginBottom: '10px'
+            marginBottom: '15px'
         };
 
         const MapWithMarkerClusterer = () => {
@@ -353,20 +354,20 @@ class ProfilePageLinh extends React.Component {
             <React.Fragment>
                 <div className="right-panel">
                     <div className="profile-logo-panel">
-                        <img className="logo-position" src={require("../assets/trippin-logo.png")}/>
+                        <img className="logo-position" src={require("../assets/logo_white.png")}/>
                     </div>
                     <div className="logo-panel-placeholder"/>
                     <section id="upcoming" className="section-box">
-                        <h2> You have {this.props.authentication.itineraries.length} upcoming Trips in </h2>
+                        <h2 className="h2"> You have {this.props.authentication.itineraries.length} upcoming Trips in </h2>
                         <ItineraryList/>
-                        <SectionButton> <Link to={"/itineraries"}>NEW ITINERARY </Link></SectionButton>
+                        <SectionButton className='noHover' href="/itineraries">NEW ITINERARY</SectionButton>
                     </section>
                     <section id="visited" className="section-box">
-                        <h2> You have visited {this.props.authentication.visited.length} places! </h2>
+                        <h2 className="h2"> You have visited {this.props.authentication.visited.length} places! </h2>
                         <MapWithMarkerClusterer/>
                     </section>
                     <section id="archived" className="section-box">
-                        <h2>Look back at your past trips here!</h2>
+                        <h2 className="h2">Look back at your past trips here!</h2>
                     </section>
                 </div>
                 <div className="profile-left-panel">

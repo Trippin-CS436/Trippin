@@ -20,7 +20,7 @@ section {
     bottom: 0;
     left: 0;
     width: 20%;
-    background-color: #22252c;
+    background-color: #121317;
     text-align: left;
     align-content: center;
     text-overflow: fade;
@@ -52,14 +52,15 @@ section {
     height: 100%;
     text-align: left;
     align-content: center;
-    background-color: #212121;
+    background-color: #745278;
+    background-image: linear-gradient(315deg, #7f5a83 0%, #0b2c43 74%);
     overflow: scroll;
     z-index: 9;
 }
 
 .profile-logo-panel {
     position: fixed;
-    background-color: #212121;
+    background-color: #121212;
     top: 0;
     left: 0;
     width: 100%;
@@ -85,13 +86,23 @@ section {
     width: 100%;
 }
 
+.right-panel-text {
+    font-family: "Helvetica";
+    font-size: 16pt;
+}
+
+.h2 {
+    font-family: "Roboto";
+    font-size: 20pt;
+    font-weight: 700;
+    padding: 0 30px;
+}
 
 .section-box {
     color: whitesmoke;
-    background-color: #2b2b2b;
-    border-radius: 10px;
-    box-shadow: 0 0 8px 5px #57333f;
-    margin: 20px 40px 20px 20px ;
+    background-color: #121212;
+    border-radius: 15px;
+    margin: 30px 40px;
     padding: 20px;
     transition: background-color 1s;
     z-index: 5;
@@ -187,10 +198,6 @@ section {
     position: relative;
     top: 20px;
     margin: 3px;
-}
-
-.section-box:hover {
-    background-color: #323540;
 }
 
 .profile-img {

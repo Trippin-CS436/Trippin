@@ -256,6 +256,7 @@ class Map extends React.Component {
         this.props.getLocation(mapLocation);
     };
 
+/*
     displayDetails = () => {
         if (this.state.placeId !== null && this.state.placeId !== ''){
             return (     
@@ -269,11 +270,12 @@ class Map extends React.Component {
                 ) 
         } else return null;
     }
+*/
 
     displayLocationInfo = () => {
         if (this.state.placeId !== null && this.state.placeId !== ''){
             return (     
-                <div className="bottom-panel">
+                <div className="map-info">
                 <MapInfo />
                 </div>
                 ) 
@@ -287,9 +289,7 @@ class Map extends React.Component {
         
         return (
 
-            <div style={{ width: '85%', height: '450px', padding: "3rem 1rem"}}>
-
-            {this.displayDetails()}
+            <div style={{ width: '100%', height: '100%', padding: "0 1rem"}}>
 
                 <LoadScript
                     googleMapsApiKey={process.env.REACT_APP_API_KEY}

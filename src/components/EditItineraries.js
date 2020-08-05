@@ -1,13 +1,16 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
+import {Grid, withStyles} from "@material-ui/core";
 import City from "./City";
 import './Itinerary.css';
+import './Expandable.css';
 import Map from "./Map";
 import Navbar from "./Navbar";
 import {connect} from "react-redux";
 import {addMsg, deleteMsg, selectMsg} from "../actions";
 import { Redirect } from "react-router-dom"
 import Collapsible from "react-collapsible";
+import { Resizable, ResizableBox } from 'react-resizable';
+
 import {
     changeView,
     renderLocation,
@@ -27,6 +30,7 @@ import SaveButton from "./SaveButton";
 import "./Lists.css";
 import "./Expandable.css"
 import {useParams} from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 class Itineraries extends React.Component {
     constructor(props){
@@ -83,26 +87,33 @@ class Itineraries extends React.Component {
             return (<Redirect to="/userprofile"/>)
         }
         const { classes } = this.props;
+
+
         console.log(this.props.locations);
         return(
             <div className={classes.bg + " bgScroll"} >
                 <React.Fragment>
                     <div><Navbar/></div>
                     <div>
-                        <div className={classes.leftPanel}>
-                            <div className= {"top-panel"}>
-                                <Itinerary />
-                                <div className={classes.bottomPanel}>
-                                    <div style={{marginTop: 5}}>
-                                        <SaveButton/>
+                        <Resizable resizeHandles={['s']}>
+                            <ResizableBox width="100%" height={400} handle={(h) => <button className={`custom-handle`} />}
+                                          minConstraints={[100, 100]} maxConstraints={[1000, 1000]}>
+                                <Map/>
+                            </ResizableBox>
+                        </Resizable>
+                        <Grid container spacing={0}>
+                            <Grid item sm={12} lg={6}>
+                                <div>
+                                    <Itinerary />
+                                    <div>
+                                            <SaveButton style={{marginTop: 5}}/>
                                     </div>
-                                    <Map/>
                                 </div>
-                            </div>
-                        </div>
-                        <div className={`${classes.rightPanel} ${classes.table}`}>
-                            <City />
-                        </div>
+                            </Grid>
+                            <Grid item sm={12} lg={6}>
+                                    <City />
+                            </Grid>
+                        </Grid>
                     </div>
                 </React.Fragment>
             </div>
@@ -133,26 +144,6 @@ const muiStyles = {
         color: "#000000",
         fontSize: "30px"
     },
-    rightPanel: {
-        position: "absolute",
-        // height: "100vh",
-        left: "50vw",
-        width: "50vw",
-    },
-    leftPanel: {
-        position: "absolute",
-        //height: "100vh",
-        width: "50vw",
-        top: "6vh"
-    },
-    bottomPanel: {
-        position: "relative",
-        //height: "100vh",
-        width: "50vw",
-    },
-    table: {
-        top: "5vh"
-    }
 };
 
 const dispatch = {

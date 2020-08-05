@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
         bachgroundColor: "#000000"
     },
     toolBar: {
+        background: '#121212',
         top: "-7px"
     }
 }));
@@ -57,11 +58,11 @@ function Navbar(props) {
         <div className={classes.root}>
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar className={classes.toolBar}>
-                    <IconButton edge="start" className={classes.menuButton} color="blue" aria-label="menu">
+                    <IconButton edge="start" className={classes.menuButton} aria-label="menu">
                         <MenuIcon />
                     </IconButton>
                     <div className={"smallIcon"}>
-                        <img src={require("../assets/trippin-logo.png")}></img>
+                        <img src={require("../assets/logo_white.png")}></img>
                     </div>
                     <Typography variant="h6" className={classes.title}>
 
