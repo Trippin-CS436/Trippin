@@ -297,7 +297,7 @@ const currentViewReducer = (currentView = defaultView, action) => {
     return currentView;
 };
 
-let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: "", end: ""}], files: []}, action) =>{
+let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [], files: []}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
             ...itinerary,

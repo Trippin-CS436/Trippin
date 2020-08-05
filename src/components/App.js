@@ -15,6 +15,7 @@ import ProfilePageLinh from "./ProfilePageLinh";
 import SharePage from "./SharePage";
 import EditItineraries from "./EditItineraries";
 import NotFound from "./NotFound";
+import Lists from './Lists'
 
 
 
@@ -26,7 +27,6 @@ function App() {
             <div>
                 <Switch>
                 <Route path="/shared/:id" component={SharePage} />
-                <AuthRoute exact path="/" />
                 <AuthRoute path="/userprofile">
                     <ProfilePageLinh />
                 </AuthRoute>
@@ -37,7 +37,7 @@ function App() {
                 <AuthRoute exact path="/itineraries">
                     <NewItineraries />
                 </AuthRoute>
-                <AuthRoute exact path="/login">
+                <Route path="/login">
                     <Login />
                 </Route>
                 <AuthRoute path="/map">

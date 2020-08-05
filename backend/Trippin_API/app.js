@@ -19,7 +19,7 @@ const uri =  "mongodb+srv://trippin_admin:trippin_admin_123@trippin-ue6od.mongod
 mongoose.connect(uri, {useNewUrlParser: true,  useUnifiedTopology: true,  useFindAndModify: false });
 
 const connection = mongoose.connection;
-const port = 6000;
+const port = 9000;
 
 
 connection.once("open", function() {
