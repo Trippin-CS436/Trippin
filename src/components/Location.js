@@ -86,12 +86,34 @@ class Location extends React.Component {
         });
     }
  
-    handleSave(photos) {
+     encoder =(file) => {
+    // encode function 
+    let encode = new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+     reader.onloadend = function() {
+    console.log('RESULT', reader.result);
+    resolve(reader.result);
+    } 
+    });
+    let testPhoto = null;
+    testPhoto = encode.then(photo => {
+        return photo;
+    });
+    return testPhoto;
+    }
+ 
+    async handleSave(photos) {
         this.setState({
             photoFiles: photos,
             open: false
         });
-        this.props.addPhotos({photoFiles: photos, index: this.state.index});
+        let photoArray = [];
+        photos.forEach(photo => photoArray.push(this.encoder(photo)));
+        Promise.all(photoArray).then((photosEncoded) => {
+            console.log("Photos: ", photosEncoded);
+            this.props.addPhotos({photoFiles: photosEncoded, index: this.state.index});
+          });
     }
 
     handleOpen() {
@@ -129,7 +151,7 @@ class Location extends React.Component {
             onSave={this.handleSave.bind(this)}
             acceptedFiles={['image/jpeg', 'image/png', 'image/bmp','image/gif', 'video/mpeg']}
             showPreviews={true}
-            maxFileSize={5000000}
+            maxFileSize={100000}
             onClose={this.handleClose.bind(this)}
         />
         )
