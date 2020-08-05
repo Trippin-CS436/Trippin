@@ -78,6 +78,10 @@ h1{
 }
 .itineraryHeader{
     background-color: #ebeced;
+    padding: 1rem 0.5rem 0.2rem 2rem;
+    border-radius: 25px;
+    margin-bottom: 1rem;
+    font: 20px Karla;
 }
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect }  from 'react-redux';
 import './AddLocationButton.css';
-import { addLocation } from "../actions/addLocation";
+import {addLocation, changeView, insertNewCity, insertNewCountry} from "../actions";
 
 const { uuid } = require('uuidv4');
 
@@ -31,35 +31,108 @@ class AddLocationButton extends React.Component {
     }
 
 
-
-    addLocationToItinerary = () =>{
-        console.log('Adding Location to Itinerary');
+    addLocationToItinerary = () => {
+        let isCitiesEmpty = (this.props.cities.length === 0) ? true : false
         let currentMapLocation = this.props.mapLocation;
 
         let city = currentMapLocation.Area;
+        let cityID = uuid();
+
+        let address = currentMapLocation.Address;
         let country = currentMapLocation.Country;
         let location = currentMapLocation.Name;
+        let info = currentMapLocation.Info;
+        // get the Url Photos; 
+
+
+        if (info === undefined) {
+            info = {placeWebsite: 'NOT AVAILABLE',
+        placeReviews: [],
+    placePhotos: [],
+    placePhoneNumber: 'NOT AVAILABLE',
+    placeRating: null,
+    placeTypes: [],
+    placeStatus: '',
+    placePhotoUrls: []
+    };
+        }
+        if (country === "")
+            return
 
         if(this.props.countries.map(item => item.name).includes(country)){
             if(this.props.cities.map(item => item.name).includes(city)){
-                let cityID = this.props.cities.filter((item) => {return item.name == city})[0].id;
+                //Country and City exist in itinerary
+                let cityID = this.props.cities.filter((item) => {return item.name === city})[0].id;
                 console.log(cityID);
                 if(!this.props.locations.map(item => item.location).includes(location)){
-                    this.props.addLocation({
-                        id: uuid(),
-                        location: this.props.mapLocation.Name,
-                        address: this.props.mapLocation.Address,
-                        cityID: 0,
-                        info: this.props.mapLocation.Info,
-                        notes: "",
-                        userPhotos: []
-                    });
-                    console.log("valid location");
-                    console.log(this.props.locations);
+                    let locationID = uuid();
+                    let newLocation = {
+                        id: locationID,
+                        location: location,
+                        address: address,
+                        info: info,
+                        notes: '',
+                        userPhotos: [],
+                        cityID: cityID
+                    }
+                    this.props.addLocation(newLocation);
+                }
+            }
+            // Country exists but city doesn't
+            //New city to add
+            else {
+                let countryID = this.props.countries.filter((item) => {return item.name === country})[0].id;
+                //New City to add
+                if (city !== ""){
+                    this.props.insertNewCity(cityID,city,countryID)
+                    //New Location to add
+                    if (city !== location){
+                        let locationID = uuid();
+                        let newLocation = {
+                            id: locationID,
+                            location: location,
+                            address: address,
+                            info: info,
+                            notes: '',
+                            userPhotos: [],
+                            cityID: cityID
+                        }
+                        this.props.addLocation(newLocation);
+                    }
                 }
             }
         }
+        else {
+            // No country and no city found
+            //New Country to add
+            let countryID = uuid();
+            //New City to add
+            if (city !== ""){
+                this.props.insertNewCity(cityID,city,countryID)
+                //New Location to add
+                if (city !== location){
+                    let locationID = uuid(); 
+                    let newLocation = {
+                        id: locationID,
+                        location: location,
+                        address: address,
+                        info: info,
+                        notes: '',
+                        userPhotos: [],
+                        cityID: cityID
+                    }
+                    this.props.addLocation(newLocation);
+                }
+            }
+            this.props.insertNewCountry(countryID,country);
+        }
+        console.log(this.props.cities);
+        if (isCitiesEmpty){
+            this.props.changeView(cityID);
+        }
     }
+
+
 
      
     updateButtonMsg = () => {
@@ -110,7 +183,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {addLocation})(AddLocationButton); 
+export default connect(mapStateToProps, {changeView,addLocation,insertNewCountry,insertNewCity})(AddLocationButton); 
 
 
 

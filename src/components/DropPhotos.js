@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import {DropzoneDialog} from 'material-ui-dropzone';
 import  {connect}  from 'react-redux';
 import  {addPhotos} from '../actions/addPhotos';
-import Button from '@material-ui/core/Button';
 import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 import IconButton from '@material-ui/core/IconButton';
+import Photos from "./Photos";
  
 export class DropzoneDialogButton extends Component {
     constructor(props) {
@@ -15,7 +15,7 @@ export class DropzoneDialogButton extends Component {
         });
         this.state = {
             open: false,
-            files: [],
+            photoFiles: [],
             currentLocation: this.props.location[indexOfLocation],
            photos: this.props.location[indexOfLocation].userPhotos,
            index: indexOfLocation
@@ -28,15 +28,18 @@ export class DropzoneDialogButton extends Component {
         });
     }
  
-    handleSave(files) {
-        //Saving files to state for further use and closing Modal.
+    handleSave(photos) {
+        const files = Array.from(photos); // array of photos added to dropzone
+
+
         this.setState({
-            files: files,
+            photoFiles: photos,
             open: false
         });
-        this.props.addPhotos({files: files, index: this.state.index});
+        console.log('Photo files: ', files);
+        this.props.addPhotos({photoFiles: photos, index: this.state.index});
     }
- 
+
     handleOpen() {
         this.setState({
             open: true,
@@ -59,14 +62,16 @@ export class DropzoneDialogButton extends Component {
                     maxFileSize={5000000}
                     onClose={this.handleClose.bind(this)}
                 />
+
+
             </div>
+
         );
     }
 }
 
 const mapStateToProps = (state) => {
     return { 
-        currentLocation: state.currentLocation,
         locations: state.locations,
     }
 }

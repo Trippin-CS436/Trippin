@@ -5,7 +5,8 @@ import './Itinerary.css';
 import Map from "./Map";
 import Navbar from "./Navbar";
 import {connect} from "react-redux";
-import Redirect from "react-router-dom/es/Redirect";
+import {addMsg, deleteMsg, selectMsg} from "../actions";
+import { Redirect } from "react-router-dom"
 import Collapsible from "react-collapsible";
 import {
     changeView,
@@ -19,7 +20,7 @@ import './Itinerary.css';
 import './Iteneraries.css';
 import Dates from "./Dates";
 import axios from "axios";
-import { withRouter} from "react-router";
+import { withRouter } from "react-router";
 import Itinerary from "./Itinerary";
 import LocationButton from "./LocationButton";
 import SaveButton from "./SaveButton";
@@ -34,12 +35,14 @@ class Itineraries extends React.Component {
         this.state = {
             id: this.props.match.params.id,
             invalidID: false,
+            itineraryID: this.props.editItineraryID
         };
        // console.log(this.props.authentication.loginStatus );
         console.log(this.props.match.params.id);
     }
 
     componentDidMount(){
+        // get the itinerary id
         console.log(this.state.id);
         if (!this.props.authentication.itineraries.includes(this.state.id)){
             this.setState({invalidID:true});
@@ -99,7 +102,7 @@ class Itineraries extends React.Component {
                             </div>
                         </div>
                         <div className={`${classes.rightPanel} ${classes.table}`}>
-                            <City/>
+                            <City />
                         </div>
                     </div>
                 </React.Fragment>

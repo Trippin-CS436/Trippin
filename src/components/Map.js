@@ -12,6 +12,7 @@ import { Descriptions } from 'antd';
 import { connect } from 'react-redux';
 import { getLocation } from '../actions/getLocation';
 import MapInfo from "./MapInfo";
+import { resetMap } from "../actions/resetMap";
 
 
 
@@ -55,6 +56,7 @@ class Map extends React.Component {
 }
 
     componentDidMount() {
+        this.props.resetMap();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
                 this.setState({
@@ -192,12 +194,18 @@ class Map extends React.Component {
         // location info
         const placeWebsite = place.website;
         const placeReviews = place.reviews;
-        const placePhotos = place.photos;
         const placePhoneNumber = place.formatted_phone_number;
         const placeRating = place.rating;
         const placeTypes = place.types;
         const placeStatus = place.business_status;
+        const placePhotos = place.photos;
 
+        let placePhotoUrls = [];
+
+        if (placePhotos !== undefined && placePhotos.length > 0) {
+        placePhotoUrls = placePhotos.map((photo) => { return photo.getUrl({'maxWidth': 200, 'maxHeight': 200})});
+        }
+        
         const info = {
             placeWebsite: placeWebsite,
             placeReviews: placeReviews,
@@ -205,9 +213,9 @@ class Map extends React.Component {
             placePhoneNumber: placePhoneNumber,
             placeRating: placeRating,
             placeTypes: placeTypes,
-            placeStatus: placeStatus
+            placeStatus: placeStatus,
+            placePhotoUrls: placePhotoUrls
         }
-
 
         this.setState({
             placeId: (placeId) ? placeId: "",
@@ -330,7 +338,7 @@ class Map extends React.Component {
               }}
             />
             </Autocomplete>
-                    </GoogleMap>
+                    </GoogleMap> 
                 </LoadScript>
 
                 {this.displayLocationInfo()}
@@ -340,4 +348,4 @@ class Map extends React.Component {
     }
 }
 
-export default connect(null, {getLocation})(React.memo(Map));
+export default connect(null, {getLocation, resetMap})(React.memo(Map));

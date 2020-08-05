@@ -15,7 +15,7 @@ class InfoPhotos extends React.Component {
         this.state = {
             currentLocation: this.props.location[indexOfLocation],
             info: this.props.location[indexOfLocation].info,
-           photos: this.props.location[indexOfLocation].info.placePhotos,
+           photos: this.props.location[indexOfLocation].info.placePhotoUrls,
            index: indexOfLocation
            // userImages image object will change when database added: {fileName:"name", fileLoc:"../imgs/name.jpg"}
         };
@@ -23,20 +23,23 @@ class InfoPhotos extends React.Component {
 
 
 
+
     render() {
-        
+        let photos = this.state.photos;
+        if (photos === undefined) {
+            photos = [];
+        }
+        console.log('Photos to render', photos);
         return(
             <div className="photos">
             <div className="photos-display">
-            <Paper elevation={2} style={{maxWidth: 600, maxHeight: 300, overflow: 'auto', margin: "1rem 1rem 1rem 1rem"}}>
+            <Paper elevation={2} style={{maxWidth: 700, maxHeight: 250, overflow: 'auto', margin: "1rem 1rem 1rem 1rem"}}>
 
-        <GridList className="gridList" style={{ display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around', width: 700, height:200, spacing: "0"}} cols={7}>
-          {this.state.photos.map((photo) => (
-            <GridListTile style={{width: "150px"}} key={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})} cols={7}>
-
-              <img src={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})}  />
+            <GridList className="gridList" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', width: 1000, spacing: "0"}} cols={10}>
+          {photos.map((url) => (
+            <GridListTile style={{width: "200px", spacing: "0", height: "200px"}} key={url} cols={10}>
+            {}
+              <img src={url} />
             </GridListTile>
           ))}
         </GridList>

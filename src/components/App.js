@@ -3,16 +3,17 @@ import './App.css';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from "./Home";
 import Map from "./Map";
-import Itineraries from "./Itineraries";
+import NewItineraries from "./NewItineraries";
 import Itinerary from "./Itinerary";
-import Lists from "./Lists";
 import Login from "./Login";
 import './fonts.css';
 import AuthRoute from "./AuthRoute";
 import Navbar from "./Navbar";
+import Archive from "./ArchiveItineraries";
 import ProfilePage from './ProfilePage';
 import ProfilePageLinh from "./ProfilePageLinh";
 import SharePage from "./SharePage";
+import EditItineraries from "./EditItineraries";
 import NotFound from "./NotFound";
 
 
@@ -29,8 +30,14 @@ function App() {
                 <AuthRoute path="/userprofile">
                     <ProfilePageLinh />
                 </AuthRoute>
-                <AuthRoute path="/itineraries/:id" component={Itineraries} />
-                <Route path="/login">
+                <AuthRoute path="/itineraries/:id" component={EditItineraries} />
+                <AuthRoute exact path="/archive">
+                    <Archive />
+                </AuthRoute>
+                <AuthRoute exact path="/itineraries">
+                    <NewItineraries />
+                </AuthRoute>
+                <AuthRoute exact path="/login">
                     <Login />
                 </Route>
                 <AuthRoute path="/map">

@@ -38,7 +38,7 @@ class Info extends React.Component {
             status: this.props.location[indexOfLocation].info.placeStatus,
             rating: this.props.location[indexOfLocation].info.placeRating,
             reviews: this.props.location[indexOfLocation].info.placeReviews,
-            photos: this.props.location[indexOfLocation].info.placePhotos,
+            photos: this.props.location[indexOfLocation].info.placePhotoUrls,
         };
     }
 
@@ -51,10 +51,10 @@ class Info extends React.Component {
           <Paper elevation={2} style={{maxWidth: 700, maxHeight: 200, overflow: 'auto'}}>
 
       <GridList className="gridList" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', width: 700, height:200, spacing: "0"}} cols={7}>
-        {photos.map((photo) => (
-          <GridListTile style={{width: "100px", spacing: "0"}} key={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})} cols={7}>
+        {photos.map((url) => (
+          <GridListTile style={{width: "100px", spacing: "0"}} key={url} cols={7}>
 
-            <img src={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})}  />
+            <img src={url}  />
           </GridListTile>
         ))}
       </GridList>
@@ -73,8 +73,8 @@ class Info extends React.Component {
         if ( reviews !== undefined) {
             if (reviews.length > 0) {
             return (
-                <Box style={{marginBottom: "4rem"}}borderColor="transparent" mb={2} p={1} fontWeight="fontWeightLight">
-                <Typography variant="h5">Reviews</Typography>
+                <Box component="fieldset" style={{marginBottom: "4rem"}}borderColor="transparent" mb={5} p={1} fontWeight="fontWeightLight">
+                <Typography variant="h6">Reviews</Typography>
                 {this.reviewRender(reviews)}
                 </Box>
                 
@@ -137,19 +137,19 @@ class Info extends React.Component {
         
        return(
             <div className="mainInfo">
-            <Box borderColor="transparent" p={3}>
+            <Box borderColor="transparent" p={2}>
 
-               <Box fontWeight="fontWeightLight" component="fieldset"  borderColor="transparent">
+               <Box fontWeight="fontWeightLight" p={2} borderColor="transparent">
                 <Typography variant="h6" >Phone Number</Typography>
                 <Typography variant="body2"> {this.state.phone}</Typography>
                </Box>
 
-               <Box fontWeight="fontWeightLight" component="fieldset"    borderColor="transparent">
+               <Box fontWeight="fontWeightLight" p={2}   borderColor="transparent">
                 <Typography variant="h6" >Website</Typography>
                 <Typography variant="body1">{this.state.website}</Typography>
                </Box>
 
-                <Box component="fieldset" borderColor="transparent" fontWeight="fontWeightLight">
+                <Box  borderColor="transparent" p={2} fontWeight="fontWeightLight">
                 <Typography variant="h6">Rating</Typography>
                 <Rating name="half-rating-read" defaultValue={0} value={ratingValue} precision={0.1} readOnly />
                 </Box>
@@ -157,7 +157,7 @@ class Info extends React.Component {
                 </Box>
 
                 <Box fontWeight="fontWeightLight" p={2} borderColor="transparent">
-                <Typography variant="h5" >Website</Typography>
+                <Typography variant="h6" >Location Photos</Typography>
                 {this.photoDisplay()}
                </Box> 
 

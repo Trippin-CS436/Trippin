@@ -2,12 +2,12 @@ import React from "react";
 import {connect} from "react-redux";
 import axios from 'axios'; 
 import {saveItinerary, getCurrentItineraryID} from "../actions"
+import {reset} from "../actions/reset";
 const { uuid } = require('uuidv4');
 
 class SaveButton extends React.Component {
 
     saveItinerary = () => {
-        console.log("Save itinerary called")
         let Itinerary = {};
         if (this.props.currentItinerary == null) {
             console.log("Current Itinerary has not been saved yet");
@@ -62,7 +62,7 @@ class SaveButton extends React.Component {
 
     render() {
         return (
-            <button className={"addLocationButton"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
+            <button className={"submit-button save-button"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
         )
     }
 }
@@ -78,4 +78,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps, {saveItinerary, getCurrentItineraryID})(SaveButton);
+export default connect(mapStateToProps, {reset, saveItinerary,getCurrentItineraryID})(SaveButton);

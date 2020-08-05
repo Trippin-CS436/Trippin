@@ -45,7 +45,7 @@
     transition: background-color 200ms ease;
 }
 .CustomTriggerCSS--open {
-    background-color: darkslateblue;
+    background-color: rgb(233, 230, 217);
 }
 .Collapsible__custom-sibling {
     padding: 5px;
