@@ -91,8 +91,8 @@ class MapInfo extends React.Component {
 
     photoToRender = () => {
         let photos = this.state.photos;
-        if (this.state.photos !== undefined && this.state.photos !== ''){
-        return (
+        if (this.state.photos !== undefined && this.state.photos.length > 0){
+            return (
             <div className="photos">
             <div className="photos-display">
             <Paper elevation={2} style={{maxWidth: 500, maxHeight: 300, overflow: 'auto'}}>
