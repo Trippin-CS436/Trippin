@@ -126,8 +126,8 @@ class Itinerary extends React.Component {
         if (e.keyCode == 13){
             if (this.state.name.length > 0 ){
                 this.props.itineraryNameChange(this.state.name);
+                this.setState({editItinerary: !this.state.editItinerary});
             }
-            this.setState({editItinerary: !this.state.editItinerary});
         }
     }
     renderItineraryName(){

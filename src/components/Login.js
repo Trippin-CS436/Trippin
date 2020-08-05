@@ -90,7 +90,7 @@ class Login extends React.Component {
                     appId="197967948192976"
                     autoLoad={false}
                     icon="fa-facebook"
-                    fields="name,email,picture"
+                    fields="name,email,picture.type(large)"
                     callback={this.responseFacebook}
                     cssClass="facebook"/>
             </div>
