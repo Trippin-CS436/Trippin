@@ -5,109 +5,141 @@ import {connect} from 'react-redux';
 import Dates from "./Dates";
 import Collapsible from "react-collapsible";
 import axios from "axios";
+import {ItineraryCard} from './ItineraryCard';
+import './ArchiveItinerary.scss';
+import CityReadOnly from './CityReadOnly.js';
+import Itinerary from './Itinerary.js'
+import KeyboardArrowLeftRoundedIcon from '@material-ui/icons/KeyboardArrowLeftRounded';
+import KeyboardArrowRightRoundedIcon from '@material-ui/icons/KeyboardArrowRightRounded';
+import IconButton from "@material-ui/core/IconButton";
+import {setItineraryFromDB, renderCity, renderCountry, renderLocation, changeView} from '../actions';
 
 class Archive extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             // locations: this.props.itineraries.locations;
+            currentIndex: 0,
+            archivedItineraries: [],
+            currentItineraryView: null,
+            testArchive: ['1105bae5-4364-4d31-bd73-c06732cd4472','0c438e1f-9cbe-4773-bd24-1263e3d6c9db', '77d9d24e-84e8-4dea-8cb3-49518152322b']
         };
     }
 
-    componentDidMount() {
-        axios.get("http://localhost:9000/archive/")
-        .then(response => {
-        if(response.data.length > 0){
-            this.props.itineraries(response.data);
-            this.props.renderLocation(response.data[0].locations);
-            this.props.getCurrentItineraryID(response.data[0]._id);
-            this.props.saveItinerary({id: response.data[0].id});
-        } else {
-            this.props.renderLocation([]);
-        }
-    })
-    }
-
-
-    componentWillUpdate(prevProps) {
-        if (prevProps.locations !== this.props.locations) {
-            this.setState({
-                ...this.state,
-                locations: this.props.locations
+     componentDidMount() {
+        console.log('Getting archive itinerary from database!');
+        let currentArchive = [];
+        this.props.authentication.archived.map((id, index) => {
+            //this.state.testArchive.map((id, index) => {
+                console.log(id);
+                console.log(index);
+            // request all the archived data here
+            axios.get("http://localhost:9000/itinerary/" + id)
+            .then(response => {
+                console.log("Data: ", response.data);
+                if(response.data.length > 0 && response.data !== undefined){
+                    let newItinerary = response.data[0];
+                    currentArchive.push(newItinerary);
+                    console.log('Archive Itinerary: ', currentArchive);
+                     console.log('CurrentArchiveItinerary: ', currentArchive[0]);
+                     this.setState({
+                         archivedItineraries: currentArchive,
+                         currentItineraryView: currentArchive[0]
+                     });
+                     if (currentArchive.length > 0){
+                     this.props.setItineraryFromDB(this.state.archivedItineraries[0].itinerary);
+                     this.props.renderCountry(this.state.archivedItineraries[0].countries);
+                     this.props.renderCity(this.state.archivedItineraries[0].cities);
+                     this.props.renderLocation(this.state.archivedItineraries[0].locations);
+                     this.props.changeView(this.state.archivedItineraries[0].locations[0].cityID);
+                     }
+                } 
             })
-        }
+            .catch(err => {
+                console.log('Error fetching archive itinerary: ', err);
+            })
+        })
+        console.log('Archive Itinerary: ', currentArchive);
+        console.log('CurrentArchiveItinerary: ', currentArchive[0]);
     }
 
-    renderItinerary = () => {
-        const content = [];
-        const locations = this.props.locations;
-        for (const country of this.props.countries) {
-            content.push(
-                <Collapsible className="cityDiv" key={country.name} trigger={
-                    <div>
-                        <h3>{country.name}</h3>
-                        <Dates place={country} class={"date"} type={"country"}/>
-                    </div>
-                }>
+    nextItinerary = () => {
+        const newIndex = this.state.currentIndex+1;
 
-                {this.props.cities.filter(function(city){
-                    return city.countryID == country.id;
-                }).map(function(city,index){
-                    return (<div key={index}  onClick={() => this.props.changeView(country,city)}>{city.name}</div>)
-                },this)
-                }
-            </Collapsible>
-            )
-        }
-        return content;
+        this.setState({
+            currentIndex: newIndex,
+            currentItineraryView: this.state.archivedItineraries[newIndex]
+        });
+
+        this.props.setItineraryFromDB(this.state.archivedItineraries[newIndex].itinerary);
+        this.props.renderCountry(this.state.archivedItineraries[newIndex].countries);
+        this.props.renderCity(this.state.archivedItineraries[newIndex].cities);
+        this.props.renderLocation(this.state.archivedItineraries[newIndex].locations);
+        this.props.changeView(-1);
     }
+
+    prevItinerary = () => {
+        const newIndex = this.state.currentIndex-1;
+        this.setState({
+            currentIndex: newIndex,
+            currentItineraryView: this.state.archivedItineraries[newIndex]
+        })
+        this.props.setItineraryFromDB(this.state.archivedItineraries[newIndex].itinerary);
+        this.props.renderCountry(this.state.archivedItineraries[newIndex].countries);
+        this.props.renderCity(this.state.archivedItineraries[newIndex].cities);
+        this.props.renderLocation(this.state.archivedItineraries[newIndex].locations);
+        this.props.changeView(-1);
+    }
+
+
+
+/**
+ * Itinerary = {
+ * locations, id, countries, cities, itinerary}
+ */
+
+ // set Carousel of Card Itinerary
+
 
     render() {
-
-        let cityToRenderID = this.props.currentView.byID.city;
-        let cityToRender = this.props.cities.filter(function(city){
-            return city.id == cityToRenderID;
-        });
-        cityToRender = cityToRender[0];
-
-        let countryToRenderID = this.props.currentView.byID.country;
-        let countryToRender = this.props.countries.filter(function(country){
-            return country.id == countryToRenderID;
-        });
-        countryToRender = countryToRender[0];
-
-        let locationsToRender = this.props.locations.filter(function(loc){
-            console.log("REnder CITY",loc.location);
-            return loc.cityID === cityToRenderID;
-        });
-
-        
-
+        const {archivedItineraries, currentItineraryView, currentIndex} = this.state;
+        let itineraries = this.state.archivedItineraries;
         return (
-            <div className={"cityDiv"}>
-                <h2>{this.props.itinerary.name}</h2>
-                <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
-                <div className={"locationsDiv"}>
-                    <ul className={"zeroPad zeroMarg"}>
-                        {locationsToRender.map((loc,index) => (
-                            <li key={index}> <Location idx={index} name={loc.location} address={loc.address} id={loc.id}/></li>
-                        ))}
-                    </ul>
-                </div>
+            <div>
+
+            <div className="carousel">
+            <div className={`cards-slider active-slide-${currentIndex}`}>
+            <div className="cards-slider-wrapper" style={{'transform': `translateX(-${currentIndex*(100/archivedItineraries.length)}%)`}}>
+            {
+            itineraries.map((itinerary, index) => <ItineraryCard key={itinerary.id} itineraryData={itinerary} index={index} />)
+            }
+            
             </div>
-        );
+            </div>
+            </div>
+            <div className={"carousel-btn-div"}>
+            
+            <IconButton className={"carousel-btn-prev"} onClick={() => this.prevItinerary()} disabled={this.state.currentIndex === 0} aria-label='PREV' >
+                  <KeyboardArrowLeftRoundedIcon style={{width: 60, height: 60}} />
+            </IconButton>
+
+            <IconButton className={"carousel-btn-next"} onClick={() => this.nextItinerary()} disabled={currentIndex === itineraries.length-1} aria-label='NEXT' >
+                  <KeyboardArrowRightRoundedIcon style={{width: 60, height: 60}} />
+            </IconButton>
+            </div>
+            <div className="display-itinerary">
+            <Itinerary />
+            <CityReadOnly />
+            </div>
+            </div>
+        
+        )
     }
 }
 const mapStateToProps = (state) =>{
     return {
-        itineraries: state.itineraries,
         itinerary: state.itinerary,
-        currentView: state.currentView,
-        cities: state.cities,
-        countries: state.countries,
-        lists: state.lists,
-        msgId: state.msgId,
     };
 };
 
-export default connect(mapStateToProps)(Archive);
+export default connect(mapStateToProps, {setItineraryFromDB, renderLocation, renderCountry, renderCity, changeView})(Archive);

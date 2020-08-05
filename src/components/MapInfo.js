@@ -81,7 +81,7 @@ class MapInfo extends React.Component {
         
         if (this.state.rating !== undefined && this.state.rating !== ''){
             return (
-                <Box borderColor="transparent" mb={2} p={1} fontWeight="fontWeightLight">
+                <Box borderColor="transparent" mb={1} p={2} fontWeight="fontWeightLight">
                 <Typography variant="h5">Rating</Typography>
                 <Rating name="half-rating-read" defaultValue={0} value={ratingValue} precision={0.1} readOnly />
                 </Box>
@@ -89,18 +89,18 @@ class MapInfo extends React.Component {
     } else return null;
     }
 
-    photoDisplay = () => {
+    photoToRender = () => {
         let photos = this.state.photos;
         if (this.state.photos !== undefined && this.state.photos !== ''){
         return (
             <div className="photos">
             <div className="photos-display">
-            <Paper elevation={2} style={{maxWidth: 400, maxHeight: 200, overflow: 'auto'}}>
+            <Paper elevation={2} style={{maxWidth: 500, maxHeight: 300, overflow: 'auto'}}>
 
-        <GridList className="gridList" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', width: 600, height:200, spacing: "0"}} cols={5}>
+        <GridList className="gridList" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', width: 1000, spacing: "0"}} cols={10}>
           {photos.map((photo) => (
-            <GridListTile style={{width: "100px", spacing: "0"}} key={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})} cols={5}>
-
+            <GridListTile style={{width: "100px", spacing: "0"}} key={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})} cols={10}>
+            
               <img src={photo.getUrl({'maxWidth': 200, 'maxHeight': 200})}  />
             </GridListTile>
           ))}
@@ -112,6 +112,18 @@ class MapInfo extends React.Component {
         );
     } else return null;
 }
+
+    photoDisplay = () => {
+      if (this.state.photos === undefined){
+        return null;
+      } else { return (
+      <Box fontWeight="fontWeightLight" p={2} borderColor="transparent">
+                <Typography variant="h5">Photos</Typography>
+                {this.photoToRender()}
+          </Box>
+      );
+    }
+  }
 
     reviewDisplay = () => {
 
@@ -195,10 +207,7 @@ class MapInfo extends React.Component {
 
            {this.ratingDisplay()}
 
-           <Box fontWeight="fontWeightLight"  borderColor="transparent">
-                <Typography variant="h5" >Website</Typography>
-                {this.photoDisplay()}
-               </Box>
+            {this.photoDisplay()}
 
 
            {this.reviewDisplay()}

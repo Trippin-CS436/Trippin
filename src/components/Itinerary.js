@@ -27,19 +27,22 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import AttachmentOutlinedIcon from '@material-ui/icons/AttachmentOutlined';
+import AttachmentModal from './AttachmentModal';
+import DropPhotos from './DropPhotos';
 
 class Itinerary extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
-            editItinerary: false,
+            openUpload: false,
+            editItinerary: this.props.editName,
             name: this.props.itinerary.name,
             openDialog: false,
             idToDelete: null,
             deletionIsCountry: false,
             nameOfDeletion: null,
-            // id: this.props.match.params.id
         };
     }
 
@@ -119,19 +122,34 @@ class Itinerary extends React.Component {
             }
         }
     }
+    keyPressed(e){
+        if (e.keyCode == 13){
+            if (this.state.name.length > 0 ){
+                this.props.itineraryNameChange(this.state.name);
+            }
+            this.setState({editItinerary: !this.state.editItinerary});
+        }
+    }
     renderItineraryName(){
         //Itinerary is not being edited
         if (!this.state.editItinerary){
             return (
-                <div>
+                <div id={"itinerary-div"}>
                     <h1 className={"itinerary_name"}>{this.props.itinerary.name}</h1>
                     <IconButton  className={"edit-btn"} aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
                         <EditOutlinedIcon />
                     </IconButton>
-                </div>
+                    <IconButton style={{width:60, height:60, float: "right", padding:"1rem", paddingRight: "2rem"}} className={"btn"} aria-label="Attachment" name="Attachment" onClick={this.handleOpen.bind(this)}>
+                        <AttachmentOutlinedIcon className="btn" style={{width:40, height:40}}/>
+                    </IconButton>
+
+                    <AttachmentModal onOpen={this.state.openUpload}
+                        onClose={this.handleOpen.bind(this)}>
+          <DropPhotos />
+        </AttachmentModal>
+      </div>
             );
-        }
-        else{
+        } else{
             return(
                 <div id={"itinerary-div"}>
                     <div style={{paddingTop:10}}>
@@ -141,6 +159,7 @@ class Itinerary extends React.Component {
                                     error ={this.state.name.length === 0 ? true : false }
                                     helperText={this.state.name.length === 0 ? "Itinerary name cannot be empty!" : "" }
                                     defaultValue={this.props.itinerary.name}
+                                    onKeyDown={this.keyPressed.bind(this)}
                                     inputProps={{
                                         style: {
                                             fontSize: "2.5em",
@@ -155,6 +174,12 @@ class Itinerary extends React.Component {
                 </div>
             );
         }
+    }
+
+    handleOpen() {
+        this.setState({
+            openUpload: !this.state.openUpload
+        });
     }
     handleNameChange(event){
         this.setState({
@@ -260,10 +285,9 @@ class Itinerary extends React.Component {
             <React.Fragment>
                 <div className={"itineraryHeader"}>
                     {this.renderItineraryName()}
-                </div>
-                <div className={"itineraryHeader"}>
                     <Dates place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
                 </div>
+
                 {this.renderItinerary()}
                 {/*<City/>*/}
                 {/*<LocationButton/>*/}

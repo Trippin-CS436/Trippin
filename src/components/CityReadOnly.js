@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Collapsible from "react-collapsible";
 import LocationReadOnly from "./LocationReadOnly";
 import DatesReadOnly from "./DatesReadOnly";
+import Dates from "./Dates";
 
 
 class CityReadOnly extends React.Component {
@@ -50,11 +51,10 @@ class CityReadOnly extends React.Component {
 
     render() {
         //Empty locations/cities. render a 'guide' on how to add to itinerary
-        if (this.props.currentView.byID.city === -1) {
+        if (this.props.currentView.byID.city === -1 ) {
             return (
                 <div className={"cityDiv"}>
-                    <h3>START ADDING TO THE ITINERARY BY SEARCHING A LOCATION AND HITTING
-                    THE 'ADD LOCATION' BUTTON</h3>
+                    <h3>SELECT A COUNTRY AND CITY TO BROWSE</h3>
                 </div>
             );
         }
@@ -80,7 +80,9 @@ class CityReadOnly extends React.Component {
         return (
             <div className={"cityDiv"}>
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
-                <DatesReadOnly place={cityToRender} class={"datesDiv bottomBorder"} type={"city"} {...this.props}/>
+                <div className={"bottomBorder"}>
+                    <DatesReadOnly place={cityToRender} class={"datesDiv"} type={"city"}/>
+                </div>
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (

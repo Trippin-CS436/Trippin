@@ -73,13 +73,10 @@ export const deleteCountry = (id) => {
     };
 };
 
-export const addLocation = (id,name,address,cityID) => {
+export const addLocation = (newLocation) => {
     return {
         type: 'NEW_LOCATION',
-        location_id: id,
-        location_name: name,
-        location_address: address,
-        cityID: cityID,
+        payload: newLocation
     };
 };
 

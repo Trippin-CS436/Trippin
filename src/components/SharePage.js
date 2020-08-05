@@ -60,7 +60,7 @@ class SharePage extends Component {
             );
         }
         return (
-            <div>
+            <div style={{color:"black"}}>
                 <ItineraryReadOnly {...this.props}/>
                 <CityReadOnly {...this.props}/>
             </div>

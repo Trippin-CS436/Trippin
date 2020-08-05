@@ -28,7 +28,7 @@ class City extends React.Component {
 
     render() {
         //Empty locations/cities. render a 'guide' on how to add to itinerary
-        if (this.props.currentView.byID.city === -1) {
+        if (this.props.currentView.byID.city === -1 || this.props.currentView.byID.city === 0) {
             return (
                 null
             );
@@ -55,6 +55,7 @@ class City extends React.Component {
 
         return (
             <div className={"cityDiv"}>
+            <SaveButton />
                 <h2>{cityToRender.name}, {countryToRender.name}</h2>
                 <div className={"bottomBorder"}>
                     <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
@@ -83,19 +84,3 @@ const mapStateToProps = (state) =>{
 };
 
 export default connect(mapStateToProps)(City);
-//
-// const muiStyles = {
-//     bg: {
-//         position: "absolute",
-//         backgroundImage: `url(${require("../assets/vancouver.jpg")})`,
-//         backgroundSize: "cover",
-//         height: "100vh",
-//         width: "100vw",
-//         top: "0",
-//         left: "0",
-//         color: "#000000",
-//         fontSize: "30px"
-//     }
-// };
-
-// export default withStyles(muiStyles)(City);

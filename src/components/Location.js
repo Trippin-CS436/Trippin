@@ -15,21 +15,32 @@ import NotesOutlinedIcon from '@material-ui/icons/NotesOutlined';
 import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
 import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
 import PhotoAlbumOutlinedIcon from '@material-ui/icons/PhotoAlbumOutlined';
+import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
+import {DropzoneDialog} from 'material-ui-dropzone';
+import  {addPhotos} from '../actions/addPhotos';
+import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 
 class Location extends React.Component {
     constructor(props){
         super(props);
+        let newArray = this.props.locations.slice();
+        let indexOfLocation= newArray.findIndex((item) => {
+            return this.props.id == item.id;
+        });
         this.state = {
             showNotes: false,
             showInfo: false,
-            showPhotos: false
+            showPhotos: false,
+            open: false,
+            photoFiles: [],
+            currentLocation: this.props.locations[indexOfLocation],
+           index: indexOfLocation
         };
         this.handleEditBtnClick = this.handleEditBtnClick.bind(this);
         this.handleInfoBtnClick = this.handleInfoBtnClick.bind(this);
         this.handlePhotoBtnClick = this.handlePhotoBtnClick.bind(this);
         this.handleAddPhotoBtnClick = this.handleAddPhotoBtnClick.bind(this);
-
-
+        
     }
 
     handleEditBtnClick() {
@@ -68,6 +79,31 @@ class Location extends React.Component {
         });
     }
 
+    // Dropzone Functions
+    handleClose() {
+        this.setState({
+            open: false
+        });
+    }
+ 
+    handleSave(photos) {
+        this.setState({
+            photoFiles: photos,
+            open: false
+        });
+        this.props.addPhotos({photoFiles: photos, index: this.state.index});
+    }
+
+    handleOpen() {
+        this.setState({
+            open: true,
+            showNotes: false,
+            showInfo: false,
+            showPhotos: false, 
+            showAddPhotos: !this.state.showAddPhotos
+        });
+    }
+
     renderSubComp(){
        if (this.state.showNotes) {
            const currLoc = this.props.locations[this.props.idx];
@@ -80,9 +116,26 @@ class Location extends React.Component {
             return <Info location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
        else if (this.state.showPhotos) {
-           return <InfoPhotos location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
-       
-    } else 
+           return (
+               <div>
+                <Photos location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
+            </div>
+           );   
+    } else if (this.state.showAddPhotos) {
+        return (
+            
+            <DropzoneDialog
+            open={this.state.open}
+            onSave={this.handleSave.bind(this)}
+            acceptedFiles={['image/jpeg', 'image/png', 'image/bmp','image/gif', 'video/mpeg']}
+            showPreviews={true}
+            maxFileSize={5000000}
+            onClose={this.handleClose.bind(this)}
+        />
+        )
+    }
+    
+    else 
        return null;
     }
 
@@ -107,11 +160,11 @@ class Location extends React.Component {
 
 
                 <IconButton className={"btn"} aria-label="Photo" name="Photo" onClick={this.handlePhotoBtnClick}>
-                <PhotoAlbumOutlinedIcon />
+                <PhotoCameraOutlinedIcon />
                 </IconButton>
                 
-                <IconButton aria-label="Photo" name="Photo" >
-                <DropPhotos location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
+                <IconButton aria-label="AddPhoto" name="AddPhoto" onClick={this.handleOpen.bind(this)} >
+                <AddAPhotoOutlinedIcon />
                 </IconButton>
 
                 <IconButton className={"btn"} aria-label="Delete"  name="Delete" onClick={() => this.props.deleteLocation(this.props.id)}>
@@ -138,4 +191,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps, {deleteLocation})(Location);
+export default connect(mapStateToProps, {deleteLocation, addPhotos})(Location);

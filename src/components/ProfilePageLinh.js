@@ -21,6 +21,8 @@ import Popup from "reactjs-popup";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import IconButton from "@material-ui/core/IconButton";
 import { StylesProvider } from '@material-ui/core/styles';
+import {Redirect, useHistory} from "react-router";
+import {Link} from "react-router-dom";
 
 const title = "My Itinerary";
 
@@ -347,7 +349,6 @@ class ProfilePageLinh extends React.Component {
                 </div>
             );
         };
-
         return (
             <React.Fragment>
                 <div className="right-panel">
@@ -358,7 +359,7 @@ class ProfilePageLinh extends React.Component {
                     <section id="upcoming" className="section-box">
                         <h2> You have {this.props.authentication.itineraries.length} upcoming Trips in </h2>
                         <ItineraryList/>
-                        <SectionButton> NEW ITINERARY </SectionButton>
+                        <SectionButton> <Link to={"/itineraries"}>NEW ITINERARY </Link></SectionButton>
                     </section>
                     <section id="visited" className="section-box">
                         <h2> You have visited {this.props.authentication.visited.length} places! </h2>
