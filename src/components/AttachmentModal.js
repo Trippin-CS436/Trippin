@@ -143,15 +143,7 @@ class AttachmentModal extends Component {
       <IconButton className={"btn"} aria-label="Close" name="Close" onClick={this.props.onClose}>
                 <CloseIcon />
         </IconButton>
-        <div className="modal" style={{modalStyle}}>
-        
-          {this.props.children}
 
-          <div className="file-display">
-          {this.renderFiles()}
-          </div>
-
-          <div className="footer">
           <IconButton className={"btn"} aria-label="Add" name="Add" onClick={this.handleOpenDropzone.bind(this)}>
                 <AddBoxOutlinedIcon />
         </IconButton>
@@ -165,8 +157,6 @@ class AttachmentModal extends Component {
                     maxFileSize={5000000}
                     onClose={this.handleCloseDropzone.bind(this)}
                 />
-          </div>
-        </div>
       </div>
     );
   }

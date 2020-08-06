@@ -315,7 +315,7 @@ var today = new Date(Date.now());
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
 
-let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [], files: [], shared: false, rating: 0, tags:[]}, action) =>{
+let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [{value: ["0", "1"]}], files: [], shared: false, rating: 0, tags:[]}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
             ...itinerary,
@@ -341,9 +341,10 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
         return itinerary;
     }
     else if (action.type === 'RESET'){
-        var today = new Date(Date.now());
-        var tomorrow = new Date(Date.now());
-        let newItinerary = { name: "Enter Name of Itinerary", dateRanges : [], files: [], shared: false, rating: 0, tags:[]};
+        console.log(this.state);
+        var today = new Date();
+        var tomorrow = new Date();
+        let newItinerary = { name: "Enter Name of Itinerary", dateRanges :  [{value: ["0", "1"]}], files: [], shared: false, rating: 0, tags:[]};
         return newItinerary;
     }
     else if (action.type === 'CHANGE_DATE_ITINERARY'){

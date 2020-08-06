@@ -30,6 +30,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import AttachmentOutlinedIcon from '@material-ui/icons/AttachmentOutlined';
 import AttachmentModal from './AttachmentModal';
 import DropPhotos from './DropPhotos';
+import Popup from "reactjs-popup";
 
 class Itinerary extends React.Component {
 
@@ -139,15 +140,22 @@ class Itinerary extends React.Component {
                     <IconButton  className={"edit-btn"} aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
                         <EditOutlinedIcon />
                     </IconButton>
-                    <IconButton style={{width:60, height:60, float: "right", padding:"1rem", paddingRight: "2rem"}} className={"btn"} aria-label="Attachment" name="Attachment" onClick={this.handleOpen.bind(this)}>
-                        <AttachmentOutlinedIcon className="btn" style={{width:40, height:40}}/>
-                    </IconButton>
 
-                    <AttachmentModal onOpen={this.state.openUpload}
-                        onClose={this.handleOpen.bind(this)}>
-                      <DropPhotos />
-                    </AttachmentModal>
-                </div>
+    
+            <Popup contentStyle={{width: "600px"}}trigger={ <IconButton style={{width:60, height:60, float: "right", padding:"1rem", paddingRight: "2rem"}} className={"btn"} aria-label="Attachment" name="Attachment" onClick={this.handleOpen.bind(this)}>
+                        <AttachmentOutlinedIcon className="btn" style={{width:40, height:40}}/>
+                    </IconButton>} modal>
+                        {close => (
+                            <div className="modal" style={{color: "black"}}>
+                                <a className="close" onClick={close}>
+                                &times;
+                                </a>
+                                <div style={{font: "15px Karla"}}>Add a PDF File to your itinerary</div>
+                                <AttachmentModal />
+                            </div>
+                        )}
+                    </Popup>
+            </div>
             );
         } else{
             return(
