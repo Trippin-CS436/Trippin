@@ -32,7 +32,7 @@ class SharePage extends Component {
         componentDidMount(){
             console.log("Component is mounted");
             console.log(this.state.id);
-            axios.get("/itinerary/share/" + this.state.id)
+            axios.get("http://localhost:9000/itinerary/share/" + this.state.id)
                 .then(response => {
                     if(response.data){
                         this.props.renderLocation(response.data.locations);

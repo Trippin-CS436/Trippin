@@ -34,7 +34,7 @@ class Archive extends React.Component {
                 console.log(id);
                 console.log(index);
             // request all the archived data here
-            axios.get("/itinerary/" + id)
+            axios.get("http://localhost:9000/itinerary/" + id)
             .then(response => {
                 console.log("Data: ", response.data);
                 if(response.data.length > 0 && response.data !== undefined){
