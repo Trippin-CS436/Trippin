@@ -84,6 +84,7 @@ const authenticationReducer = (authentication = userState, action) => {
         return newAuth;
     } else if (action.type === "UPDATE_ARCHIVE") {
         // remove from user itineraries
+        console.log('Rating: ', action.payload.rating);
         let newItinerariesArray = authentication.itineraries.slice();
         let indexToRemove = newItinerariesArray.findIndex((item) => {
            return action.payload.id === item.id;
@@ -96,7 +97,8 @@ const authenticationReducer = (authentication = userState, action) => {
         let newAuth = {
            ...authentication,
            archived: newArchivedArray,
-           itineraries: newItinerariesArray
+           itineraries: newItinerariesArray,
+           rating: action.payload.rating
         };
         return newAuth;
     }
