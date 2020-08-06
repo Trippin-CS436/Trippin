@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {logOut, updateUserArchived, updateUserItinerary, changeView} from "../actions/index";
+import { updateArchive } from "../actions/updateArchive";
 import "./ProfilePageLinh.css";
 import {GoogleMap, LoadScript, MarkerClusterer, Marker} from "@react-google-maps/api";
 import {
@@ -18,16 +19,20 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import Popup from "reactjs-popup";
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
 import IconButton from "@material-ui/core/IconButton";
+import { Rating } from '@material-ui/lab';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { StylesProvider } from '@material-ui/core/styles';
 import {Redirect, useHistory} from "react-router";
 import {Link} from "react-router-dom";
 
+const { uuid } = require('uuidv4');
 const title = "My Itinerary";
 
 let shareUrlObjectID = '';
-
 
 const center = {lat: -28.024, lng: 140.887};
 
@@ -70,29 +75,26 @@ class ProfilePageLinh extends React.Component {
         super(props);
         this.props.changeView(-1);
         this.state = {
-            names: [],
-            shareUrlObjectID: [],
-            newTripName: null
-        };
+            newTripName: null,
+        // state itineraries = {itinerary{}, id} -> itinerary = {name, dateRanges[], files, tags, recommended, shared}
+        itineraries: []};
     }
+
 
     componentDidMount() {
         let promises = [];
-        let names = [];
-        let shareUrlObjectID = [];
+        let upcoming= [];
         for (const itineraryID of this.props.authentication.itineraries) {
             promises.push(axios.get("http://localhost:9000/itinerary/" + itineraryID));
         }
         Promise.all(promises).then(response => {
             let i = 0;
             for (const itineraryID of this.props.authentication.itineraries) {
-                names.push(response[i].data[0].itinerary.name);
-                shareUrlObjectID.push(response[i].data[0]._id);
+                upcoming.push({itinerary: response[i].data[0].itinerary, id: response[i].data[0].id, shareUrlObjectID: response[i].data[0]._id });
                 i++;
             }
             this.setState({
-                names: names,
-                shareUrlObjectID: shareUrlObjectID
+                itineraries: upcoming,
             });
         }).catch(err => console.log(err));
         console.log(this.props.authentication);
@@ -120,6 +122,107 @@ class ProfilePageLinh extends React.Component {
         this.props.logOut();
         console.log(this.props.authentication);
     };
+
+    archivePopup = (itinerary) => {
+        return (
+            <div>
+            <div style={{font: "15px Karla"}}>Do you want to archive this trip?</div>
+            <Popup contentStyle={{width: "600px"}}trigger={<button className={"submit-button save-button"}>Yes</button>} modal>
+                        {close => (
+                            <div className="modal" style={{color: "black"}}>
+                                <a className="close" onClick={close}>
+                                    Done
+                                </a>
+                           {this.rating(itinerary)}
+                            </div>
+                        )}
+                    </Popup>
+            </div>
+        );
+    }
+
+    rating=(itinerary) => {
+        let val = 0;
+        return (
+        <div style={{padding: "2rem"}}>
+        <Box component="fieldset" mb={3} borderColor="transparent">
+          <Typography component="h3">How was your trip?</Typography>
+          <Rating
+            name="simple-controlled"
+            value={val}
+            onChange={(event, newValue) => {
+              val = newValue;
+              itinerary.rating = val;
+              this.updateArchiveServer(itinerary)
+            }}
+          />
+        </Box>
+        </div>
+        )}
+
+    updateArchiveServer = (payload) => {
+        //change itineraries state
+
+
+        let newItinerariesArray = this.props.authentication.itineraries.slice();
+        let indexToRemove = newItinerariesArray.findIndex((item) => {
+           return payload.id === item.id;
+        });
+        newItinerariesArray.splice(indexToRemove, 1);
+        // move to archived
+        let newArchivedArray = this.props.authentication.archived.slice();
+        newArchivedArray.push(payload.id);
+
+        let updateBody = {
+           archived: newArchivedArray,
+           itineraries: newItinerariesArray
+        };
+        this.props.updateArchive(updateBody);
+
+        this.setState = {
+            itineraries: newItinerariesArray
+        }
+        axios.patch("http://localhost:9000/user/save/archived/" + payload.id, updateBody)
+        .then(res => {
+            console.log("Archive updated for user: "  + res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+        axios.patch("http://localhost:9000/itinerary/save/archive" + payload.id, payload)
+                    .then(res=> {
+                        console.log(res.data);
+                    })
+                    .catch(err=> {
+                        console.log(err);
+                    });
+    }
+
+
+
+    archiveButton = (itinerary) => {
+        console.log('Itinerary Archive: ', itinerary);
+        let endDate = new Date();
+        let compare = new Date();
+        if (itinerary.itinerary.dateRanges !== undefined && itinerary.itinerary.dateRanges.length > 0){
+        let endDate = new Date(itinerary.itinerary.dateRanges[0].value[1]);
+        if (endDate.getTime() < compare.getTime()) {
+            return (<Popup contentStyle={{width: "600px"}}trigger={<IconButton aria-label='Notification' >
+            <NotificationImportantIcon style={{fill: "white", width: 40, height: 40}} />
+      </IconButton>} modal>
+                        {close => (
+                            <div className="modal" style={{color: "black"}}>
+                                <a className="close" onClick={close}>
+                                    &times;
+                                </a>
+                           {this.archivePopup(itinerary)}
+                            </div>
+                        )}
+                    </Popup>
+            );
+        }
+        } else return null;
+    }
 
     render() {
         const style = theme =>({
@@ -245,36 +348,41 @@ class ProfilePageLinh extends React.Component {
 
         const ItineraryList = () => {
             let returnRendering = [];
-            let i = 0;
-            for (const itineraryID of this.props.authentication.itineraries) {
-                console.log(this.state.names[i]);
-                returnRendering.push(
-                    <div>
-                        <SectionBox key={itineraryID}
-                                    href={"/itineraries/" + itineraryID}> {this.state.names[i]} </SectionBox>
-
-                        {console.log("shareURL right before set is " + this.state.shareUrlObjectID[i])}
+            let i=0;
+                for (const itinerary of this.state.itineraries) {
+                    console.log(this.state.itineraries);
+                    console.log(this.state.itineraries[0].name);
+                    returnRendering.push(
+                        <div key={uuid()}>
+                        <div style={{width: "75%",  display: "inline"}} key={uuid()}>
+                            <SectionBox key={uuid()} href={"itineraries/"+ itinerary.id}> {itinerary.itinerary.name}</SectionBox>
+                            <div style={{paddingTop:"20px", display: "inline"}}>
                         <EmailShareButton
-                            key={itineraryID}
+                            key={itinerary.id}
                             className='center-button'
-                            url={"https://trippin436.herokuapp.com/shared/" + this.state.shareUrlObjectID[i]}
+                            url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
                             subject={title}
                             body="body"
                         >
-                            <EmailIcon size={32} round/>
+                            <EmailIcon size={40} round />
                         </EmailShareButton>
+                        </div>
+                        <div style={{paddingTop:"20px", display: "inline", marginRight: "10px"}}>
                         <FacebookShareButton
-                            key={itineraryID}
+                            key={itinerary.id}
                             className='center-button'
-                            url={"https://trippin436.herokuapp.com/shared/" + this.state.shareUrlObjectID[i]}
+                            url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
                             quote={title}
                         >
-                            <FacebookIcon size={32} round/>
+                        <FacebookIcon size={40} round  />
                         </FacebookShareButton>
-                        <DeleteItineraryButton key={itineraryID} name={this.state.names[i]} id={itineraryID}/>
-                    </div>);
-                i++;
-            }
+                        </div>
+                            <DeleteItineraryButton key={itinerary.id} name={itinerary.itinerary.name} id={itinerary.id}/>
+                        </div>
+                        <div  style={{width: "25%", display: "inline"}}> {this.archiveButton(itinerary)}</div>
+                        </div>);
+                    i++;
+                }
             return returnRendering;
         };
 
@@ -412,4 +520,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, {logOut, updateUserArchived, updateUserItinerary, changeView})(ProfilePageLinh)
+export default connect(mapStateToProps, {logOut, updateUserArchived, updateUserItinerary, changeView, updateArchive})(ProfilePageLinh)

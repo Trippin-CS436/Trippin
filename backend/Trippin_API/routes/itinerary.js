@@ -3,7 +3,6 @@ const Itinerary = require('../models/itinerary.model');
 const router = express.Router();
 
 
-
 /* GET users listing. */
 router.route('/').get((req, res) => {
   Itinerary.find()
@@ -56,7 +55,6 @@ router.route('/save/:id').patch((req,res) => {
   Itinerary.findOneAndUpdate({id: req.params.id}, {locations: req.body.locations, cities: req.body.cities, countries: req.body.countries,itinerary:req.body.itinerary},)
     .then(() => res.json("itinerary updated"))
     .catch(err => res.status(404).json('Error: ' + err));
-
   });
 
   router.route('/delete/:id').delete((req,res) => {
