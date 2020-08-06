@@ -45,7 +45,7 @@ class Photos extends React.Component {
               title={photo.name}
               actionIcon={
                 <IconButton onClick={this.delPhoto} value={index} aria-label={`star ${photo.name}`} >
-                  <DeleteForeverIcon />
+                  <DeleteForeverIcon style={{color:"white"}}/>
                 </IconButton>
               }
             />
