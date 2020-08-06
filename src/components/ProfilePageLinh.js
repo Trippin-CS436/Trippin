@@ -123,7 +123,7 @@ class ProfilePageLinh extends React.Component {
                                 <a className="close" onClick={close}>
                                     Done
                                 </a>
-                           {this.rating(itinerary.id)}
+                           {this.rating(itinerary)}
                             </div>
                         )}
                     </Popup>
@@ -131,7 +131,7 @@ class ProfilePageLinh extends React.Component {
         );
     }
 
-    rating=(id) => {
+    rating=(itinerary) => {
         let val = 0;
         return (
         <div style={{padding: "2rem"}}>
@@ -142,7 +142,7 @@ class ProfilePageLinh extends React.Component {
             value={val}
             onChange={(event, newValue) => {
               val = newValue;
-              this.updateArchiveServer({itinerary: id, rating: val})
+              this.updateArchiveServer(itinerary)
             }}
           />
         </Box>
@@ -161,18 +161,23 @@ class ProfilePageLinh extends React.Component {
         newArchivedArray.push(payload.id);
 
         let updateBody = {
-            ...this.props.authentication,
            archived: newArchivedArray,
-           itineraries: newItinerariesArray,
-           rating: payload.rating
+           itineraries: newItinerariesArray
         };
-        axios.put("http://localhost:9000/user/save/archived/" + payload.id, updateBody)
+        axios.patch("http://localhost:9000/user/save/archived/" + payload.id, updateBody)
         .then(res => {
             console.log("Archive updated for user: "  + res.data);
         })
         .catch(err => {
             console.log(err);
         });
+        axios.patch("http://localhost:9000/itinerary/save/archive" + payload.id, payload)
+                    .then(res=> {
+                        console.log(res.data);
+                    })
+                    .catch(err=> {
+                        console.log(err);
+                    });
     }
 
 

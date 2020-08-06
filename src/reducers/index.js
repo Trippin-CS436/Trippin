@@ -97,8 +97,7 @@ const authenticationReducer = (authentication = userState, action) => {
         let newAuth = {
            ...authentication,
            archived: newArchivedArray,
-           itineraries: newItinerariesArray,
-           rating: action.payload.rating
+           itineraries: newItinerariesArray
         };
         return newAuth;
     }
@@ -290,7 +289,14 @@ const currentViewReducer = (currentView = defaultView, action) => {
     return currentView;
 };
 
-let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: "", end: ""}], files: []}, action) =>{
+var today = new Date(Date.now());
+        var tomorrow = new Date(Date.now());
+        var dd = String(today.getDate()+2).padStart(2, '0');
+        var ddNext = String(today.getDate()+4).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: today.toISOString(), end: tomorrow.toISOString()}], files: [], shared: false, rating: 0, tags:[]}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
             ...itinerary,
@@ -318,16 +324,7 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
     else if (action.type === 'RESET'){
         var today = new Date(Date.now());
         var tomorrow = new Date(Date.now());
-        var dd = String(today.getDate()+2).padStart(2, '0');
-        var ddNext = String(today.getDate()+4).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = today.getFullYear();
-        console.log("today", today);
-        console.log("tomorrow", tomorrow);
-        
-       // today = yyyy + '/' + mm + '/' + dd;
-        // tomorrow = yyyy + '/' + mm + '/' + ddNext;
-        let newItinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: today.toISOString(), end: tomorrow.toISOString()}], files: []};
+        let newItinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: today.toISOString(), end: tomorrow.toISOString()}], files: [], shared: false, rating: 0, tags:[]};
         return newItinerary;
     }
     else if (action.type === 'CHANGE_DATE_ITINERARY'){

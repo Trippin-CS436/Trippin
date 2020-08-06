@@ -34,9 +34,9 @@ router.route('/save/itineraries/:id').patch((req,res) => {
 
 });
 
-router.route('/save/archived/:id').put((req,res) => {
+router.route('/save/archived/:id').patch((req,res) => {
     console.log(req.params.id);
-    User.updateOne({id: req.params.id}, {archived: req.body.archived, rating: req.body.rating, itineraries: req.body.itineraries})
+    User.updateOne({id: req.params.id}, {archived: req.body.archived, itineraries: req.body.itineraries})
         .then(user => res.json(user))
         .catch(err => res.status(404).json('Error: ' + err));
 
