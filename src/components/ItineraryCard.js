@@ -7,16 +7,17 @@ import { Rating } from '@material-ui/lab';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
-const ratingDisplay = ({rating}) => {
+const RatingDisplay = ({rating}) => {
 
-    if (rating !== undefined && rating !== ''){
+    if (rating === undefined || rating === ''){
+        rating = 0;
+    }
         return (
             <Box borderColor="transparent" mb={1} p={2} fontWeight="fontWeightLight">
             <Typography variant="h5">Rating</Typography>
             <Rating name="half-rating-read" defaultValue={0} value={rating} precision={1} readOnly />
             </Box>
         )
-} else return null;
 }
 
 
@@ -51,9 +52,9 @@ export const ItineraryCard = ({itineraryData, index}) => {
         <p className="itinerary-title">
             {itinerary.name}
             <br />
-            {startDate} - {endDate}
+            <span style={{font: "20px Roboto"}}>{startDate} - {endDate}</span>
             <br />
-            <ratingDisplay rating={itinerary.rating} />
+            <RatingDisplay rating={itinerary.rating} />
             <br />
         </p>
         <ul className="info">
