@@ -75,17 +75,14 @@ class ProfilePageLinh extends React.Component {
         super(props);
         this.props.changeView(-1);
         this.state = {
-            names: [],
-            shareUrlObjectID: [],
             newTripName: null,
         // state itineraries = {itinerary{}, id} -> itinerary = {name, dateRanges[], files, tags, recommended, shared}
         itineraries: []};
     }
+    
 
     componentDidMount() {
         let promises = [];
-        let names = [];
-        let shareUrlObjectID = [];
         let upcoming= [];
         for (const itineraryID of this.props.authentication.itineraries) {
             promises.push(axios.get("http://localhost:9000/itinerary/" + itineraryID));
@@ -93,14 +90,10 @@ class ProfilePageLinh extends React.Component {
         Promise.all(promises).then(response => {
             let i = 0;
             for (const itineraryID of this.props.authentication.itineraries) {
-                names.push(response[i].data[0].itinerary.name);
-                shareUrlObjectID.push(response[i].data[0]._id);
-                upcoming.push({itinerary: response[i].data[0].itinerary, id: response[i].data[0].id});
+                upcoming.push({itinerary: response[i].data[0].itinerary, id: response[i].data[0].id, shareUrlObjectID: response[i].data[0]._id });
                 i++;
             }
             this.setState({
-                names: names,
-                shareUrlObjectID: shareUrlObjectID,
                 itineraries: upcoming,
             });
         }).catch(err => console.log(err));
@@ -167,6 +160,8 @@ class ProfilePageLinh extends React.Component {
         )}
 
     updateArchiveServer = (payload) => {
+        //change itineraries state 
+        
         this.props.updateArchive(payload);
         let newItinerariesArray = this.props.authentication.itineraries.slice();
         let indexToRemove = newItinerariesArray.findIndex((item) => {
@@ -181,6 +176,11 @@ class ProfilePageLinh extends React.Component {
            archived: newArchivedArray,
            itineraries: newItinerariesArray
         };
+
+        this.setState = {
+            itineraries: newItinerariesArray,
+            archived: newArchivedArray,
+        }
         axios.patch("http://localhost:9000/user/save/archived/" + payload.id, updateBody)
         .then(res => {
             console.log("Archive updated for user: "  + res.data);
@@ -353,13 +353,13 @@ class ProfilePageLinh extends React.Component {
                     console.log(this.state.itineraries[0].name);
                     returnRendering.push(
                         <div key={uuid()}>
-                        <div style={{width: "85%",  display: "inline"}} key={uuid()}>
+                        <div style={{width: "75%",  display: "inline"}} key={uuid()}>
                             <SectionBox key={uuid()} href={"itineraries/"+ itinerary.id}> {itinerary.itinerary.name}</SectionBox>
                             <div style={{paddingTop:"20px", display: "inline"}}>
                         <EmailShareButton
                             key={itinerary.id}
                             className='center-button'
-                            url={"localhost:3000/shared/" + this.state.shareUrlObjectID[i]}
+                            url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
                             subject={title}
                             body="body"
                         >
@@ -370,15 +370,15 @@ class ProfilePageLinh extends React.Component {
                         <FacebookShareButton
                             key={itinerary.id}
                             className='center-button'
-                            url={"localhost:3000/shared/" + this.state.shareUrlObjectID[i]}
+                            url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
                             quote={title}
                         >
                         <FacebookIcon size={40} round  />
                         </FacebookShareButton>
                         </div>
-                            <DeleteItineraryButton key={itinerary.id} name={this.state.names[i]} id={itinerary.id}/>
+                            <DeleteItineraryButton key={itinerary.id} name={itinerary.itinerary.name} id={itinerary.id}/>
                         </div>
-                        <div  style={{width: "15%", display: "inline"}}> {this.archiveButton(itinerary)}</div>
+                        <div  style={{width: "25%", display: "inline"}}> {this.archiveButton(itinerary)}</div>
                         </div>);
                     i++;
                 }
