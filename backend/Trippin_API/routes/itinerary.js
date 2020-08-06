@@ -1,8 +1,6 @@
-const converter = require('../imgConverter');
 const express = require('express');
 const Itinerary = require('../models/itinerary.model');
 const router = express.Router();
-var fs = require('fs');
 
 
 /* GET users listing. */
@@ -32,12 +30,11 @@ router.post('/save', function(req, res, next) {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/save/:id').patch((req,res) => {
+router.route('/save/:id').put((req,res) => {
   console.log(req.params.id);
   Itinerary.findOneAndUpdate({id: req.params.id}, {locations: req.body.locations, cities: req.body.cities, countries: req.body.countries,itinerary:req.body.itinerary},)
     .then(() => res.json("itinerary updated"))
     .catch(err => res.status(404).json('Error: ' + err));
-
   });
 
   router.route('/delete/:id').delete((req,res) => {
