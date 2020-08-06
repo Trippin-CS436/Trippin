@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1
     },
     appBar: {
-        height: "43px",
+        height: "4px",
         bachgroundColor: "#000000",
         width: "100vw"
     },

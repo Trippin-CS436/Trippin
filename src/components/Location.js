@@ -85,16 +85,16 @@ class Location extends React.Component {
             open: false
         });
     }
- 
+
      encoder =(file) => {
-    // encode function 
+    // encode function
     let encode = new Promise(function(resolve, reject) {
     var reader = new FileReader();
     reader.readAsDataURL(file);
      reader.onloadend = function() {
     console.log('RESULT', reader.result);
     resolve(reader.result);
-    } 
+    }
     });
     let testPhoto = null;
     testPhoto = encode.then(photo => {
@@ -102,7 +102,7 @@ class Location extends React.Component {
     });
     return testPhoto;
     }
- 
+
     async handleSave(photos) {
         this.setState({
             photoFiles: photos,
@@ -138,8 +138,10 @@ class Location extends React.Component {
             return <Info location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
        else if (this.state.showPhotos) {
+           console.log(this.state.photo);
            return (
                <div>
+              <img src={this.state.photo} />
                 <Photos location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
             </div>
            );   

@@ -84,6 +84,24 @@ const authenticationReducer = (authentication = userState, action) => {
             archived: action.logIn.archived
         };
         return newAuth;
+    } else if (action.type === "UPDATE_ARCHIVE") {
+        // remove from user itineraries
+        console.log('Rating: ', action.payload.rating);
+        let newItinerariesArray = authentication.itineraries.slice();
+        let indexToRemove = newItinerariesArray.findIndex((item) => {
+           return action.payload.id === item.id;
+        });
+        newItinerariesArray.splice(indexToRemove, 1);
+        // move to archived
+        let newArchivedArray = authentication.archived.slice();
+        newArchivedArray.push(action.payload.id);
+
+        let newAuth = {
+           ...authentication,
+           archived: newArchivedArray,
+           itineraries: newItinerariesArray
+        };
+        return newAuth;
     }
     if (action.type === "UPDATE_USER_ITINERARY") {
         let newAuth = {
@@ -122,8 +140,6 @@ const authenticationReducer = (authentication = userState, action) => {
 const locationsReducer = (locations = [], action) => {
     if (action.type === "NEW_LOCATION"){
         let newLocation = action.payload;
-        console.log("IN REDUCER")
-        console.log(action.payload)
         return locations.concat(newLocation);
     }
     else if (action.type === "DEL_LOCATION"){
@@ -303,7 +319,14 @@ const currentViewReducer = (currentView = defaultView, action) => {
     return currentView;
 };
 
-let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [], files: []}, action) =>{
+var today = new Date(Date.now());
+        var tomorrow = new Date(Date.now());
+        var dd = String(today.getDate()+2).padStart(2, '0');
+        var ddNext = String(today.getDate()+4).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [], files: [], shared: false, rating: 0, tags:[]}, action) =>{
     if (action.type === "NAME_CHANGE"){
         return{
             ...itinerary,
@@ -329,7 +352,9 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
         return itinerary;
     }
     else if (action.type === 'RESET'){
-        let newItinerary = { name: "Enter Name of Itinerary", dateRanges : [], files: []};
+        var today = new Date(Date.now());
+        var tomorrow = new Date(Date.now());
+        let newItinerary = { name: "Enter Name of Itinerary", dateRanges : [], files: [], shared: false, rating: 0, tags:[]};
         return newItinerary;
     }
     else if (action.type === 'CHANGE_DATE_ITINERARY'){
