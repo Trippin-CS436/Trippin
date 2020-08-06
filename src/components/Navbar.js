@@ -28,13 +28,13 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1
     },
     appBar: {
-        height: "50px",
+        height: "43px",
         bachgroundColor: "#000000",
         width: "100vw"
     },
     toolBar: {
         background: '#121212',
-        top: "-7px",
+        top: "-5px",
         width: "100vw"
 
     }

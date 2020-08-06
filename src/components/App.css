@@ -1,3 +1,8 @@
+.body-background {
+  background: repeat linear-gradient(315deg, #7f5a83 0%, #0b2c43 74%);
+  height: min-content;
+}
+
 .App {
   text-align: center;
 }
