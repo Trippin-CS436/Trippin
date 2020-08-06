@@ -34,6 +34,7 @@ class AddLocationButton extends React.Component {
 
     addLocationToItinerary = () => {
         let isCitiesEmpty = (this.props.cities.length === 0) ? true : false
+        let newCityAdded = false;
         let currentMapLocation = this.props.mapLocation;
         console.log("CURRENT MAP LOCATION")
         console.log(currentMapLocation)
@@ -60,7 +61,9 @@ class AddLocationButton extends React.Component {
     placePhotoUrls: []
     };
         }
-        if (country === "" || (country !== "" && city === "" )){
+
+        if (country === "" || (country !== "" && city === "" && address !== country)){
+            console.log("INVALID LOCATION")
             return;
         }
 
@@ -82,6 +85,7 @@ class AddLocationButton extends React.Component {
                         lat: lat,
                         lon: lon,
                     }
+                    newCityAdded = true;
                     this.props.addLocation(newLocation);
                 }
             }
@@ -91,6 +95,7 @@ class AddLocationButton extends React.Component {
                 let countryID = this.props.countries.filter((item) => {return item.name === country})[0].id;
                 //New City to add
                 if (city !== ""){
+                    newCityAdded = true;
                     this.props.insertNewCity(cityID,city,countryID)
                     //New Location to add
                     if (city !== location){
@@ -115,9 +120,11 @@ class AddLocationButton extends React.Component {
             // No country and no city found
             //New Country to add
             let countryID = uuid();
+            console.log("ADDING JUST COUNTRY")
             //New City to add
             if (city !== ""){
-                this.props.insertNewCity(cityID,city,countryID)
+                newCityAdded = true
+                this.props.insertNewCity(cityID,city,countryID);
                 //New Location to add
                 if (city !== location){
                     let locationID = uuid(); 
@@ -131,14 +138,14 @@ class AddLocationButton extends React.Component {
                         cityID: cityID,
                         lat: lat,
                         lon: lon,
-                    }
+                    };
                     this.props.addLocation(newLocation);
                 }
             }
             this.props.insertNewCountry(countryID,country);
         }
         console.log(this.props.cities);
-        if (isCitiesEmpty){
+        if (isCitiesEmpty && newCityAdded){
             this.props.changeView(cityID);
         }
     }
