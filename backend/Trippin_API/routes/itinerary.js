@@ -26,7 +26,7 @@ router.post('/save', function(req, res, next) {
   console.log(newItinerary);
   console.log(newItinerary.id);
   newItinerary.save()
-    .then(() => res.json(newItinerary._id))
+    .then(() => res.json({_id: newItinerary._id, id: req.body.id}))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -36,6 +36,13 @@ router.route('/save/:id').patch((req,res) => {
     .then(() => res.json("itinerary updated"))
     .catch(err => res.status(404).json('Error: ' + err));
   });
+
+router.route('/save/archive/:id').patch((req,res) => {
+    console.log(req.params.id);
+    Itinerary.findOneAndUpdate({id: req.params.id}, {itinerary:req.body.itinerary},)
+      .then(() => res.json("itinerary updated"))
+      .catch(err => res.status(404).json('Error: ' + err));
+    });
 
   router.route('/delete/:id').delete((req,res) => {
     console.log(req.params.id);

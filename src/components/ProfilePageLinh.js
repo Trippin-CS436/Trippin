@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
+import { updateArchive } from "../actions/updateArchive";
 import { logOut } from "../actions/index";
 import "./ProfilePageLinh.css";
 import { GoogleMap, LoadScript, MarkerClusterer, Marker } from "@react-google-maps/api";
@@ -261,17 +262,17 @@ class ProfilePageLinh extends React.Component {
         const ItineraryList = () => {
             let returnRendering = [];
             let i=0;
-                for (const itinerary of this.state.itineraries) {
+                for (const itineraryID of this.props.authentication.itineraries) {
                     console.log(this.state.itineraries);
                     console.log(this.state.itineraries[0].name);
                     returnRendering.push(
                         <div key={uuid()}>
                         <div style={{width: "85%",  display: "inline"}} key={uuid()}>
-                            <SectionBox key={uuid()} href={"itineraries/"+ itinerary.id}> {itinerary.itinerary.name}</SectionBox>
+                            <SectionBox key={uuid()} href={"itineraries/"+ itineraryID}> {this.state.itineraries[i].itinerary.name}</SectionBox>
                             <div style={{paddingTop:"20px", display: "inline"}}>
                         <EmailShareButton
                             className='center-button'
-                            url={"localhost:3000/shared/"+itinerary.id}
+                            url={"localhost:3000/shared/"+itineraryID}
                             subject={title}
                             body="body"
                         >
@@ -281,14 +282,14 @@ class ProfilePageLinh extends React.Component {
                         <div style={{paddingTop:"20px", display: "inline", marginRight: "10px"}}>
                         <FacebookShareButton
                             className='center-button'
-                        url={"localhost:3000/shared/"+itinerary.id}
+                        url={"localhost:3000/shared/"+itineraryID}
                         quote={title}
                         >
                         <FacebookIcon size={40} round  />
                         </FacebookShareButton>
                         </div>
                         </div>
-                        <div  style={{width: "15%", display: "inline"}}> {this.archiveButton(itinerary)}</div>
+                        <div  style={{width: "15%", display: "inline"}}> {this.archiveButton(this.state.itineraries[i].itinerary)}</div>
                         </div>);
                     i++;
                 }
@@ -398,4 +399,4 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps, { logOut  })(ProfilePageLinh)
+export default connect(mapStateToProps, { logOut, updateArchive   })(ProfilePageLinh)
