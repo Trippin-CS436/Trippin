@@ -9,11 +9,13 @@ import Tab from "@material-ui/core/Tab";
 import { GoogleLogout } from 'react-google-login';
 import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
-import UseAnimations from "react-useanimations";
 import axios from "axios";
 import Popup from "reactjs-popup";
 import NotificationImportantIcon from '@material-ui/icons/NotificationImportant';
 import IconButton from "@material-ui/core/IconButton";
+import { Rating } from '@material-ui/lab';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 const { uuid } = require('uuidv4');
 const title = "My Itinerary";
@@ -115,10 +117,64 @@ class ProfilePageLinh extends React.Component {
         return (
             <div>
             <div style={{font: "15px Karla"}}>Do you want to archive this trip?</div>
-            <button className={"submit-button save-button"} onClick={() => this.props.updateArchive(itinerary)}>Yes</button>
+            <Popup contentStyle={{width: "600px"}}trigger={<button className={"submit-button save-button"}>Yes</button>} modal>
+                        {close => (
+                            <div className="modal" style={{color: "black"}}>
+                                <a className="close" onClick={close}>
+                                    Done
+                                </a>
+                           {this.rating(itinerary.id)}
+                            </div>
+                        )}
+                    </Popup>
             </div>
-        )
+        );
     }
+
+    rating=(id) => {
+        let val = 0;
+        return (
+        <div style={{padding: "2rem"}}>
+        <Box component="fieldset" mb={3} borderColor="transparent">
+          <Typography component="h3">How was your trip?</Typography>
+          <Rating
+            name="simple-controlled"
+            value={val}
+            onChange={(event, newValue) => {
+              val = newValue;
+              this.updateArchiveServer({itinerary: id, rating: val})
+            }}
+          />
+        </Box>
+        </div>
+        )}
+
+    updateArchiveServer = (payload) => {
+        this.props.updateArchive(payload);
+        let newItinerariesArray = this.props.authentication.itineraries.slice();
+        let indexToRemove = newItinerariesArray.findIndex((item) => {
+           return payload.id === item.id;
+        });
+        newItinerariesArray.splice(indexToRemove, 1);
+        // move to archived
+        let newArchivedArray = this.props.authentication.archived.slice();
+        newArchivedArray.push(payload.id);
+
+        let updateBody = {
+            ...this.props.authentication,
+           archived: newArchivedArray,
+           itineraries: newItinerariesArray,
+           rating: payload.rating
+        };
+        axios.put("http://localhost:9000/user/save/archived/" + payload.id, updateBody)
+        .then(res => {
+            console.log("Archive updated for user: "  + res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
 
 
     archiveButton = (itinerary) => {
