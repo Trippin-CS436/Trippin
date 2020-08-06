@@ -3,9 +3,23 @@ import {connect} from "react-redux";
 import axios from 'axios'; 
 import {saveItinerary, getCurrentItineraryID, updateUserItinerary} from "../actions"
 import {reset} from "../actions/reset";
+import Alert from "@material-ui/lab/Alert/Alert";
+import Snackbar from "@material-ui/core/Snackbar/Snackbar";
 const { uuid } = require('uuidv4');
 
 class SaveButton extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            openSaveSuccess: false,
+            openSaveError: false,
+        };
+    }
+
+    handleClose(){
+        this.setState({openSaveSuccess: false,openSaveError:false});
+    }
 
     saveItinerary = () => {
         let Itinerary = {};
@@ -17,7 +31,8 @@ class SaveButton extends React.Component {
                 cities: this.props.cities,
                 countries: this.props.countries,
                 itinerary: this.props.itinerary,
-            }
+
+            };
             this.props.saveItinerary(Itinerary);
         } else {
             Itinerary = {
@@ -45,9 +60,11 @@ class SaveButton extends React.Component {
                     axios.patch("http://localhost:9000/itinerary/save/" + this.props.currentItineraryID, Itinerary)
                     .then(res=> {
                         console.log(res.data);
+                        this.setState({openSaveSuccess:true});
                     })
                     .catch(err=> {
                         console.log(err);
+                        this.setState({openSaveError:true});
                     })
                 } else {
                 console.log("Going to call post");
@@ -58,10 +75,12 @@ class SaveButton extends React.Component {
                             .then((res) => {
                                 console.log("updating reducers")
                                 this.props.updateUserItinerary(itineraries)
+                                this.setState({openSaveSuccess:true});
                             })
                     })
                     .catch(err => {
                         console.log(err);
+                        this.setState({openSaveError:true});
                     })
                 }
             })
@@ -69,7 +88,19 @@ class SaveButton extends React.Component {
 
     render() {
         return (
+            <div>
             <button className={"submit-button save-button"} onClick={() => this.saveItinerary()}>Save Itinerary</button>
+            <Snackbar open={this.state.openSaveSuccess} autoHideDuration={5000} onClose={this.handleClose.bind(this)}>
+                <Alert onClose={this.handleClose.bind(this)} severity="success">
+                    {this.props.itinerary.name} has been saved!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={this.state.openSaveError} autoHideDuration={5000} onClose={this.handleClose.bind(this)}>
+                <Alert onClose={this.handleClose.bind(this)} severity="error">
+                    {this.props.itinerary.name} could not be saved!
+                </Alert>
+            </Snackbar>
+            </div>
         )
     }
 }

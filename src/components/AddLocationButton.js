@@ -60,8 +60,9 @@ class AddLocationButton extends React.Component {
     placePhotoUrls: []
     };
         }
-        if (country === "")
-            return
+        if (country === "" || (country !== "" && city === "" )){
+            return;
+        }
 
         if(this.props.countries.map(item => item.name).includes(country)){
             if(this.props.cities.map(item => item.name).includes(city)){
