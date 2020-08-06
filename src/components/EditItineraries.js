@@ -95,7 +95,7 @@ class Itineraries extends React.Component {
             <div className={classes.bg + " bgScroll"} >
                 <React.Fragment>
                     <div><Navbar/></div>
-                    <div>
+                    <div className='body-background'>
                         <Resizable resizeHandles={['s']}>
                             <ResizableBox width="100%" height={400} handle={<div className={`custom-handle`}><DragHandleIcon/> </div>}
                                           minConstraints={[0, 0]} maxConstraints={[1000, 1000]}>

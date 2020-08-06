@@ -2,30 +2,33 @@
     background-image: none;
     position: relative;
     z-index: 1;
-    color: red;
+    color: white;
     display: block;
     font-size: 4em;
     max-width: 100%;
 }
 .bg404{
     z-index: 1;
-    position: absolute;
+    position: fixed;
     width: 100%;
     min-width: 535px;
     text-align: center;
     align-content: center;
     display: block;
+    background: linear-gradient(315deg, #7f5a83 0%, #0b2c43 74%) repeat;
 }
-.bg404:before{
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    opacity: 1;
-}
+
+/*.bg404:before{*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    z-index: -1;*/
+/*    top: 0;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    opacity: 1;*/
+/*}*/
+
 .smallIcon404{
     transform: scale(0.65);
     display: block;
