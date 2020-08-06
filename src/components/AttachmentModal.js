@@ -133,30 +133,19 @@ class AttachmentModal extends Component {
       maxWidth: 500,
       minHeight: 300,
       margin: '0 auto',
-      padding: 30
+      padding: 0
     };
 
 
 
     return (
       <div className="backdrop" style={{backdropStyle}}>
-      <IconButton className={"btn"} aria-label="Close" name="Close" onClick={this.props.onClose}>
-                <CloseIcon />
-        </IconButton>
-        <div className="modal" style={{modalStyle}}>
-        
-          {this.props.children}
 
-          <div className="file-display">
-          {this.renderFiles()}
-          </div>
-
-          <div className="footer">
+<div className="footer">
           <IconButton className={"btn"} aria-label="Add" name="Add" onClick={this.handleOpenDropzone.bind(this)}>
                 <AddBoxOutlinedIcon />
         </IconButton>
 
-        
         <DropzoneDialog
                     open={this.state.open}
                     onSave={this.handleSave.bind(this)}
@@ -166,7 +155,11 @@ class AttachmentModal extends Component {
                     onClose={this.handleCloseDropzone.bind(this)}
                 />
           </div>
-        </div>
+
+          <div className="file-display">
+          {this.renderFiles()}
+          </div>
+
       </div>
     );
   }
