@@ -152,6 +152,7 @@ class ProfilePageLinh extends React.Component {
             value={val}
             onChange={(event, newValue) => {
               val = newValue;
+              itinerary.rating = val;
               this.updateArchiveServer(itinerary)
             }}
           />
@@ -162,7 +163,7 @@ class ProfilePageLinh extends React.Component {
     updateArchiveServer = (payload) => {
         //change itineraries state 
         
-        this.props.updateArchive(payload);
+
         let newItinerariesArray = this.props.authentication.itineraries.slice();
         let indexToRemove = newItinerariesArray.findIndex((item) => {
            return payload.id === item.id;
@@ -176,6 +177,7 @@ class ProfilePageLinh extends React.Component {
            archived: newArchivedArray,
            itineraries: newItinerariesArray
         };
+        this.props.updateArchive(updateBody);
 
         this.setState = {
             itineraries: newItinerariesArray

@@ -15,7 +15,7 @@ import IconButton from "@material-ui/core/IconButton";
 import {setItineraryFromDB, renderCity, renderCountry, renderLocation, changeView} from '../actions';
 const { uuid } = require('uuidv4');
 
-class Archive extends React.Component {
+class ArchiveItineraries extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -30,8 +30,8 @@ class Archive extends React.Component {
      componentDidMount() {
         console.log('Getting archive itinerary from database!');
         let currentArchive = [];
-        //this.props.authentication.archived.map((id, index) => {
-            this.state.testArchive.map((id, index) => {
+        this.props.authentication.archived.map((id, index) => {
+            //this.state.testArchive.map((id, index) => {
                 console.log(id);
                 console.log(index);
             // request all the archived data here
@@ -143,4 +143,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps, {setItineraryFromDB, renderLocation, renderCountry, renderCity, changeView})(Archive);
+export default connect(mapStateToProps, {setItineraryFromDB, renderLocation, renderCountry, renderCity, changeView})(ArchiveItineraries);
