@@ -1,7 +1,8 @@
+const converter = require('../imgConverter');
 const express = require('express');
 const Itinerary = require('../models/itinerary.model');
 const router = express.Router();
-
+var fs = require('fs');
 
 
 /* GET users listing. */

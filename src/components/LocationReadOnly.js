@@ -106,6 +106,10 @@ class LocationReadyOnly extends React.Component {
                 <IconButton className={"btn"} aria-label="Photo" name="Photo" onClick={this.handlePhotoBtnClick}>
                 <PhotoCameraOutlinedIcon />
                 </IconButton>
+
+                <IconButton className={"btn"} aria-label="Edit" name="Edit" onClick={this.handleEditBtnClick}>
+                <NotesOutlinedIcon />
+                </IconButton>
                 
                 
                 </div>

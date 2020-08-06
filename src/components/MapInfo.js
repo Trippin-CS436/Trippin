@@ -41,6 +41,7 @@ class MapInfo extends React.Component {
         if (prevProps.mapLocation !== this.props.mapLocation) {
             this.setState({
                 mapLocation: this.props.mapLocation,
+                address: this.props.mapLocation.Address,
                 info: this.props.mapLocation.Info,
                 phone: this.props.mapLocation.Info.placePhoneNumber,
                 website: this.props.mapLocation.Info.placeWebsite,
@@ -51,6 +52,18 @@ class MapInfo extends React.Component {
             })
         }
     }
+
+    addressDisplay = () => {
+      if (this.state.address !== undefined && this.state.address !== ''){
+        return (
+          <Box fontWeight="fontWeightLight" p={2} borderColor="transparent">
+          <Typography variant="h5" >Address</Typography>
+          <Typography variant="subtitle1"> {this.state.address}</Typography>
+         </Box>
+      )
+    } else return null;
+      }
+    
 
     phoneDisplay = () => {
         if (this.state.phone !== undefined && this.state.phone !== ''){
@@ -77,9 +90,8 @@ class MapInfo extends React.Component {
     ratingDisplay = () => {
         
         let ratingValue = 0;
-        if (this.state.rating) { ratingValue = parseFloat(this.state.rating.toString()); };
-        
         if (this.state.rating !== undefined && this.state.rating !== ''){
+          if (this.state.rating) { ratingValue = parseFloat(this.state.rating.toString()); };
             return (
                 <Box borderColor="transparent" mb={1} p={2} fontWeight="fontWeightLight">
                 <Typography variant="h5">Rating</Typography>
@@ -91,7 +103,7 @@ class MapInfo extends React.Component {
 
     photoToRender = () => {
         let photos = this.state.photos;
-        if (this.state.photos !== undefined && this.state.photos !== ''){
+        if (this.state.photos !== undefined && this.state.photos.length > 0){
         return (
             <div className="photos">
             <div className="photos-display">
@@ -129,7 +141,7 @@ class MapInfo extends React.Component {
 
         // reviews is an array of reviews
         let reviews = this.state.reviews;
-        if ( reviews !== undefined) {
+        if ( reviews !== undefined && reviews.length > 0) {
             if (reviews.length > 0) {
             return (
                 <Box borderColor="transparent" mb={2} p={1} fontWeight="fontWeightLight">
@@ -200,6 +212,8 @@ class MapInfo extends React.Component {
             <Box  borderColor="transparent"  fontWeight="fontWeightBold" borderBottom={1} p={1} mb={2}>
             <Typography>LOCATION INFORMATION</Typography>
             </Box>
+
+            {this.addressDisplay()}
 
            {this.phoneDisplay()}
 

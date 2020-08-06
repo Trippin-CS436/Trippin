@@ -85,13 +85,35 @@ class Location extends React.Component {
             open: false
         });
     }
+    
+    encoder =(file) => {
+// encode function 
+let encode = new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+  reader.onloadend = function() {
+    console.log('RESULT', reader.result);
+    resolve(reader.result);
+  } 
+});
+let testPhoto = null;
+testPhoto = encode.then(photo => {
+    return photo;
+});
+return testPhoto;
+    }
  
-    handleSave(photos) {
+    async handleSave(photos) {
         this.setState({
             photoFiles: photos,
             open: false
         });
-        this.props.addPhotos({photoFiles: photos, index: this.state.index});
+        let photoArray = [];
+        photos.forEach(photo => photoArray.push(this.encoder(photo)));
+        Promise.all(photoArray).then((photosEncoded) => {
+            console.log("Photos: ", photosEncoded);
+            this.props.addPhotos({photoFiles: photosEncoded, index: this.state.index});
+          });
     }
 
     handleOpen() {
@@ -116,8 +138,10 @@ class Location extends React.Component {
             return <Info location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
        else if (this.state.showPhotos) {
+           console.log(this.state.photo);
            return (
                <div>
+              <img src={this.state.photo} />
                 <Photos location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
             </div>
            );   
@@ -127,9 +151,9 @@ class Location extends React.Component {
             <DropzoneDialog
             open={this.state.open}
             onSave={this.handleSave.bind(this)}
-            acceptedFiles={['image/jpeg', 'image/png', 'image/bmp','image/gif', 'video/mpeg']}
+            acceptedFiles={['image/jpeg', 'image/png']}
             showPreviews={true}
-            maxFileSize={5000000}
+            maxFileSize={100000}
             onClose={this.handleClose.bind(this)}
         />
         )

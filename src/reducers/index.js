@@ -26,6 +26,8 @@ const mapLocationReducer = (state = defaultMapLocation, action) => {
             }
         case 'RESET':
             return defaultMapLocation;
+        case 'RESET_MAP':
+            return defaultMapLocation;
         default:
             return state;
     }
@@ -295,7 +297,18 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
         return itinerary;
     }
     else if (action.type === 'RESET'){
-        let newItinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: "", end: ""}], files: []};
+        var today = new Date(Date.now());
+        var tomorrow = new Date(Date.now());
+        var dd = String(today.getDate()+2).padStart(2, '0');
+        var ddNext = String(today.getDate()+4).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+        console.log("today", today);
+        console.log("tomorrow", tomorrow);
+        
+       // today = yyyy + '/' + mm + '/' + dd;
+        // tomorrow = yyyy + '/' + mm + '/' + ddNext;
+        let newItinerary = { name: "Enter Name of Itinerary", dateRanges : [{start: today.toISOString(), end: tomorrow.toISOString()}], files: []};
         return newItinerary;
     }
     else if (action.type === 'CHANGE_DATE_ITINERARY'){

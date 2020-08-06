@@ -19,7 +19,7 @@ const uri =  "mongodb+srv://trippin_admin:trippin_admin_123@trippin-ue6od.mongod
 mongoose.connect(uri, {useNewUrlParser: true,  useUnifiedTopology: true,  useFindAndModify: false });
 
 const connection = mongoose.connection;
-const port = 6000;
+const port = 9000;
 
 
 connection.once("open", function() {
@@ -28,11 +28,12 @@ connection.once("open", function() {
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(bodyParser.urlencoded({limit: '10000mb', extended: true}));
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
