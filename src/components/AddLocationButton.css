@@ -35,7 +35,7 @@
 
 .submit-button {
   display: -webkit-box;
-  display: flex;
+  display: inline-block;
   -webkit-box-pack: center;
   justify-content: center;
   -webkit-box-align: center;
@@ -87,4 +87,8 @@
 }
 .submit-button.state-2 .pre-state-msg {
   margin-top: -76px;
+}
+.closePopupButton{
+  margin-left: 80%;
+  margin-top: -43px;
 }
