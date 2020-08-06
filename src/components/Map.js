@@ -179,7 +179,7 @@ class Map extends React.Component {
             // console.log(this.autocomplete.getPlace())
         const place = this.autocomplete.getPlace();
         if(place.address_components === undefined){
-            alert("Please Select From The Search Box's Suggested Location, If A Location Is Not Present, Google Map Cannot Find Your Search");
+            alert("Please select a location from the map's drop down list!");
         } else {
         console.log("--------This is testing getPlace-------------");
         console.log(place);
