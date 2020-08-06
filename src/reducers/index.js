@@ -85,21 +85,10 @@ const authenticationReducer = (authentication = userState, action) => {
         };
         return newAuth;
     } else if (action.type === "UPDATE_ARCHIVE") {
-        // remove from user itineraries
-        console.log('Rating: ', action.payload.rating);
-        let newItinerariesArray = authentication.itineraries.slice();
-        let indexToRemove = newItinerariesArray.findIndex((item) => {
-           return action.payload.id === item.id;
-        });
-        newItinerariesArray.splice(indexToRemove, 1);
-        // move to archived
-        let newArchivedArray = authentication.archived.slice();
-        newArchivedArray.push(action.payload.id);
-
         let newAuth = {
            ...authentication,
-           archived: newArchivedArray,
-           itineraries: newItinerariesArray
+           archived: action.payload.archived,
+           itineraries: action.payload.itineraries
         };
         return newAuth;
     }

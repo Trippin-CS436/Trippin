@@ -178,8 +178,7 @@ class ProfilePageLinh extends React.Component {
         };
 
         this.setState = {
-            itineraries: newItinerariesArray,
-            archived: newArchivedArray,
+            itineraries: newItinerariesArray
         }
         axios.patch("http://localhost:9000/user/save/archived/" + payload.id, updateBody)
         .then(res => {
