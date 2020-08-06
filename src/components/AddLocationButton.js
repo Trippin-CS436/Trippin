@@ -63,7 +63,7 @@ class AddLocationButton extends React.Component {
         }
 
         if (country === "" || (country !== "" && city === "" && address !== country)){
-            console.log("INVALID LOCATION")
+            alert("Unable to add that location to your itinerary!")
             return;
         }
 

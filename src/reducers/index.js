@@ -341,7 +341,7 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
         return itinerary;
     }
     else if (action.type === 'RESET'){
-        console.log(this.state);
+        // console.log(this.state);
         var today = new Date();
         var tomorrow = new Date();
         let newItinerary = { name: "New Itinerary", dateRanges :  [{value: [today, tomorrow]}], files: [], shared: false, rating: 0, tags:[]};
