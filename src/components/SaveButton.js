@@ -40,7 +40,7 @@ class SaveButton extends React.Component {
                     console.log("Going to call patch");
                     console.log(Itinerary);
                     console.log(this.props.currentItineraryID)
-                    axios.put("http://localhost:9000/itinerary/save/" + this.props.currentItineraryID, Itinerary)
+                    axios.patch("http://localhost:9000/itinerary/save/" + this.props.currentItineraryID, Itinerary)
                     .then(res=> {
                         console.log(res.data);
                     })
