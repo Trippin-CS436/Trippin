@@ -239,7 +239,7 @@ class MapInfo extends React.Component {
                         {this.reviewDisplay()}
 
                         <div className="addButton" style={{display:"inline-block"}}>
-                            <AddLocationButton />
+                            <AddLocationButton handleDialogClose={this.handleClose.bind(this)}/>
                         </div>
                         <div className="closePopupButton" style={{display:"block"}}>
                             <Button onClick={this.handleClose.bind(this)} variant="contained" color="primary">

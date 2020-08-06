@@ -28,6 +28,7 @@ class AddLocationButton extends React.Component {
     handleButtonClick = () => {
         this.addLocationToItinerary();
         this.updateButtonMsg();
+        this.props.handleDialogClose();
     }
 
 
