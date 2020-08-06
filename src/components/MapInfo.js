@@ -56,6 +56,7 @@ class MapInfo extends React.Component {
                 reviews: this.props.mapLocation.Info.placeReviews,
                 photos: this.props.mapLocation.Info.placePhotos,
                 openMapInfoDialog:true,
+                address: this.props.mapLocation.Address,
             })
         }
     }
