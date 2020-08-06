@@ -41,7 +41,7 @@ class Itineraries extends React.Component {
         this.state = {
             id: this.props.match.params.id,
             invalidID: false,
-            itineraryID: this.props.editItineraryID
+            itineraryID: this.props.editItineraryID,
         };
        // console.log(this.props.authentication.loginStatus );
         console.log(this.props.match.params.id);

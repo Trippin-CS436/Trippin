@@ -16,6 +16,11 @@ import { ListItem } from '@material-ui/core';
 import "./InfoPhotos.css"
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import Dialog from "@material-ui/core/Dialog/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions/DialogActions";
+import Button from "@material-ui/core/Button";
+import DeleteIcon from "@material-ui/core/SvgIcon/SvgIcon";
 
 
 
@@ -32,7 +37,8 @@ class MapInfo extends React.Component {
             status: this.props.mapLocation.Info.placeStatus,
             rating: this.props.mapLocation.Info.placeRating,
             reviews: this.props.mapLocation.Info.placeReviews,
-            photos: this.props.mapLocation.Info.placePhotos
+            photos: this.props.mapLocation.Info.placePhotos,
+            openMapInfoDialog: false,
         };
     }
 
@@ -48,7 +54,9 @@ class MapInfo extends React.Component {
                 status: this.props.mapLocation.Info.placeStatus,
                 rating: this.props.mapLocation.Info.placeRating,
                 reviews: this.props.mapLocation.Info.placeReviews,
-                photos: this.props.mapLocation.Info.placePhotos
+                photos: this.props.mapLocation.Info.placePhotos,
+                openMapInfoDialog:true,
+                address: this.props.mapLocation.Address,
             })
         }
     }
@@ -198,40 +206,48 @@ class MapInfo extends React.Component {
         )
     }
 
-
-
-
-
-
-
+    handleClose(){
+        this.setState({openMapInfoDialog: false});
+    }
     render() {
        return(
 
             <div className="mainInfo">
-            <Box borderColor="transparent" p={2}>
-            <Box  borderColor="transparent"  fontWeight="fontWeightBold" borderBottom={1} p={1} mb={2}>
-            <Typography>LOCATION INFORMATION</Typography>
-            </Box>
+            {/*<Box  borderColor="transparent"  fontWeight="fontWeightBold" borderBottom={1} p={1} mb={2}>*/}
+            {/*<Typography>LOCATION INFORMATION</Typography>*/}
+            {/*</Box>*/}
 
-           {this.addressDisplay()}
+                <Dialog
+                    open={this.state.openMapInfoDialog}
+                    onClose={this.handleClose.bind(this)}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle>LOCATION INFORMATION</DialogTitle>
+                    <Box borderColor="transparent" p={2}>
+                        {this.addressDisplay()}
 
-           {this.phoneDisplay()}
+                        {this.phoneDisplay()}
 
-           {this.websiteDisplay()}
+                        {this.websiteDisplay()}
 
-           {this.ratingDisplay()}
+                        {this.ratingDisplay()}
 
-            {this.photoDisplay()}
+                        {this.photoDisplay()}
 
 
-           {this.reviewDisplay()}
+                        {this.reviewDisplay()}
 
-           <div className="addButton">
-                <AddLocationButton />
-            </div>
-
-               
-                </Box>
+                        <div className="addButton" style={{display:"inline-block"}}>
+                            <AddLocationButton handleDialogClose={this.handleClose.bind(this)}/>
+                        </div>
+                        <div className="closePopupButton" style={{display:"block"}}>
+                            <Button onClick={this.handleClose.bind(this)} variant="contained" color="primary">
+                            Close
+                        </Button>
+                        </div>
+                    </Box>
+                </Dialog>
             </div> 
         )
     }

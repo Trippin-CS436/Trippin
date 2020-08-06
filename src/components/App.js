@@ -31,7 +31,7 @@ function App() {
                     <ProfilePageLinh />
                 </AuthRoute>
                 <AuthRoute exact path="/">
-                    <Redirect to={"/userprofile"}/>
+                     <Redirect to={"/userprofile"} />
                 </AuthRoute>
                 <AuthRoute path="/itineraries/:id" component={EditItineraries} />
                 <AuthRoute exact path="/archive">
