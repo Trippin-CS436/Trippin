@@ -68,7 +68,6 @@ class Dates extends React.Component{
     }
     addNewDate(){
         let value = [new Date(), new Date()];
-        console.log(value)
         if (this.props.place.dateRanges.length > 0){
             let length = this.props.place.dateRanges.length;
             let endDatePrevious = this.props.place.dateRanges[length - 1].value[1];
@@ -85,7 +84,6 @@ class Dates extends React.Component{
         let oldValue = datesCopy[index].value;
         datesCopy[index].value = dateRange;
         if(this.checkOverlappingDates(datesCopy)){
-            console.log("DATES DON'T OVERLAP")
             this.props.changeDate(this.props.place,this.props.type,dateRange,index)
         }
         else{
@@ -102,8 +100,6 @@ class Dates extends React.Component{
                     let endDate = new Date(dates[i].value[1]);
                     let startDate2 = new Date(dates[j].value[0]);
                     let endDate2 = new Date(dates[j].value[1]);
-                    console.log(startDate)
-                    console.log(startDate2)
                     if ((startDate > startDate2 && startDate < endDate2) || (endDate > startDate2 && endDate < endDate2)){
                         return false;
                     }

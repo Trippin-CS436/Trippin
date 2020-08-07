@@ -23,13 +23,9 @@ class SharePage extends Component {
                 id: this.props.match.params.id,
                 invalidID: false,
             };
-            // console.log(this.props.authentication.loginStatus );
-            //console.log(this.props.match.params.id);
         }
 
         componentDidMount(){
-            console.log("Component is mounted");
-            console.log(this.state.id);
             axios.get("/itinerary/share/" + this.state.id)
                 .then(response => {
                     if(response.data){
@@ -50,7 +46,6 @@ class SharePage extends Component {
                     }
                 })
                 .catch(err => {
-                    console.log("invalid ID given");
                     this.setState({invalidID: true});
                 });
         }

@@ -160,11 +160,9 @@ class ItineraryReadOnly extends React.Component {
         let cities = this.props.cities;
         let citiesReference = this.props.cities;
         let locations = this.props.locations;
-        console.log(this.state.deletionIsCountry)
         if (this.state.deletionIsCountry){
             //cascade deletes to every city and location in delete country
             cities = cities.filter((item) => item.countryID === this.state.idToDelete);
-            console.log(cities)
             for (const city of cities){
                 //Find a new city to display
                 if (city.id === this.props.currentView.byID.city){

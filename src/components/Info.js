@@ -20,15 +20,10 @@ class Info extends React.Component {
 
     constructor(props){
         super(props);
-        console.log(this.props.location);
-        console.log(this.props.id);
         let newArray = this.props.location.slice();
         let indexOfLocation= newArray.findIndex((item) => {
             return this.props.id == item.id;
         });
-
-        console.log(indexOfLocation);
-        console.log(this.props.location[indexOfLocation]);
 
         this.state = {
             currentLocation: this.props.location[indexOfLocation],

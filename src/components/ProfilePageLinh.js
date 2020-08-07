@@ -76,15 +76,6 @@ class ProfilePageLinh extends React.Component {
             this.props.updateArchive({itineraries: this.props.authentication.itineraries,
                 archived: this.props.authentication.archived, profilePageItineraries: upcoming})
         }).catch(err => console.log(err));
-        // Promise.all(archivedPromises).then(response => {
-        //     let i = 0;
-        //     for (const itineraryID of this.props.authentication.archived) {
-        //         archived.push({itinerary: response[i].data[0].itinerary, id: response[i].data[0].id, shareUrlObjectID: response[i].data[0]._id });
-        //         i++;
-        //     }
-        //     this.setState({archived: archived});
-        // }).catch(err => console.log(err));
-        console.log(this.props.authentication);
     }
 
     createKey = (location) => {
@@ -93,21 +84,15 @@ class ProfilePageLinh extends React.Component {
 
     googleLogOut = (response) => {
         this.props.logOut();
-        console.log(response);
     };
 
     googleLogOutFailure = (response) => {
-        console.log(response);
     };
 
     fbLogOut = () => {
-        console.log(window);
-        console.log("got here!");
+
         // window.FB.logout((response) => {console.log(response)});
-        console.log("got to window.FB");
-        console.log(this.props.authentication);
         this.props.logOut();
-        console.log(this.props.authentication);
     };
 
     archivePopup = (itinerary) => {
@@ -175,7 +160,6 @@ class ProfilePageLinh extends React.Component {
         itinerary.rating = payload.rating;
         axios.patch("/user/save/archived/" + this.props.authentication.id, updateBody)
             .then(res => {
-                console.log("Archive updated for user: " + res.data);
                 this.props.updateArchive({...updateBody, profilePageItineraries: newStateItineraries});
             })
             .catch(err => {
@@ -183,7 +167,6 @@ class ProfilePageLinh extends React.Component {
             });
         axios.patch("/itinerary/save/archive/" + payload.id, {itinerary:itinerary})
             .then(res=> {
-                console.log(res.data);
             })
             .catch(err=> {
                 console.log(err);
@@ -193,12 +176,9 @@ class ProfilePageLinh extends React.Component {
     updateVisitedServer() {
         let locations = this.props.locations.slice();
         locations = locations.map(loc => ({lat: loc.lat, lng: loc.lon}));
-        console.log("=========LOCATIONS==========")
-        console.log(locations);
 
         let visited = this.props.authentication.visited.slice();
         visited = visited.concat(locations);
-        console.log(visited);
 
         let updateBody = {
             visited: visited,
@@ -216,7 +196,6 @@ class ProfilePageLinh extends React.Component {
 
 
     archiveButton = (itinerary) => {
-        console.log('Itinerary Archive: ', itinerary);
         let endDate = new Date();
         let compare = new Date();
         if (itinerary.itinerary.dateRanges !== undefined && itinerary.itinerary.dateRanges.length > 0){

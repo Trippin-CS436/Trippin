@@ -70,7 +70,6 @@ class CityReadOnly extends React.Component {
         countryToRender = countryToRender[0];
 
         let locationsToRender = this.props.locations.filter(function(loc){
-            console.log("REnder CITY",loc.location);
             return loc.cityID === cityToRenderID;
         });
 

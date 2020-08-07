@@ -36,8 +36,7 @@ class AddLocationButton extends React.Component {
         let isCitiesEmpty = (this.props.cities.length === 0) ? true : false
         let newCityAdded = false;
         let currentMapLocation = this.props.mapLocation;
-        console.log("CURRENT MAP LOCATION")
-        console.log(currentMapLocation)
+
         let city = currentMapLocation.Area;
         let cityID = uuid();
 
@@ -71,7 +70,6 @@ class AddLocationButton extends React.Component {
             if(this.props.cities.map(item => item.name).includes(city)){
                 //Country and City exist in itinerary
                 let cityID = this.props.cities.filter((item) => {return item.name === city})[0].id;
-                console.log(cityID);
                 if(!this.props.locations.map(item => item.location).includes(location)){
                     let locationID = uuid();
                     let newLocation = {
@@ -120,7 +118,6 @@ class AddLocationButton extends React.Component {
             // No country and no city found
             //New Country to add
             let countryID = uuid();
-            console.log("ADDING JUST COUNTRY")
             //New City to add
             if (city !== ""){
                 newCityAdded = true
@@ -144,7 +141,6 @@ class AddLocationButton extends React.Component {
             }
             this.props.insertNewCountry(countryID,country);
         }
-        console.log(this.props.cities);
         if (isCitiesEmpty && newCityAdded){
             this.props.changeView(cityID);
         }

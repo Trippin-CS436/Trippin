@@ -138,17 +138,14 @@ class Map extends React.Component {
     onMarkerDragEnd = (event) => {
         let newLat = event.latLng.lat();
         let newLng = event.latLng.lng();
-        //console.log(newLng, newLat);
 
         Geocode.fromLatLng(newLat, newLng)
             .then(response => {
-                console.log(response);
                 const address = response.results[0].formatted_address,
                     addressArray = response.results[0].address_components,
                     city = this.getCity(addressArray),
                     area = this.getArea(addressArray),
                     state = this.getState(addressArray);
-                    console.log(address);
 
                 this.setState({
                     address: (address) ? address : "",
@@ -168,20 +165,16 @@ class Map extends React.Component {
     };
 
     onLoad = (autocomplete) => {
-        console.log('autocomplete: ', autocomplete);
         this.autocomplete = autocomplete;
         // this.autocomplete.addListener('place_changed', this.onPlaceChanged);
     };
 
     onPlaceChanged = () => {
         // if (this.autocomplete !== null) {
-            // console.log(this.autocomplete.getPlace())
         const place = this.autocomplete.getPlace();
         if(place.address_components === undefined){
             alert("Please select a location from the map's drop down list!");
         } else {
-        console.log("--------This is testing getPlace-------------");
-        console.log(place);
         const address = place.formatted_address,
             placeId = place.place_id,
             addressArray = place.address_components;
@@ -238,9 +231,6 @@ class Map extends React.Component {
             info: info
         })
 
-    // } else {
-    //     console.log('Autocomplete is not loaded yet!')
-    //   }
 
         // create mapLocation object
         const mapLocation = {
@@ -254,11 +244,7 @@ class Map extends React.Component {
             lon: this.state.mapPosition.lng,
         }
         // Reducer call to update the name of the facility and address
-        console.log('OnPlaceChange call', mapLocation);
-        console.log("This is Map Location");
-        console.log(mapLocation);
-        console.log("This is Map State");
-        console.log(this.state)
+
         this.props.getLocation(mapLocation);
     }};
 

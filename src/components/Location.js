@@ -88,7 +88,6 @@ class Location extends React.Component {
     var reader = new FileReader();
     reader.readAsDataURL(file);
      reader.onloadend = function() {
-    console.log('RESULT', reader.result);
     resolve(reader.result);
     }
     });
@@ -107,7 +106,6 @@ class Location extends React.Component {
         let photoArray = [];
         photos.forEach(photo => photoArray.push(this.encoder(photo)));
         Promise.all(photoArray).then((photosEncoded) => {
-            console.log("Photos: ", photosEncoded);
             this.props.addPhotos({photoFiles: photosEncoded, index: this.state.index});
           });
     }
@@ -125,16 +123,13 @@ class Location extends React.Component {
     renderSubComp(){
        if (this.state.showNotes) {
            const currLoc = this.props.locations[this.props.idx];
-           console.log(currLoc);
          return <Notes location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
         else if (this.state.showInfo) {
             const currLoc = this.props.locations[this.props.idx];
-           console.log(currLoc);
             return <Info location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
        else if (this.state.showPhotos) {
-           console.log(this.state.photo);
            return (
                <div>
               <img src={this.state.photo} />

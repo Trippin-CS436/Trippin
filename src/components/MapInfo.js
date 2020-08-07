@@ -257,8 +257,7 @@ class MapInfo extends React.Component {
   })); */
 
 const mapStateToProps = (state) => {
-    console.log('State',state);
-    return { 
+    return {
         mapLocation: state.mapLocation
     }
 }

@@ -29,7 +29,6 @@ class LocationButton extends React.Component {
             if(this.props.cities.map(item => item.name).includes(city)){
                 //Country and City exist in itinerary
                 let cityID = this.props.cities.filter((item) => {return item.name === city})[0].id;
-                console.log(cityID);
                 if(!this.props.locations.map(item => item.location).includes(location)){
                     let locationID = uuid();
                     this.props.addLocation(locationID,location,address,cityID);
@@ -63,7 +62,6 @@ class LocationButton extends React.Component {
             }
             this.props.insertNewCountry(countryID,country);
         }
-        console.log(this.props.cities)
         if (isCitiesEmpty){
             this.props.changeView(cityID);
         }

@@ -28,7 +28,6 @@ class Notes extends React.Component {
       }
 
     handleSaveNotes = () => {
-        console.log(this.state.notesText);
         this.props.addNotes({
         notes: this.state.notesText,
         index: this.state.index

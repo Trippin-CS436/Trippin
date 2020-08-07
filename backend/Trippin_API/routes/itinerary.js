@@ -10,18 +10,15 @@ router.route('/').get((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
 });
 router.route('/:id').get((req, res) => {
-  console.log(req.params.id);
   Itinerary.find({id: req.params.id})
       .then(itinerary => res.json(itinerary))
       .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/share/:id').get((req, res) => {
-  console.log(req.params.id);
   Itinerary.findById(req.params.id)
       .then(itinerary => {
         res.json(itinerary);
-        console.log(itinerary);
       })
       .catch(err => res.status(404).json('Error: ' + err));
 });
@@ -34,8 +31,6 @@ router.route('/exist/:id').get((req, res) => {
 
 router.post('/save', function(req, res, next) {
   const newItinerary = new Itinerary({id:req.body.id, locations: req.body.locations, cities: req.body.cities, countries: req.body.countries,itinerary:req.body.itinerary});
-  console.log(newItinerary);
-  console.log(newItinerary.id);
   newItinerary.save()
     .then(() => res.json(newItinerary._id))
     .catch(err => res.status(400).json('Error: ' + err));
@@ -59,28 +54,24 @@ router.route('/save/:id').patch((req,res) => {
 
 
   router.route('/save/archive/:id').patch((req,res) => {
-    console.log(req.params.id);
     Itinerary.findOneAndUpdate({id: req.params.id}, {itinerary:req.body.itinerary},)
       .then(() => res.json("itinerary updated"))
       .catch(err => res.status(404).json('Error: ' + err));
     });
 
   router.route('/delete/:id').delete((req,res) => {
-    console.log(req.params.id);
     Itinerary.deleteOne({id: req.params.id})
       .then((response) => res.json(response))
       .catch(err => res.status(404).json('Error: ' + err));
     });
 
 router.route('/save/archive/:id').patch((req,res) => {
-  console.log(req.params.id);
   Itinerary.findOneAndUpdate({id: req.params.id}, {itinerary:req.body.itinerary},)
       .then(() => res.json("itinerary updated"))
       .catch(err => res.status(404).json('Error: ' + err));
 });
 
 router.route('/browse/itineraries').get((req, res) => {
-  console.log(req.params.id);
   Itinerary.find({'itinerary.shared': true})
       .then(itinerary => res.json(itinerary))
       .catch(err => res.status(400).json('Error: ' + err));

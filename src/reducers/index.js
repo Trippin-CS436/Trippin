@@ -155,28 +155,21 @@ const locationsReducer = (locations = [], action) => {
         return newArray;
     }
     else if (action.type === "RENDER_LOCATION"){
-        console.log('Locations to render: ', action.payload);
         return action.payload;
     }
     else if (action.type === "ADD_NOTES"){
         let notes = action.add.notes;
         let index = action.add.index;
-        console.log(index);
-        console.log(locations[index]);
         locations[index].notes = notes;
-        console.log('Reducer location Notes: ', locations);
         return locations;
     }
     else if (action.type === "ADD_PHOTOS"){
         let photos = action.add.photoFiles; // array of files to add
         let index = action.add.index;
-        console.log(index);
-        console.log(locations[index]);
         function add(photo) {
             locations[index].userPhotos.push(photo);
         }
         photos.forEach(add);
-        console.log('Reducer location Photo: ', locations);
         return locations;
     } else if (action.type === 'DELETE_PHOTO') {
         let imgIndex = action.delete.imgIndex;
@@ -292,7 +285,6 @@ const countryReducer = (countries = [], action) =>{
         });
         let date = {value: action.value};
         newArray[indexToChange].dateRanges = newArray[indexToChange].dateRanges.concat(date);
-        console.log(newArray[indexToChange].dateRanges)
         return newArray
     }
     else if (action.type === "RENDER_COUNTRY"){
@@ -331,8 +323,6 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
             name: action.name
         };
     } else if (action.type === "UPDATE_SHARE"){
-        console.log('New Share: ', action.payload);
-        console.log('Old itinerary: ', itinerary);
         return{
             ...itinerary,
             shared: action.payload
@@ -345,7 +335,6 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
         }
         newFiles.forEach(add);
         itinerary.files = oldFiles;
-        console.log('Reducer itinerary files: ', itinerary);
         return itinerary;
         
     } else if (action.type === 'DELETE_FILE'){
@@ -361,7 +350,6 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
         return newItinerary;
     }
     else if (action.type === 'RESET'){
-        // console.log(this.state);
         let today = new Date();
         let tomorrow = new Date();
         let newItinerary = { name: "New Itinerary", dateRanges :  [{value: [today, tomorrow]}], files: [], shared: false, rating: 0, tags:[]};
@@ -393,7 +381,6 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
         }
     }
     else if (action.type === "SET_ITINERARY"){
-        console.log('Itinerary name:', action.payload.name);
         return action.payload
     }
     return itinerary;

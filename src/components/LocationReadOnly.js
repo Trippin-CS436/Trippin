@@ -67,12 +67,10 @@ class LocationReadyOnly extends React.Component {
     renderSubComp(){
        if (this.state.showNotes) {
            const currLoc = this.props.locations[this.props.idx];
-           console.log(currLoc);
          return <Notes isReadOnly={true} location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
         else if (this.state.showInfo) {
             const currLoc = this.props.locations[this.props.idx];
-           console.log(currLoc);
             return <Info location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
         }
         else if (this.state.showPhotos) {
