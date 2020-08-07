@@ -305,7 +305,7 @@ class Map extends React.Component {
                     <GoogleMap
                         mapContainerStyle={containerStyle}
                         zoom={8}
-                        center={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng + 1 }}
+                        center={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng}}
                     >
                         <Marker
                             draggable={true}
