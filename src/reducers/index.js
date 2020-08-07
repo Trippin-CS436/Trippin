@@ -67,7 +67,8 @@ const authenticationReducer = (authentication = userState, action) => {
                "id": null,
                 "visited": null,
                 "itineraries": null,
-                "archived": null
+                "archived": null,
+                "profilePageItineraries": null
             };
             return newAuth;
     }
@@ -81,42 +82,23 @@ const authenticationReducer = (authentication = userState, action) => {
             id: action.logIn.id,
             visited: action.logIn.visited,
             itineraries: action.logIn.itineraries,
-            archived: action.logIn.archived
+            archived: action.logIn.archived,
+            profilePageItineraries: []
         };
         return newAuth;
     } else if (action.type === "UPDATE_ARCHIVE") {
         let newAuth = {
            ...authentication,
            archived: action.payload.archived,
-           itineraries: action.payload.itineraries
+           itineraries: action.payload.itineraries,
+           profilePageItineraries: action.payload.profilePageItineraries
         };
         return newAuth;
     }
     if (action.type === "UPDATE_USER_ITINERARY") {
         let newAuth = {
-            loginStatus: authentication.loginStatus,
-            isGoogle: authentication.isGoogle,
-            name: authentication.name,
-            email: authentication.email,
-            profilePic: authentication.profilePic,
-            id: authentication.id,
-            visited: authentication.visited,
+            ...authentication,
             itineraries: action.updateUserItinerary,
-            archived: authentication.archived
-        };
-        return newAuth;
-    }
-    if (action.type === "UPDATE_USER_ARCHIVED") {
-        let newAuth = {
-            loginStatus: authentication.loginStatus,
-            isGoogle: authentication.isGoogle,
-            name: authentication.name,
-            email: authentication.email,
-            profilePic: authentication.profilePic,
-            id: authentication.id,
-            visited: authentication.visited,
-            itineraries: authentication.itineraries,
-            archived: action.updateUserArchived
         };
         return newAuth;
     }

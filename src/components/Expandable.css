@@ -126,7 +126,7 @@
 .custom-handle {
     position: relative;
     background-color: #ec407a;
-    left: 49%;
+    left: calc(50% - 1.5em);
     height: 1.3em;
     width: 3em;
     font-size: 10pt;
@@ -136,6 +136,10 @@
     margin-top: -10px;
     align-content: center;
     border-radius: 5px;
+    cursor: grab;
+}
 
-
+.drag-icon {
+    position: relative;
+    top: -20%;
 }

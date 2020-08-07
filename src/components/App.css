@@ -7,6 +7,20 @@
   text-align: center;
 }
 
+body, html {
+  height: 100%;
+}
+
+.body-background-test {
+  /* The image used */
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background: linear-gradient(315deg, #7f5a83 0%, #0b2c43 74%) no-repeat center;
+  background-size: cover;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {logOut, updateUserArchived, updateUserItinerary, changeView} from "../actions/index";
+import {logOut, updateUserItinerary, changeView} from "../actions/index";
 import { updateArchive } from "../actions/updateArchive";
 import "./ProfilePageLinh.css";
 import {GoogleMap, LoadScript, MarkerClusterer, Marker} from "@react-google-maps/api";
@@ -75,11 +75,6 @@ class ProfilePageLinh extends React.Component {
     constructor(props) {
         super(props);
         this.props.changeView(-1);
-        this.state = {
-            newTripName: null,
-        // state itineraries = {itinerary{}, id} -> itinerary = {name, dateRanges[], files, tags, recommended, shared}
-        itineraries: []
-        };
     }
 
 
@@ -95,9 +90,8 @@ class ProfilePageLinh extends React.Component {
                 upcoming.push({itinerary: response[i].data[0].itinerary, id: response[i].data[0].id, shareUrlObjectID: response[i].data[0]._id });
                 i++;
             }
-            this.setState({
-                itineraries: upcoming,
-            });
+            this.props.updateArchive({itineraries: this.props.authentication.itineraries,
+                archived: this.props.authentication.archived, profilePageItineraries: upcoming})
         }).catch(err => console.log(err));
         console.log(this.props.authentication);
     }
@@ -168,7 +162,7 @@ class ProfilePageLinh extends React.Component {
 
 
         let newItinerariesArray = this.props.authentication.itineraries.slice();
-        let newStateItineraries = this.state.itineraries.slice();
+        let newStateItineraries = this.props.authentication.profilePageItineraries.slice();
         let indexToRemove = newItinerariesArray.findIndex((item) => {
             return payload.id === item.id;
         });
@@ -189,10 +183,7 @@ class ProfilePageLinh extends React.Component {
         axios.patch("http://localhost:9000/user/save/archived/" + this.props.authentication.id, updateBody)
             .then(res => {
                 console.log("Archive updated for user: " + res.data);
-                this.props.updateArchive(updateBody);
-                this.setState({
-                    itineraries: newStateItineraries
-                });
+                this.props.updateArchive({...updateBody, profilePageItineraries: newStateItineraries});
             })
             .catch(err => {
                 console.log(err);
@@ -317,7 +308,8 @@ class ProfilePageLinh extends React.Component {
             let updatedIdList = this.props.authentication.itineraries.filter(item => (item !== id));
             axios.patch('http://localhost:9000/user/save/itineraries/' + this.props.authentication.id,
                 {itineraries: updatedIdList}).then( res => {
-                this.props.updateUserItinerary(updatedIdList);
+                let newStateItineraries = this.props.authentication.profilePageItineraries.filter(item => (item.id !== id));
+                this.props.updateArchive({itineraries: updatedIdList, archived: this.props.authentication.archived, profilePageItineraries: newStateItineraries});
                 axios.delete('http://localhost:9000/itinerary/delete/' + id).then(resp => console.log(resp)).catch(err => console.log(err));
             }).catch(err => console.log(err));
 
@@ -374,9 +366,7 @@ class ProfilePageLinh extends React.Component {
         const ItineraryList = () => {
             let returnRendering = [];
             let i=0;
-                for (const itinerary of this.state.itineraries) {
-                    console.log(this.state.itineraries);
-                    console.log(this.state.itineraries[0].name);
+                for (const itinerary of this.props.authentication.profilePageItineraries) {
                     returnRendering.push(
                         <div key={uuid()}>
                         <div style={{width: "75%",  display: "inline"}} key={uuid()}>
