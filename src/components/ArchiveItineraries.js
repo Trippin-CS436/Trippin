@@ -18,6 +18,7 @@ const { uuid } = require('uuidv4');
 class ArchiveItineraries extends React.Component {
     constructor(props){
         super(props);
+        this.props.changeView(-1);
         this.state = {
             // locations: this.props.itineraries.locations;
             currentIndex: 0,
@@ -52,7 +53,8 @@ class ArchiveItineraries extends React.Component {
                      this.props.renderCountry(this.state.archivedItineraries[0].countries);
                      this.props.renderCity(this.state.archivedItineraries[0].cities);
                      this.props.renderLocation(this.state.archivedItineraries[0].locations);
-                     this.props.changeView(this.state.archivedItineraries[0].locations[0].cityID);
+                     // this.props.changeView(this.state.archivedItineraries[0].locations[0].cityID);
+                     this.props.changeView(-1);
                      }
                 } 
             })
@@ -106,7 +108,7 @@ class ArchiveItineraries extends React.Component {
         const {archivedItineraries, currentItineraryView, currentIndex} = this.state;
         let itineraries = this.state.archivedItineraries;
         return (
-            <div>
+            <div className={""}>
             <div className="headerArchive">YOUR ARCHIVED ITINERARIES</div>
 
             <div className="carousel">
