@@ -308,12 +308,6 @@ const currentViewReducer = (currentView = defaultView, action) => {
     return currentView;
 };
 
-var today = new Date(Date.now());
-        var tomorrow = new Date(Date.now());
-        var dd = String(today.getDate()+2).padStart(2, '0');
-        var ddNext = String(today.getDate()+4).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = today.getFullYear();
 
 let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [{value: ["0", "1"]}], files: [], shared: false, rating: 0, tags:[]}, action) =>{
     if (action.type === "NAME_CHANGE"){
@@ -333,17 +327,17 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
         return itinerary;
         
     } else if (action.type === 'DELETE_FILE'){
-        let fileIndex = action.delete;
+        let file = action.delete;
         let oldFiles = itinerary.files !== undefined ? itinerary.files : [];
-        oldFiles.splice(fileIndex, 1);
+        let index = oldFiles.findIndex((item) => {
+            return file.id === item.id;
+         });
+        oldFiles.splice(index, 1);
         itinerary.files = oldFiles;
         console.log('Reducer itinerary files: ', itinerary);
         return itinerary;
     }
     else if (action.type === 'RESET'){
-        console.log(this.state);
-        var today = new Date();
-        var tomorrow = new Date();
         let newItinerary = { name: "Enter Name of Itinerary", dateRanges :  [{value: ["0", "1"]}], files: [], shared: false, rating: 0, tags:[]};
         return newItinerary;
     }
@@ -393,7 +387,7 @@ const currentItineraryReducer = (currentItinerary = null, action) => {
 const editItineraryIDReducer = (id = null, action) => {
     if(action.type === "EDIT_ITINERARY") {
         return action.edit;
-    } return id;
+    }  return id;
 }
 
 const currentItineraryObjectIDReducer = (id = null, action) => {

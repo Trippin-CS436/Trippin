@@ -35,7 +35,6 @@ class NewItineraries extends React.Component {
     
     componentDidMount() {
         this.props.reset();
-        this.props.saveItinerary({id:uuid()})
     }
 
 
@@ -56,7 +55,7 @@ class NewItineraries extends React.Component {
                         <Grid container spacing={0}>
                             <Grid item sm={12} lg={4} style={{marginBottom: '25px'}}>
                                 <div>
-                                    <Itinerary editName={true} />
+                                    <Itinerary showFiles={false} editName={true} />
                                 </div>
                             </Grid>
                             <Grid item sm={12} lg={8}>
