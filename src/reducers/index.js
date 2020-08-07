@@ -43,9 +43,9 @@ let userState = {
     "email": null,
     "profilePic": null,
     "id": null,
-    "visited": null,
-    "itineraries": null,
-    "archived": null
+    "visited": [],
+    "itineraries": [],
+    "archived": []
 };
 
 
