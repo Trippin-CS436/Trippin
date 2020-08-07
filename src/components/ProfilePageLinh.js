@@ -485,7 +485,7 @@ class ProfilePageLinh extends React.Component {
                         <MapWithMarkerClusterer/>
                     </section>
                     <section id="archived" className="section-box">
-                        <h2 className="h2">Look back at your past trips here!</h2>
+                        <h2 className="h2">Look back at your past trips <a href={'/archive'}>here!</a></h2>
                     </section>
                 </div>
                 <div className="profile-left-panel">

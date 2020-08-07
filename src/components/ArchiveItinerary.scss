@@ -94,8 +94,6 @@ ul {
     position: absolute;
     margin-top: 25rem;
     padding: 2rem;
-    overflow-y: hidden;
-    overflow-x: hidden;
     height: 100%;
 }
 .cards-slider {
@@ -117,8 +115,9 @@ ul {
 }
 .noHorizontalScroll{
     width: 100vw;
-    height: 100vh;
-    overflow: hidden auto;
+    height: 150vh;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 
