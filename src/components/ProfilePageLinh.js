@@ -282,13 +282,13 @@ class ProfilePageLinh extends React.Component {
                     border: 0,
                     color: 'white',
                     height: 48,
-                    width: '80%',
+                    width: '75%',
                     padding: '30px',
                     fontSize: '10pt',
                     fontWeight: '700',
                     margin: '15px 15px 0px',
                 [theme.breakpoints.down('md')]: {
-                    width: '90%'
+                    width: '95%'
                 }
             }
         });
@@ -382,7 +382,8 @@ class ProfilePageLinh extends React.Component {
                     returnRendering.push(
                         <div key={uuid()}>
                         <div style={{width: "100%",  display: "inline"}} key={uuid()}>
-                            <SectionBox style={{width:"75%"}} key={uuid()} href={"itineraries/"+ itinerary.id}>{itinerary.itinerary.name}</SectionBox>
+                            <br className={"media"}/>
+                            <SectionBox key={uuid()} href={"itineraries/"+ itinerary.id}>{itinerary.itinerary.name}</SectionBox>
                             <div style={{paddingTop:"20px", display: "inline"}}>
                         <EmailShareButton
                             key={itinerary.id}
@@ -434,7 +435,6 @@ class ProfilePageLinh extends React.Component {
                     >
                         <Tab className="noHover" label="Browse Itineraries" href="#browse"/>
                         <Tab className="noHover" label="Upcoming Trips" href="#upcoming"/>
-                        <Tab className="noHover" label="Visited places" href="#visited"/>
                         <Tab className="noHover" label="Archived Trips" href="#archived"/>
 
                     </Tabs>
@@ -460,7 +460,6 @@ class ProfilePageLinh extends React.Component {
                     >
                         <Tab className="noHover" label="Browse Itineraries" href="#browse"/>
                         <Tab className="noHover" label="Upcoming Trips" href="#upcoming"/>
-                        <Tab className="noHover" label="Visited places" href="#visited"/>
                         <Tab className="noHover" label="Archived Trips" href="#archived"/>
 
                     </Tabs>
@@ -483,18 +482,19 @@ class ProfilePageLinh extends React.Component {
                         <ItineraryList listUsed={this.props.authentication.profilePageItineraries} upcomingSection={true}/>
                         <SectionButton className='noHover' href="/itineraries">NEW ITINERARY</SectionButton>
                     </section>
-                    <section id="visited" className="section-box">
+                    <section id="archived" className="section-box">
                         <h2 className="h2"> You have visited {this.props.authentication.visited.length} places! </h2>
                         <MapWithMarkerClusterer/>
-                        {/*<SectionButton className='noHover' href={'/archive'}> View all archived trips </SectionButton>*/}
+                        <SectionButton className='noHover' href={'/archive'}> View all archived trips </SectionButton>
+                        {/*<a style={{textDecoration: "none"}} href={'/archive'}> <section id="archived" className="section-box">*/}
+                        {/*    <h2 className="h2">YOUR ARCHIVED TRIPS</h2>*/}
+                        {/*</section></a>*/}
                     </section>
                     {/*<section id="eachArchived" className="section-box">*/}
                     {/*    <h2 className="h2">Easy share/delete of archived trips!</h2>*/}
                     {/*    <ItineraryList listUsed={this.state.archived} upcomingSection={false}/>*/}
                     {/*</section>*/}
-                    <a style={{textDecoration: "none"}} href={'/archive'}> <section id="archived" className="section-box">
-                        <h2 className="h2">YOUR ARCHIVED TRIPS</h2>
-                    </section></a>
+
                 </div>
                 <div className="profile-left-panel">
                     <div className="profile-img">

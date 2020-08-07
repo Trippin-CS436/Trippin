@@ -18,7 +18,8 @@ import City from "./City";
 import ItineraryReadOnly from "./ItineraryReadOnly";
 import Navbar from "./Navbar";
 import CopyItinerary from "./CopyItinerary";
-
+import Popup from "reactjs-popup";
+import DeleteForeverIcon from "@material-ui/core/SvgIcon/SvgIcon";
 const { uuid } = require('uuidv4');
 
 
@@ -58,7 +59,6 @@ class ArchiveItineraries extends React.Component {
                      this.props.renderCountry(this.state.archivedItineraries[0].countries);
                      this.props.renderCity(this.state.archivedItineraries[0].cities);
                      this.props.renderLocation(this.state.archivedItineraries[0].locations);
-                     // this.props.changeView(this.state.archivedItineraries[0].locations[0].cityID);
                      this.props.changeView(-1);
                      }
                 } 
@@ -78,12 +78,14 @@ class ArchiveItineraries extends React.Component {
             currentIndex: newIndex,
             currentItineraryView: this.state.archivedItineraries[newIndex]
         });
-
+        console.log("========================")
+        console.log(this.state.archivedItineraries[this.state.currentIndex]);
         this.props.setItineraryFromDB(this.state.archivedItineraries[newIndex].itinerary);
         this.props.renderCountry(this.state.archivedItineraries[newIndex].countries);
         this.props.renderCity(this.state.archivedItineraries[newIndex].cities);
         this.props.renderLocation(this.state.archivedItineraries[newIndex].locations);
         this.props.changeView(-1);
+
     }
 
     prevItinerary = () => {
@@ -108,8 +110,8 @@ class ArchiveItineraries extends React.Component {
 
  // set Carousel of Card Itinerary
 
-
     render() {
+
         const {archivedItineraries, currentItineraryView, currentIndex} = this.state;
         let itineraries = this.state.archivedItineraries;
         return (
@@ -122,7 +124,7 @@ class ArchiveItineraries extends React.Component {
                 <div className={`cards-slider active-slide-${currentIndex}`}>
                 <div className="cards-slider-wrapper" style={{'transform': `translateX(-${currentIndex*(100/archivedItineraries.length)}%)`}}>
                 {
-                itineraries.map((itinerary, index) => <ItineraryCard key={uuid()} itineraryData={itinerary} index={index} />)
+                itineraries.map((itinerary, index) => <ItineraryCard archived={true} key={uuid()} itineraryData={itinerary} index={index} />)
                 }
 
                 </div>

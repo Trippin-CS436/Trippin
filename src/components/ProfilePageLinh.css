@@ -281,42 +281,6 @@ section {
 
   }
 
-#archived {
-    background-image: url("../assets/archived-bg.jpg");
-    background-size: cover;
-    background-position: center;
-    padding-left: 12rem;
-    padding-right: 12rem;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-
-#archived {
-    background-image: url("../assets/archived-bg.jpg");
-    background-size: cover;
-    background-position: center;
-    padding-left: 12rem;
-    padding-right: 12rem;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-
-#archived h2 {
-    text-shadow:-3px 5px 5px rgb(43, 41, 41);
-    margin-left: 5rem;
-    box-shadow: inset;
-}
-
-#archived:hover {
-    transform: translate3d(0, -5%, 0);
-  transition: .8s .6s;
-  background-size: initial;
-  background-position-x: right;
-  font-size: larger;
-}
-
-
-
 #browse{
     background-image: url("../assets/archive-background.jpg");
     background-size: cover;

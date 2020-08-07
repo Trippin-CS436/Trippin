@@ -57,8 +57,9 @@ class City extends React.Component {
         return (
             <div className={"cityDiv"}>
                 <div>
+                        <SaveButton />
                         <h2 className={'h2-name'}>{cityToRender.name}, {countryToRender.name}</h2>
-                         <SaveButton />
+
                 </div>
                 <div className={"bottomBorder"}>
                     <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>

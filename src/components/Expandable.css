@@ -145,3 +145,10 @@
     position: relative;
     top: -20%;
 }
+@media (max-width: 960px) {
+    .Collapsible__trigger {
+        font-size: 14pt;
+        padding: 0 5px;
+    }
+
+}
