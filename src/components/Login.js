@@ -6,6 +6,7 @@ import { logIn, logOut } from "../actions";
 import { withRouter } from 'react-router'
 // import { TiSocialFacebookCircular } from 'react-icons/lib/ti/social-facebook-circular';
 import axios from "axios";
+import Grid from "@material-ui/core/Grid";
 
 class Login extends React.Component {
     constructor(props) {
@@ -75,9 +76,13 @@ class Login extends React.Component {
     render() {
         console.log(window);
         return (
-            <div className='bg-login' style={{textAlign: 'center'}}>
-                    <img className="smallIcon-login" style={{width:"1000px", height:"1000px", top: '-80%'}}src={require("../assets/trippin-logo-bottom.png")}></img>
-                <br/>
+            <Grid container>
+                <Grid item xs={12} lg={12} style={{textAlign: 'center'}}>
+                    <img style={{width: "400px", height: "400px", top: '-80%'}}src={require("../assets/trippin-logo-bottom.png")}/>
+                </Grid>
+                <Grid item xs={12} lg={12}>
+                    <div style={{textAlign: 'center'}}>
+
                 <GoogleLogin
                     clientId="839868194801-vofkpao3v7j2ktes9ojrramfk16gk9ec.apps.googleusercontent.com"
                     buttonText="Login with Google"
@@ -97,6 +102,8 @@ class Login extends React.Component {
                     cssClass="facebook"/>
 
             </div>
+                </Grid>
+            </Grid>
 
         )
     }

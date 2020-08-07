@@ -9,7 +9,8 @@
     font-size: 16pt;
 }
 .Collapsible__contentInner p {
-    padding: 5px 20px;
+    width: 100%;
+    padding: 8px 0px;
     font-size: 16pt;
 }
 .Collapsible__contentInner p:last-child {
@@ -50,7 +51,7 @@
     background-color: rgb(233, 230, 217);
 }
 .Collapsible__custom-sibling {
-    padding: 5px;
+    padding: 7px;
     font-size: 12px;
     background-color: #cbb700;
     color: black;

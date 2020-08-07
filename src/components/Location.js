@@ -166,7 +166,7 @@ class Location extends React.Component {
     render() {
 
         return(
-            <div>
+            <div className="outer">
             <div className="location-bar">
                 <label className={"location"}>{this.props.name} </label>
                 <label className={"address"}> {this.props.address}</label>

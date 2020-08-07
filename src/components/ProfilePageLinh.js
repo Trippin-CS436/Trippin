@@ -251,7 +251,8 @@ class ProfilePageLinh extends React.Component {
                     border: 0,
                     color: 'white',
                     height: 48,
-                    width: '80%',
+                    width: '90%',
+                    left: '5%',
                     padding: '30px',
                     fontSize: '10pt',
                     fontWeight: '700',
@@ -337,38 +338,52 @@ class ProfilePageLinh extends React.Component {
             )
         };
 
+
+
         const ItineraryList = () => {
+
+            const ButtonBar = (itinerary) => {
+                return (
+                    <div className='button-bar'>
+                        <div style={{paddingTop:"20px", display: "inline"}}>
+                            <EmailShareButton
+                                key={itinerary.id}
+                                className='center-button'
+                                url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
+                                subject={title}
+                                body="body"
+                            >
+                                <EmailIcon size={40} round />
+                            </EmailShareButton>
+                        </div>
+                        <div style={{paddingTop:"20px", display: "inline", marginRight: "10px"}}>
+                            <FacebookShareButton
+                                key={itinerary.id}
+                                className='center-button'
+                                url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
+                                quote={title}
+                            >
+                                <FacebookIcon size={40} round  />
+                            </FacebookShareButton>
+                        </div>
+                        <DeleteItineraryButton key={itinerary.id} name={itinerary.itinerary.name} id={itinerary.id}/>
+                        <div  style={{width: "25%", display: "inline"}}> {this.archiveButton(itinerary)}</div>
+                    </div>
+                )
+            };
+
             let returnRendering = [];
             let i=0;
                 for (const itinerary of this.props.authentication.profilePageItineraries) {
                     returnRendering.push(
                         <div key={uuid()}>
                         <div style={{width: "75%",  display: "inline"}} key={uuid()}>
-                            <SectionBox key={uuid()} href={"itineraries/"+ itinerary.id}> {itinerary.itinerary.name}</SectionBox>
-                            <div style={{paddingTop:"20px", display: "inline"}}>
-                        <EmailShareButton
-                            key={itinerary.id}
-                            className='center-button'
-                            url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
-                            subject={title}
-                            body="body"
-                        >
-                            <EmailIcon size={40} round />
-                        </EmailShareButton>
+                            <SectionBox key={uuid()} href={"itineraries/"+ itinerary.id}>
+                                {itinerary.itinerary.name}
+                                <ButtonBar itinerary={itinerary}/>
+                            </SectionBox>
+
                         </div>
-                        <div style={{paddingTop:"20px", display: "inline", marginRight: "10px"}}>
-                        <FacebookShareButton
-                            key={itinerary.id}
-                            className='center-button'
-                            url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
-                            quote={title}
-                        >
-                        <FacebookIcon size={40} round  />
-                        </FacebookShareButton>
-                        </div>
-                            <DeleteItineraryButton key={itinerary.id} name={itinerary.itinerary.name} id={itinerary.id}/>
-                        </div>
-                        <div  style={{width: "25%", display: "inline"}}> {this.archiveButton(itinerary)}</div>
                         </div>);
                     i++;
                 }

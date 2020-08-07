@@ -123,6 +123,12 @@ section {
 
 }
 
+.button-bar {
+    position: relative;
+    right: 0;
+
+}
+
 .logout-button {
     position: relative;
     height: 40px;

@@ -59,6 +59,7 @@ h1{
 .item-font{
     font-size: 14pt;
     font-family: Helvetica;
+    padding: 6px;
 }
 
 .addLocationButton{
