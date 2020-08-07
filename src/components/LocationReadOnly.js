@@ -83,7 +83,7 @@ class LocationReadyOnly extends React.Component {
         else if (this.state.showPhotos) {
             return (
                 <div>
-                 <Photos location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
+                 <Photos isReadOnly={true} location={this.props.locations} idx={this.props.idx} id={this.props.id}/>
              </div>
             )
     } else 

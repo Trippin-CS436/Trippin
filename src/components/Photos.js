@@ -27,6 +27,7 @@ class Photos extends React.Component {
     }
 
     photoDisplay = () => {
+        let deleteIcon = this.props.isReadOnly ? (<DeleteForeverIcon  color={"disabled"}/>) : (<DeleteForeverIcon  style={{color:"white"}}/>)
         let photosToRender = [];
         if (this.props.locations[this.state.index].userPhotos !== undefined && this.props.locations[this.state.index].userPhotos.length > 0) {
             photosToRender = this.props.locations[this.state.index].userPhotos;
@@ -44,8 +45,8 @@ class Photos extends React.Component {
             <GridListTileBar
               title={photo.name}
               actionIcon={
-                <IconButton onClick={this.delPhoto} value={index} aria-label={`star ${photo.name}`} >
-                  <DeleteForeverIcon style={{color:"white"}}/>
+                <IconButton disabled={this.props.isReadOnly} onClick={this.delPhoto} value={index} aria-label={`star ${photo.name}`} >
+                  {deleteIcon}
                 </IconButton>
               }
             />
