@@ -173,6 +173,8 @@ class Location extends React.Component {
                 <div className="display-notes">
                     {this.renderSubComp()}
                 </div>
+                <br className={'media'} />
+                <br className={'media-2'} />
             </div>
                 <div className={"buttonDiv"}>
 

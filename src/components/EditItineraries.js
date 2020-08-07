@@ -103,12 +103,12 @@ class Itineraries extends React.Component {
                             </ResizableBox>
                         </Resizable>
                         <Grid container spacing={0}>
-                            <Grid item xs={12} md={4} style={{marginBottom: '25px'}}>
+                            <Grid item xs={12} lg={4} style={{marginBottom: '25px'}}>
                                 <div>
                                     <Itinerary />
                                 </div>
                             </Grid>
-                            <Grid item xs={12} md={8}>
+                            <Grid item xs={12} lg={8}>
                                     <City />
                             </Grid>
                         </Grid>

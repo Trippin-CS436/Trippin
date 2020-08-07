@@ -5,7 +5,7 @@ import './Itinerary.css';
 import Map from "./Map";
 import Navbar from "./Navbar";
 import {connect} from "react-redux";
-import {addMsg, deleteMsg, selectMsg} from "../actions";
+import {addMsg, deleteMsg, renderCity, renderCountry, selectMsg} from "../actions";
 import { Redirect } from "react-router-dom/es/Redirect";
 import Collapsible from "react-collapsible";
 import { changeView, renderLocation, getCurrentItineraryID,saveItinerary} from '../actions';
@@ -21,6 +21,7 @@ import {useParams} from "react-router-dom";
 import {reset} from '../actions/reset';
 import {Resizable, ResizableBox} from "react-resizable";
 import DragHandleIcon from '@material-ui/icons/DragHandle';
+import {resetCopyItinerary} from "../actions/copyArchived";
 const { uuid } = require('uuidv4');
 
 
@@ -35,6 +36,10 @@ class NewItineraries extends React.Component {
     
     componentDidMount() {
         this.props.reset();
+        this.props.renderLocation(this.props.copyItinerary.locations);
+        this.props.renderCity(this.props.copyItinerary.cities);
+        this.props.renderCountry(this.props.copyItinerary.countries);
+        this.props.resetCopyItinerary();
     }
 
 
@@ -53,12 +58,12 @@ class NewItineraries extends React.Component {
                             </ResizableBox>
                         </Resizable>
                         <Grid container spacing={0}>
-                            <Grid item sm={12} lg={4} style={{marginBottom: '25px'}}>
+                            <Grid item xs={12} lg={4} style={{marginBottom: '25px'}}>
                                 <div>
                                     <Itinerary showFiles={false} editName={true} />
                                 </div>
                             </Grid>
-                            <Grid item sm={12} lg={8}>
+                            <Grid item xs={12} lg={8}>
                                 <City />
                             </Grid>
                         </Grid>
@@ -78,7 +83,8 @@ const mapStateToProps = (state) => { //name is by convention
         cities: state.cities,
         itinerary: state.itinerary,
         locations: state.locations,
-        authentication: state.authentication
+        authentication: state.authentication,
+        copyItinerary: state.copyItinerary
     }; //now it will appear as props
 };
 
@@ -115,4 +121,4 @@ const muiStyles = {
 };
 
 
-export default connect(mapStateToProps, { reset, addMsg, selectMsg, deleteMsg, changeView, renderLocation, getCurrentItineraryID, saveItinerary })(withStyles(muiStyles)(NewItineraries));
+export default connect(mapStateToProps, { reset, addMsg, selectMsg, deleteMsg, changeView, renderLocation, renderCity, renderCountry, getCurrentItineraryID, saveItinerary, resetCopyItinerary })(withStyles(muiStyles)(NewItineraries));

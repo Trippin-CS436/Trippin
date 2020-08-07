@@ -55,15 +55,21 @@ class ProfilePageLinh extends React.Component {
         super(props);
         this.state = {
             visited:  this.props.authentication.visited,
+            archived: []
         }
     }
 
 
     componentDidMount() {
         let promises = [];
+        let archivedPromises = [];
         let upcoming= [];
+        let archived =[];
         for (const itineraryID of this.props.authentication.itineraries) {
             promises.push(axios.get("http://localhost:9000/itinerary/" + itineraryID));
+        }
+        for (const itineraryID of this.props.authentication.archived) {
+            archivedPromises.push(axios.get("http://localhost:9000/itinerary/" + itineraryID));
         }
         Promise.all(promises).then(response => {
             let i = 0;
@@ -73,6 +79,14 @@ class ProfilePageLinh extends React.Component {
             }
             this.props.updateArchive({itineraries: this.props.authentication.itineraries,
                 archived: this.props.authentication.archived, profilePageItineraries: upcoming})
+        }).catch(err => console.log(err));
+        Promise.all(archivedPromises).then(response => {
+            let i = 0;
+            for (const itineraryID of this.props.authentication.archived) {
+                archived.push({itinerary: response[i].data[0].itinerary, id: response[i].data[0].id, shareUrlObjectID: response[i].data[0]._id });
+                i++;
+            }
+            this.setState({archived: archived});
         }).catch(err => console.log(err));
         console.log(this.props.authentication);
     }
@@ -278,7 +292,7 @@ class ProfilePageLinh extends React.Component {
             }
         });
         const SectionBox = withStyles(sectionStyle)(Button);
-        const SectionButton = withStyles({
+        const sectionButtonStyle = theme => ({
             root: {
                 position: 'relative',
                 background: "#ec407a",
@@ -290,9 +304,15 @@ class ProfilePageLinh extends React.Component {
                 fontSize: '12pt',
                 fontWeight: '600',
                 margin: '30px 15px',
-                left: "40%"
-            }
-        })(Button);
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                [theme.breakpoints.down('md')]: {
+                    width: '200px',
+                    fontSize: '9pt',
+                    left: 'calc(50% - 100px)'
+                }}
+        });
+        const SectionButton = withStyles(sectionButtonStyle)(Button);
 
         const deleteItineraryFunction = (id) => {
             let updatedIdList = this.props.authentication.itineraries.filter(item => (item !== id));
@@ -353,10 +373,10 @@ class ProfilePageLinh extends React.Component {
             )
         };
 
-        const ItineraryList = () => {
+        const ItineraryList = (props) => {
             let returnRendering = [];
             let i=0;
-                for (const itinerary of this.props.authentication.profilePageItineraries) {
+                for (const itinerary of props.listUsed) {
                     returnRendering.push(
                         <div key={uuid()}>
                         <div style={{width: "100%",  display: "inline"}} key={uuid()}>
@@ -384,12 +404,15 @@ class ProfilePageLinh extends React.Component {
                         </div>
                             <DeleteItineraryButton key={itinerary.id} name={itinerary.itinerary.name} id={itinerary.id}/>
                         </div>
-                        <div  style={{width: "25%", display: "inline"}}> {this.archiveButton(itinerary)}</div>
+                            {this.props.upcomingSection ?
+                                (<div  style={{width: "25%", display: "inline"}}> {this.archiveButton(itinerary)}</div>)
+                                : null}
                         </div>);
                     i++;
                 }
             return returnRendering;
         };
+
 
         const VerticalTabs = () => {
             const [value, setValue] = React.useState(0);
@@ -432,9 +455,9 @@ class ProfilePageLinh extends React.Component {
                         onChange={handleChange}
                         aria-label="Tabs for sections"
                     >
-                        <Tab className="noHover" label="Upcoming Trips" href="#upcoming"/>
-                        <Tab className="noHover" label="Visited places" href="#visited"/>
-                        <Tab className="noHover" label="Archived Trips" href="#archived"/>
+                        <Tab className="noHover tabs" label="Upcoming Trips" href="#upcoming"/>
+                        <Tab className="noHover tabs" label="Visited places" href="#visited"/>
+                        <Tab className="noHover tabs" label="Archived Trips" href="#archived"/>
 
                     </Tabs>
 
@@ -450,16 +473,18 @@ class ProfilePageLinh extends React.Component {
                     <div className="logo-panel-placeholder"/>
                     <section id="upcoming" className="section-box">
                         <h2 className="h2"> You have {this.props.authentication.itineraries.length} upcoming Trips in </h2>
-                        <ItineraryList/>
+                        <ItineraryList listUsed={this.props.authentication.profilePageItineraries} upcomingSection={true}/>
                         <SectionButton className='noHover' href="/itineraries">NEW ITINERARY</SectionButton>
                     </section>
                     <section id="visited" className="section-box">
                         <h2 className="h2"> You have visited {this.props.authentication.visited.length} places! </h2>
                         <MapWithMarkerClusterer/>
+                        <SectionButton className='noHover' href={'/archive'}> View all archived trips </SectionButton>
                     </section>
-                    <section id="archived" className="section-box">
-                        <h2 className="h2">Look back at your past trips <a href={'/archive'}>here!</a></h2>
-                    </section>
+                    {/*<section id="eachArchived" className="section-box">
+                        <h2 className="h2">Easy share/delete of archived trips!</h2>
+                        <ItineraryList listUsed={this.state.archived} upcomingSection={false}/>
+                    </section>*/}
                     <section id="archived" className="section-box">
                         <h2 className="h2">View all public itineraries <a href={'/browse'}>here!</a></h2>
                     </section>

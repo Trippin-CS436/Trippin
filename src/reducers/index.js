@@ -112,6 +112,32 @@ const authenticationReducer = (authentication = userState, action) => {
     return authentication;
 };
 
+const copyObj = {
+    countries: [],
+    cities: [],
+    locations: []
+}
+
+const copyItineraryReducer = (copy = copyObj, action) => {
+    if (action.type === 'COPY_ITINERARY') {
+        let newCopy = {
+            countries: action.copyArchived.countries,
+            cities: action.copyArchived.cities,
+            locations: action.copyArchived.locations
+        };
+        return newCopy
+    }
+    if (action.type === 'RESET_COPY_ITINERARY') {
+        let newCopy = {
+            countries: [],
+            cities: [],
+            locations: []
+        };
+        return newCopy
+    }
+    return copy;
+}
+
 
 
 
@@ -435,5 +461,6 @@ export default combineReducers({
     currentItineraryID: currentItineraryObjectIDReducer,
     authentication: authenticationReducer,
     currentUserProfile: currentUserProfileReducer,
-    editItineraryID: editItineraryIDReducer
+    editItineraryID: editItineraryIDReducer,
+    copyItinerary: copyItineraryReducer
 });

@@ -17,6 +17,7 @@ import {Grid} from "@material-ui/core";
 import City from "./City";
 import ItineraryReadOnly from "./ItineraryReadOnly";
 import Navbar from "./Navbar";
+import CopyItinerary from "./CopyItinerary";
 
 const { uuid } = require('uuidv4');
 
@@ -145,6 +146,7 @@ class ArchiveItineraries extends React.Component {
                     </Grid>
                     <Grid item sm={12} lg={8}>
                         <CityReadOnly />
+                        <CopyItinerary buttonTitle="Repeat This Itinerary"/>
                     </Grid>
                 </Grid>
             </div>

@@ -17,6 +17,7 @@ import {Grid} from "@material-ui/core";
 import City from "./City";
 import ItineraryReadOnly from "./ItineraryReadOnly";
 import Navbar from "./Navbar";
+import CopyItinerary from "./CopyItinerary";
 
 const { uuid } = require('uuidv4');
 
@@ -132,6 +133,7 @@ class BrowseItineraries extends React.Component {
                     </Grid>
                     <Grid item sm={12} lg={8}>
                         <CityReadOnly />
+                        <CopyItinerary buttonTitle="Copy This!"/>
                     </Grid>
                 </Grid>
             </div>

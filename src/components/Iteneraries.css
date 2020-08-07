@@ -136,15 +136,33 @@
     margin-bottom: 10px;
     top: -20px;
 }
+.media {
+    display: none;
+}
 
+.media-2 {
+    display: none;
+}
 .outer {
     display: inline-block
 }
+
 
 @media (max-width: 960px) {
     .h2-name {
         font-size: 20pt;
     }
+    .media {
+        display: block;
+    }
 }
+
+@media (max-width:660px) {
+    .media-2 {
+        display: block;
+    }
+    
+}
+
 
 

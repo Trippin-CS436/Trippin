@@ -31,6 +31,7 @@ import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import PdfSelect from './PdfSelect';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import withStyles from "@material-ui/core/styles/withStyles";
 
 const { uuid } = require('uuidv4');
 class Itinerary extends React.Component {
@@ -260,6 +261,32 @@ class Itinerary extends React.Component {
             </div>
             );
         } else{
+            const CssTextField = (props) => withStyles({
+                root: {
+                    marginRight: '10px',
+                    '& label.Mui-focused': {
+                        color: 'white',
+                    },
+                    '& label': {
+                        color: 'white',
+                    },
+                    '& .MuiInput-underline:after': {
+                        borderBottomColor: 'white',
+                    },
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: 'yellow',
+                            color: 'white'
+                        },
+                        '&:hover fieldset': {
+                            borderColor: 'white',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: 'white',
+                        },
+                    },
+                },
+            })(TextField);
             return(<div id={"itinerary-div"}>
                     <div className="itinerary-btn" style={{paddingTop:10, height: "200%"}}>
                         <TextField id="filled-basic"
