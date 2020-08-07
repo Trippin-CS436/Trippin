@@ -434,6 +434,7 @@ class ProfilePageLinh extends React.Component {
                         onChange={handleChange}
                         aria-label="Tabs for sections"
                     >
+                        <Tab className="noHover" label="Archived Trips" href="#browse"/>          
                         <Tab className="noHover" label="Upcoming Trips" href="#upcoming"/>
                         <Tab className="noHover" label="Visited places" href="#visited"/>
                         <Tab className="noHover" label="Archived Trips" href="#archived"/>
@@ -459,6 +460,7 @@ class ProfilePageLinh extends React.Component {
                         onChange={handleChange}
                         aria-label="Tabs for sections"
                     >
+                        <Tab className="noHover" label="Archived Trips" href="#browse"/>
                         <Tab className="noHover" label="Upcoming Trips" href="#upcoming"/>
                         <Tab className="noHover" label="Visited places" href="#visited"/>
                         <Tab className="noHover" label="Archived Trips" href="#archived"/>
@@ -475,6 +477,9 @@ class ProfilePageLinh extends React.Component {
                         <img className="logo-position" src={require("../assets/logo_white.png")}/>
                     </div>
                     <div className="logo-panel-placeholder"/>
+                    <a href={'/browse'}><section id="browse" className="section-box">
+                        <h2 className="h2">EXPLORE ITINERARIES </h2>
+                    </section></a>
                     <section id="upcoming" className="section-box">
                         <h2 className="h2"> You have {this.props.authentication.itineraries.length} upcoming Trips in </h2>
                         <ItineraryList/>
@@ -485,11 +490,9 @@ class ProfilePageLinh extends React.Component {
                         <MapWithMarkerClusterer/>
                     </section>
                     <a href={'/archive'}> <section id="archived" className="section-box">
-                        <h2 className="h2">Look back at your past trips in ARCHIVED </h2>
+                        <h2 className="h2">ARCHIVED ITINERARIES</h2>
                     </section></a>
-                    <a href={'/browse'}><section id="browse" className="section-box">
-                        <h2 className="h2">View all public itineraries </h2>
-                    </section></a>
+        
                 </div>
                 <div className="profile-left-panel">
                     <div className="profile-img">
