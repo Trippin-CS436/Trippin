@@ -3,6 +3,10 @@ import {connect} from "react-redux";
 import {GoogleMap, LoadScript, MarkerClusterer, Marker} from "@react-google-maps/api";
 
 class MapWithMarkerClusterer extends React.Component{
+    createKey = (location) => {
+        return location.lat + location.lng
+    };
+
     render() {
 
             const center = {lat: -28.024, lng: 140.887};
@@ -14,6 +18,7 @@ class MapWithMarkerClusterer extends React.Component{
                 marginTop: '10px',
                 marginBottom: '15px',
             }
+
 
             return (
                 <React.Fragment>

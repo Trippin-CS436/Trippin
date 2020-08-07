@@ -392,7 +392,7 @@ class ProfilePageLinh extends React.Component {
                             className='center-button'
                             url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
                             subject={title}
-                            body="body"
+                            body={"Check out my Trippin' itinerary, "+ this.props.itinerary.name + "!\n"}
                         >
                             <EmailIcon size={40} round />
                         </EmailShareButton>
@@ -402,7 +402,7 @@ class ProfilePageLinh extends React.Component {
                             key={itinerary.id}
                             className='center-button'
                             url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
-                            quote={title}
+                            quote={"Check out my Trippin' itinerary, "+ this.props.itinerary.name + "!\n"}
                         >
                         <FacebookIcon size={40} round  />
                         </FacebookShareButton>
@@ -521,6 +521,7 @@ const mapStateToProps = (state) => {
     return {
         authentication: state.authentication,
         locations: state.locations,
+        itinerary: state.itinerary,
     };
 };
 
