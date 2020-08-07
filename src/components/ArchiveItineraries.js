@@ -13,6 +13,10 @@ import KeyboardArrowLeftRoundedIcon from '@material-ui/icons/KeyboardArrowLeftRo
 import KeyboardArrowRightRoundedIcon from '@material-ui/icons/KeyboardArrowRightRounded';
 import IconButton from "@material-ui/core/IconButton";
 import {setItineraryFromDB, renderCity, renderCountry, renderLocation, changeView} from '../actions';
+import {Grid} from "@material-ui/core";
+import City from "./City";
+import ItineraryReadOnly from "./ItineraryReadOnly";
+import Navbar from "./Navbar";
 const { uuid } = require('uuidv4');
 
 class ArchiveItineraries extends React.Component {
@@ -23,16 +27,14 @@ class ArchiveItineraries extends React.Component {
             // locations: this.props.itineraries.locations;
             currentIndex: 0,
             archivedItineraries: [],
-            currentItineraryView: null,
-            testArchive: ['64700460-15c6-4484-b8b3-28b41a2cf023', '02080057-1ebd-42a4-b654-b1a3ffafd56a','1105bae5-4364-4d31-bd73-c06732cd4472','0c438e1f-9cbe-4773-bd24-1263e3d6c9db', '77d9d24e-84e8-4dea-8cb3-49518152322b']
+            currentItineraryView: null
         };
     }
 
      componentDidMount() {
         console.log('Getting archive itinerary from database!');
         let currentArchive = [];
-        //this.props.authentication.archived.map((id, index) => {
-            this.state.testArchive.map((id, index) => {
+        this.props.authentication.archived.map((id, index) => {
                 console.log(id);
                 console.log(index);
             // request all the archived data here
@@ -108,7 +110,9 @@ class ArchiveItineraries extends React.Component {
         const {archivedItineraries, currentItineraryView, currentIndex} = this.state;
         let itineraries = this.state.archivedItineraries;
         return (
-            <div className={""}>
+            <React.Fragment>
+            <Navbar/>
+            <div className={"body-background"}>
             <div className="headerArchive">YOUR ARCHIVED ITINERARIES</div>
 
             <div className="carousel">
@@ -127,15 +131,22 @@ class ArchiveItineraries extends React.Component {
                   <KeyboardArrowLeftRoundedIcon style={{width: 60, height: 60}} />
             </IconButton>
 
-            <IconButton className={"carousel-btn-next"} onClick={() => this.nextItinerary()} disabled={currentIndex === itineraries.length-1} aria-label='NEXT' >
+            <IconButton className={"carousel-btn-next"} onClick={() => this.nextItinerary()} disabled={currentIndex === itineraries.length - 1 || itineraries.length === 0} aria-label='NEXT' >
                   <KeyboardArrowRightRoundedIcon style={{width: 60, height: 60}} />
             </IconButton>
             </div>
-            <div className="display-itinerary">
-            <Itinerary />
-            <CityReadOnly />
+                <Grid container className="display-itinerary" spacing={0}>
+                    <Grid item sm={12} lg={4} style={{marginBottom: '25px'}}>
+                        <div>
+                            <ItineraryReadOnly />
+                        </div>
+                    </Grid>
+                    <Grid item sm={12} lg={8}>
+                        <CityReadOnly />
+                    </Grid>
+                </Grid>
             </div>
-            </div>
+            </React.Fragment>
         
         )
     }
@@ -143,6 +154,7 @@ class ArchiveItineraries extends React.Component {
 const mapStateToProps = (state) =>{
     return {
         itinerary: state.itinerary,
+        authentication: state.authentication
     };
 };
 

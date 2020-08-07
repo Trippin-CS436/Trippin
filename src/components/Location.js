@@ -7,7 +7,6 @@ import Photos from "./Photos";
 import InfoPhotos from "./InfoPhotos";
 import {connect} from "react-redux";
 import {deleteLocation} from "../actions";
-import './Location.css';
 //import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import NotesOutlinedIcon from '@material-ui/icons/NotesOutlined';
@@ -19,6 +18,7 @@ import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import {DropzoneDialog} from 'material-ui-dropzone';
 import  {addPhotos} from '../actions/addPhotos';
 import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
+import Grid from "@material-ui/core/Grid";
 
 class Location extends React.Component {
     constructor(props){
@@ -170,6 +170,10 @@ class Location extends React.Component {
             <div className="location-bar">
                 <label className={"location"}>{this.props.name} </label>
                 <label className={"address"}> {this.props.address}</label>
+                <div className="display-notes">
+                    {this.renderSubComp()}
+                </div>
+            </div>
                 <div className={"buttonDiv"}>
 
                 <IconButton className={"btn"} aria-label="Info" name="Info" onClick={this.handleInfoBtnClick}>
@@ -180,8 +184,6 @@ class Location extends React.Component {
                 <IconButton className={"btn"} aria-label="Edit" name="Edit" onClick={this.handleEditBtnClick}>
                 <NotesOutlinedIcon style={{color: "white"}}/>
                 </IconButton>
-
-
 
                 <IconButton className={"btn"} aria-label="Photo" name="Photo" onClick={this.handlePhotoBtnClick}>
                 <PhotoCameraOutlinedIcon style={{color: "white"}}/>
@@ -195,14 +197,7 @@ class Location extends React.Component {
                 <DeleteOutlineRoundedIcon style={{color: "white"}}/>
                 </IconButton>
 
-
-
-
                 </div>
-            </div>
-            <div className="display-notes">
-            {this.renderSubComp()}
-            </div>
             </div>
         );
     }

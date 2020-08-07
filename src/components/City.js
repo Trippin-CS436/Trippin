@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import Dates from "./Dates";
 import Collapsible from "react-collapsible";
 import SaveButton from "./SaveButton";
+import Grid from "@material-ui/core/Grid";
 
 
 class City extends React.Component {
@@ -55,8 +56,14 @@ class City extends React.Component {
 
         return (
             <div className={"cityDiv"}>
-            <SaveButton />
-                <h2>{cityToRender.name}, {countryToRender.name}</h2>
+                <Grid container>
+                    <Grid item xs={8} md={9} lg={10}>
+                        <h2 className={'h2-name'}>{cityToRender.name}, {countryToRender.name}</h2>
+                    </Grid>
+                    <Grid item xs={4} md={3} lg={2}>
+                         <SaveButton />
+                    </Grid>
+                </Grid>
                 <div className={"bottomBorder"}>
                     <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
                 </div>

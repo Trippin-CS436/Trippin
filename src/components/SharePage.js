@@ -66,14 +66,14 @@ class SharePage extends Component {
         return (
             <React.Fragment>
             <Navbar />
-            <div className={"body-background-test"} style={{marginTop:"40px",height:"100%"}}>
-            <Grid container spacing={0} style={{height:'100vh'}} >
-                <Grid item sm={12} lg={4} style={{marginBottom: '25px'}}>
+            <div  style={{marginTop:"40px",height:"100%"}}>
+            <Grid container spacing={0} style={{height:'100%'}} >
+                <Grid item xs={12} md={4} >
                     <div>
                         <ItineraryReadOnly {...this.props}/>
                     </div>
                 </Grid>
-                <Grid item sm={12} lg={8}>
+                <Grid item xs={12} md={8}>
                     <CityReadOnly {...this.props}/>
                 </Grid>
             </Grid>

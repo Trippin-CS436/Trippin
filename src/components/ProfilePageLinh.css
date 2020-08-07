@@ -222,7 +222,7 @@ section {
   }
 
 
-  @media (max-width: 740px) {
+  @media (max-width: 960px) {
     .profile-bg
      {
       height: 1000px;
