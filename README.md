@@ -37,7 +37,7 @@
 5. Release Engineering (Heroku) <br />
 
 ## Above & Beyond Course Scope
-
+Our import photos and pdf functionality allows users to store their files into the itinerary. In developing this feature, we had to implement encoding and decoding of the files that we generate using Dropzone.JS which we used to import the files. Once an array of files are uploaded, for pdf or photos, we encode the files to base64  for storing into the database where we limited the express request size to 500mb for an itinerary. We allow multiple user imports for up to 100mb and we used material ui icons to generate the icon for previewing the file type on import.  This allows users to distinguish their file type and prevents adding user incorrect files. For displaying the pdf, once the user clicks the file, we encode the file to base64 and it generates a new window for displaying the user pdf. We trigger a new html which inserts the url encoding for the pdf into an iframe that displays the pdf. <br />
 
 ## Next Steps
 1. Integrate more functionalities into the GoogleMap (Stretch Requirement #1,3), ideally mimic most of the functions that users can achieve using official google map.
