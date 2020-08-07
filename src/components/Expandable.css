@@ -58,6 +58,7 @@
 
 .react-resizable {
     position: relative;
+    margin-top: 55px;
 }
 .react-resizable-handle {
     position: absolute;
