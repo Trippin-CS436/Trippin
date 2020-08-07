@@ -56,14 +56,10 @@ class City extends React.Component {
 
         return (
             <div className={"cityDiv"}>
-                <Grid container>
-                    <Grid item xs={8} md={9} lg={10}>
+                <div>
                         <h2 className={'h2-name'}>{cityToRender.name}, {countryToRender.name}</h2>
-                    </Grid>
-                    <Grid item xs={4} md={3} lg={2}>
                          <SaveButton />
-                    </Grid>
-                </Grid>
+                </div>
                 <div className={"bottomBorder"}>
                     <Dates place={cityToRender} class={"datesDiv"} type={"city"}/>
                 </div>

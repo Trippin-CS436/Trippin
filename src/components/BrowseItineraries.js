@@ -126,12 +126,12 @@ class BrowseItineraries extends React.Component {
             </IconButton>
             </div>
                 <Grid container className="display-itinerary" spacing={0}>
-                    <Grid item sm={12} lg={4} style={{marginBottom: '25px'}}>
+                    <Grid item xs={12} lg={4} style={{marginBottom: '25px'}}>
                         <div>
                             <ItineraryReadOnly />
                         </div>
                     </Grid>
-                    <Grid item sm={12} lg={8}>
+                    <Grid item xs={12} lg={8}>
                         <CityReadOnly />
                         <CopyItinerary buttonTitle="Copy This!"/>
                     </Grid>

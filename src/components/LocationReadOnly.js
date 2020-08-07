@@ -7,6 +7,7 @@ import Photos from "./Photos";
 import InfoPhotos from "./InfoPhotos";
 import {connect} from "react-redux";
 import {deleteLocation} from "../actions";
+import "./Iteneraries.css"
 //import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import NotesOutlinedIcon from '@material-ui/icons/NotesOutlined';
@@ -96,6 +97,12 @@ class LocationReadyOnly extends React.Component {
             <div className="location-bar">
                 <label className={"location"}>{this.props.name} </label>
                 <label className={"address"}> {this.props.address}</label>
+                <br className={'media'}/>
+                <br className={'media-2'}/>
+                <br className={'media-2'}/>
+                <div className="display-notes">
+                    {this.renderSubComp()}
+                </div>
                 <div className={"buttonDiv"}>
 
                 <IconButton className={"btn"} aria-label="Info" name="Info" onClick={this.handleInfoBtnClick}>
@@ -112,9 +119,6 @@ class LocationReadyOnly extends React.Component {
                 
                 
                 </div>
-            </div>
-            <div className="display-notes">
-            {this.renderSubComp()}
             </div>
             </div>
         );
