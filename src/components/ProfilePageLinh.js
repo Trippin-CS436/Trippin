@@ -487,6 +487,9 @@ class ProfilePageLinh extends React.Component {
                     <section id="archived" className="section-box">
                         <h2 className="h2">Look back at your past trips <a href={'/archive'}>here!</a></h2>
                     </section>
+                    <section id="archived" className="section-box">
+                        <h2 className="h2">View all public itineraries <a href={'/browse'}>here!</a></h2>
+                    </section>
                 </div>
                 <div className="profile-left-panel">
                     <div className="profile-img">

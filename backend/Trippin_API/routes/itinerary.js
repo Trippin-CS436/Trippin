@@ -79,5 +79,11 @@ router.route('/save/archive/:id').patch((req,res) => {
       .catch(err => res.status(404).json('Error: ' + err));
 });
 
+router.route('/browse/itineraries').get((req, res) => {
+  console.log(req.params.id);
+  Itinerary.find({'itinerary.shared': true})
+      .then(itinerary => res.json(itinerary))
+      .catch(err => res.status(400).json('Error: ' + err));
+});
 
 module.exports = router;

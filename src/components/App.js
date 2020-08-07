@@ -16,6 +16,7 @@ import SharePage from "./SharePage";
 import EditItineraries from "./EditItineraries";
 import NotFound from "./NotFound";
 import Lists from './Lists'
+import BrowseItineraries from "./BrowseItineraries";
 
 
 
@@ -36,6 +37,9 @@ function App() {
                 <AuthRoute path="/itineraries/:id" component={EditItineraries} />
                 <AuthRoute exact path="/archive">
                     <Archive />
+                </AuthRoute>
+                <AuthRoute exact path="/browse">
+                    <BrowseItineraries />
                 </AuthRoute>
                 <AuthRoute exact path="/itineraries">
                     <NewItineraries />

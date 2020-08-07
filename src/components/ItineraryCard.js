@@ -25,7 +25,7 @@ const RatingDisplay = ({rating}) => {
 
 
 
-export const ItineraryCard = ({itineraryData, index}) => {
+export const ItineraryCard = ({itineraryData, index,hideRatings}) => {
     console.log(itineraryData);
     const {locations, id, countries, cities, itinerary} = itineraryData;
 
@@ -48,6 +48,11 @@ export const ItineraryCard = ({itineraryData, index}) => {
         endDate = mm_end + '/' + dd_end + '/' + yyyy_end;
         }
 
+    let ratings = null;
+    if (!hideRatings){
+        ratings = (<RatingDisplay rating={itinerary.rating} />
+        )
+    }
     return (
         <div id={`card-${id}`} className="card">
 
@@ -57,7 +62,7 @@ export const ItineraryCard = ({itineraryData, index}) => {
             <br />
             <span style={{font: "20px Roboto"}}>{startDate} - {endDate}</span>
             <br />
-            <RatingDisplay rating={itinerary.rating} />
+            {ratings}
             <br />
         </p>
         <ul className="info" style={{zIndex:999,}}>
