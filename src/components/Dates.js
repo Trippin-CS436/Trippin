@@ -126,7 +126,7 @@ class Dates extends React.Component{
             </ul>
                 <div className={"buttonCalendar"}>
                     <IconButton  aria-label="Edit" name="Edit" >
-                        <DateRangeIcon className={"edit-btn"} style={{ color: green[500] }}/>
+                        <DateRangeIcon className={"edit-btn"} style={{ color: green[500], marginTop:-12}}/>
                     </IconButton>
                 </div>
             </div>
