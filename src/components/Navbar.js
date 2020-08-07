@@ -19,7 +19,8 @@ import {logOut} from "../actions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1
+        flexGrow: 1,
+        minWidth: 100
     },
     menuButton: {
         marginRight: theme.spacing(1)
@@ -30,12 +31,17 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         height: "4px",
         bachgroundColor: "#000000",
-        width: "100vw"
+        width: "100%"
     },
     toolBar: {
         background: '#121212',
         top: "-5px",
-        width: "100vw"
+        width: "100%"
+
+    },
+    menu: {
+        backgroundColor: '#212121',
+        color: 'white'
 
     }
 }));
@@ -65,7 +71,7 @@ function Navbar(props) {
     };
     return (
         <div className={classes.root}>
-            <AppBar position="static" className={classes.appBar}>
+            <AppBar className={classes.appBar}>
                 <Toolbar className={classes.toolBar}>
 
                     <div className={"smallIcon"}>

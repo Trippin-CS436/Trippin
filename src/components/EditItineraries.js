@@ -95,7 +95,7 @@ class Itineraries extends React.Component {
             <div className={classes.bg + " bgScroll"} >
                 <React.Fragment>
                     <div><Navbar/></div>
-                    <div className='body-background-test'>
+                    <div>
                         <Resizable resizeHandles={['s']}>
                             <ResizableBox width="100%" height={400} handle={<div className={`custom-handle`}><DragHandleIcon className="drag-icon"/> </div>}
                                           minConstraints={[0, 0]} maxConstraints={[1000, 1000]}>
@@ -103,12 +103,12 @@ class Itineraries extends React.Component {
                             </ResizableBox>
                         </Resizable>
                         <Grid container spacing={0}>
-                            <Grid item sm={12} lg={4} style={{marginBottom: '25px'}}>
+                            <Grid item xs={12} md={4} style={{marginBottom: '25px'}}>
                                 <div>
                                     <Itinerary />
                                 </div>
                             </Grid>
-                            <Grid item sm={12} lg={8}>
+                            <Grid item xs={12} md={8}>
                                     <City />
                             </Grid>
                         </Grid>

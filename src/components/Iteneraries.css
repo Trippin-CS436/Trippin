@@ -51,7 +51,7 @@
     display: inline-block;
     position: absolute;
     bottom: 5px;
-    right: 15px;
+    right: 0px;
 }
 .buttonDiv button{
     /*background-color: rgba(244, 85, 30, 0.65); */
@@ -64,6 +64,7 @@
     display: inline-block;
     text-decoration: none;
     cursor: pointer;
+    float: right;
 
 }
 .buttonDiv button:hover{
@@ -119,4 +120,28 @@
     overflow-y: scroll;
     z-index: 15;
 }
+
+.location-bar {
+    display: inline-block;
+}
+
+.save-button {
+    color: white;
+    float: right;
+    margin-right:  2rem;
+
+}
+
+.display-notes {
+    position: relative;
+    margin-bottom: 10px;
+    top: -20px;
+}
+
+@media (max-width: 960px) {
+    .h2-name {
+        font-size: 20pt;
+    }
+}
+
 

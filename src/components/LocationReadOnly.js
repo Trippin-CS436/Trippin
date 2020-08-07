@@ -7,7 +7,6 @@ import Photos from "./Photos";
 import InfoPhotos from "./InfoPhotos";
 import {connect} from "react-redux";
 import {deleteLocation} from "../actions";
-import './Location.css';
 //import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import NotesOutlinedIcon from '@material-ui/icons/NotesOutlined';
