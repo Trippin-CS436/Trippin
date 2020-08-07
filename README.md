@@ -40,20 +40,22 @@
 
 
 ## Next Steps
-1. Integrate more functionalities into the GoogleMap (Stretch Requirement #1,3), ideally mimic most of the functions the user can achieve on the real google map.
-2. Add more feature like location tagging (Stretch Requirement #4), Integrate community interaction into archived Trip Section (Instagram Like), Reddit-Like Section for users postings.
+1. Integrate more functionalities into the GoogleMap (Stretch Requirement #1,3), ideally mimic most of the functions that users can achieve using official google map.
+2. Add more features like location tagging (Stretch Requirement #4), Integrate community interaction into archived Trip Section (Instagram, Upvote feature), web page footer.
 3. Ship out IOS/Android Version of the App
     
 
 ## List Of Contributions (Ordered by alphabet)
 - Leann f5a2b<br />
-- Lin c1q0b<br />
+    * Contributed mainly on functionality of itinerary - generating location information from Google Maps, adding user notes, sharing itinerary, uploading pdfs and photos to itinerary and saving into database, display and functionality for Archive and Browse Itinerary Page, adding itineraries to user's archive and publically sharing an itinerary. <br />
+    *  Contributed partially on: CSS styling, implementing data structure.
+- Linh c1q0b<br />
 - Jacky i0k0b<br />
-    Contributed mainly on: Google Map Component, Social Media Sharing Page/Functionality, BackEnd/MongoDB SetUp, Avatar Image Handling. <br />
-    Contributed partially on: CSS styling, deployment on Heroku.<br/>
+    * Contributed mainly on: Google Map Component, Social Media Sharing Page/Functionality, BackEnd/MongoDB SetUp, Avatar Image Handling. <br />
+    * Contributed partially on: CSS styling, deployment on Heroku.<br/>
 - Josh e8m2b<br />
-Contributed mainly on: itinerary's expandable list, date selection UI and validation, adding + saving itinerary functionality. <br />
-Contributed partially on: CSS styling, deployment onto heroku, implementation of various backend endpoints
+    * Contributed mainly on: itinerary's expandable list, date selection UI and validation, adding + saving itinerary functionality. <br />
+    * Contributed partially on: CSS styling, deployment onto heroku, implementation of various backend endpoints
 
 
 # Code References

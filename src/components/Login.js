@@ -2,6 +2,7 @@ import React from 'react';
 import GoogleLogin from 'react-google-login';
 import  FacebookLogin  from 'react-facebook-login';
 import {connect} from "react-redux";
+import './Home.css'
 import { logIn, logOut } from "../actions";
 import { withRouter } from 'react-router'
 import axios from "axios";
