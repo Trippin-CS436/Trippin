@@ -7607,6 +7607,11 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
+lottie-web@^5.5.7:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/lottie-web/-/lottie-web-5.7.1.tgz#505f748a2dda836f7b582f811004c5ab8791c90c"
+  integrity sha512-f7kO4Qcurldc9SWfGUuwgs96/SCT+hwATMCdMK6I/sd6EYK3Y0Ciz40yAvq0x9uXzrk6KKcnQrqijZM8Ir4Drg==
+
 loud-rejection@^1.0.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/loud-rejection/-/loud-rejection-1.6.0.tgz#5b46f80147edee578870f086d04821cf998e551f"
@@ -10821,6 +10826,13 @@ react-transition-group@^4.0.0, react-transition-group@^4.4.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-useanimations@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/react-useanimations/-/react-useanimations-2.0.5.tgz#11fa3e8db5768ea17c39bc5bcaa3058b45d3b051"
+  integrity sha512-CpUfCqnbl5CCrtXSerItVoTN0vX7gquuR+FKQRb0aHzpT/P7EdaXVVA9C7+NcyPoHV869ium8egXf2SBLGbxCA==
+  dependencies:
+    lottie-web "^5.5.7"
 
 react-view-pager@^0.6.0:
   version "0.6.0"

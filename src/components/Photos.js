@@ -3,7 +3,6 @@ import  {connect}  from 'react-redux';
 import  {deletePhoto} from '../actions/deletePhoto';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import { Paper } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
@@ -45,7 +44,7 @@ class Photos extends React.Component {
               title={photo.name}
               actionIcon={
                 <IconButton onClick={this.delPhoto} value={index} aria-label={`star ${photo.name}`} >
-                  <DeleteForeverIcon />
+                  <DeleteForeverIcon style={{fill: "white"}}/>
                 </IconButton>
               }
             />

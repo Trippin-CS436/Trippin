@@ -91,7 +91,7 @@ class Info extends React.Component {
     }
 
     photoDisplay = () => {
-      if (this.state.placePhotoUrls !== undefined && this.state.placePhotoUrls.length > 0){
+      if (this.state.photos !== undefined && this.state.photos.length > 0){
         return (
           <Box fontWeight="fontWeightLight" p={2} borderColor="transparent">
           <Typography variant="h6" >Location Photos</Typography>
@@ -206,7 +206,7 @@ class Info extends React.Component {
               
               {this.ratingDisplay()}
 
-              {this.phoneDisplay()}
+              {this.photoDisplay()}
 
                  {this.reviewDisplay()}
                 </Box>

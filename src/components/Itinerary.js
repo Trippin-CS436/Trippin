@@ -28,6 +28,7 @@ import { addFiles } from '../actions/addFiles';
 import { AttachFile,  Description, PictureAsPdf } from '@material-ui/icons';
 import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import PdfSelect from './PdfSelect';
+import UseAnimations from "react-useanimations";
 const { uuid } = require('uuidv4');
 class Itinerary extends React.Component {
 
