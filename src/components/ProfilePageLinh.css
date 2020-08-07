@@ -269,4 +269,18 @@ section {
 
   }
 
+  #archived{
+      background-image: url("../assets/archived-bg.jpg");
+      width: 100%;
+      padding: 3rem;
+  }
+
+  #browse{
+    background-image: url("../assets/browse-bg.jpg");
+    background-size: cover;
+    width: 100%;
+    padding: 3rem;
+}
+
+
   

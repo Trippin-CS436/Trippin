@@ -484,12 +484,12 @@ class ProfilePageLinh extends React.Component {
                         <h2 className="h2"> You have visited {this.props.authentication.visited.length} places! </h2>
                         <MapWithMarkerClusterer/>
                     </section>
-                    <section id="archived" className="section-box">
-                        <h2 className="h2">Look back at your past trips <a href={'/archive'}>here!</a></h2>
-                    </section>
-                    <section id="archived" className="section-box">
-                        <h2 className="h2">View all public itineraries <a href={'/browse'}>here!</a></h2>
-                    </section>
+                    <a href={'/archive'}> <section id="archived" className="section-box">
+                        <h2 className="h2">Look back at your past trips in ARCHIVED </h2>
+                    </section></a>
+                    <a href={'/browse'}><section id="browse" className="section-box">
+                        <h2 className="h2">View all public itineraries </h2>
+                    </section></a>
                 </div>
                 <div className="profile-left-panel">
                     <div className="profile-img">
