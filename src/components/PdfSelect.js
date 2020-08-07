@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-import ReactModal from 'react-modal';
+import Chip from '@material-ui/core/Chip';
 import { connect } from 'react-redux';
-import IconButton from "@material-ui/core/IconButton";
-import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
-import PictureAsPdfOutlinedIcon from '@material-ui/icons/PictureAsPdfOutlined';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import AttachmentOutlinedIcon from '@material-ui/icons/AttachmentOutlined';
-import {DropzoneDialog} from 'material-ui-dropzone';
 import { addFiles } from '../actions/addFiles';
-import {PdfViewer} from './PdfViewer';
 import './PdfSelect.css';
 const { uuid } = require('uuidv4');
 class PdfSelect extends Component {
@@ -36,10 +28,10 @@ class PdfSelect extends Component {
       if(this.props.itinerary.files !== undefined && this.props.itinerary.files.length > 0){
           let filesRender = this.props.itinerary.files;
           return (
-              <div style={{display: "inline"}} className="files-displayed">
-        <div style={{display: "inline-block"}}>
+              <div  className="files-displayed">
+        <div style={{display: "inline"}}>
         {filesRender.map((file, index) => (
-            <div className="display-pdf-name" onClick={() => this.openPdf(file.base64)} style={{float:"left", padding:'0.5rem', outline: "1rem"}} key={uuid()}>{file.name}</div>
+            <Chip label={file.name} key={uuid()} onClick={() => this.openPdf(file.base64)} style={{float:"right", padding:'0.5rem'}} />
           ))}
           </div>
           </div>
