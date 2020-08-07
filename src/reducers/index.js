@@ -297,12 +297,6 @@ const currentViewReducer = (currentView = defaultView, action) => {
     return currentView;
 };
 
-var today = new Date(Date.now());
-        var tomorrow = new Date(Date.now());
-        var dd = String(today.getDate()+2).padStart(2, '0');
-        var ddNext = String(today.getDate()+4).padStart(2, '0');
-        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-        var yyyy = today.getFullYear();
 
 let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRanges : [], files: [], shared: false, rating: 0, tags:[]}, action) =>{
     if (action.type === "NAME_CHANGE"){
@@ -310,6 +304,13 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
             ...itinerary,
             name: action.name
         };
+    } else if (action.type === "UPDATE_SHARE"){
+        console.log('New Share: ', action.payload);
+        console.log('Old itinerary: ', itinerary);
+        return{
+            ...itinerary,
+            shared: action.payload
+        }
     } else if (action.type === 'ADD_FILES'){
         let newFiles = action.add;
         let oldFiles = itinerary.files !== undefined ? itinerary.files : [];
@@ -322,17 +323,21 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
         return itinerary;
         
     } else if (action.type === 'DELETE_FILE'){
-        let fileIndex = action.delete;
+        let file = action.delete;
         let oldFiles = itinerary.files !== undefined ? itinerary.files : [];
-        oldFiles.splice(fileIndex, 1);
+        let index = oldFiles.findIndex((item) => {
+            return file.id === item.id;
+         });
+        oldFiles.splice(index, 1);
         itinerary.files = oldFiles;
-        console.log('Reducer itinerary files: ', itinerary);
-        return itinerary;
+        let newItinerary = itinerary;
+        newItinerary.files = oldFiles;
+        return newItinerary;
     }
     else if (action.type === 'RESET'){
         // console.log(this.state);
-        var today = new Date();
-        var tomorrow = new Date();
+        let today = new Date();
+        let tomorrow = new Date();
         let newItinerary = { name: "New Itinerary", dateRanges :  [{value: [today, tomorrow]}], files: [], shared: false, rating: 0, tags:[]};
         return newItinerary;
     }
@@ -382,7 +387,7 @@ const currentItineraryReducer = (currentItinerary = null, action) => {
 const editItineraryIDReducer = (id = null, action) => {
     if(action.type === "EDIT_ITINERARY") {
         return action.edit;
-    } return id;
+    }  return id;
 }
 
 const currentItineraryObjectIDReducer = (id = null, action) => {

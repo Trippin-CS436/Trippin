@@ -1,5 +1,5 @@
 .notes-outer {
-    margin: 1rem 1rem 1rem 1rem;
+    margin: 1rem 1rem 2rem 2rem;
     padding: 1rem 1rem 1rem 2rem;
 }
 
@@ -17,7 +17,7 @@
     border-radius: 0; 
     box-sizing: border-box;
     padding: 0.5rem 0.5rem;
-    width: 70%;
+    width: 60%;
     height: 10rem;
     color: black;
 }
@@ -38,8 +38,10 @@
 }
 
 #notes-inner-button {
-    width: 80%;
-    margin-bottom: 1rem;
+    width: 70%;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    margin-right: 2rem;
     margin-top: 1rem;
     float: left;
 }

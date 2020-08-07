@@ -11,12 +11,7 @@ import {
 import './Itinerary.css';
 import './Iteneraries.css';
 import Collapsible from "react-collapsible";
-import City from "./City";
-import Map from "./Map";
-import SaveButton from "./SaveButton";
-import LocationButton from "./LocationButton";
 import Dates from "./Dates";
-import axios from "axios";
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import IconButton from "@material-ui/core/IconButton";
 import SaveIcon from '@material-ui/icons/Save';
@@ -28,11 +23,16 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import AttachmentOutlinedIcon from '@material-ui/icons/AttachmentOutlined';
-import AttachmentModal from './AttachmentModal';
-import DropPhotos from './DropPhotos';
-import Popup from "reactjs-popup";
 import {DropzoneDialog} from 'material-ui-dropzone';
+import { addFiles } from '../actions/addFiles';
+import { updateShare } from '../actions/updateShare';
+import { AttachFile,  Description, PictureAsPdf } from '@material-ui/icons';
+import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
+import PdfSelect from './PdfSelect';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
+const { uuid } = require('uuidv4');
 class Itinerary extends React.Component {
 
     constructor(props){
@@ -47,6 +47,8 @@ class Itinerary extends React.Component {
             nameOfDeletion: null,
             open: false,
             files: this.props.itinerary.files,
+            showFiles: false,
+            share: false,
         };
     }
 
@@ -117,22 +119,78 @@ class Itinerary extends React.Component {
     handleOpenDropzone(){
         this.setState({
             open: true,
+            showFiles: false
         });
     }
 
     handleCloseDropzone(){
         this.setState({
-            open: false
+            open: false,
         });
     }
-    handleSave(files){
-        this.props.addFiles(files);
-        this.setState({
-            files: this.props.itinerary.files,
-            open: false
+    encoder =(file) => {
+        // encode function
+        let encode = new Promise(function(resolve, reject) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+         reader.onloadend = function() {
+        resolve(reader.result);
+        }
         });
-        console.log('Upload files: ', files);
-    }
+        return encode.then(fileEncoded => {
+            return {base64: fileEncoded, name: file.name, path: file.path, id: uuid()};
+        });
+
+        }
+    
+        async handleSave(files) {
+            this.setState({
+                files: files,
+                open: false
+            });
+            let fileArray = [];
+            files.forEach(file => fileArray.push(this.encoder(file)));
+            Promise.all(fileArray).then((filesEncoded) => {
+                console.log("Files: ", filesEncoded);
+                this.props.addFiles(filesEncoded);
+              });
+        }
+
+    handlePreviewIcon(fileObject, classes) {
+        const {type} = fileObject.file
+        const iconProps = {
+          className : classes.image,
+        }
+      
+      
+        switch (type) {
+          case "application/msword":
+          case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+            return <Description {...iconProps} />
+          case "application/pdf":
+            return <PictureAsPdf {...iconProps} />
+          default:
+            return <AttachFile {...iconProps} />
+        }
+      }
+
+
+        renderSubComp(){
+            if (this.state.showFiles){
+                let temp =  this.props.itinerary;
+                if (temp !== undefined){
+                return <PdfSelect itinerary={temp} />
+                } else return <h3>No Files to Display.</h3>;
+            } else return null;
+      }
+
+      handleOpenFolder(){
+          this.setState({
+              showFiles: !this.state.showFiles
+          })
+          console.log("Itinerary when opening folder: ", this.props.itinerary)
+      }
+      
     handleEditItineraryName(){
         if (!this.state.editItinerary){
             this.setState({editItinerary: !this.state.editItinerary});
@@ -153,6 +211,16 @@ class Itinerary extends React.Component {
             }
         }
     }
+
+    handleChangeShare(event) {
+        this.props.updateShare(event.target.checked);
+        this.setState({
+            share: event.target.checked
+        });
+    };
+
+ 
+
     renderItineraryName(){
         //Itinerary is not being edited
         if (!this.state.editItinerary){
@@ -160,63 +228,87 @@ class Itinerary extends React.Component {
                 <div id={"itinerary-div"}>
                     <h1 className={"itinerary_name"}>{this.props.itinerary.name}</h1>
                     <IconButton  className={"edit-btn"} aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
-                        <EditOutlinedIcon />
+                        <EditOutlinedIcon style={{width: 20, height: 20, fill: "white"}} />
                     </IconButton>
-                    <IconButton style={{width:60, height:60, float: "right", padding:"1rem", paddingRight: "2rem"}} className={"btn"} aria-label="Attachment" name="Attachment" onClick={this.handleOpenDropzone.bind(this)}>
-                        <AttachmentOutlinedIcon className="btn" style={{width:40, height:40}}/>
+                    <IconButton  aria-label="Attachment" name="Attachment" onClick={this.handleOpenDropzone.bind(this)}>
+                    <AttachmentOutlinedIcon className="edit-btn" style={{width:20, height:20, fill: "white"}}/>
                     </IconButton>
-
+                    <IconButton  aria-label="Attachment" name="Attachment" onClick={this.handleOpenFolder.bind(this)}>
+                        <FolderOutlinedIcon className="edit-btn" style={{width:20, height:20, fill: "white"}}/>
+                    </IconButton>
+                   
+                    <div style={{display: "inline-block", width: "80%"} }>
+                    {this.renderSubComp()}
+                    </div>
+                    
+                    
+                    
         
         <DropzoneDialog
+        dialogTitle={'Upload Itinerary Files Here'}
                     open={this.state.open}
                     onSave={this.handleSave.bind(this)}
                     acceptedFiles={['application/pdf', 'text/plain', 'application/msword']}
                     showPreviews={true}
+                    getPreviewIcon={this.handlePreviewIcon.bind(this)}
                     maxFileSize={5000000}
+                    submitButtonText={"ADD"}
                     onClose={this.handleCloseDropzone.bind(this)}
                 />
-
     
-          {/*   <Popup contentStyle={{width: "600px"}}trigger={ <IconButton style={{width:60, height:60, float: "right", padding:"1rem", paddingRight: "2rem"}} className={"btn"} aria-label="Attachment" name="Attachment" onClick={this.handleOpen.bind(this)}>
-                        <AttachmentOutlinedIcon className="btn" style={{width:40, height:40}}/>
-                    </IconButton>} modal>
-                        {close => (
-                            <div className="modal" style={{color: "black"}}>
-                                <a className="close" onClick={close}>
-                                &times;
-                                </a>
-                                <div style={{font: "15px Karla"}}>Add a PDF File to your itinerary</div>
-                                <AttachmentModal />
-                            </div>
-                        )}
-                    </Popup> */}
+           
             </div>
             );
         } else{
-            return(
-                <div id={"itinerary-div"}>
-                    <div style={{paddingTop:10}}>
+            return(<div id={"itinerary-div"}>
+                    <div className="itinerary-btn" style={{paddingTop:10, height: "200%"}}>
                         <TextField id="filled-basic"
                                     label="New Itinerary Name"
                                     variant="outlined"
+                                    style={{fill: "white",}}
                                     error ={this.state.name.length === 0 ? true : false }
                                     helperText={this.state.name.length === 0 ? "Itinerary name cannot be empty!" : "" }
                                     defaultValue={this.props.itinerary.name}
                                     onKeyDown={this.keyPressed.bind(this)}
                                     inputProps={{
                                         style: {
-                                            fontSize: "2.5em",
+                                            fontSize: "2em",
                                             fontWeight: "bold",
+                                            color: "white"
                                         }}} // font styling of input text
                                     onChange={this.handleNameChange.bind(this)}/>
-                        <IconButton  aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
-                            <SaveIcon className={"edit-btn"}/>
-                        </IconButton>
+                                    <IconButton  aria-label="Edit" name="Edit" onClick={this.handleEditItineraryName.bind(this)}>
+                            <SaveIcon style={{width: 20, height: 20, fill: "white"}} className={"edit"}/>
+                            </IconButton>
+                            <IconButton  aria-label="Attachment" name="Attachment" onClick={this.handleOpenDropzone.bind(this)}>
+                        <AttachmentOutlinedIcon className="edit-btn" style={{width:25, height:25, fill: "white"}}/>
+                    </IconButton>
+                    <IconButton  aria-label="Attachment" name="Attachment" onClick={this.handleOpenFolder.bind(this)}>
+                        <FolderOutlinedIcon className="edit-btn" style={{width:25, height:25, fill: "white"}}/>
+                    </IconButton>
+                    <div style={{display: "inline-block", width: "80%", marginLeft: "1rem", overflow: "hidden"} }>
+                    {this.renderSubComp()}
                     </div>
+                    
+        
+        <DropzoneDialog
+        dialogTitle={'Upload Itinerary Files Here'}
+                    open={this.state.open}
+                    onSave={this.handleSave.bind(this)}
+                    acceptedFiles={['application/pdf', 'text/plain', 'application/msword']}
+                    showPreviews={true}
+                    getPreviewIcon={this.handlePreviewIcon.bind(this)}
+                    maxFileSize={5000000}
+                    submitButtonText={"ADD"}
+                    onClose={this.handleCloseDropzone.bind(this)}
+                />
+                                    
+            </div>
+            </div>
 
-                </div>
             );
         }
+    
     }
 
     handleOpen() {
@@ -328,8 +420,13 @@ class Itinerary extends React.Component {
             <React.Fragment>
                 <div className={"itineraryHeader"}>
                     {this.renderItineraryName()}
+                    <FormControlLabel
+        control={<Switch checked={this.state.share} onChange={(event) => this.handleChangeShare(event)} color="primary" />}
+        label="Public"
+      />
                     <Dates place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
                 </div>
+               
 
                 {this.renderItinerary()}
                 {/*<City/>*/}
@@ -361,6 +458,7 @@ function stopBubbling(evt){
 }
 
 const dispatch = {
+    addFiles,
     changeView,
     renderLocation,
     renderCity,
@@ -372,5 +470,6 @@ const dispatch = {
     deleteCountry,
     deleteLocation,
     setItineraryFromDB,
+    updateShare
 };
 export default connect(mapStateToProps, dispatch )(Itinerary);
