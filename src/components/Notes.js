@@ -42,7 +42,7 @@ class Notes extends React.Component {
             <div className="notes">
             <div className="notes-outer">
                 <div className="notes-inner">
-                    <textarea id="notes-text" value={this.state.notesText} onChange={this.handleNotesInput}>
+                    <textarea disabled={this.props.isReadOnly} id="notes-text" value={this.state.notesText} onChange={this.handleNotesInput}>
                     </textarea>
                 </div>
                 <div id="notes-inner-button">

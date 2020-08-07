@@ -57,14 +57,33 @@ router.route('/save/:id').patch((req,res) => {
     .catch(err => res.status(404).json('Error: ' + err));
   });
 
+
+  router.route('/save/archive/:id').patch((req,res) => {
+    console.log(req.params.id);
+    Itinerary.findOneAndUpdate({id: req.params.id}, {itinerary:req.body.itinerary},)
+      .then(() => res.json("itinerary updated"))
+      .catch(err => res.status(404).json('Error: ' + err));
+    });
+
   router.route('/delete/:id').delete((req,res) => {
     console.log(req.params.id);
     Itinerary.deleteOne({id: req.params.id})
-      .then(() => res.json("Itinerary deleted"))
+      .then((response) => res.json(response))
       .catch(err => res.status(404).json('Error: ' + err));
     });
-  
 
+router.route('/save/archive/:id').patch((req,res) => {
+  console.log(req.params.id);
+  Itinerary.findOneAndUpdate({id: req.params.id}, {itinerary:req.body.itinerary},)
+      .then(() => res.json("itinerary updated"))
+      .catch(err => res.status(404).json('Error: ' + err));
+});
 
+router.route('/browse/itineraries').get((req, res) => {
+  console.log(req.params.id);
+  Itinerary.find({'itinerary.shared': true})
+      .then(itinerary => res.json(itinerary))
+      .catch(err => res.status(400).json('Error: ' + err));
+});
 
 module.exports = router;

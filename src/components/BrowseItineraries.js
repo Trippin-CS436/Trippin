@@ -21,7 +21,7 @@ import Navbar from "./Navbar";
 const { uuid } = require('uuidv4');
 
 
-class ArchiveItineraries extends React.Component {
+class BrowseItineraries extends React.Component {
     constructor(props){
         super(props);
         this.props.changeView(-1);
@@ -33,41 +33,28 @@ class ArchiveItineraries extends React.Component {
         };
     }
 
-     componentDidMount() {
-        console.log('Getting archive itinerary from database!');
-        let currentArchive = [];
-        this.props.authentication.archived.map((id, index) => {
-                console.log(id);
-                console.log(index);
-            // request all the archived data here
-            axios.get("http://localhost:9000/itinerary/" + id)
+    componentDidMount() {
+        axios.get("http://localhost:9000/itinerary/browse/itineraries")
             .then(response => {
                 console.log("Data: ", response.data);
                 if(response.data.length > 0 && response.data !== undefined){
-                    let newItinerary = response.data[0];
-                    currentArchive.push(newItinerary);
-                    console.log('Archive Itinerary: ', currentArchive);
-                     console.log('CurrentArchiveItinerary: ', currentArchive[0]);
-                     this.setState({
-                         archivedItineraries: currentArchive,
-                         currentItineraryView: currentArchive[0]
-                     });
-                     if (currentArchive.length > 0){
-                     this.props.setItineraryFromDB(this.state.archivedItineraries[0].itinerary);
-                     this.props.renderCountry(this.state.archivedItineraries[0].countries);
-                     this.props.renderCity(this.state.archivedItineraries[0].cities);
-                     this.props.renderLocation(this.state.archivedItineraries[0].locations);
-                     // this.props.changeView(this.state.archivedItineraries[0].locations[0].cityID);
-                     this.props.changeView(-1);
-                     }
-                } 
+                    let newItineraries = response.data;
+                    this.setState({
+                        archivedItineraries: newItineraries,
+                        currentItineraryView: newItineraries[0]
+                    });
+                    if (newItineraries.length > 0){
+                        this.props.setItineraryFromDB(this.state.archivedItineraries[0].itinerary);
+                        this.props.renderCountry(this.state.archivedItineraries[0].countries);
+                        this.props.renderCity(this.state.archivedItineraries[0].cities);
+                        this.props.renderLocation(this.state.archivedItineraries[0].locations);
+                        this.props.changeView(this.state.archivedItineraries[0].locations[0].cityID);
+                    }
+                }
             })
             .catch(err => {
                 console.log('Error fetching archive itinerary: ', err);
             })
-        })
-        console.log('Archive Itinerary: ', currentArchive);
-        console.log('CurrentArchiveItinerary: ', currentArchive[0]);
     }
 
     nextItinerary = () => {
@@ -115,13 +102,13 @@ class ArchiveItineraries extends React.Component {
             <React.Fragment>
             <Navbar/>
             <div className={"noHorizontalScroll"}>
-            <div className="headerArchive">YOUR ARCHIVED ITINERARIES</div>
+            <div className="headerArchive">BROWSE ITINERARIES</div>
 
                 <div className="carousel">
                 <div className={`cards-slider active-slide-${currentIndex}`}>
                 <div className="cards-slider-wrapper" style={{'transform': `translateX(-${currentIndex*(100/archivedItineraries.length)}%)`}}>
                 {
-                itineraries.map((itinerary, index) => <ItineraryCard key={uuid()} itineraryData={itinerary} index={index} />)
+                itineraries.map((itinerary, index) => <ItineraryCard hideRatings={true} key={uuid()} itineraryData={itinerary} index={index} />)
                 }
 
                 </div>
@@ -160,4 +147,4 @@ const mapStateToProps = (state) =>{
     };
 };
 
-export default connect(mapStateToProps, {setItineraryFromDB, renderLocation, renderCountry, renderCity, changeView})(ArchiveItineraries);
+export default connect(mapStateToProps, {setItineraryFromDB, renderLocation, renderCountry, renderCity, changeView})(BrowseItineraries);

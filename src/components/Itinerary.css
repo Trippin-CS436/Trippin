@@ -1,7 +1,7 @@
 .itinerary_name{
     margin: 0px 0px 0px 10px;
     font-size: 1.5em;
-    display: inline-block;
+    display: block;
 }
 .country_name{
     margin: 0px 0px 0px 10px;
@@ -19,11 +19,15 @@
 }
 .edit-btn{
     position: relative;
-    top: -8px;
     transform: scale(1.25);
     z-index: 12;
-
+    width: 10%
 }
+
+.itinerary-btn li{
+    width: 5%
+}
+
 .buttonDivDelete{
     display: inline-block;
     position: absolute;
@@ -77,12 +81,12 @@ h1{
     display: block;
 }
 
-.edit-button{
+.edit-btn{
     display: inline-block;
 }
 .itineraryHeader{
     background-color: #b4004e;
-    padding: 1rem 0.5rem 0.2rem 2rem;
+    padding: 1rem 1rem 0.5rem 2rem;
     border-radius: 25px 25px 0px 0px;
     font: 20px Karla;
     margin: 25px 25px 0px 25px;

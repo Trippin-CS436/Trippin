@@ -39,7 +39,7 @@ class ItineraryReadOnly extends React.Component {
             idToDelete: null,
             deletionIsCountry: false,
             nameOfDeletion: null,
-//            id: this.props.match.params.id
+            // id: (this.props.match.params.id) ? this.props.match.params.id : undefined
         };
     }
 

@@ -11,3 +11,7 @@
 
 ## carousel styling in ArchiveItineraries
 - https://www.youtube.com/watch?v=3ax9TW2c2bY
+
+## pdf view component
+- https://www.npmjs.com/package/react-pdf
+- https://ourcodeworld.com/articles/read/682/what-does-the-not-allowed-to-navigate-top-frame-to-data-url-javascript-exception-means-in-google-chrome

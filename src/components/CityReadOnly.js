@@ -5,7 +5,7 @@ import Collapsible from "react-collapsible";
 import LocationReadOnly from "./LocationReadOnly";
 import DatesReadOnly from "./DatesReadOnly";
 import Dates from "./Dates";
-
+const { uuid } = require('uuidv4');
 
 class CityReadOnly extends React.Component {
     constructor(props){
@@ -40,7 +40,7 @@ class CityReadOnly extends React.Component {
                 {this.props.cities.filter(function(city){
                     return city.countryID == country.id;
                 }).map(function(city,index){
-                    return (<div key={index}  onClick={() => this.props.changeView(country,city)}>{city.name}</div>)
+                    return (<div key={uuid()}  onClick={() => this.props.changeView(country,city)}>{city.name}</div>)
                 },this)
                 }
             </Collapsible>
@@ -86,7 +86,7 @@ class CityReadOnly extends React.Component {
                 <div className={"locationsDiv"}>
                     <ul className={"zeroPad zeroMarg"}>
                         {locationsToRender.map((loc,index) => (
-                            <li key={index}> <LocationReadOnly idx={index} name={loc.location} address={loc.address} id={loc.id}/></li>
+                            <li key={uuid()}> <LocationReadOnly  idx={index} name={loc.location} address={loc.address} id={loc.id}/></li>
                         ))}
                     </ul>
                 </div>

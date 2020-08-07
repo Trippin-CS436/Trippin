@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {logOut, updateUserItinerary, changeView} from "../actions/index";
+import {reset} from '../actions/reset';
 import { updateArchive } from "../actions/updateArchive";
 import "./ProfilePageLinh.css";
 import {GoogleMap, LoadScript, MarkerClusterer, Marker} from "@react-google-maps/api";
@@ -28,6 +29,10 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { StylesProvider } from '@material-ui/core/styles';
 import {Redirect, useHistory} from "react-router";
 import {Link} from "react-router-dom";
+import {updateVisited} from "../actions/updateVisited";
+import MapWithMarkerClusterer from "./MapWithMarkerClusterer";
+import ArchiveIcon from '@material-ui/icons/Archive';
+
 
 const { uuid } = require('uuidv4');
 const title = "My Itinerary";
@@ -36,31 +41,6 @@ let shareUrlObjectID = '';
 
 const center = {lat: -28.024, lng: 140.887};
 
-const locations = [
-    {"lat": -31.56391, "lng": 147.154312},
-    {"lat": -33.718234, "lng": 150.363181},
-    {"lat": -33.727111, "lng": 150.371124},
-    {"lat": -33.848588, "lng": 151.209834},
-    {"lat": -33.851702, "lng": 151.216968},
-    {"lat": -34.671264, "lng": 150.863657},
-    {"lat": -35.304724, "lng": 148.662905},
-    {"lat": -36.817685, "lng": 175.699196},
-    {"lat": -36.828611, "lng": 175.790222},
-    {"lat": -37.75, "lng": 145.116667},
-    {"lat": -37.759859, "lng": 145.128708},
-    {"lat": -37.765015, "lng": 145.133858},
-    {"lat": -37.770104, "lng": 145.143299},
-    {"lat": -37.7737, "lng": 145.145187},
-    {"lat": -37.774785, "lng": 145.137978},
-    {"lat": -37.819616, "lng": 144.968119},
-    {"lat": -38.330766, "lng": 144.695692},
-    {"lat": -39.927193, "lng": 175.053218},
-    {"lat": -41.330162, "lng": 174.865694},
-    {"lat": -42.734358, "lng": 147.439506},
-    {"lat": -42.734358, "lng": 147.501315},
-    {"lat": -42.735258, "lng": 147.438},
-    {"lat": -43.999792, "lng": 170.463352},
-]
 
 
 // ----- not sure what this is used for -------//
@@ -73,7 +53,9 @@ const locations = [
 class ProfilePageLinh extends React.Component {
     constructor(props) {
         super(props);
-        this.props.changeView(-1);
+        this.state = {
+            visited:  this.props.authentication.visited,
+        }
     }
 
 
@@ -148,7 +130,8 @@ class ProfilePageLinh extends React.Component {
             onChange={(event, newValue) => {
               val = newValue;
               itinerary.rating = val;
-              this.updateArchiveServer(itinerary)
+              this.updateArchiveServer(itinerary);
+              this.updateVisitedServer();
             }}
           />
         </Box>
@@ -178,10 +161,42 @@ class ProfilePageLinh extends React.Component {
             itineraries: newItinerariesArray
         };
 
+        let itinerary = payload.itinerary;
+        itinerary.rating = payload.rating;
         axios.patch("http://localhost:9000/user/save/archived/" + this.props.authentication.id, updateBody)
             .then(res => {
                 console.log("Archive updated for user: " + res.data);
                 this.props.updateArchive({...updateBody, profilePageItineraries: newStateItineraries});
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        axios.patch("http://localhost:9000/itinerary/save/archive/" + payload.id, {itinerary:itinerary})
+            .then(res=> {
+                console.log(res.data);
+            })
+            .catch(err=> {
+                console.log(err);
+            });
+    };
+
+    updateVisitedServer() {
+        let locations = this.props.locations.slice();
+        locations = locations.map(loc => ({lat: loc.lat, lng: loc.lon}));
+        console.log("=========LOCATIONS==========")
+        console.log(locations);
+
+        let visited = this.props.authentication.visited.slice();
+        visited = visited.concat(locations);
+        console.log(visited);
+
+        let updateBody = {
+            visited: visited,
+        };
+
+        axios.patch("http://localhost:9000/user/save/visited/" + this.props.authentication.id, updateBody)
+            .then(res => {
+                this.props.updateVisited(updateBody);
             })
             .catch(err => {
                 console.log(err);
@@ -198,7 +213,7 @@ class ProfilePageLinh extends React.Component {
         let endDate = new Date(itinerary.itinerary.dateRanges[0].value[1]);
         if (endDate.getTime() < compare.getTime()) {
             return (<Popup contentStyle={{width: "600px"}}trigger={<IconButton aria-label='Notification' >
-            <NotificationImportantIcon style={{fill: "white", width: 40, height: 40}} />
+            <ArchiveIcon style={{fill: "white", width: 38, height: 38, marginLeft:-55,marginBottom:-5}} />
       </IconButton>} modal>
                         {close => (
                             <div className="modal" style={{color: "black"}}>
@@ -212,7 +227,8 @@ class ProfilePageLinh extends React.Component {
             );
         }
         } else return null;
-    }
+    };
+
 
     render() {
         const style = theme =>({
@@ -251,8 +267,7 @@ class ProfilePageLinh extends React.Component {
                     border: 0,
                     color: 'white',
                     height: 48,
-                    width: '90%',
-                    left: '5%',
+                    width: '80%',
                     padding: '30px',
                     fontSize: '10pt',
                     fontWeight: '700',
@@ -302,7 +317,7 @@ class ProfilePageLinh extends React.Component {
             return (
                 <Popup className="widthFix" trigger={
                     <IconButton className="icon-btn" aria-label="Delete"  name="Delete">
-                    <DeleteForeverIcon className={"delete-btn"} color="secondary"/>
+                    <DeleteForeverIcon  style={{width: 37, height: 37, fill:"white", top: -5, left:-20}} className={"delete-btn"} color="secondary"/>
                     </IconButton>} modal>
                     {close => (
                         <div className="modal">
@@ -338,82 +353,42 @@ class ProfilePageLinh extends React.Component {
             )
         };
 
-
-
         const ItineraryList = () => {
-
-            const ButtonBar = (itinerary) => {
-                return (
-                    <div className='button-bar'>
-                        <div style={{paddingTop:"20px", display: "inline"}}>
-                            <EmailShareButton
-                                key={itinerary.id}
-                                className='center-button'
-                                url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
-                                subject={title}
-                                body="body"
-                            >
-                                <EmailIcon size={40} round />
-                            </EmailShareButton>
-                        </div>
-                        <div style={{paddingTop:"20px", display: "inline", marginRight: "10px"}}>
-                            <FacebookShareButton
-                                key={itinerary.id}
-                                className='center-button'
-                                url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
-                                quote={title}
-                            >
-                                <FacebookIcon size={40} round  />
-                            </FacebookShareButton>
-                        </div>
-                        <DeleteItineraryButton key={itinerary.id} name={itinerary.itinerary.name} id={itinerary.id}/>
-                        <div  style={{width: "25%", display: "inline"}}> {this.archiveButton(itinerary)}</div>
-                    </div>
-                )
-            };
-
             let returnRendering = [];
             let i=0;
                 for (const itinerary of this.props.authentication.profilePageItineraries) {
                     returnRendering.push(
                         <div key={uuid()}>
-                        <div style={{width: "75%",  display: "inline"}} key={uuid()}>
-                            <SectionBox key={uuid()} href={"itineraries/"+ itinerary.id}>
-                                {itinerary.itinerary.name}
-                                <ButtonBar itinerary={itinerary}/>
-                            </SectionBox>
-
+                        <div style={{width: "100%",  display: "inline"}} key={uuid()}>
+                            <SectionBox style={{width:"75%"}} key={uuid()} href={"itineraries/"+ itinerary.id}>{itinerary.itinerary.name}</SectionBox>
+                            <div style={{paddingTop:"20px", display: "inline"}}>
+                        <EmailShareButton
+                            key={itinerary.id}
+                            className='center-button'
+                            url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
+                            subject={title}
+                            body={"Check out my Trippin' itinerary, "+ this.props.itinerary.name + "!\n"}
+                        >
+                            <EmailIcon size={40} round />
+                        </EmailShareButton>
                         </div>
+                        <div style={{paddingTop:"20px", display: "inline", marginRight: "10px"}}>
+                        <FacebookShareButton
+                            key={itinerary.id}
+                            className='center-button'
+                            url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
+                            quote={"Check out my Trippin' itinerary, "+ this.props.itinerary.name + "!\n"}
+                        >
+                        <FacebookIcon size={40} round  />
+                        </FacebookShareButton>
+                        </div>
+                            <DeleteItineraryButton key={itinerary.id} name={itinerary.itinerary.name} id={itinerary.id}/>
+                        </div>
+                        <div  style={{width: "25%", display: "inline"}}> {this.archiveButton(itinerary)}</div>
                         </div>);
                     i++;
                 }
             return returnRendering;
-        };
-
-        const mapContainerStyle = {
-            height: "300px",
-            width: '80%',
-            left: '10%',
-            marginTop: '10px',
-            marginBottom: '15px'
-        };
-
-        const MapWithMarkerClusterer = () => {
-            return (
-                <LoadScript
-                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
-                    libraries={["places"]}>
-                    <GoogleMap id='marker-example' mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
-                        <MarkerClusterer /*options={options}*/>
-                            {(clusterer) =>
-                                this.props.authentication.visited.map((location) => (
-                                    <Marker key={this.createKey(location)} position={location} clusterer={clusterer}/>
-                                ))
-                            }
-                        </MarkerClusterer>
-                    </GoogleMap>
-                </LoadScript>
-            )
         };
 
         const VerticalTabs = () => {
@@ -483,7 +458,10 @@ class ProfilePageLinh extends React.Component {
                         <MapWithMarkerClusterer/>
                     </section>
                     <section id="archived" className="section-box">
-                        <h2 className="h2">Look back at your past trips here!</h2>
+                        <h2 className="h2">Look back at your past trips <a href={'/archive'}>here!</a></h2>
+                    </section>
+                    <section id="archived" className="section-box">
+                        <h2 className="h2">View all public itineraries <a href={'/browse'}>here!</a></h2>
                     </section>
                 </div>
                 <div className="profile-left-panel">
@@ -519,9 +497,11 @@ class ProfilePageLinh extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        authentication: state.authentication
+        authentication: state.authentication,
+        locations: state.locations,
+        itinerary: state.itinerary,
     };
 };
 
 
-export default connect(mapStateToProps, {logOut, updateUserItinerary, changeView, updateArchive})(ProfilePageLinh)
+export default connect(mapStateToProps, {updateVisited, logOut, updateUserItinerary, changeView, updateArchive, reset})(ProfilePageLinh)
