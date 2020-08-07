@@ -13,7 +13,13 @@ import KeyboardArrowLeftRoundedIcon from '@material-ui/icons/KeyboardArrowLeftRo
 import KeyboardArrowRightRoundedIcon from '@material-ui/icons/KeyboardArrowRightRounded';
 import IconButton from "@material-ui/core/IconButton";
 import {setItineraryFromDB, renderCity, renderCountry, renderLocation, changeView} from '../actions';
+import {Grid} from "@material-ui/core";
+import City from "./City";
+import ItineraryReadOnly from "./ItineraryReadOnly";
+import Navbar from "./Navbar";
+
 const { uuid } = require('uuidv4');
+
 
 class ArchiveItineraries extends React.Component {
     constructor(props){
@@ -108,7 +114,7 @@ class ArchiveItineraries extends React.Component {
         return (
             <React.Fragment>
             <Navbar/>
-            <div className={"body-background"}>
+            <div className={"noHorizontalScroll"}>
             <div className="headerArchive">YOUR ARCHIVED ITINERARIES</div>
 
                 <div className="carousel">

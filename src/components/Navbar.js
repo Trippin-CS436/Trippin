@@ -16,11 +16,12 @@ import {connect} from "react-redux";
 import {Avatar} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {logOut} from "../actions";
+import './NavBar.css'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        minWidth: 100
+        minWidth: 10
     },
     menuButton: {
         marginRight: theme.spacing(1)
@@ -77,11 +78,11 @@ function Navbar(props) {
                     <div className={"smallIcon"}>
                         <Link to={"/userprofile"}><img src={require("../assets/logo_white.png")}/></Link>
                     </div>
-                    <Typography variant="h6" className={classes.title}>
+                    {/*<Typography variant="h6" className={classes.title}>*/}
 
-                    </Typography>
+                    {/*</Typography>*/}
                     {auth && (
-                        <div>
+                        <div className={"avatarImg"}>
                             <IconButton
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
@@ -91,6 +92,7 @@ function Navbar(props) {
                             >
                                 <Avatar src={authentication.profilePic} />
                             </IconButton>
+
                             <Menu
                                 id="menu-appbar"
                                 anchorEl={anchorEl}

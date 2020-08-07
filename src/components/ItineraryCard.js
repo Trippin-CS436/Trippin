@@ -1,11 +1,14 @@
-import React from 'react'; 
+import React from 'react';
 import PropTypes from 'prop-types';
 import LocationOnSharpIcon from '@material-ui/icons/LocationOnSharp';
 import FlagOutlinedIcon from '@material-ui/icons/FlagOutlined';
 import LocationCityRoundedIcon from '@material-ui/icons/LocationCityRounded';
+import LandscapeIcon from '@material-ui/icons/Landscape';
 import { Rating } from '@material-ui/lab';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from "@material-ui/core/Tooltip";
+import IconButton from "@material-ui/core/IconButton";
 
 const RatingDisplay = ({rating}) => {
 
@@ -31,7 +34,7 @@ export const ItineraryCard = ({itineraryData, index}) => {
         if (itinerary.dateRanges.length > 0 && itinerary.dateRanges[0] !== undefined){
         var start = new Date(itinerary.dateRanges[0].value[0]);
         var dd = String(start.getDate()+2).padStart(2, '0');
-        var mm = String(start.getMonth() + 1).padStart(2, '0'); 
+        var mm = String(start.getMonth() + 1).padStart(2, '0');
         var yyyy = start.getFullYear();
         startDate = mm + '/' + dd + '/' + yyyy;
         }
@@ -40,7 +43,7 @@ export const ItineraryCard = ({itineraryData, index}) => {
         if (itinerary.dateRanges.length > 0 && itinerary.dateRanges[0] !== undefined){
         var end = new Date(itinerary.dateRanges[0].value[1]);
         var dd_end = String(start.getDate()+2).padStart(2, '0');
-        var mm_end = String(start.getMonth() + 1).padStart(2, '0'); 
+        var mm_end = String(start.getMonth() + 1).padStart(2, '0');
         var yyyy_end = start.getFullYear();
         endDate = mm_end + '/' + dd_end + '/' + yyyy_end;
         }
@@ -57,10 +60,10 @@ export const ItineraryCard = ({itineraryData, index}) => {
             <RatingDisplay rating={itinerary.rating} />
             <br />
         </p>
-        <ul className="info">
-            <li><LocationOnSharpIcon style={{width: 40, height: 40, color: "black"}}/><span>{locations.length}</span></li>
-            <li><FlagOutlinedIcon style={{width: 40, height: 40, color: "black"}}/><span>{countries.length}</span></li>
-            <li><LocationCityRoundedIcon style={{width: 40, height: 40, color: "black"}} /><span>{cities.length}</span></li>
+        <ul className="info" style={{zIndex:999,}}>
+            <li style={{zIndex:999,}}><Tooltip title="Number of Countries" aria-label="Number of Countries" ><LandscapeIcon style={{width: 40, height: 40, color: "black"}}/></Tooltip><span>{countries.length}</span></li>
+            <li style={{zIndex:999,}}><Tooltip title="Number of Cities"><LocationCityRoundedIcon aria-label="Number of Cities" style={{width: 40, height: 40, color: "black"}} /></Tooltip><span>{cities.length}</span></li>
+            <li style={{zIndex:999,}}><Tooltip title="Number of Locations"><LocationOnSharpIcon aria-label="Number of Locations" style={{width: 40, height: 40, color: "black"}}/></Tooltip><span>{locations.length}</span></li>
         </ul>
 
 
