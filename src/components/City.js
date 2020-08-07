@@ -3,9 +3,7 @@ import Location from "./Location";
 import './Iteneraries.css';
 import {connect} from 'react-redux';
 import Dates from "./Dates";
-import Collapsible from "react-collapsible";
 import SaveButton from "./SaveButton";
-import Grid from "@material-ui/core/Grid";
 
 
 class City extends React.Component {

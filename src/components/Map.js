@@ -8,7 +8,6 @@ import {
     Autocomplete
 } from "@react-google-maps/api";
 import Geocode from "react-geocode";
-import { Descriptions } from 'antd';
 import { connect } from 'react-redux';
 import { getLocation } from '../actions/getLocation';
 import MapInfo from "./MapInfo";

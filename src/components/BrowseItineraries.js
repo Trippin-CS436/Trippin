@@ -1,20 +1,15 @@
 import React from "react";
-import Location from "./Location";
 import './Iteneraries.css';
 import {connect} from 'react-redux';
-import Dates from "./Dates";
-import Collapsible from "react-collapsible";
 import axios from "axios";
 import {ItineraryCard} from './ItineraryCard';
 import './ArchiveItinerary.scss';
 import CityReadOnly from './CityReadOnly.js';
-import Itinerary from './Itinerary.js'
 import KeyboardArrowLeftRoundedIcon from '@material-ui/icons/KeyboardArrowLeftRounded';
 import KeyboardArrowRightRoundedIcon from '@material-ui/icons/KeyboardArrowRightRounded';
 import IconButton from "@material-ui/core/IconButton";
 import {setItineraryFromDB, renderCity, renderCountry, renderLocation, changeView} from '../actions';
 import {Grid} from "@material-ui/core";
-import City from "./City";
 import ItineraryReadOnly from "./ItineraryReadOnly";
 import Navbar from "./Navbar";
 import CopyItinerary from "./CopyItinerary";
@@ -35,7 +30,7 @@ class BrowseItineraries extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:9000/itinerary/browse/itineraries")
+        axios.get("/itinerary/browse/itineraries")
             .then(response => {
                 console.log("Data: ", response.data);
                 if(response.data.length > 0 && response.data !== undefined){

@@ -4,8 +4,7 @@ import  {connect}  from 'react-redux';
 import  {addPhotos} from '../actions/addPhotos';
 import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
 import IconButton from '@material-ui/core/IconButton';
-import Photos from "./Photos";
- 
+
 export class DropzoneDialogButton extends Component {
     constructor(props) {
         super(props);

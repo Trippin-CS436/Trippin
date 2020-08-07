@@ -1,12 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
-import axios from 'axios'; 
 import {saveItinerary, getCurrentItineraryID, updateUserItinerary} from "../actions"
 import { copyArchived } from "../actions/copyArchived";
 import {reset} from "../actions/reset";
-import Alert from "@material-ui/lab/Alert/Alert";
-import Snackbar from "@material-ui/core/Snackbar/Snackbar";
-import {Redirect} from "react-router";
 import { withRouter } from "react-router";
 const { uuid } = require('uuidv4');
 

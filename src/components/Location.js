@@ -7,18 +7,14 @@ import Photos from "./Photos";
 import InfoPhotos from "./InfoPhotos";
 import {connect} from "react-redux";
 import {deleteLocation} from "../actions";
-//import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import NotesOutlinedIcon from '@material-ui/icons/NotesOutlined';
-// import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
 import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
-import PhotoAlbumOutlinedIcon from '@material-ui/icons/PhotoAlbumOutlined';
 import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 import {DropzoneDialog} from 'material-ui-dropzone';
 import  {addPhotos} from '../actions/addPhotos';
 import AddAPhotoOutlinedIcon from '@material-ui/icons/AddAPhotoOutlined';
-import Grid from "@material-ui/core/Grid";
 
 class Location extends React.Component {
     constructor(props){

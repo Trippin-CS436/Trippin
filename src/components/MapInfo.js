@@ -1,7 +1,6 @@
 import React from "react";
 import { connect }  from 'react-redux';
 import AddLocationButton from './AddLocationButton';
-//import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Rating } from '@material-ui/lab';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -18,9 +17,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Dialog from "@material-ui/core/Dialog/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
-import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 import Button from "@material-ui/core/Button";
-import DeleteIcon from "@material-ui/core/SvgIcon/SvgIcon";
 
 
 
@@ -212,9 +209,7 @@ class MapInfo extends React.Component {
        return(
 
             <div className="mainInfo">
-            {/*<Box  borderColor="transparent"  fontWeight="fontWeightBold" borderBottom={1} p={1} mb={2}>*/}
-            {/*<Typography>LOCATION INFORMATION</Typography>*/}
-            {/*</Box>*/}
+
 
                 <Dialog
                     open={this.state.openMapInfoDialog}

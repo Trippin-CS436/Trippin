@@ -2,19 +2,14 @@ import React from "react";
 import './Iteneraries.css';
 import Notes from "./Notes";
 import Info from "./Info";
-import DropPhotos from "./DropPhotos";
 import Photos from "./Photos";
-import InfoPhotos from "./InfoPhotos";
 import {connect} from "react-redux";
 import {deleteLocation} from "../actions";
 import "./Iteneraries.css"
-//import { makeStyles, withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import NotesOutlinedIcon from '@material-ui/icons/NotesOutlined';
-// import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
-import DeleteOutlineRoundedIcon from '@material-ui/icons/DeleteOutlineRounded';
-import PhotoAlbumOutlinedIcon from '@material-ui/icons/PhotoAlbumOutlined';
+
 import PhotoCameraOutlinedIcon from '@material-ui/icons/PhotoCameraOutlined';
 
 class LocationReadyOnly extends React.Component {

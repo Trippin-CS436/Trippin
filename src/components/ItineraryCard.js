@@ -1,14 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import LocationOnSharpIcon from '@material-ui/icons/LocationOnSharp';
-import FlagOutlinedIcon from '@material-ui/icons/FlagOutlined';
 import LocationCityRoundedIcon from '@material-ui/icons/LocationCityRounded';
 import LandscapeIcon from '@material-ui/icons/Landscape';
 import { Rating } from '@material-ui/lab';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from "@material-ui/core/Tooltip";
-import IconButton from "@material-ui/core/IconButton";
 
 const RatingDisplay = ({rating}) => {
 

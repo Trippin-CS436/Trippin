@@ -6,9 +6,7 @@ import './Expandable.css';
 import Map from "./Map";
 import Navbar from "./Navbar";
 import {connect} from "react-redux";
-import {addMsg, deleteMsg, selectMsg} from "../actions";
 import { Redirect } from "react-router-dom"
-import Collapsible from "react-collapsible";
 import { Resizable, ResizableBox } from 'react-resizable';
 import DragHandleIcon from '@material-ui/icons/DragHandle';
 
@@ -55,7 +53,7 @@ class Itineraries extends React.Component {
             this.setState({invalidID:true});
             return;
         }
-        axios.get("http://localhost:9000/itinerary/" + this.state.id)
+        axios.get("/itinerary/" + this.state.id)
             .then(response => {
                 if(response.data.length > 0){
                     console.log(response.data);

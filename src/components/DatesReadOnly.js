@@ -1,16 +1,9 @@
 import React from "react";
 import {connect} from 'react-redux';
-import Popup from "reactjs-popup";
-import { MuiPickersUtilsProvider,DatePicker  } from "@material-ui/pickers";
-import DateFnsUtils from "@date-io/date-fns";
 import format from 'date-fns/format'
 import {startDateChange, endDateChange, deleteDate, addNewDate} from "../actions";
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import IconButton from "@material-ui/core/IconButton";
 import './Dates.css';
-import { green } from '@material-ui/core/colors';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import Button from "@material-ui/core/Button";
+
 
 
 class DatesReadOnly extends React.Component{

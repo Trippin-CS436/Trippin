@@ -1,21 +1,17 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
-import Home from "./Home";
 import Map from "./Map";
 import NewItineraries from "./NewItineraries";
 import Itinerary from "./Itinerary";
 import Login from "./Login";
 import './fonts.css';
 import AuthRoute from "./AuthRoute";
-import Navbar from "./Navbar";
 import Archive from "./ArchiveItineraries";
-import ProfilePage from './ProfilePage';
 import ProfilePageLinh from "./ProfilePageLinh";
 import SharePage from "./SharePage";
 import EditItineraries from "./EditItineraries";
 import NotFound from "./NotFound";
-import Lists from './Lists'
 import BrowseItineraries from "./BrowseItineraries";
 
 
@@ -49,9 +45,6 @@ function App() {
                 </Route>
                 <AuthRoute path="/map">
                     <Map />
-                </AuthRoute>
-                <AuthRoute path="/lists">
-                    <Lists />
                 </AuthRoute>
                 <AuthRoute path="/test">
                     <Itinerary />

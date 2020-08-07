@@ -13,8 +13,6 @@ import {
 import {connect} from "react-redux";
 import {Redirect, Route} from "react-router";
 import {Grid} from "@material-ui/core";
-import Itinerary from "./Itinerary";
-import City from "./City";
 import Navbar from "./Navbar";
 
 class SharePage extends Component {
@@ -32,7 +30,7 @@ class SharePage extends Component {
         componentDidMount(){
             console.log("Component is mounted");
             console.log(this.state.id);
-            axios.get("http://localhost:9000/itinerary/share/" + this.state.id)
+            axios.get("/itinerary/share/" + this.state.id)
                 .then(response => {
                     if(response.data){
                         this.props.renderLocation(response.data.locations);

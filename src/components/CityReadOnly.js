@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import Collapsible from "react-collapsible";
 import LocationReadOnly from "./LocationReadOnly";
 import DatesReadOnly from "./DatesReadOnly";
-import Dates from "./Dates";
 const { uuid } = require('uuidv4');
 
 class CityReadOnly extends React.Component {
