@@ -30,10 +30,11 @@
 
 ## Tech Usage 
 1. HTML,CSS,JS <br />
+We use CSS in combination with Material UI to style our pages. The Cascading effect whilst difficult to manage in the beginning, provides much ease in consistent styling of components. Media query also provides a very quick and easy method to adapt rendering to mobile view. We also use SCSS for looped components with transtions, which simplifies the work flow of maintaining our stylesheets.
 2. React & Redux <br />
     We used React to model our website with different routing for different components, which makes division of work clearer and easier. Futhermore, Components are easily reusable and integrates HTML and Javacript through JSX, which is much easier to work with compared to pure HTML. Furthermore, suites of easily accessible packages such as Material UI and npm-react components simplify tasks needed for this project. We also use Redux to store all communicated fields between Components. This is essential to our project as new Map fields need to trigger re-rendering, and communication between Map and rendered components is needed within various contexts, which would be extremely difficult to implement through props inheritance alone and may require far more coupling that could cause vulnarabilities.
 3. Mongo DB <br />
-   NoSQL (document-based) DataBase utilized to store user end's data such as user's itinerary, information. The advantage of using MongoDB is that it has dynamic schemas for unstructured data.  
+   NoSQL (document-based) DataBase utilized to store user end's data such as user's itinerary, information. The advantage of using MongoDB is that it has dynamic schemas for unstructured data. This is essential to our project as it is difficult in the setup of the project to estimate what information we want/could extract from APIs for our itineraries. The dynamic change of Schema makes it much easier for us to decide to tack on more functionalities such as PDF and image attachments.
 4. Node & Express <br />
 5. Release Engineering (Heroku) <br />
 
