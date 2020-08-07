@@ -25,10 +25,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import AttachmentOutlinedIcon from '@material-ui/icons/AttachmentOutlined';
 import {DropzoneDialog} from 'material-ui-dropzone';
 import { addFiles } from '../actions/addFiles';
+import { updateShare } from '../actions/updateShare';
 import { AttachFile,  Description, PictureAsPdf } from '@material-ui/icons';
 import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import PdfSelect from './PdfSelect';
-import UseAnimations from "react-useanimations";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+
 const { uuid } = require('uuidv4');
 class Itinerary extends React.Component {
 
@@ -44,7 +47,8 @@ class Itinerary extends React.Component {
             nameOfDeletion: null,
             open: false,
             files: this.props.itinerary.files,
-            showFiles: false
+            showFiles: false,
+            share: false,
         };
     }
 
@@ -208,37 +212,14 @@ class Itinerary extends React.Component {
         }
     }
 
-    renderItineraryFunctions(){
-        console.log('Itinerary file: ', this.props.itinerary);
-        return(
-            <div >
-               <ul className="itinerary-btn">
-                        
-                 <li><IconButton  aria-label="Attachment" name="Attachment" onClick={this.handleOpenDropzone.bind(this)}>
-                        <AttachmentOutlinedIcon className="edit-btn" style={{width:20, height:20, fill: "white"}}/>
-                    </IconButton></li>
-                    <li><IconButton  aria-label="Attachment" name="Attachment" onClick={this.handleOpenFolder.bind(this)}>
-                        <FolderOutlinedIcon className="edit-btn" style={{width:20, height:20, fill: "white"}}/>
-                    </IconButton></li>
+    handleChangeShare(event) {
+        this.props.updateShare(event.target.checked);
+        this.setState({
+            share: event.target.checked
+        });
+    };
 
-                    <li>{this.renderSubComp()}</li>
-        
-        <DropzoneDialog
-        dialogTitle={'Upload Itinerary Files Here'}
-                    open={this.state.open}
-                    onSave={this.handleSave.bind(this)}
-                    acceptedFiles={['application/pdf', 'text/plain', 'application/msword']}
-                    showPreviews={true}
-                    getPreviewIcon={this.handlePreviewIcon.bind(this)}
-                    maxFileSize={5000000}
-                    submitButtonText={"ADD"}
-                    onClose={this.handleCloseDropzone.bind(this)}
-                />
-                                    </ul>
-            </div>
-        )
-    }
-
+ 
 
     renderItineraryName(){
         //Itinerary is not being edited
@@ -255,9 +236,12 @@ class Itinerary extends React.Component {
                     <IconButton  aria-label="Attachment" name="Attachment" onClick={this.handleOpenFolder.bind(this)}>
                         <FolderOutlinedIcon className="edit-btn" style={{width:20, height:20, fill: "white"}}/>
                     </IconButton>
+                   
                     <div style={{display: "inline-block", width: "80%"} }>
                     {this.renderSubComp()}
                     </div>
+                    
+                    
                     
         
         <DropzoneDialog
@@ -436,6 +420,10 @@ class Itinerary extends React.Component {
             <React.Fragment>
                 <div className={"itineraryHeader"}>
                     {this.renderItineraryName()}
+                    <FormControlLabel
+        control={<Switch checked={this.state.share} onChange={(event) => this.handleChangeShare(event)} color="primary" />}
+        label="Public"
+      />
                     <Dates place={this.props.itinerary} class={"dates itinerary_dates"} type={"itinerary"}/>
                 </div>
                
@@ -482,5 +470,6 @@ const dispatch = {
     deleteCountry,
     deleteLocation,
     setItineraryFromDB,
+    updateShare
 };
 export default connect(mapStateToProps, dispatch )(Itinerary);

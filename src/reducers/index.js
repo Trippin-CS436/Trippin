@@ -315,6 +315,13 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
             ...itinerary,
             name: action.name
         };
+    } else if (action.type === "UPDATE_SHARE"){
+        console.log('New Share: ', action.payload);
+        console.log('Old itinerary: ', itinerary);
+        return{
+            ...itinerary,
+            shared: action.payload
+        }
     } else if (action.type === 'ADD_FILES'){
         let newFiles = action.add;
         let oldFiles = itinerary.files !== undefined ? itinerary.files : [];
@@ -334,8 +341,9 @@ let itineraryReducer = (itinerary = { name: "Enter Name of Itinerary", dateRange
          });
         oldFiles.splice(index, 1);
         itinerary.files = oldFiles;
-        console.log('Reducer itinerary files: ', itinerary);
-        return itinerary;
+        let newItinerary = itinerary;
+        newItinerary.files = oldFiles;
+        return newItinerary;
     }
     else if (action.type === 'RESET'){
         let newItinerary = { name: "Enter Name of Itinerary", dateRanges :  [{value: ["0", "1"]}], files: [], shared: false, rating: 0, tags:[]};
