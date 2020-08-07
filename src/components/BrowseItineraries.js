@@ -34,7 +34,7 @@ class BrowseItineraries extends React.Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:9000/itinerary/browse/itineraries")
+        axios.get("/itinerary/browse/itineraries")
             .then(response => {
                 console.log("Data: ", response.data);
                 if(response.data.length > 0 && response.data !== undefined){

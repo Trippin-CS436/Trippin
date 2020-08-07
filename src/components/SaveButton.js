@@ -49,7 +49,7 @@ class SaveButton extends React.Component {
 
         //console.log(Itinerary.id);
         this.props.getCurrentItineraryID(Itinerary.id);
-        axios.get("http://localhost:9000/itinerary/exist/"+ Itinerary.id)
+        axios.get("/itinerary/exist/"+ Itinerary.id)
             .then(res => {
                 console.log("exist worked");
                 console.log(res.data);
@@ -57,7 +57,7 @@ class SaveButton extends React.Component {
                     console.log("Going to call patch");
                     console.log(Itinerary);
                     console.log(this.props.currentItineraryID)
-                    axios.patch("http://localhost:9000/itinerary/save/" + this.props.currentItineraryID, Itinerary)
+                    axios.patch("/itinerary/save/" + this.props.currentItineraryID, Itinerary)
                     .then(res=> {
                         console.log(res.data);
                         this.setState({openSaveSuccess:true});
@@ -68,10 +68,10 @@ class SaveButton extends React.Component {
                     })
                 } else {
                 console.log("Going to call post");
-                axios.post("http://localhost:9000/itinerary/save", Itinerary)
+                axios.post("/itinerary/save", Itinerary)
                     .then(res => {
                         console.log("saved new itinerary")
-                        axios.patch("http://localhost:9000/user/save/itineraries/" + this.props.authentication.id, {itineraries:itineraries})
+                        axios.patch("/user/save/itineraries/" + this.props.authentication.id, {itineraries:itineraries})
                             .then((res) => {
                                 console.log("updating reducers")
                                 this.props.updateUserItinerary(itineraries)

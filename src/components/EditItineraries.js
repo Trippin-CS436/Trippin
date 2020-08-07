@@ -55,7 +55,7 @@ class Itineraries extends React.Component {
             this.setState({invalidID:true});
             return;
         }
-        axios.get("http://localhost:9000/itinerary/" + this.state.id)
+        axios.get("/itinerary/" + this.state.id)
             .then(response => {
                 if(response.data.length > 0){
                     console.log(response.data);

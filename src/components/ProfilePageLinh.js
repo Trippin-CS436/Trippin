@@ -88,7 +88,7 @@ class ProfilePageLinh extends React.Component {
         let promises = [];
         let upcoming= [];
         for (const itineraryID of this.props.authentication.itineraries) {
-            promises.push(axios.get("http://localhost:9000/itinerary/" + itineraryID));
+            promises.push(axios.get("/itinerary/" + itineraryID));
         }
         Promise.all(promises).then(response => {
             let i = 0;
@@ -189,7 +189,7 @@ class ProfilePageLinh extends React.Component {
 
         let itinerary = payload.itinerary;
         itinerary.rating = payload.rating;
-        axios.patch("http://localhost:9000/user/save/archived/" + this.props.authentication.id, updateBody)
+        axios.patch("/user/save/archived/" + this.props.authentication.id, updateBody)
             .then(res => {
                 console.log("Archive updated for user: " + res.data);
                 this.props.updateArchive({...updateBody, profilePageItineraries: newStateItineraries});
@@ -197,7 +197,7 @@ class ProfilePageLinh extends React.Component {
             .catch(err => {
                 console.log(err);
             });
-        axios.patch("http://localhost:9000/itinerary/save/archive/" + payload.id, {itinerary:itinerary})
+        axios.patch("/itinerary/save/archive/" + payload.id, {itinerary:itinerary})
             .then(res=> {
                 console.log(res.data);
             })
@@ -220,7 +220,7 @@ class ProfilePageLinh extends React.Component {
             visited: visited,
         };
 
-        axios.patch("http://localhost:9000/user/save/visited/" + this.props.authentication.id, updateBody)
+        axios.patch("/user/save/visited/" + this.props.authentication.id, updateBody)
             .then(res => {
                 this.props.updateVisited(updateBody);
             })
@@ -323,11 +323,11 @@ class ProfilePageLinh extends React.Component {
 
         const deleteItineraryFunction = (id) => {
             let updatedIdList = this.props.authentication.itineraries.filter(item => (item !== id));
-            axios.patch('http://localhost:9000/user/save/itineraries/' + this.props.authentication.id,
+            axios.patch('/user/save/itineraries/' + this.props.authentication.id,
                 {itineraries: updatedIdList}).then( res => {
                 let newStateItineraries = this.props.authentication.profilePageItineraries.filter(item => (item.id !== id));
                 this.props.updateArchive({itineraries: updatedIdList, archived: this.props.authentication.archived, profilePageItineraries: newStateItineraries});
-                axios.delete('http://localhost:9000/itinerary/delete/' + id).then(resp => console.log(resp)).catch(err => console.log(err));
+                axios.delete('/itinerary/delete/' + id).then(resp => console.log(resp)).catch(err => console.log(err));
             }).catch(err => console.log(err));
 
 
@@ -392,7 +392,7 @@ class ProfilePageLinh extends React.Component {
                         <EmailShareButton
                             key={itinerary.id}
                             className='center-button'
-                            url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
+                            url={"https://trippin436.herokuapp.com/shared/" + itinerary.shareUrlObjectID}
                             subject={title}
                             body={"Check out my Trippin' itinerary, "+ this.props.itinerary.name + "!\n"}
                         >
@@ -403,7 +403,7 @@ class ProfilePageLinh extends React.Component {
                         <FacebookShareButton
                             key={itinerary.id}
                             className='center-button'
-                            url={"localhost:3000/shared/" + itinerary.shareUrlObjectID}
+                            url={"https://trippin436.herokuapp.com/shared/" + itinerary.shareUrlObjectID}
                             quote={"Check out my Trippin' itinerary, "+ this.props.itinerary.name + "!\n"}
                         >
                         <FacebookIcon size={40} round  />
