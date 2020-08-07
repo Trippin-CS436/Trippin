@@ -163,7 +163,8 @@ class ProfilePageLinh extends React.Component {
     updateArchiveServer = (payload) => {
         //change itineraries state
 
-
+        console.log("UPDATING ARCHIVE")
+        console.log(payload)
         let newItinerariesArray = this.props.authentication.itineraries.slice();
         let indexToRemove = newItinerariesArray.findIndex((item) => {
            return payload.id === item.id;
@@ -177,26 +178,19 @@ class ProfilePageLinh extends React.Component {
            archived: newArchivedArray,
            itineraries: newItinerariesArray
         };
-        this.props.updateArchive(updateBody);
 
-        this.setState = {
+        this.setState({
             itineraries: newItinerariesArray
-        }
-        axios.patch("http://localhost:9000/user/save/archived/" + payload.id, updateBody)
-        .then(res => {
-            console.log("Archive updated for user: "  + res.data);
-        })
-        .catch(err => {
-            console.log(err);
         });
-        axios.patch("http://localhost:9000/itinerary/save/archive" + payload.id, payload)
-                    .then(res=> {
-                        console.log(res.data);
-                    })
-                    .catch(err=> {
-                        console.log(err);
-                    });
-    }
+        axios.patch("http://localhost:9000/user/save/archived/" + this.props.authentication.id, updateBody)
+            .then(res => {
+                console.log("Archive updated for user: " + res.data);
+                this.props.updateArchive(updateBody);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
 
 
 
