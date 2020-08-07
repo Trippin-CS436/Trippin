@@ -120,6 +120,13 @@ const authenticationReducer = (authentication = userState, action) => {
         };
         return newAuth;
     }
+    if (action.type === "UPDATE_VISITED"){
+        let newAuth = {
+            ...authentication,
+            visited: action.payload,
+        }
+        return newAuth
+    }
     return authentication;
 };
 

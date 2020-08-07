@@ -28,6 +28,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { StylesProvider } from '@material-ui/core/styles';
 import {Redirect, useHistory} from "react-router";
 import {Link} from "react-router-dom";
+import {updateVisited} from "../actions/updateVisited";
 
 const { uuid } = require('uuidv4');
 const title = "My Itinerary";
@@ -77,7 +78,8 @@ class ProfilePageLinh extends React.Component {
         this.state = {
             newTripName: null,
         // state itineraries = {itinerary{}, id} -> itinerary = {name, dateRanges[], files, tags, recommended, shared}
-        itineraries: []};
+        itineraries: []
+        };
     }
 
 
@@ -153,7 +155,8 @@ class ProfilePageLinh extends React.Component {
             onChange={(event, newValue) => {
               val = newValue;
               itinerary.rating = val;
-              this.updateArchiveServer(itinerary)
+              this.updateArchiveServer(itinerary);
+              this.updateVisitedServer();
             }}
           />
         </Box>
@@ -195,6 +198,30 @@ class ProfilePageLinh extends React.Component {
                 console.log(err);
             });
     }
+
+    updateVisitedServer() {
+        let locations = this.props.locations.slice();
+        locations = locations.map(loc => ({lat: loc.lat, lng: loc.lon}));
+        console.log("=========LOCATIONS==========")
+        console.log(locations);
+
+        let visited = this.props.authentication.visited.slice();
+        visited = visited.concat(locations);
+        console.log(visited);
+
+        let updateBody = {
+            visited: visited,
+        };
+
+        axios.patch("http://localhost:9000/user/save/visited/" + this.props.authentication.id, updateBody)
+            .then(res => {
+                this.props.updateVisited(updateBody);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
 
 
 
@@ -513,9 +540,10 @@ class ProfilePageLinh extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        authentication: state.authentication
+        authentication: state.authentication,
+        locations: state.locations,
     };
 };
 
 
-export default connect(mapStateToProps, {logOut, updateUserArchived, updateUserItinerary, changeView, updateArchive})(ProfilePageLinh)
+export default connect(mapStateToProps, {updateVisited, logOut, updateUserArchived, updateUserItinerary, changeView, updateArchive})(ProfilePageLinh)
