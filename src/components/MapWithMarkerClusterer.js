@@ -12,11 +12,12 @@ class MapWithMarkerClusterer extends React.Component{
             const center = {lat: -28.024, lng: 140.887};
 
             const mapContainerStyle = {
-                height: "300px",
+                height: "30%",
                 width: '80%',
                 left: '10%',
                 marginTop: '10px',
                 marginBottom: '15px',
+                minHeight: "200px"
             }
 
 

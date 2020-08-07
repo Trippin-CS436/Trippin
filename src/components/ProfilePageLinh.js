@@ -302,11 +302,12 @@ class ProfilePageLinh extends React.Component {
                 color: '#212121',
                 height: 45,
                 padding: '20px',
-                fontSize: '12pt',
+                fontSize: '11pt',
                 fontWeight: '600',
-                margin: '30px 15px',
-                marginLeft: 'auto',
-                marginRight: 'auto',
+                margin: '30px 0px',
+                width: "250px",
+                left: 'calc(50% - 125px)',
+
                 [theme.breakpoints.down('md')]: {
                     width: '200px',
                     fontSize: '9pt',
