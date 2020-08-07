@@ -40,9 +40,9 @@
 
 
 ## Next Steps
-1.Integrate more functionalities into the GoogleMap (Stretch Requirement #1,3), ideally mimic most of the functions the user can achieve on the real google map.
-2.Add more feature like location tagging (Stretch Requirement #4), Integrate community interaction into archived Trip Section (Instagram Like), Reddit-Like Section for users postings.
-3.Ship out IOS/Android Version of the App
+1. Integrate more functionalities into the GoogleMap (Stretch Requirement #1,3), ideally mimic most of the functions the user can achieve on the real google map.
+2. Add more feature like location tagging (Stretch Requirement #4), Integrate community interaction into archived Trip Section (Instagram Like), Reddit-Like Section for users postings.
+3. Ship out IOS/Android Version of the App
     
 
 ## List Of Contributions (Ordered by alphabet)
