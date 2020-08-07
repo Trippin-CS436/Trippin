@@ -109,33 +109,33 @@ class ArchiveItineraries extends React.Component {
         const {archivedItineraries, currentItineraryView, currentIndex} = this.state;
         let itineraries = this.state.archivedItineraries;
         return (
-            <div className={""}>
-            <div className="headerArchive">YOUR ARCHIVED ITINERARIES</div>
+            <div className={"body-background"}>
+                <div className="headerArchive">YOUR ARCHIVED ITINERARIES</div>
 
-            <div className="carousel">
-            <div className={`cards-slider active-slide-${currentIndex}`}>
-            <div className="cards-slider-wrapper" style={{'transform': `translateX(-${currentIndex*(100/archivedItineraries.length)}%)`}}>
-            {
-            itineraries.map((itinerary, index) => <ItineraryCard key={uuid()} itineraryData={itinerary} index={index} />)
-            }
-            
-            </div>
-            </div>
-            </div>
-            <div className={"carousel-btn-div"}>
-            
-            <IconButton className={"carousel-btn-prev"} onClick={() => this.prevItinerary()} disabled={this.state.currentIndex === 0} aria-label='PREV' >
-                  <KeyboardArrowLeftRoundedIcon style={{width: 60, height: 60}} />
-            </IconButton>
+                <div className="carousel">
+                <div className={`cards-slider active-slide-${currentIndex}`}>
+                <div className="cards-slider-wrapper" style={{'transform': `translateX(-${currentIndex*(100/archivedItineraries.length)}%)`}}>
+                {
+                itineraries.map((itinerary, index) => <ItineraryCard key={uuid()} itineraryData={itinerary} index={index} />)
+                }
 
-            <IconButton className={"carousel-btn-next"} onClick={() => this.nextItinerary()} disabled={currentIndex === itineraries.length-1} aria-label='NEXT' >
-                  <KeyboardArrowRightRoundedIcon style={{width: 60, height: 60}} />
-            </IconButton>
-            </div>
-            <div className="display-itinerary">
-            <ItineraryReadOnly/>
-            <CityReadOnly />
-            </div>
+                </div>
+                </div>
+                </div>
+                <div className={"carousel-btn-div"}>
+
+                <IconButton className={"carousel-btn-prev"} onClick={() => this.prevItinerary()} disabled={this.state.currentIndex === 0} aria-label='PREV' >
+                      <KeyboardArrowLeftRoundedIcon style={{width: 60, height: 60}} />
+                </IconButton>
+
+                <IconButton className={"carousel-btn-next"} onClick={() => this.nextItinerary()} disabled={currentIndex === itineraries.length-1} aria-label='NEXT' >
+                      <KeyboardArrowRightRoundedIcon style={{width: 60, height: 60}} />
+                </IconButton>
+                </div>
+                <div className="display-itinerary">
+                <ItineraryReadOnly/>
+                <CityReadOnly />
+                </div>
             </div>
         
         )

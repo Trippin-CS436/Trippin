@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {logOut, updateUserArchived, updateUserItinerary, changeView} from "../actions/index";
+import {logOut, updateUserItinerary, changeView} from "../actions/index";
+import {reset} from '../actions/reset';
 import { updateArchive } from "../actions/updateArchive";
 import "./ProfilePageLinh.css";
 import {GoogleMap, LoadScript, MarkerClusterer, Marker} from "@react-google-maps/api";
@@ -28,6 +29,8 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import { StylesProvider } from '@material-ui/core/styles';
 import {Redirect, useHistory} from "react-router";
 import {Link} from "react-router-dom";
+import {updateVisited} from "../actions/updateVisited";
+import MapWithMarkerClusterer from "./MapWithMarkerClusterer";
 
 const { uuid } = require('uuidv4');
 const title = "My Itinerary";
@@ -36,31 +39,31 @@ let shareUrlObjectID = '';
 
 const center = {lat: -28.024, lng: 140.887};
 
-const locations = [
-    {"lat": -31.56391, "lng": 147.154312},
-    {"lat": -33.718234, "lng": 150.363181},
-    {"lat": -33.727111, "lng": 150.371124},
-    {"lat": -33.848588, "lng": 151.209834},
-    {"lat": -33.851702, "lng": 151.216968},
-    {"lat": -34.671264, "lng": 150.863657},
-    {"lat": -35.304724, "lng": 148.662905},
-    {"lat": -36.817685, "lng": 175.699196},
-    {"lat": -36.828611, "lng": 175.790222},
-    {"lat": -37.75, "lng": 145.116667},
-    {"lat": -37.759859, "lng": 145.128708},
-    {"lat": -37.765015, "lng": 145.133858},
-    {"lat": -37.770104, "lng": 145.143299},
-    {"lat": -37.7737, "lng": 145.145187},
-    {"lat": -37.774785, "lng": 145.137978},
-    {"lat": -37.819616, "lng": 144.968119},
-    {"lat": -38.330766, "lng": 144.695692},
-    {"lat": -39.927193, "lng": 175.053218},
-    {"lat": -41.330162, "lng": 174.865694},
-    {"lat": -42.734358, "lng": 147.439506},
-    {"lat": -42.734358, "lng": 147.501315},
-    {"lat": -42.735258, "lng": 147.438},
-    {"lat": -43.999792, "lng": 170.463352},
-]
+// const locations = [
+//     {"lat": -31.56391, "lng": 147.154312},
+//     {"lat": -33.718234, "lng": 150.363181},
+//     {"lat": -33.727111, "lng": 150.371124},
+//     {"lat": -33.848588, "lng": 151.209834},
+//     {"lat": -33.851702, "lng": 151.216968},
+//     {"lat": -34.671264, "lng": 150.863657},
+//     {"lat": -35.304724, "lng": 148.662905},
+//     {"lat": -36.817685, "lng": 175.699196},
+//     {"lat": -36.828611, "lng": 175.790222},
+//     {"lat": -37.75, "lng": 145.116667},
+//     {"lat": -37.759859, "lng": 145.128708},
+//     {"lat": -37.765015, "lng": 145.133858},
+//     {"lat": -37.770104, "lng": 145.143299},
+//     {"lat": -37.7737, "lng": 145.145187},
+//     {"lat": -37.774785, "lng": 145.137978},
+//     {"lat": -37.819616, "lng": 144.968119},
+//     {"lat": -38.330766, "lng": 144.695692},
+//     {"lat": -39.927193, "lng": 175.053218},
+//     {"lat": -41.330162, "lng": 174.865694},
+//     {"lat": -42.734358, "lng": 147.439506},
+//     {"lat": -42.734358, "lng": 147.501315},
+//     {"lat": -42.735258, "lng": 147.438},
+//     {"lat": -43.999792, "lng": 170.463352},
+// ]
 
 
 // ----- not sure what this is used for -------//
@@ -73,11 +76,9 @@ const locations = [
 class ProfilePageLinh extends React.Component {
     constructor(props) {
         super(props);
-        //this.props.changeView(-1);
         this.state = {
-            newTripName: null,
-        // state itineraries = {itinerary{}, id} -> itinerary = {name, dateRanges[], files, tags, recommended, shared}
-        itineraries: []};
+            visited:  this.props.authentication.visited,
+        }
     }
 
 
@@ -93,11 +94,13 @@ class ProfilePageLinh extends React.Component {
                 upcoming.push({itinerary: response[i].data[0].itinerary, id: response[i].data[0].id, shareUrlObjectID: response[i].data[0]._id });
                 i++;
             }
-            this.setState({
-                itineraries: upcoming,
-            });
+            console.log("xxxxxx");
+            this.props.updateArchive({itineraries: this.props.authentication.itineraries,
+                archived: this.props.authentication.archived, profilePageItineraries: upcoming})
+            console.log("sdasdadasd");
         }).catch(err => console.log(err));
         console.log(this.props.authentication);
+        // console.log("-------cp4----------");
     }
 
     createKey = (location) => {
@@ -153,7 +156,8 @@ class ProfilePageLinh extends React.Component {
             onChange={(event, newValue) => {
               val = newValue;
               itinerary.rating = val;
-              this.updateArchiveServer(itinerary)
+              this.updateArchiveServer(itinerary);
+              this.updateVisitedServer();
             }}
           />
         </Box>
@@ -162,10 +166,8 @@ class ProfilePageLinh extends React.Component {
 
     updateArchiveServer = (payload) => {
         //change itineraries state
-
-
         let newItinerariesArray = this.props.authentication.itineraries.slice();
-        let newStateItineraries = this.state.itineraries.slice();
+        let newStateItineraries = this.props.authentication.profilePageItineraries.slice();
         let indexToRemove = newItinerariesArray.findIndex((item) => {
             return payload.id === item.id;
         });
@@ -186,15 +188,36 @@ class ProfilePageLinh extends React.Component {
         axios.patch("http://localhost:9000/user/save/archived/" + this.props.authentication.id, updateBody)
             .then(res => {
                 console.log("Archive updated for user: " + res.data);
-                this.props.updateArchive(updateBody);
-                this.setState({
-                    itineraries: newStateItineraries
-                });
+                this.props.updateArchive({...updateBody, profilePageItineraries: newStateItineraries});
             })
             .catch(err => {
                 console.log(err);
             });
     }
+
+    updateVisitedServer() {
+        let locations = this.props.locations.slice();
+        locations = locations.map(loc => ({lat: loc.lat, lng: loc.lon}));
+        console.log("=========LOCATIONS==========")
+        console.log(locations);
+
+        let visited = this.props.authentication.visited.slice();
+        visited = visited.concat(locations);
+        console.log(visited);
+
+        let updateBody = {
+            visited: visited,
+        };
+
+        axios.patch("http://localhost:9000/user/save/visited/" + this.props.authentication.id, updateBody)
+            .then(res => {
+                this.props.updateVisited(updateBody);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+
 
 
 
@@ -220,9 +243,13 @@ class ProfilePageLinh extends React.Component {
             );
         }
         } else return null;
-    }
+    };
+
 
     render() {
+
+
+
         const style = theme =>({
             root: {
                 background: '#ec407a',
@@ -290,7 +317,8 @@ class ProfilePageLinh extends React.Component {
             let updatedIdList = this.props.authentication.itineraries.filter(item => (item !== id));
             axios.patch('http://localhost:9000/user/save/itineraries/' + this.props.authentication.id,
                 {itineraries: updatedIdList}).then( res => {
-                this.props.updateUserItinerary(updatedIdList);
+                let newStateItineraries = this.props.authentication.profilePageItineraries.filter(item => (item.id !== id));
+                this.props.updateArchive({itineraries: updatedIdList, archived: this.props.authentication.archived, profilePageItineraries: newStateItineraries});
                 axios.delete('http://localhost:9000/itinerary/delete/' + id).then(resp => console.log(resp)).catch(err => console.log(err));
             }).catch(err => console.log(err));
 
@@ -347,9 +375,7 @@ class ProfilePageLinh extends React.Component {
         const ItineraryList = () => {
             let returnRendering = [];
             let i=0;
-                for (const itinerary of this.state.itineraries) {
-                    console.log(this.state.itineraries);
-                    console.log(this.state.itineraries[0].name);
+                for (const itinerary of this.props.authentication.profilePageItineraries) {
                     returnRendering.push(
                         <div key={uuid()}>
                         <div style={{width: "75%",  display: "inline"}} key={uuid()}>
@@ -382,33 +408,6 @@ class ProfilePageLinh extends React.Component {
                     i++;
                 }
             return returnRendering;
-        };
-
-        const mapContainerStyle = {
-            height: "300px",
-            width: '80%',
-            left: '10%',
-            marginTop: '10px',
-            marginBottom: '15px'
-        };
-
-        const MapWithMarkerClusterer = () => {
-            console.log("Attempt to render the map");
-            return (
-                <LoadScript
-                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
-                    libraries={["places"]}>
-                    <GoogleMap id='marker-example' mapContainerStyle={mapContainerStyle} zoom={3} center={center}>
-                        <MarkerClusterer /*options={options}*/>
-                            {(clusterer) =>
-                                this.props.authentication.visited.map((location) => (
-                                    <Marker key={this.createKey(location)} position={location} clusterer={clusterer}/>
-                                ))
-                            }
-                        </MarkerClusterer>
-                    </GoogleMap>
-                </LoadScript>
-            )
         };
 
         const VerticalTabs = () => {
@@ -461,6 +460,8 @@ class ProfilePageLinh extends React.Component {
                 </div>
             );
         };
+
+
         return (
             <React.Fragment>
                 <div className="right-panel">
@@ -476,7 +477,6 @@ class ProfilePageLinh extends React.Component {
                     <section id="visited" className="section-box">
                         <h2 className="h2"> You have visited {this.props.authentication.visited.length} places! </h2>
                         <MapWithMarkerClusterer/>
-                        <h3> BUT this renders </h3>
                     </section>
                     <section id="archived" className="section-box">
                         <h2 className="h2">Look back at your past trips here!</h2>
@@ -515,9 +515,10 @@ class ProfilePageLinh extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        authentication: state.authentication
+        authentication: state.authentication,
+        locations: state.locations,
     };
 };
 
 
-export default connect(mapStateToProps, {logOut, updateUserArchived, updateUserItinerary, changeView, updateArchive})(ProfilePageLinh)
+export default connect(mapStateToProps, {updateVisited, logOut, updateUserItinerary, changeView, updateArchive, reset})(ProfilePageLinh)
