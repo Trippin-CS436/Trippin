@@ -31,6 +31,8 @@ import {Redirect, useHistory} from "react-router";
 import {Link} from "react-router-dom";
 import {updateVisited} from "../actions/updateVisited";
 import MapWithMarkerClusterer from "./MapWithMarkerClusterer";
+import ArchiveIcon from '@material-ui/icons/Archive';
+
 
 const { uuid } = require('uuidv4');
 const title = "My Itinerary";
@@ -238,7 +240,7 @@ class ProfilePageLinh extends React.Component {
         let endDate = new Date(itinerary.itinerary.dateRanges[0].value[1]);
         if (endDate.getTime() < compare.getTime()) {
             return (<Popup contentStyle={{width: "600px"}}trigger={<IconButton aria-label='Notification' >
-            <NotificationImportantIcon style={{fill: "white", width: 40, height: 40}} />
+            <ArchiveIcon style={{fill: "white", width: 38, height: 38, marginLeft:-55,marginBottom:-5}} />
       </IconButton>} modal>
                         {close => (
                             <div className="modal" style={{color: "black"}}>
@@ -342,7 +344,7 @@ class ProfilePageLinh extends React.Component {
             return (
                 <Popup className="widthFix" trigger={
                     <IconButton className="icon-btn" aria-label="Delete"  name="Delete">
-                    <DeleteForeverIcon className={"delete-btn"} color="secondary"/>
+                    <DeleteForeverIcon  style={{width: 37, height: 37, fill:"white", top: -5, left:-20}} className={"delete-btn"} color="secondary"/>
                     </IconButton>} modal>
                     {close => (
                         <div className="modal">
@@ -384,8 +386,8 @@ class ProfilePageLinh extends React.Component {
                 for (const itinerary of this.props.authentication.profilePageItineraries) {
                     returnRendering.push(
                         <div key={uuid()}>
-                        <div style={{width: "75%",  display: "inline"}} key={uuid()}>
-                            <SectionBox key={uuid()} href={"itineraries/"+ itinerary.id}> {itinerary.itinerary.name}</SectionBox>
+                        <div style={{width: "100%",  display: "inline"}} key={uuid()}>
+                            <SectionBox style={{width:"75%"}} key={uuid()} href={"itineraries/"+ itinerary.id}>{itinerary.itinerary.name}</SectionBox>
                             <div style={{paddingTop:"20px", display: "inline"}}>
                         <EmailShareButton
                             key={itinerary.id}
