@@ -74,7 +74,7 @@ const locations = [
 class ProfilePageLinh extends React.Component {
     constructor(props) {
         super(props);
-        this.props.changeView(-1);
+        // this.props.changeView(-1);
     }
 
 
@@ -536,4 +536,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps, {updateVisited, logOut, updateUserArchived, updateUserItinerary, changeView, updateArchive})(ProfilePageLinh)
+export default connect(mapStateToProps, {updateVisited, logOut, updateUserItinerary, changeView, updateArchive})(ProfilePageLinh)

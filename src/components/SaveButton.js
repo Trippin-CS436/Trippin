@@ -44,7 +44,7 @@ class SaveButton extends React.Component {
             };
             this.props.saveItinerary(Itinerary);
         }
-        let itineraries = this.props.authentication.itineraries;
+        let itineraries = this.props.authentication.itineraries.slice();
         itineraries.push(Itinerary.id);
 
         //console.log(Itinerary.id);

@@ -105,7 +105,7 @@ const authenticationReducer = (authentication = userState, action) => {
     if (action.type === "UPDATE_VISITED"){
         let newAuth = {
             ...authentication,
-            visited: action.payload,
+            visited: action.payload.visited,
         }
         return newAuth
     }
