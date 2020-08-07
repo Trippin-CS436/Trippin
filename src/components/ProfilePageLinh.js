@@ -430,6 +430,7 @@ class ProfilePageLinh extends React.Component {
                         onChange={handleChange}
                         aria-label="Tabs for sections"
                     >
+                        <Tab className="noHover" label="Browse Itineraries" href="#browse"/>
                         <Tab className="noHover" label="Upcoming Trips" href="#upcoming"/>
                         <Tab className="noHover" label="Visited places" href="#visited"/>
                         <Tab className="noHover" label="Archived Trips" href="#archived"/>
@@ -455,9 +456,10 @@ class ProfilePageLinh extends React.Component {
                         onChange={handleChange}
                         aria-label="Tabs for sections"
                     >
-                        <Tab className="noHover tabs" label="Upcoming Trips" href="#upcoming"/>
-                        <Tab className="noHover tabs" label="Visited places" href="#visited"/>
-                        <Tab className="noHover tabs" label="Archived Trips" href="#archived"/>
+                        <Tab className="noHover" label="Browse Itineraries" href="#browse"/>
+                        <Tab className="noHover" label="Upcoming Trips" href="#upcoming"/>
+                        <Tab className="noHover" label="Visited places" href="#visited"/>
+                        <Tab className="noHover" label="Archived Trips" href="#archived"/>
 
                     </Tabs>
 
@@ -471,6 +473,9 @@ class ProfilePageLinh extends React.Component {
                         <img className="logo-position" src={require("../assets/logo_white.png")}/>
                     </div>
                     <div className="logo-panel-placeholder"/>
+                    <a href={'/browse'}><section id="browse" className="section-box">
+                        <h2 className="h2">EXPLORE ITINERARIES </h2>
+                    </section></a>
                     <section id="upcoming" className="section-box">
                         <h2 className="h2"> You have {this.props.authentication.itineraries.length} upcoming Trips in </h2>
                         <ItineraryList listUsed={this.props.authentication.profilePageItineraries} upcomingSection={true}/>
@@ -485,9 +490,9 @@ class ProfilePageLinh extends React.Component {
                         <h2 className="h2">Easy share/delete of archived trips!</h2>
                         <ItineraryList listUsed={this.state.archived} upcomingSection={false}/>
                     </section>*/}
-                    <section id="archived" className="section-box">
-                        <h2 className="h2">View all public itineraries <a href={'/browse'}>here!</a></h2>
-                    </section>
+                    {/*<section id="archived" className="section-box">*/}
+                    {/*    <h2 className="h2">View all public itineraries <a href={'/browse'}>here!</a></h2>*/}
+                    {/*</section>*/}
                 </div>
                 <div className="profile-left-panel">
                     <div className="profile-img">
