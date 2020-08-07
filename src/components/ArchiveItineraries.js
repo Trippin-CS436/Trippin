@@ -23,15 +23,15 @@ class ArchiveItineraries extends React.Component {
             currentIndex: 0,
             archivedItineraries: [],
             currentItineraryView: null,
-            testArchive: ['64700460-15c6-4484-b8b3-28b41a2cf023', '02080057-1ebd-42a4-b654-b1a3ffafd56a','1105bae5-4364-4d31-bd73-c06732cd4472','0c438e1f-9cbe-4773-bd24-1263e3d6c9db', '77d9d24e-84e8-4dea-8cb3-49518152322b']
+            testArchive: ['64700460-15c6-4484-b8b3-28b41a2cf023', '02080057-1ebd-42a4-b654-b1a3ffafd56a', '77d9d24e-84e8-4dea-8cb3-49518152322b']
         };
     }
 
      componentDidMount() {
         console.log('Getting archive itinerary from database!');
         let currentArchive = [];
-        //this.props.authentication.archived.map((id, index) => {
-            this.state.testArchive.map((id, index) => {
+        this.props.authentication.archived.map((id, index) => {
+            // this.state.testArchive.map((id, index) => {
                 console.log(id);
                 console.log(index);
             // request all the archived data here
@@ -107,7 +107,7 @@ class ArchiveItineraries extends React.Component {
         let itineraries = this.state.archivedItineraries;
         return (
             <div>
-            <div className="headerArchive">YOUR ARCHIVED ITINERARIES</div>
+            <div className="headerArchive">ARCHIVED ITINERARIES</div>
 
             <div className="carousel">
             <div className={`cards-slider active-slide-${currentIndex}`}>
