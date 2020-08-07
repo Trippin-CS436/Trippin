@@ -138,7 +138,7 @@
     align-content: center;
     border-radius: 5px;
     cursor: grab;
-    z-index: 20;
+    z-index: 10000;
 }
 
 .drag-icon {
