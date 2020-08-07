@@ -159,7 +159,8 @@ class ProfilePageLinh extends React.Component {
 
     updateArchiveServer = (payload) => {
         //change itineraries state
-
+        console.log("THIS IS RATING: " + payload.rating);
+        console.log(payload);
 
         let newItinerariesArray = this.props.authentication.itineraries.slice();
         let newStateItineraries = this.props.authentication.profilePageItineraries.slice();
@@ -180,6 +181,8 @@ class ProfilePageLinh extends React.Component {
             itineraries: newItinerariesArray
         };
 
+        let itinerary = payload.itinerary;
+        itinerary.rating = payload.rating;
         axios.patch("http://localhost:9000/user/save/archived/" + this.props.authentication.id, updateBody)
             .then(res => {
                 console.log("Archive updated for user: " + res.data);
@@ -188,7 +191,14 @@ class ProfilePageLinh extends React.Component {
             .catch(err => {
                 console.log(err);
             });
-    }
+        axios.patch("http://localhost:9000/itinerary/save/archive/" + payload.id, {itinerary:itinerary})
+            .then(res=> {
+                console.log(res.data);
+            })
+            .catch(err=> {
+                console.log(err);
+            });
+    };
 
     updateVisitedServer() {
         let locations = this.props.locations.slice();
