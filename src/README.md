@@ -31,6 +31,7 @@
 ## Tech Usage 
 1. HTML,CSS,JS <br />
 2. React & Redux <br />
+    We used React to model our website with different routing for different components, which makes division of work clearer and easier. Futhermore, Components are easily reusable and integrates HTML and Javacript through JSX, which is much easier to work with compared to pure HTML. Furthermore, suites of easily accessible packages such as Material UI and npm-react components simplify tasks needed for this project. We also use Redux to store all communicated fields between Components. This is essential to our project as new Map fields need to trigger re-rendering, and communication between Map and rendered components is needed within various contexts, which would be extremely difficult to implement through props inheritance alone and may require far more coupling that could cause vulnarabilities.
 3. Mongo DB <br />
    NoSQL (document-based) DataBase utilized to store user end's data such as user's itinerary, information. The advantage of using MongoDB is that it has dynamic schemas for unstructured data.  
 4. Node & Express <br />
@@ -47,9 +48,9 @@
 
 ## List Of Contributions (Ordered by alphabet)
 - Leann f5a2b<br />
-  * Contributed mainly on functionality of itinerary - generating location information from Google Maps, adding user notes, sharing itinerary, uploading pdfs and photos to itinerary and saving into database, display and functionality for Archive and Browse Itinerary Page, adding itineraries to user's archive and publically sharing an itinerary. <br />
-  * Contributed partially on: CSS styling, implementing data structure.
-- Lin c1q0b<br />
+- Linh c1q0b<br />
+Contributed mainly on Frontend UI design and implementation for both laptop and mobile view, setup of User Authentication with Google and Facebook, Redux/router/MongoDB for User object. Contributed partially on Social Media Sharing Page/Functionality, copying/repeating of Archived trips or Public trips
+<br/>
 - Jacky i0k0b<br />
     Contributed mainly on: Google Map Component, Social Media Sharing Page/Functionality, BackEnd/MongoDB SetUp, Avatar Image Handling. <br />
     Contributed partially on: CSS styling, deployment on Heroku.<br/>
