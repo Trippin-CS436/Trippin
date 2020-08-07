@@ -20,7 +20,7 @@ import SaveButton from "./SaveButton";
 import {useParams} from "react-router-dom";
 import {reset} from '../actions/reset';
 import {Resizable, ResizableBox} from "react-resizable";
-import DragHandleIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import DragHandleIcon from '@material-ui/icons/DragHandle';
 const { uuid } = require('uuidv4');
 
 

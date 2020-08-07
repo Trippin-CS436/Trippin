@@ -165,37 +165,35 @@ class ProfilePageLinh extends React.Component {
 
 
         let newItinerariesArray = this.props.authentication.itineraries.slice();
+        let newStateItineraries = this.state.itineraries.slice();
         let indexToRemove = newItinerariesArray.findIndex((item) => {
-           return payload.id === item.id;
+            return payload.id === item.id;
+        });
+        let indexStateRemove = newStateItineraries.findIndex((item) => {
+            return payload.id === item.id;
         });
         newItinerariesArray.splice(indexToRemove, 1);
+        newStateItineraries.splice(indexStateRemove, 1);
         // move to archived
         let newArchivedArray = this.props.authentication.archived.slice();
         newArchivedArray.push(payload.id);
 
         let updateBody = {
-           archived: newArchivedArray,
-           itineraries: newItinerariesArray
-        };
-        this.props.updateArchive(updateBody);
-
-        this.setState = {
+            archived: newArchivedArray,
             itineraries: newItinerariesArray
-        }
-        axios.patch("http://localhost:9000/user/save/archived/" + payload.id, updateBody)
-        .then(res => {
-            console.log("Archive updated for user: "  + res.data);
-        })
-        .catch(err => {
-            console.log(err);
-        });
-        axios.patch("http://localhost:9000/itinerary/save/archive" + payload.id, payload)
-                    .then(res=> {
-                        console.log(res.data);
-                    })
-                    .catch(err=> {
-                        console.log(err);
-                    });
+        };
+
+        axios.patch("http://localhost:9000/user/save/archived/" + this.props.authentication.id, updateBody)
+            .then(res => {
+                console.log("Archive updated for user: " + res.data);
+                this.props.updateArchive(updateBody);
+                this.setState({
+                    itineraries: newStateItineraries
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
 
