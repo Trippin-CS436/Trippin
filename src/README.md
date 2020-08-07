@@ -47,6 +47,8 @@
 
 ## List Of Contributions (Ordered by alphabet)
 - Leann f5a2b<br />
+  * Contributed mainly on functionality of itinerary - generating location information from Google Maps, adding user notes, sharing itinerary, uploading pdfs and photos to itinerary and saving into database, display and functionality for Archive and Browse Itinerary Page, adding itineraries to user's archive and publically sharing an itinerary. <br />
+  * Contributed partially on: CSS styling, implementing data structure.
 - Lin c1q0b<br />
 - Jacky i0k0b<br />
     Contributed mainly on: Google Map Component, Social Media Sharing Page/Functionality, BackEnd/MongoDB SetUp, Avatar Image Handling. <br />
