@@ -95,9 +95,9 @@ class Itineraries extends React.Component {
             <div className={classes.bg + " bgScroll"} >
                 <React.Fragment>
                     <div><Navbar/></div>
-                    <div className='body-background'>
+                    <div className='body-background-test'>
                         <Resizable resizeHandles={['s']}>
-                            <ResizableBox width="100%" height={400} handle={<div className={`custom-handle`}><DragHandleIcon/> </div>}
+                            <ResizableBox width="100%" height={400} handle={<div className={`custom-handle`}><DragHandleIcon className="drag-icon"/> </div>}
                                           minConstraints={[0, 0]} maxConstraints={[1000, 1000]}>
                                 <Map/>
                             </ResizableBox>
@@ -140,8 +140,6 @@ const muiStyles = {
         left: "0",
         color: "#000000",
         fontSize: "30px",
-        backgroundImage: "linear-gradient(315deg, #7f5a83 0%, #0b2c43 74%)",
-        backgroundRepeat: "repeat-y",
     },
     rightPanel: {
         position: "absolute",

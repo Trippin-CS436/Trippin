@@ -35,7 +35,7 @@ class NewItineraries extends React.Component {
     
     componentDidMount() {
         this.props.reset();
-        this.props.saveItinerary({id:uuid()})
+        // this.props.saveItinerary({id:uuid()})
     }
 
 
@@ -46,9 +46,9 @@ class NewItineraries extends React.Component {
             <div className={classes.bg + " bgScroll"} >
                 <React.Fragment>
                     <div><Navbar/></div>
-                    <div className={'body-background'}>
+                    <div className={'body-background-test'}>
                         <Resizable resizeHandles={['s']}>
-                            <ResizableBox width="100%" height={400} handle={<div className={`custom-handle`}><DragHandleIcon/> </div>}
+                            <ResizableBox width="100%" height={400} handle={<div className={`custom-handle`}><DragHandleIcon className="drag-icon"/> </div>}
                                           minConstraints={[0, 0]} maxConstraints={[1000, 1000]}>
                                 <Map/>
                             </ResizableBox>

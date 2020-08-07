@@ -46,13 +46,6 @@ export const updateUserItinerary = newItinerary => {
 
     }
 };
-export const updateUserArchived = newArchived => {
-    return {
-        type: 'UPDATE_USER_ARCHIVED',
-        updateUserArchived: newArchived
-
-    }
-}
 
 export const deleteLocation = (id) => {
     return {
