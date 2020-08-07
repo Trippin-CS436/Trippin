@@ -73,7 +73,7 @@ const locations = [
 class ProfilePageLinh extends React.Component {
     constructor(props) {
         super(props);
-        this.props.changeView(-1);
+        //this.props.changeView(-1);
         this.state = {
             newTripName: null,
         // state itineraries = {itinerary{}, id} -> itinerary = {name, dateRanges[], files, tags, recommended, shared}
@@ -393,6 +393,7 @@ class ProfilePageLinh extends React.Component {
         };
 
         const MapWithMarkerClusterer = () => {
+            console.log("Attempt to render the map");
             return (
                 <LoadScript
                     googleMapsApiKey={process.env.REACT_APP_API_KEY}
@@ -475,6 +476,7 @@ class ProfilePageLinh extends React.Component {
                     <section id="visited" className="section-box">
                         <h2 className="h2"> You have visited {this.props.authentication.visited.length} places! </h2>
                         <MapWithMarkerClusterer/>
+                        <h3> BUT this renders </h3>
                     </section>
                     <section id="archived" className="section-box">
                         <h2 className="h2">Look back at your past trips here!</h2>
