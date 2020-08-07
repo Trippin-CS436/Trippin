@@ -32,9 +32,9 @@
 1. HTML,CSS,JS <br />
 2. React & Redux <br />
 3. Mongo DB <br />
-   NoSQL (document-based) DataBase utilized to store user end's data such as user's itinerary, information. The advantage of using MongoDB is that it has dynamic schemas for unstructured data.  
-4. Node & Express <br />
+    * NoSQL (document-based) DataBase utilized to store user end's data such as user's itinerary, information, profile pictures. The advantage of using MongoDB is that it has dynamic schemas for unstructured data, it offered much greater flexibility in terms of the types of data we stored.4. Node & Express <br />
 5. Release Engineering (Heroku) <br />
+    * Deployed our application using Heroku. Heroku allows developers to focus more on code instead of infrastructure when compared to other deployment services
 
 ## Above & Beyond Course Scope
 
