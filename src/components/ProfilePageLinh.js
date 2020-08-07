@@ -435,8 +435,9 @@ class ProfilePageLinh extends React.Component {
                         aria-label="Tabs for sections"
                     >
                         <Tab className="noHover" label="Upcoming Trips" href="#upcoming"/>
-                        <Tab className="noHover" label="Visited places" href="#visited"/>
+                        <Tab className="noHover" label="Visited Places" href="#visited"/>
                         <Tab className="noHover" label="Archived Trips" href="#archived"/>
+                        <Tab className="noHover" label="Browse Itineraries" href="#browse"/>
 
                     </Tabs>
 
@@ -460,9 +461,9 @@ class ProfilePageLinh extends React.Component {
                         aria-label="Tabs for sections"
                     >
                         <Tab className="noHover" label="Upcoming Trips" href="#upcoming"/>
-                        <Tab className="noHover" label="Visited places" href="#visited"/>
+                        <Tab className="noHover" label="Visited Places" href="#visited"/>
                         <Tab className="noHover" label="Archived Trips" href="#archived"/>
-
+                        <Tab className="noHover" label="Browse Itineraries" href="#browse"/>
                     </Tabs>
 
                 </div>
@@ -487,7 +488,7 @@ class ProfilePageLinh extends React.Component {
                     <section id="archived" className="section-box">
                         <h2 className="h2">Look back at your past trips <a href={'/archive'}>here!</a></h2>
                     </section>
-                    <section id="archived" className="section-box">
+                    <section id="browse" className="section-box">
                         <h2 className="h2">View all public itineraries <a href={'/browse'}>here!</a></h2>
                     </section>
                 </div>
