@@ -35,7 +35,6 @@ class NewItineraries extends React.Component {
     
     componentDidMount() {
         this.props.reset();
-        this.props.saveItinerary({id:uuid()})
     }
 
 
