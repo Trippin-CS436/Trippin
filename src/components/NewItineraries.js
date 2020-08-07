@@ -40,6 +40,9 @@ class NewItineraries extends React.Component {
         this.props.renderCity(this.props.copyItinerary.cities);
         this.props.renderCountry(this.props.copyItinerary.countries);
         this.props.resetCopyItinerary();
+        if (this.props.copyItinerary.cities.length > 0){
+            this.props.changeView(this.props.copyItinerary.cities[0].id)
+        }
     }
 
 

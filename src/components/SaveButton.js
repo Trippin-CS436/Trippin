@@ -47,7 +47,8 @@ class SaveButton extends React.Component {
         let itineraries = this.props.authentication.itineraries.slice();
         itineraries.push(Itinerary.id);
 
-        //console.log(Itinerary.id);
+        console.log("SAVING NEW ITINERARY")
+        console.log(Itinerary);
         this.props.getCurrentItineraryID(Itinerary.id);
         axios.get("http://localhost:9000/itinerary/exist/"+ Itinerary.id)
             .then(res => {

@@ -53,6 +53,7 @@ const center = {lat: -28.024, lng: 140.887};
 class ProfilePageLinh extends React.Component {
     constructor(props) {
         super(props);
+        this.props.changeView(-1);
         this.state = {
             visited:  this.props.authentication.visited,
             archived: []
@@ -68,9 +69,9 @@ class ProfilePageLinh extends React.Component {
         for (const itineraryID of this.props.authentication.itineraries) {
             promises.push(axios.get("http://localhost:9000/itinerary/" + itineraryID));
         }
-        for (const itineraryID of this.props.authentication.archived) {
-            archivedPromises.push(axios.get("http://localhost:9000/itinerary/" + itineraryID));
-        }
+        // for (const itineraryID of this.props.authentication.archived) {
+        //     archivedPromises.push(axios.get("http://localhost:9000/itinerary/" + itineraryID));
+        // }
         Promise.all(promises).then(response => {
             let i = 0;
             for (const itineraryID of this.props.authentication.itineraries) {
@@ -80,14 +81,14 @@ class ProfilePageLinh extends React.Component {
             this.props.updateArchive({itineraries: this.props.authentication.itineraries,
                 archived: this.props.authentication.archived, profilePageItineraries: upcoming})
         }).catch(err => console.log(err));
-        Promise.all(archivedPromises).then(response => {
-            let i = 0;
-            for (const itineraryID of this.props.authentication.archived) {
-                archived.push({itinerary: response[i].data[0].itinerary, id: response[i].data[0].id, shareUrlObjectID: response[i].data[0]._id });
-                i++;
-            }
-            this.setState({archived: archived});
-        }).catch(err => console.log(err));
+        // Promise.all(archivedPromises).then(response => {
+        //     let i = 0;
+        //     for (const itineraryID of this.props.authentication.archived) {
+        //         archived.push({itinerary: response[i].data[0].itinerary, id: response[i].data[0].id, shareUrlObjectID: response[i].data[0]._id });
+        //         i++;
+        //     }
+        //     this.setState({archived: archived});
+        // }).catch(err => console.log(err));
         console.log(this.props.authentication);
     }
 
@@ -376,7 +377,7 @@ class ProfilePageLinh extends React.Component {
         const ItineraryList = (props) => {
             let returnRendering = [];
             let i=0;
-                for (const itinerary of props.listUsed) {
+                for (const itinerary of this.props.authentication.profilePageItineraries) {
                     returnRendering.push(
                         <div key={uuid()}>
                         <div style={{width: "100%",  display: "inline"}} key={uuid()}>
@@ -404,7 +405,7 @@ class ProfilePageLinh extends React.Component {
                         </div>
                             <DeleteItineraryButton key={itinerary.id} name={itinerary.itinerary.name} id={itinerary.id}/>
                         </div>
-                            {this.props.upcomingSection ?
+                            {props.upcomingSection ?
                                 (<div  style={{width: "25%", display: "inline"}}> {this.archiveButton(itinerary)}</div>)
                                 : null}
                         </div>);
@@ -473,7 +474,7 @@ class ProfilePageLinh extends React.Component {
                         <img className="logo-position" src={require("../assets/logo_white.png")}/>
                     </div>
                     <div className="logo-panel-placeholder"/>
-                    <a href={'/browse'}><section id="browse" className="section-box">
+                    <a style={{textDecoration: "none"}} href={'/browse'}><section id="browse" className="section-box">
                         <h2 className="h2">EXPLORE ITINERARIES </h2>
                     </section></a>
                     <section id="upcoming" className="section-box">
@@ -484,15 +485,15 @@ class ProfilePageLinh extends React.Component {
                     <section id="visited" className="section-box">
                         <h2 className="h2"> You have visited {this.props.authentication.visited.length} places! </h2>
                         <MapWithMarkerClusterer/>
-                        <SectionButton className='noHover' href={'/archive'}> View all archived trips </SectionButton>
+                        {/*<SectionButton className='noHover' href={'/archive'}> View all archived trips </SectionButton>*/}
                     </section>
-                    {/*<section id="eachArchived" className="section-box">
-                        <h2 className="h2">Easy share/delete of archived trips!</h2>
-                        <ItineraryList listUsed={this.state.archived} upcomingSection={false}/>
-                    </section>*/}
-                    {/*<section id="archived" className="section-box">*/}
-                    {/*    <h2 className="h2">View all public itineraries <a href={'/browse'}>here!</a></h2>*/}
+                    {/*<section id="eachArchived" className="section-box">*/}
+                    {/*    <h2 className="h2">Easy share/delete of archived trips!</h2>*/}
+                    {/*    <ItineraryList listUsed={this.state.archived} upcomingSection={false}/>*/}
                     {/*</section>*/}
+                    <a style={{textDecoration: "none"}} href={'/archive'}> <section id="archived" className="section-box">
+                        <h2 className="h2">YOUR ARCHIVED TRIPS</h2>
+                    </section></a>
                 </div>
                 <div className="profile-left-panel">
                     <div className="profile-img">

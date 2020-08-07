@@ -282,7 +282,7 @@ section {
   }
 
 #archived {
-    background-image: url("../assets/archive-bg.jpg");
+    background-image: url("../assets/archived-bg.jpg");
     background-size: cover;
     background-position: center;
     padding-left: 12rem;
